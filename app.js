@@ -396,6 +396,18 @@
     });
   });
 
+  // Audience state — declared up here so jumpFromHash (below) can read it.
+  // The full toggle wiring (click handlers, etc.) sits further down.
+  let currentAudience = null;     // null until the user picks on the selector slide
+  function selectAudience(aud) {
+    currentAudience = aud;
+    $$('.audience-tab').forEach((t) => {
+      const on = t.dataset.audience === aud;
+      t.classList.toggle('is-active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+
   // Deep-link from a standalone page (services.html, approach.html, etc.):
   // if the URL has #slide=N, skip the intro + excuses and land on that slide.
   function jumpFromHash() {
@@ -580,21 +592,6 @@
   // The "More" button has no destination yet — keep clicks inert for now.
   document.getElementById('globeCardMore')?.addEventListener('click', (e) => e.preventDefault());
 
-  // Audience toggle in the topbar — three independent slideshows (talents /
-  // senior managers / top execs). Content is duplicated for now: clicking a
-  // tab marks it active and resets the deck to the first content slide so
-  // each audience feels like its own slideshow starting from the top.
-  let currentAudience = null;     // null until the user picks on the selector slide
-
-  function selectAudience(aud) {
-    currentAudience = aud;
-    $$('.audience-tab').forEach((t) => {
-      const on = t.dataset.audience === aud;
-      t.classList.toggle('is-active', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-    });
-  }
-
   // Topbar toggle clicks — only after the deck is armed (selector passed)
   $$('.audience-tab').forEach((tab) => {
     tab.addEventListener('click', () => {
@@ -618,6 +615,12 @@
         deck.classList.add('is-armed');
         selectorSlide.classList.add('is-armed');
         setTimeout(() => goTo(1), 520);
+        // Reset the selector content state once the slide is off-screen so
+        // the user sees it again if they scroll back.
+        setTimeout(() => {
+          selectorSlide.classList.remove('is-armed');
+          $$('.selector__tab').forEach((t) => t.classList.remove('is-picked'));
+        }, 1500);
       }, 220);
     });
   });
