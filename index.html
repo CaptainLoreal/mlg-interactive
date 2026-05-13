@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e0f10" />
+  <title>MLG — Munich Leadership Group</title>
+  <link rel="stylesheet" href="styles.css?v=75" />
+</head>
+<body>
+
+  <!-- ============================================================
+       INTRO — click to enter, play with the logo
+       ============================================================ -->
+  <section id="intro" class="intro" aria-label="Welcome">
+    <div class="intro__bg" aria-hidden="true"></div>
+
+    <img class="intro__logo" src="assets/logo-white-red.svg" alt="Munich Leadership Group" />
+
+    <div id="enterBtn" class="slide-start" role="button" tabindex="0" aria-label="Slide to start">
+      <div class="slide-start__track">
+        <span class="slide-start__label">slide to start</span>
+        <span class="slide-start__fill" aria-hidden="true"></span>
+      </div>
+      <span class="slide-start__knob" id="enterKnob" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       EXCUSES — interstitial: pop the excuses, reveal the truth
+       ============================================================ -->
+  <section id="excuses" class="excuses" aria-hidden="true">
+    <p class="excuses__prompt" id="excusesPrompt">Heard any of these lately?</p>
+    <div class="excuses__field" id="excusesField" aria-label="Tap each excuse"></div>
+    <p class="excuses__reveal" id="excusesReveal">It's a leadership issue.</p>
+  </section>
+
+
+  <!-- ============================================================
+       MAIN — slideshow
+       ============================================================ -->
+  <main id="deck" class="deck" aria-hidden="true">
+
+    <!-- Vertical progress rail -->
+    <nav class="rail" aria-label="Slide progress">
+      <div class="rail__bar"><span class="rail__fill" id="railFill"></span></div>
+    </nav>
+
+    <!-- Top corner brand + audience toggle + counter -->
+    <div class="topbar">
+      <a class="topbar__logo" href="#" aria-label="Munich Leadership Group">
+        <img src="assets/logo-white.svg" alt="Munich Leadership Group" />
+      </a>
+
+      <div class="audience-toggle" role="tablist" aria-label="Audience">
+        <button class="audience-tab" role="tab" type="button" data-audience="talents">
+          <span class="audience-tab__long">Top talents</span>
+          <span class="audience-tab__short">Talents</span>
+        </button>
+        <button class="audience-tab is-active" role="tab" type="button" data-audience="senior" aria-selected="true">
+          <span class="audience-tab__long">Senior managers</span>
+          <span class="audience-tab__short">Managers</span>
+        </button>
+        <button class="audience-tab" role="tab" type="button" data-audience="execs">
+          <span class="audience-tab__long">Top execs</span>
+          <span class="audience-tab__short">Execs</span>
+        </button>
+      </div>
+
+      <span class="topbar__counter"><span id="counterNow">01</span><span class="topbar__counterSep">/</span><span id="counterAll">06</span></span>
+    </div>
+
+    <!-- Bottom-right mark — click to play the fly animation -->
+    <button id="cornerMark" class="corner-mark" type="button" aria-label="Munich Leadership Group">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="currentColor"/></svg>
+    </button>
+
+    <!-- Slides
+         Munich architecture imagery courtesy of Wikimedia Commons (CC-BY-SA).
+         Mirrored slides use data-mirror="1" to flip the photo on the X axis. -->
+    <div class="slides" id="slides">
+
+      <!-- 1 — Selector (audience gate) -->
+      <article class="slide slide--selector is-active" data-slide="0" data-anim="static" data-title="Selector">
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="selector">
+          <p class="eyebrow">Select your area</p>
+          <h1 class="display">Tailored to your needs.</h1>
+
+          <div class="selector__toggle" id="selectorToggle" role="tablist">
+            <button class="selector__tab" type="button" role="tab" data-audience="talents">
+              <span class="selector__tab-key">A</span>
+              <span class="selector__tab-label">Top talents</span>
+            </button>
+            <button class="selector__tab" type="button" role="tab" data-audience="senior">
+              <span class="selector__tab-key">B</span>
+              <span class="selector__tab-label">Senior managers</span>
+            </button>
+            <button class="selector__tab" type="button" role="tab" data-audience="execs">
+              <span class="selector__tab-key">C</span>
+              <span class="selector__tab-label">Top execs</span>
+            </button>
+          </div>
+
+          <p class="selector__hint">Pick one to begin</p>
+        </div>
+      </article>
+
+      <!-- 2 — Approach -->
+      <article class="slide" data-slide="1" data-anim="approach" data-mirror="1" data-anchor="top" data-title="Approach">
+        <div class="slide__media">
+          <img src="assets/photos/photo-13.png" alt="" loading="eager" />
+        </div>
+        <div class="slide__scrim"></div>
+        <div class="slide__copy">
+          <p class="eyebrow">Approach</p>
+          <h2 class="display">A rigorous approach to leadership development.</h2>
+          <p class="display display--sub"><em class="display-accent">High performance</em> or <em class="display-accent">Best performance?</em></p>
+          <div class="cta-row">
+            <a class="btn btn--ghost btn--more" href="approach.html">
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 — Welcome -->
+      <article class="slide" data-slide="1" data-anim="kenburns" data-title="Welcome">
+        <div class="slide__media">
+          <img src="assets/photos/photo-03.png" alt="" loading="eager" />
+        </div>
+        <div class="slide__scrim"></div>
+        <div class="slide__copy">
+          <p class="eyebrow">Munich Leadership Group</p>
+          <h1 class="display">Developing leaders<br>who <em class="display-accent">shape</em> organizations.</h1>
+          <p class="display display--sub">Tailored to your needs.</p>
+          <div class="cta-row">
+            <a class="btn btn--ghost btn--more" href="services.html">
+              <span>services</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+            <a class="btn btn--ghost btn--more" href="usp.html">
+              <span>our USP</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 — GLOBE / Clients -->
+      <article class="slide slide--globe" data-slide="1" data-anim="zoom" data-title="Clients">
+        <div class="slide__media slide__media--soft">
+          <img src="assets/munich/bmw-welt.jpg" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="globe-wrap">
+          <div class="globe-stage" id="globeStage">
+            <div class="globe" id="globe">
+              <div class="globe__ring globe__ring--equator"></div>
+              <div class="globe__ring globe__ring--meridian"></div>
+              <div class="globe__core"></div>
+              <!-- Client chips injected by JS -->
+            </div>
+          </div>
+
+          <p class="globe__hint">Drag to spin · tap a client</p>
+
+          <!-- Right column on desktop: headline + selected-client card + quote stacked vertically -->
+          <div class="globe-side">
+            <div class="slide__copy slide__copy--side">
+              <p class="eyebrow">Selected clients</p>
+              <h2 class="display">Trusted by leading organizations</h2>
+            </div>
+
+            <div class="globe-card" id="globeCard" aria-live="polite">
+              <p class="globe-card__eyebrow">Selected client</p>
+              <h3 class="globe-card__name" id="globeCardName">—</h3>
+              <p class="globe-card__meta" id="globeCardMeta">Tap a logo on the globe to read the engagement.</p>
+              <a class="globe-card__more" id="globeCardMore" href="#" hidden>
+                <span>more</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <aside class="client-quote" id="clientQuote" hidden>
+              <blockquote class="client-quote__text" id="quoteText"></blockquote>
+              <div class="client-quote__attr-row">
+                <span class="client-quote__avatar" id="quoteAvatar" aria-hidden="true">—</span>
+                <p class="client-quote__attr">
+                  <strong id="quoteAuthor"></strong>
+                  <span id="quoteRole"></span>
+                </p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 — Team -->
+      <article class="slide slide--team" data-slide="3" data-anim="parallax" data-title="Team">
+        <div class="slide__media slide__media--soft">
+          <img src="assets/photos/photo-17.png" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="team-wrap">
+          <div class="team-head">
+            <p class="eyebrow">Team</p>
+            <h2 class="display">Who you'll work with.</h2>
+            <div class="team-tabs" role="tablist">
+              <button class="team-tab is-active" role="tab" type="button" data-tab="core">Core team</button>
+              <button class="team-tab" role="tab" type="button" data-tab="associates">Associate partners</button>
+            </div>
+          </div>
+
+          <!-- Core team — 8 members, visible by default -->
+          <div class="team-grid team-grid--core" data-pane="core">
+            <article class="member"><div class="member__photo"><img src="assets/team/hagemann.jpg" alt="Dr. Hans W. Hagemann" loading="lazy" /></div><h3 class="member__name">Dr. Hans W. Hagemann</h3><p class="member__role">Managing Partner</p></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/knieling.jpg" alt="Michael Knieling" loading="lazy" /></div><h3 class="member__name">Michael Knieling</h3><p class="member__role">Managing Partner</p></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/rosengart.jpg" alt="Natalie Rosengart" loading="lazy" /></div><h3 class="member__name">Natalie Rosengart</h3><p class="member__role">Partner</p></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/duerrbeck.jpg" alt="Klaus Dürrbeck" loading="lazy" /></div><h3 class="member__name">Klaus Dürrbeck</h3><p class="member__role">Partner</p></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/bohnenstiel.png" alt="Martina Bohnenstiel" loading="lazy" /></div><h3 class="member__name">Martina Bohnenstiel</h3><p class="member__role">Management Team</p></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/westermayr.jpg" alt="Christine Westermayr" loading="lazy" /></div><h3 class="member__name">Christine Westermayr</h3><p class="member__role">Management Team</p></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/sickinger.jpg" alt="Dr. Sabine Sickinger" loading="lazy" /></div><h3 class="member__name">Dr. Sabine Sickinger</h3><p class="member__role">Management Team</p></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/sarnes.jpg" alt="Kristof Sarnes" loading="lazy" /></div><h3 class="member__name">Kristof Sarnes</h3><p class="member__role">Management Team</p></article>
+          </div>
+
+          <!-- Associate partners — 41 members, hidden until tab is selected -->
+          <div class="team-grid team-grid--associates" data-pane="associates" hidden>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/aguilar.png" alt="Margarita Aguilar" loading="lazy" /></div><h3 class="member__name">Margarita Aguilar</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/albrecht-s.jpg" alt="Simone Albrecht" loading="lazy" /></div><h3 class="member__name">Simone Albrecht</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/albrecht-frueh.png" alt="Dr. Ulrich Albrecht-Früh" loading="lazy" /></div><h3 class="member__name">Dr. Ulrich Albrecht-Früh</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/ambrosini.png" alt="Monica Ambrosini" loading="lazy" /></div><h3 class="member__name">Monica Ambrosini</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/banks.png" alt="Deanna Banks, PhD" loading="lazy" /></div><h3 class="member__name">Deanna Banks, PhD</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/beadle.png" alt="Matt Beadle" loading="lazy" /></div><h3 class="member__name">Matt Beadle</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/fichtel.png" alt="Dr. Roland Fichtel" loading="lazy" /></div><h3 class="member__name">Dr. Roland Fichtel</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/ganslmayr.png" alt="Thomas Ganslmayr" loading="lazy" /></div><h3 class="member__name">Thomas Ganslmayr</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/graham.jpg" alt="Paige K. Graham, PhD" loading="lazy" /></div><h3 class="member__name">Paige K. Graham, PhD</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/grayson.jpg" alt="Adam Grayson" loading="lazy" /></div><h3 class="member__name">Adam Grayson</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/guo.png" alt="Mark Guo" loading="lazy" /></div><h3 class="member__name">Mark Guo</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/heindl.png" alt="Hubert Heindl" loading="lazy" /></div><h3 class="member__name">Hubert Heindl</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/hessenauer.jpg" alt="Jürgen Hessenauer" loading="lazy" /></div><h3 class="member__name">Jürgen Hessenauer</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/holch.jpg" alt="Gabor Holch" loading="lazy" /></div><h3 class="member__name">Gabor Holch</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/hyatt.jpg" alt="David E. Hyatt, PhD" loading="lazy" /></div><h3 class="member__name">David E. Hyatt, PhD</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/jones.jpg" alt="Glyn Jones" loading="lazy" /></div><h3 class="member__name">Glyn Jones</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/klawitter.png" alt="Kate Klawitter" loading="lazy" /></div><h3 class="member__name">Kate Klawitter</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/kraen.png" alt="Thomas Krän" loading="lazy" /></div><h3 class="member__name">Thomas Krän</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/koehler.jpg" alt="Doreen Köhler" loading="lazy" /></div><h3 class="member__name">Doreen Köhler</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/lale.png" alt="Serdar Lale" loading="lazy" /></div><h3 class="member__name">Serdar Lale</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/lo.png" alt="Patti Lo" loading="lazy" /></div><h3 class="member__name">Patti Lo</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/lucke.jpg" alt="Lynn Lucke" loading="lazy" /></div><h3 class="member__name">Lynn Lucke</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/marsh.jpg" alt="Elena Marsh" loading="lazy" /></div><h3 class="member__name">Elena Marsh</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/mauve.jpg" alt="Ulrike Mauve" loading="lazy" /></div><h3 class="member__name">Ulrike Mauve</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/michaely.jpg" alt="Tonia Maria Michaely" loading="lazy" /></div><h3 class="member__name">Tonia Maria Michaely</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/millar.png" alt="Jane Millar" loading="lazy" /></div><h3 class="member__name">Jane Millar</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/naeslund.png" alt="Vivianne Näslund" loading="lazy" /></div><h3 class="member__name">Vivianne Näslund</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/orbea.png" alt="Angelita Orbea" loading="lazy" /></div><h3 class="member__name">Angelita Orbea</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/ramos.png" alt="Teresa Ramos" loading="lazy" /></div><h3 class="member__name">Teresa Ramos</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/rentel.png" alt="Susanne Rentel" loading="lazy" /></div><h3 class="member__name">Susanne Rentel</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/saliba.jpg" alt="Basel Saliba" loading="lazy" /></div><h3 class="member__name">Basel Saliba</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/sanchez.png" alt="Margaret A. Sánchez" loading="lazy" /></div><h3 class="member__name">Margaret A. Sánchez</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/seidenfus.png" alt="Christoph Seidenfus" loading="lazy" /></div><h3 class="member__name">Christoph Seidenfus</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/sellani.jpg" alt="Francesca Sellani" loading="lazy" /></div><h3 class="member__name">Francesca Sellani</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/shields.jpg" alt="Jim Shields" loading="lazy" /></div><h3 class="member__name">Jim Shields</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/tallman.jpg" alt="Rich Tallman" loading="lazy" /></div><h3 class="member__name">Rich Tallman</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/vanetti.jpg" alt="Eric Vanetti, PhD" loading="lazy" /></div><h3 class="member__name">Eric Vanetti, PhD</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/west.jpg" alt="Jan West" loading="lazy" /></div><h3 class="member__name">Jan West</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/xue.png" alt="Christine Xue" loading="lazy" /></div><h3 class="member__name">Christine Xue</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/yong.png" alt="Stephen Yong" loading="lazy" /></div><h3 class="member__name">Stephen Yong</h3></article>
+            <article class="member"><div class="member__photo"><img src="assets/team/associates/yilancioglu.png" alt="Biran Yılancıoğlu" loading="lazy" /></div><h3 class="member__name">Biran Yılancıoğlu</h3></article>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 — Method (mirrored) -->
+      <article class="slide" data-slide="4" data-anim="kenburns2" data-mirror="1" data-title="Method">
+        <div class="slide__media">
+          <img src="assets/photos/photo-13.png" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim"></div>
+        <div class="slide__copy">
+          <p class="eyebrow">Method</p>
+          <h2 class="display">We learn the way leaders actually think.</h2>
+          <p class="lead">Cases without easy answers. Peer challenge in the room. Faculty who have run the companies you read about.</p>
+        </div>
+      </article>
+
+      <!-- 6 — Contact -->
+      <article class="slide slide--contact" data-slide="8" data-anim="zoom" data-title="Contact">
+        <div class="slide__media slide__media--soft">
+          <img src="assets/munich/bmw-welt.jpg" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="contact-wrap">
+          <div class="slide__copy contact-wrap__head">
+            <p class="eyebrow">Contact</p>
+            <h2 class="display">Don't wait. Act.<br>Start the conversation.</h2>
+          </div>
+
+          <div class="contact-block">
+            <form class="tf" id="contactForm" novalidate>
+              <div class="tf__progress"><span class="tf__progress-fill" id="tfFill"></span></div>
+
+              <!-- Step 1 — Problem -->
+              <div class="tf__step is-active" data-step="0" data-field="problem" data-required="1">
+                <p class="tf__num">01 — your challenge</p>
+                <h3 class="tf__q">What's your problem?</h3>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="alignment"><span class="tf__key">A</span>Leadership team is not aligned</button>
+                  <button class="tf__choice" type="button" data-value="retention"><span class="tf__key">B</span>We are losing top talent</button>
+                  <button class="tf__choice" type="button" data-value="readiness"><span class="tf__key">C</span>Leaders aren't ready for the next level</button>
+                  <button class="tf__choice" type="button" data-value="culture"><span class="tf__key">D</span>Culture or engagement is broken</button>
+                  <button class="tf__choice" type="button" data-value="transformation"><span class="tf__key">E</span>We are in a major transformation</button>
+                  <button class="tf__choice" type="button" data-value="other"><span class="tf__key">F</span>Something else</button>
+                </div>
+              </div>
+
+              <!-- Step 2 — What you need -->
+              <div class="tf__step" data-step="1" data-field="interest" data-required="1">
+                <p class="tf__num">02 — what you need</p>
+                <h3 class="tf__q">What are you looking for?</h3>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="open-cohort"><span class="tf__key">A</span>An open cohort to join</button>
+                  <button class="tf__choice" type="button" data-value="custom-programme"><span class="tf__key">B</span>A custom programme for our team</button>
+                  <button class="tf__choice" type="button" data-value="coaching"><span class="tf__key">C</span>One-to-one coaching</button>
+                  <button class="tf__choice" type="button" data-value="audit"><span class="tf__key">D</span>An audit or assessment</button>
+                  <button class="tf__choice" type="button" data-value="exploring"><span class="tf__key">E</span>Still exploring — open to ideas</button>
+                </div>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                </div>
+              </div>
+
+              <!-- Step 3 — Role -->
+              <div class="tf__step" data-step="2" data-field="role" data-required="1">
+                <p class="tf__num">03 — about you</p>
+                <h3 class="tf__q">What best describes your role?</h3>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="top-talent"><span class="tf__key">A</span>Top talent</button>
+                  <button class="tf__choice" type="button" data-value="senior-manager"><span class="tf__key">B</span>Senior manager</button>
+                  <button class="tf__choice" type="button" data-value="top-exec"><span class="tf__key">C</span>Top executive</button>
+                  <button class="tf__choice" type="button" data-value="hr-talent"><span class="tf__key">D</span>HR or talent lead</button>
+                  <button class="tf__choice" type="button" data-value="other"><span class="tf__key">E</span>Other</button>
+                </div>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                </div>
+              </div>
+
+              <!-- Step 4 — Anything else (optional) -->
+              <div class="tf__step" data-step="3" data-field="message">
+                <p class="tf__num">04 — anything else</p>
+                <h3 class="tf__q">Anything we should know before we reply?</h3>
+                <textarea class="tf__input tf__input--area" name="message" rows="3" placeholder="Optional — the people in the room, what's been tried, the urgency."></textarea>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 5 — Name -->
+              <div class="tf__step" data-step="4" data-field="name" data-required="1">
+                <p class="tf__num">05 — your details</p>
+                <h3 class="tf__q">What's your name?</h3>
+                <input class="tf__input" type="text" name="name" placeholder="First and last" autocomplete="name" />
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 6 — Email -->
+              <div class="tf__step" data-step="5" data-field="email" data-required="1" data-type="email">
+                <p class="tf__num">06 — your details</p>
+                <h3 class="tf__q">Where can we reach you?</h3>
+                <input class="tf__input" type="email" name="email" placeholder="you@company.com" autocomplete="email" />
+                <p class="tf__error" hidden>Please enter a valid email.</p>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 7 — Company -->
+              <div class="tf__step" data-step="6" data-field="company">
+                <p class="tf__num">07 — your details</p>
+                <h3 class="tf__q">Which company are you with?</h3>
+                <input class="tf__input" type="text" name="company" placeholder="Optional" autocomplete="organization" />
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                  <button class="tf__cta tf__cta--send" type="button" data-action="submit">Send<span class="tf__hint">press <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 8 — Done -->
+              <div class="tf__step tf__step--done" data-step="7">
+                <p class="tf__num">✓ — sent</p>
+                <h3 class="tf__q">Thanks — we'll be in touch.</h3>
+                <p class="tf__sub">A partner reads every inquiry. Expect a personal reply within one business day.</p>
+              </div>
+            </form>
+          </div>
+
+          <div class="team">
+            <p class="team__label">Or speak to one of us directly</p>
+            <div class="team__carousel">
+              <button class="team__nav team__nav--prev" id="teamPrev" type="button" aria-label="Previous team member">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              </button>
+              <div class="team__card" id="teamCard">
+                <span class="team__avatar" id="teamAvatar" aria-hidden="true">—</span>
+                <div class="team__meta">
+                  <h3 class="team__name" id="teamName">—</h3>
+                  <p class="team__role" id="teamRole">—</p>
+                  <a class="team__link" id="teamLink" href="#" data-placeholder>
+                    <span>Learn more</span>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+              <button class="team__nav team__nav--next" id="teamNext" type="button" aria-label="Next team member">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+            <p class="team__pos"><span id="teamNow">1</span><span class="team__posSep">/</span><span id="teamAll">5</span></p>
+          </div>
+
+          <div class="contact-block__phone-row contact-block__phone-row--standalone">
+            <p class="contact-block__label">Or call us directly</p>
+            <a class="contact-block__phone" href="tel:+49894131910">+49 89 413191-0</a>
+            <p class="contact-block__copy">We're reachable Monday to Friday, 9:00–18:00 CET.</p>
+          </div>
+        </div>
+
+        <footer class="imprint">
+          <p class="imprint__links">
+            <a href="#" data-placeholder>Imprint</a>
+            <span aria-hidden="true">·</span>
+            <a href="#" data-placeholder>Privacy</a>
+            <span aria-hidden="true">·</span>
+            <span class="imprint__copy">© 2026 Munich Leadership Group</span>
+          </p>
+        </footer>
+      </article>
+
+    </div>
+
+  </main>
+
+  <script src="app.js?v=75" defer></script>
+</body>
+</html>

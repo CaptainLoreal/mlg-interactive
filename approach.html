@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e0f10" />
+  <title>Approach — Munich Leadership Group</title>
+  <link rel="stylesheet" href="styles.css?v=65" />
+</head>
+<body>
+  <main class="standalone">
+    <!-- Top corner brand -->
+    <div class="topbar">
+      <a class="topbar__logo" href="index.html" aria-label="Munich Leadership Group — back to home">
+        <img src="assets/logo-white.svg" alt="Munich Leadership Group" />
+      </a>
+    </div>
+
+    <!-- Bottom-right mark -->
+    <span class="corner-mark" aria-hidden="true">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
+
+    <article class="slide slide--cards slide--mountain is-active" data-anchor="right-80" data-title="Approach">
+      <div class="slide__media">
+        <img src="assets/mountains/watzmann-traverse.jpg" alt="" />
+      </div>
+      <div class="slide__scrim slide__scrim--strong"></div>
+
+      <div class="slide__copy slide__copy--top">
+        <a class="page-back" href="index.html#slide=1">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>back</span>
+        </a>
+        <p class="eyebrow">Approach</p>
+        <h1 class="display">A rigorous approach.</h1>
+      </div>
+
+      <div class="cards-row">
+        <div class="card-item">
+          <h3 class="card-item__title">AI.</h3>
+          <p class="card-item__body">Those who adapt early will strive. Those who wait will struggle.</p>
+        </div>
+        <div class="card-item">
+          <h3 class="card-item__title">Navigating through uncertainty.</h3>
+          <p class="card-item__body">Give orientation.</p>
+        </div>
+        <div class="card-item">
+          <h3 class="card-item__title">Ambidexterity.</h3>
+          <p class="card-item__body">Use both of your hands.</p>
+        </div>
+        <a class="card-item card-item--cta" href="#" data-placeholder>
+          <h3 class="card-item__title">Is your team a winning team?</h3>
+          <p class="card-item__body">Take the test (BPTI)</p>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    document.querySelectorAll('.page-back').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        e.preventDefault();
+        document.querySelector('.standalone').classList.add('is-leaving');
+        setTimeout(() => { location.href = href; }, 320);
+      });
+    });
+  </script>
+</body>
+</html>
