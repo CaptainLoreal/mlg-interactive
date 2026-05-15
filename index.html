@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0e0f10" />
   <title>MLG — Munich Leadership Group</title>
-  <link rel="stylesheet" href="styles.css?v=88" />
+  <link rel="stylesheet" href="styles.css?v=89" />
 </head>
 <body>
 
@@ -34,7 +34,7 @@
        EXCUSES — interstitial: pop the excuses, reveal the truth
        ============================================================ -->
   <section id="excuses" class="excuses" aria-hidden="true">
-    <p class="excuses__prompt" id="excusesPrompt">Heard any of these lately?</p>
+    <p class="excuses__prompt" id="excusesPrompt">choose your 3 dreams</p>
     <div class="excuses__field" id="excusesField" aria-label="Tap each excuse"></div>
     <p class="excuses__reveal" id="excusesReveal">It's a leadership issue.</p>
   </section>
@@ -56,21 +56,6 @@
         <img src="assets/logo-white.svg" alt="Munich Leadership Group" />
       </a>
 
-      <div class="audience-toggle" role="tablist" aria-label="Audience">
-        <button class="audience-tab" role="tab" type="button" data-audience="talents">
-          <span class="audience-tab__long">Top talents</span>
-          <span class="audience-tab__short">Talents</span>
-        </button>
-        <button class="audience-tab is-active" role="tab" type="button" data-audience="senior" aria-selected="true">
-          <span class="audience-tab__long">Senior managers</span>
-          <span class="audience-tab__short">Managers</span>
-        </button>
-        <button class="audience-tab" role="tab" type="button" data-audience="execs">
-          <span class="audience-tab__long">Top execs</span>
-          <span class="audience-tab__short">Execs</span>
-        </button>
-      </div>
-
       <span class="topbar__counter"><span id="counterNow">01</span><span class="topbar__counterSep">/</span><span id="counterAll">06</span></span>
     </div>
 
@@ -86,35 +71,8 @@
          Mirrored slides use data-mirror="1" to flip the photo on the X axis. -->
     <div class="slides" id="slides">
 
-      <!-- 1 — Selector (audience gate) -->
-      <article class="slide slide--selector is-active" data-slide="0" data-anim="static" data-title="Selector">
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="selector">
-          <p class="eyebrow">Select your area</p>
-          <h1 class="display">Tailored to your needs.</h1>
-
-          <div class="selector__toggle" id="selectorToggle" role="tablist">
-            <button class="selector__tab" type="button" role="tab" data-audience="talents">
-              <span class="selector__tab-key">A</span>
-              <span class="selector__tab-label">Top talents</span>
-            </button>
-            <button class="selector__tab" type="button" role="tab" data-audience="senior">
-              <span class="selector__tab-key">B</span>
-              <span class="selector__tab-label">Senior managers</span>
-            </button>
-            <button class="selector__tab" type="button" role="tab" data-audience="execs">
-              <span class="selector__tab-key">C</span>
-              <span class="selector__tab-label">Top execs</span>
-            </button>
-          </div>
-
-          <p class="selector__hint">Pick one to begin</p>
-        </div>
-      </article>
-
-      <!-- 2 — Welcome -->
-      <article class="slide" data-slide="1" data-anim="kenburns" data-title="Welcome">
+      <!-- 1 — Welcome -->
+      <article class="slide is-active" data-slide="0" data-anim="kenburns" data-title="Welcome">
         <div class="slide__media">
           <img src="assets/photos/photo-03.png" alt="" loading="eager" />
         </div>
@@ -511,6 +469,6 @@
 
   </main>
 
-  <script src="app.js?v=88" defer></script>
+  <script src="app.js?v=89" defer></script>
 </body>
 </html>

@@ -29,6 +29,7 @@
   function enterDeck() {
     excuses.classList.add('is-leaving');
     deck.classList.add('is-on');
+    deck.classList.add('is-armed');
     deck.setAttribute('aria-hidden', 'false');
     setTimeout(() => { excuses.style.display = 'none'; }, 1100);
     setTimeout(buildGlobe, 16);
@@ -299,8 +300,6 @@
   function goTo(idx) {
     idx = (idx + slides.length) % slides.length;
     if (idx === current || transitioning) return;
-    // Lock the deck on the selector slide until the user picks an audience.
-    if (current === 0 && !deck.classList.contains('is-armed')) return;
     transitioning = true;
 
     const outgoing = slides[current];

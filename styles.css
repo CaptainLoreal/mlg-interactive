@@ -407,16 +407,18 @@ button { font-family: inherit; cursor: pointer; }
 
 .excuses__prompt {
   position: absolute;
-  top: clamp(40px, 8vh, 90px);
+  top: 50%;
   left: 0; right: 0;
+  transform: translateY(-50%);
   margin: 0;
   text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.45);
   padding: 0 24px;
+  pointer-events: none;
   transition: opacity 600ms var(--ease-out);
   z-index: 1;
 }
