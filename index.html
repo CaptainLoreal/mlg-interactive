@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0e0f10" />
   <title>MLG — Munich Leadership Group</title>
-  <link rel="stylesheet" href="styles.css?v=89" />
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css?v=100" />
+  <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
 
@@ -52,7 +54,7 @@
 
     <!-- Top corner brand + audience toggle + counter -->
     <div class="topbar">
-      <a class="topbar__logo" href="#" aria-label="Munich Leadership Group">
+      <a class="topbar__logo" href="#" data-jump="0" aria-label="Munich Leadership Group">
         <img src="assets/logo-white.svg" alt="Munich Leadership Group" />
       </a>
 
@@ -65,6 +67,12 @@
       <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
       <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="currentColor"/></svg>
     </button>
+
+    <!-- Website CTA bubble — persistent bottom-center link to the main website -->
+    <a class="website-cta" href="https://www.munich-leadership-group.com" target="_blank" rel="noopener" aria-label="Visit Munich Leadership Group website">
+      <span class="website-cta__label">Visit our website</span>
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
 
     <!-- Slides
          Munich architecture imagery courtesy of Wikimedia Commons (CC-BY-SA).
@@ -81,73 +89,134 @@
           <p class="eyebrow">Munich Leadership Group</p>
           <h1 class="display">Developing leaders<br>who <em class="display-accent">shape</em> organizations.</h1>
           <p class="display display--sub">Tailored to your needs.</p>
-          <div class="cta-row">
-            <a class="btn btn--ghost btn--more btn--tailor" href="tailor.html">
-              <span>go to our tailor</span>
-              <svg class="tailor-icon" viewBox="0 0 32 20" width="28" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path class="tailor-icon__thread" d="M2 15 L22 15"/>
-                <g class="tailor-icon__needle">
-                  <line x1="22" y1="15" x2="29" y2="6"/>
-                  <circle cx="29" cy="6" r="1.4"/>
-                </g>
-              </svg>
-            </a>
-          </div>
         </div>
       </article>
 
-      <!-- 3 — Approach -->
-      <article class="slide" data-slide="2" data-anim="kenburns2" data-title="Approach">
-        <div class="slide__media">
-          <img src="assets/photos/photo-15.png" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim"></div>
-        <div class="slide__copy">
-          <p class="eyebrow">Approach</p>
-          <h2 class="display">A rigorous approach to leadership development.</h2>
-          <p class="display display--sub"><em class="display-accent">High performance</em> or <em class="display-accent">Best performance?</em></p>
-          <div class="cta-row">
-            <a class="btn btn--ghost btn--more" href="usp.html">
-              <span>our USP</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 4 — The Challenges -->
-      <article class="slide slide--cards slide--mountain" data-slide="3" data-anim="kenburns2" data-anchor="right-80" data-title="The Challenges">
-        <div class="slide__media">
-          <img src="assets/mountains/watzmann-traverse.jpg" alt="" loading="lazy" />
+      <!-- 2 — Tailor -->
+      <article class="slide slide--contact" data-slide="1" data-anim="parallax" data-title="Tailor">
+        <div class="slide__media slide__media--soft">
+          <img src="assets/photos/photo-08.png" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
-        <div class="slide__copy slide__copy--top">
-          <p class="eyebrow">The Challenges</p>
-          <h2 class="display">The challenges leaders actually face.</h2>
-        </div>
+        <div class="contact-wrap contact-wrap--tailor">
+          <div class="slide__copy contact-wrap__head">
+            <p class="eyebrow">Tailor</p>
+            <h2 class="display">What do you need?</h2>
+          </div>
 
-        <div class="cards-row">
-          <div class="card-item">
-            <h3 class="card-item__title">AI.</h3>
-            <p class="card-item__body">Those who adapt early will strive. Those who wait will struggle.</p>
+          <div class="contact-block">
+            <form class="tf" id="tailorForm" novalidate>
+              <div class="tf__progress"><span class="tf__progress-fill" id="tailorFill"></span></div>
+
+              <!-- Step 1 — Who are you -->
+              <div class="tf__step is-active" data-step="0" data-field="profile" data-required="1">
+                <p class="tf__num">01 — about you</p>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="hr">
+                    <span><strong>I am an owner, a board member, or an HR responsible,</strong> looking for smart ways to develop our leaders</span>
+                  </button>
+                  <button class="tf__choice" type="button" data-value="executive">
+                    <span><strong>I am an executive,</strong> looking for ways to make my team(s) more productive</span>
+                  </button>
+                  <button class="tf__choice" type="button" data-value="curious-culture">
+                    <span><strong>I am curious</strong> how you can help to drive a cultural transformation</span>
+                  </button>
+                  <button class="tf__choice" type="button" data-value="ambitious">
+                    <span><strong>I am an ambitious leader,</strong> looking for smart ways to develop myself</span>
+                  </button>
+                  <button class="tf__choice" type="button" data-value="alumnus">
+                    <span><strong>I am a former participant</strong> of one of your programs and want to know more</span>
+                  </button>
+                  <button class="tf__choice" type="button" data-value="general">
+                    <span><strong>I want to learn about MLG</strong> in general</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Step 2 — Company size -->
+              <div class="tf__step" data-step="1" data-field="company_size" data-required="1">
+                <p class="tf__num">02 — your company</p>
+                <p class="tf__sublabel">My company has …</p>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="small">&lt; 50 employees</button>
+                  <button class="tf__choice" type="button" data-value="medium">50–500 employees</button>
+                  <button class="tf__choice" type="button" data-value="large">500–5.000 employees</button>
+                  <button class="tf__choice" type="button" data-value="enterprise">&gt; 5.000 employees</button>
+                </div>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                </div>
+              </div>
+
+              <!-- Step 3 — Company type -->
+              <div class="tf__step" data-step="2" data-field="company_type" data-required="1">
+                <p class="tf__num">03 — your company</p>
+                <p class="tf__sublabel">My company is …</p>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="startup">a start-up</button>
+                  <button class="tf__choice" type="button" data-value="family">family owned</button>
+                  <button class="tf__choice" type="button" data-value="pe">private equity</button>
+                  <button class="tf__choice" type="button" data-value="listed">stock listed</button>
+                </div>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                </div>
+              </div>
+
+              <!-- Step 4 — Optional context -->
+              <div class="tf__step" data-step="3" data-field="message">
+                <p class="tf__num">04 — context</p>
+                <textarea class="tf__input tf__input--area" name="tailor-message" rows="3" placeholder="Optional — what you're trying to solve, the people involved, the timing."></textarea>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 5 — Name -->
+              <div class="tf__step" data-step="4" data-field="name" data-required="1">
+                <p class="tf__num">05 — your details</p>
+                <input class="tf__input" type="text" name="tailor-name" placeholder="First and last" autocomplete="name" />
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 6 — Email -->
+              <div class="tf__step" data-step="5" data-field="email" data-required="1" data-type="email">
+                <p class="tf__num">06 — your details</p>
+                <input class="tf__input" type="email" name="tailor-email" placeholder="you@company.com" autocomplete="email" />
+                <p class="tf__error" hidden>Please enter a valid email.</p>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 7 — Company -->
+              <div class="tf__step" data-step="6" data-field="company">
+                <p class="tf__num">07 — your details</p>
+                <input class="tf__input" type="text" name="tailor-company" placeholder="Optional" autocomplete="organization" />
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back">← Back</button>
+                  <button class="tf__cta tf__cta--send" type="button" data-action="submit">Send<span class="tf__hint">press <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 8 — Done -->
+              <div class="tf__step tf__step--done" data-step="7">
+                <p class="tf__num">✓ — sent</p>
+                <h3 class="tf__q">Thanks — we'll be in touch.</h3>
+                <p class="tf__sub">A partner reads every inquiry. Expect a personal reply within one business day.</p>
+              </div>
+            </form>
           </div>
-          <div class="card-item">
-            <h3 class="card-item__title">Navigating through uncertainty.</h3>
-            <p class="card-item__body">Give orientation.</p>
-          </div>
-          <div class="card-item">
-            <h3 class="card-item__title">Ambidexterity.</h3>
-            <p class="card-item__body">Use both of your hands.</p>
-          </div>
-          <a class="card-item card-item--cta" href="#" data-placeholder>
-            <h3 class="card-item__title">Is your team a winning team?</h3>
-            <p class="card-item__body">Take the test (BPTI)</p>
-          </a>
         </div>
       </article>
 
-      <!-- 5 — GLOBE / Clients -->
+      <!-- 3 — GLOBE / Clients -->
       <article class="slide slide--globe" data-slide="3" data-anim="zoom" data-title="Clients">
         <div class="slide__media slide__media--soft">
           <img src="assets/munich/bmw-welt.jpg" alt="" loading="lazy" />
@@ -197,51 +266,144 @@
         </div>
       </article>
 
-      <!-- 5 — Services -->
-      <article class="slide slide--cards" data-slide="4" data-anim="parallax" data-title="Services">
+      <!-- 3 — Approach Intro -->
+      <article class="slide slide--approach-intro" data-slide="2" data-anim="parallax" data-title="Approach">
+        <div class="slide__media slide__media--soft">
+          <img src="assets/photos/photo-16.png" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="approach-intro-wrap">
+          <div class="approach-intro__left">
+            <p class="eyebrow eyebrow--mixed">Approach</p>
+            <h2 class="display">A rigorous approach to Executive Education.</h2>
+            <p class="approach-intro__body">Times are changing faster than ever, and so are the requirements for impactful executive education.</p>
+            <p class="approach-intro__body">The <strong>WHAT</strong> for leaders is still the same: Create best performance in your area of responsibility. But the <strong>HOW</strong> has changed: Lead without formal authority, be open to the new, adapt fast, learn from mistakes, inspire your environment.</p>
+            <p class="approach-intro__label">MLG Executive Education:</p>
+            <ul class="approach-intro__usps">
+              <li><strong>Deeply rooted in science.</strong> <a href="usp.html" class="approach-intro__link">Learn more</a></li>
+              <li><strong>Tailor-made.</strong> <a href="leadership-development.html" class="approach-intro__link">Learn more</a></li>
+              <li><strong>Perfectly working in practice.</strong> <a href="#" data-jump="2" class="approach-intro__link">Learn more</a></li>
+            </ul>
+          </div>
+          <div class="approach-intro__right">
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">Artificial Intelligence (AI)</h3>
+              <p class="challenge-box__body">How can AI make me better, faster, and more productive? What does AI mean for a performance boost in my team(s)? How can I keep up with the speed of AI development?</p>
+              <p class="challenge-box__conclusion">Those who adapt AI early will strive. Those who hesitate — will struggle.</p>
+            </div>
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">Uncertainty</h3>
+              <p class="challenge-box__body">How can I make better decisions in growing uncertainty? How can I give orientation when times are getting rough? Are there situations when I can trust my gut feeling?</p>
+              <p class="challenge-box__conclusion">Those who embrace uncertainty will strive. Those who hesitate — will struggle.</p>
+            </div>
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">Ambidexterity</h3>
+              <p class="challenge-box__body">How long will I keep optimizing today's business — until it's perfect or obsolete? Where am I killing innovation by managing it with yesterday's KPIs?</p>
+              <p class="challenge-box__conclusion">Those who understand ambidexterity will strive. Those who hesitate — will struggle.</p>
+            </div>
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">Self Awareness</h3>
+              <p class="challenge-box__body">Which feedback do I avoid because it threatens how I see myself? How can I create a climate of psychological safety so everyone feels safe to speak up?</p>
+              <p class="challenge-box__conclusion">Those who are self-aware will strive. Those who hesitate — will struggle.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 — Services / Approach -->
+      <article class="slide slide--cards slide--approach" data-slide="2" data-anim="parallax" data-title="Services">
         <div class="slide__media slide__media--soft">
           <img src="assets/photos/photo-16.png" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
         <div class="slide__copy slide__copy--top">
-          <p class="eyebrow">Services</p>
+          <p class="eyebrow">Approach</p>
           <h2 class="display">A rigorous approach to leadership development.</h2>
         </div>
 
         <div class="cards-row">
           <div class="card-item">
             <h3 class="card-item__title">Leadership development</h3>
-            <button class="btn btn--ghost btn--more" type="button" data-placeholder>
+            <a class="btn btn--ghost btn--more" href="leadership-development.html">
               <span>more</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </button>
+            </a>
           </div>
           <div class="card-item">
             <h3 class="card-item__title">Coaching &amp; sparring</h3>
-            <button class="btn btn--ghost btn--more" type="button" data-placeholder>
+            <a class="btn btn--ghost btn--more" href="coaching-sparring.html">
               <span>more</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </button>
+            </a>
           </div>
           <div class="card-item">
             <h3 class="card-item__title">Audits &amp; assessments</h3>
-            <button class="btn btn--ghost btn--more" type="button" data-placeholder>
+            <a class="btn btn--ghost btn--more" href="audits-assessments.html">
               <span>more</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </button>
+            </a>
           </div>
           <div class="card-item">
             <h3 class="card-item__title">Cultural transformation</h3>
-            <button class="btn btn--ghost btn--more" type="button" data-placeholder>
+            <a class="btn btn--ghost btn--more" href="cultural-transformation.html">
               <span>more</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </button>
+            </a>
           </div>
         </div>
       </article>
 
-      <!-- 6 — Team -->
+      <!-- 4 — The Challenges -->
+      <article class="slide slide--cards slide--mountain" data-slide="3" data-anim="kenburns2" data-anchor="right-80" data-title="The Challenges">
+        <div class="slide__media">
+          <img src="assets/photos/photo-15.png" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="slide__copy slide__copy--top">
+          <p class="eyebrow">The Challenges</p>
+          <h2 class="display">The challenges leaders actually face.</h2>
+        </div>
+
+        <div class="cards-row">
+          <div class="card-item">
+            <h3 class="card-item__title">AI.</h3>
+            <p class="card-item__body">Those who adapt early will strive. Those who wait will struggle.</p>
+            <a class="btn btn--ghost btn--more" href="ai.html">
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="card-item">
+            <h3 class="card-item__title">Navigating through uncertainty.</h3>
+            <p class="card-item__body">Give orientation.</p>
+            <a class="btn btn--ghost btn--more" href="navigating-uncertainty.html">
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="card-item">
+            <h3 class="card-item__title">Ambidexterity.</h3>
+            <p class="card-item__body">Use both of your hands.</p>
+            <a class="btn btn--ghost btn--more" href="ambidexterity.html">
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="card-item">
+            <h3 class="card-item__title">NeuroScience.</h3>
+            <p class="card-item__body">The Leading Brain.</p>
+            <a class="btn btn--ghost btn--more" href="neuroscience.html">
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 — Team -->
       <article class="slide slide--team" data-slide="5" data-anim="parallax" data-title="Team">
         <div class="slide__media slide__media--soft">
           <img src="assets/photos/photo-17.png" alt="" loading="lazy" />
@@ -317,23 +479,10 @@
         </div>
       </article>
 
-      <!-- 5 — Method (mirrored) -->
-      <article class="slide" data-slide="4" data-anim="kenburns2" data-mirror="1" data-title="Method">
-        <div class="slide__media">
-          <img src="assets/photos/photo-13.png" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim"></div>
-        <div class="slide__copy">
-          <p class="eyebrow">Method</p>
-          <h2 class="display">We learn the way leaders actually think.</h2>
-          <p class="lead">Cases without easy answers. Peer challenge in the room. Faculty who have run the companies you read about.</p>
-        </div>
-      </article>
-
       <!-- 6 — Contact -->
       <article class="slide slide--contact" data-slide="8" data-anim="zoom" data-title="Contact">
         <div class="slide__media slide__media--soft">
-          <img src="assets/munich/bmw-welt.jpg" alt="" loading="lazy" />
+          <img src="assets/photos/photo-19.png" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -352,12 +501,12 @@
                 <p class="tf__num">01 — your challenge</p>
                 <h3 class="tf__q">What's your problem?</h3>
                 <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="alignment"><span class="tf__key">A</span>Leadership team is not aligned</button>
-                  <button class="tf__choice" type="button" data-value="retention"><span class="tf__key">B</span>We are losing top talent</button>
-                  <button class="tf__choice" type="button" data-value="readiness"><span class="tf__key">C</span>Leaders aren't ready for the next level</button>
-                  <button class="tf__choice" type="button" data-value="culture"><span class="tf__key">D</span>Culture or engagement is broken</button>
-                  <button class="tf__choice" type="button" data-value="transformation"><span class="tf__key">E</span>We are in a major transformation</button>
-                  <button class="tf__choice" type="button" data-value="other"><span class="tf__key">F</span>Something else</button>
+                  <button class="tf__choice" type="button" data-value="alignment">Leadership team is not aligned</button>
+                  <button class="tf__choice" type="button" data-value="retention">We are losing top talent</button>
+                  <button class="tf__choice" type="button" data-value="readiness">Leaders aren't ready for the next level</button>
+                  <button class="tf__choice" type="button" data-value="culture">Culture or engagement is broken</button>
+                  <button class="tf__choice" type="button" data-value="transformation">We are in a major transformation</button>
+                  <button class="tf__choice" type="button" data-value="other">Something else</button>
                 </div>
               </div>
 
@@ -366,11 +515,11 @@
                 <p class="tf__num">02 — what you need</p>
                 <h3 class="tf__q">What are you looking for?</h3>
                 <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="open-cohort"><span class="tf__key">A</span>An open cohort to join</button>
-                  <button class="tf__choice" type="button" data-value="custom-programme"><span class="tf__key">B</span>A custom programme for our team</button>
-                  <button class="tf__choice" type="button" data-value="coaching"><span class="tf__key">C</span>One-to-one coaching</button>
-                  <button class="tf__choice" type="button" data-value="audit"><span class="tf__key">D</span>An audit or assessment</button>
-                  <button class="tf__choice" type="button" data-value="exploring"><span class="tf__key">E</span>Still exploring — open to ideas</button>
+                  <button class="tf__choice" type="button" data-value="open-cohort">An open cohort to join</button>
+                  <button class="tf__choice" type="button" data-value="custom-programme">A custom programme for our team</button>
+                  <button class="tf__choice" type="button" data-value="coaching">One-to-one coaching</button>
+                  <button class="tf__choice" type="button" data-value="audit">An audit or assessment</button>
+                  <button class="tf__choice" type="button" data-value="exploring">Still exploring — open to ideas</button>
                 </div>
                 <div class="tf__foot">
                   <button class="tf__back" type="button" data-action="back">← Back</button>
@@ -382,11 +531,11 @@
                 <p class="tf__num">03 — about you</p>
                 <h3 class="tf__q">What best describes your role?</h3>
                 <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="top-talent"><span class="tf__key">A</span>Top talent</button>
-                  <button class="tf__choice" type="button" data-value="senior-manager"><span class="tf__key">B</span>Senior manager</button>
-                  <button class="tf__choice" type="button" data-value="top-exec"><span class="tf__key">C</span>Top executive</button>
-                  <button class="tf__choice" type="button" data-value="hr-talent"><span class="tf__key">D</span>HR or talent lead</button>
-                  <button class="tf__choice" type="button" data-value="other"><span class="tf__key">E</span>Other</button>
+                  <button class="tf__choice" type="button" data-value="top-talent">Top talent</button>
+                  <button class="tf__choice" type="button" data-value="senior-manager">Senior manager</button>
+                  <button class="tf__choice" type="button" data-value="top-exec">Top executive</button>
+                  <button class="tf__choice" type="button" data-value="hr-talent">HR or talent lead</button>
+                  <button class="tf__choice" type="button" data-value="other">Other</button>
                 </div>
                 <div class="tf__foot">
                   <button class="tf__back" type="button" data-action="back">← Back</button>
@@ -467,8 +616,118 @@
 
     </div>
 
+    <button id="jumpToApproach" data-jump="3" style="display:none" aria-hidden="true" tabindex="-1"></button>
+
   </main>
 
-  <script src="app.js?v=89" defer></script>
+  <script src="app.js?v=100" defer></script>
+  <script>
+    // Tailor form step machine — inline because the form lives inside the deck slide.
+    (() => {
+      const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+      const tf = document.getElementById('tailorForm');
+      if (!tf) return;
+      const steps = $$('.tf__step', tf);
+      const fill  = document.getElementById('tailorFill');
+      let stepIdx = 0;
+      const answers = {};
+
+      function updateProgress() {
+        fill.style.width = Math.min(100, ((stepIdx + 1) / 3) * 100) + '%';
+      }
+      function show(i) {
+        steps.forEach((s, k) => s.classList.toggle('is-active', k === i));
+        stepIdx = i;
+        updateProgress();
+        const input = steps[i].querySelector('input, textarea');
+        if (input) setTimeout(() => input.focus(), 320);
+      }
+      function validate(step) {
+        const required = step.dataset.required === '1';
+        const type = step.dataset.type;
+        const input = step.querySelector('input, textarea');
+        const err = step.querySelector('.tf__error');
+        if (err) err.hidden = true;
+        if (!input) return true;
+        const v = input.value.trim();
+        if (required && !v) { input.focus(); return false; }
+        if (type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+          if (err) err.hidden = false;
+          input.focus();
+          return false;
+        }
+        return true;
+      }
+      function next() {
+        const step = steps[stepIdx];
+        if (!validate(step)) return;
+        const input = step.querySelector('input, textarea');
+        if (input && step.dataset.field) answers[step.dataset.field] = input.value.trim();
+        show(Math.min(stepIdx + 1, steps.length - 1));
+      }
+      function back() { show(Math.max(stepIdx - 1, 0)); }
+      function pickChoice(btn) {
+        const step = steps[stepIdx];
+        const field = step.dataset.field;
+        $$('.tf__choice', step).forEach((c) => c.classList.toggle('is-selected', c === btn));
+        if (field) answers[field] = btn.dataset.value;
+        if (stepIdx === 2) {
+          setTimeout(() => {
+            document.getElementById('jumpToApproach').click();
+          }, 280);
+        } else {
+          setTimeout(() => show(Math.min(stepIdx + 1, steps.length - 1)), 280);
+        }
+      }
+
+      tf.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const action = btn.dataset.action;
+        if (action === 'next')   { e.preventDefault(); e.stopPropagation(); next(); }
+        else if (action === 'back') { e.preventDefault(); e.stopPropagation(); back(); }
+        else if (action === 'submit') {
+          e.preventDefault(); e.stopPropagation();
+          const lastStep = steps[steps.length - 2];
+          if (lastStep) {
+            const input = lastStep.querySelector('input, textarea');
+            if (input && lastStep.dataset.field) answers[lastStep.dataset.field] = input.value.trim();
+          }
+          show(steps.length - 1);
+        }
+        else if (btn.classList.contains('tf__choice')) { e.stopPropagation(); pickChoice(btn); }
+      });
+
+      tf.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        const step = steps[stepIdx];
+        if (e.target.tagName === 'TEXTAREA' && e.shiftKey) return;
+        e.preventDefault(); e.stopPropagation();
+        const primary = step.querySelector('.tf__cta');
+        if (primary && primary.dataset.action === 'submit') {
+          if (!validate(step)) return;
+          const input = step.querySelector('input, textarea');
+          if (input && step.dataset.field) answers[step.dataset.field] = input.value.trim();
+          show(steps.length - 1);
+        } else if ($$('.tf__choice', step).length) {
+          const first = step.querySelector('.tf__choice.is-selected') || step.querySelector('.tf__choice');
+          if (first) pickChoice(first);
+        } else next();
+      }, true);
+
+      tf.addEventListener('keydown', (e) => {
+        const step = steps[stepIdx];
+        const choices = $$('.tf__choice', step);
+        if (!choices.length) return;
+        const letter = e.key.toUpperCase();
+        const idx = 'ABCDEFGHIJ'.indexOf(letter);
+        if (idx < 0 || idx >= choices.length) return;
+        e.preventDefault(); e.stopPropagation();
+        pickChoice(choices[idx]);
+      }, true);
+
+      updateProgress();
+    })();
+  </script>
 </body>
 </html>

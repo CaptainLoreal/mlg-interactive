@@ -344,7 +344,8 @@
 
   // Direct-jump buttons — any element with `data-jump="N"` advances to slide N.
   $$('[data-jump]').forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       const idx = parseInt(btn.dataset.jump, 10);
       if (!Number.isNaN(idx)) goTo(idx);
     });
@@ -430,46 +431,46 @@
      Globe of clients
      ===================================================== */
   const CLIENTS = [
-    { name: 'Allianz',        meta: 'Group-wide leadership pipeline since 2019. Three cohorts a year covering the operating board’s direct reports, with custom modules on regulatory shift and cross-border governance.',
-      quote: { text: "MLG didn't give us answers. They gave us a room where we couldn't avoid the hard ones.", author: "Eva Lange", role: "Group Head of Talent, Allianz" } },
-    { name: 'Siemens',        meta: 'Digital industries division — senior cohort, two cohorts annually since 2017. Focused on transition leadership as the legacy industrial business reshapes around software and services.',
-      quote: { text: "The cases were uncomfortable on purpose. That's why we keep coming back.", author: "Markus Renner", role: "SVP Digital Industries, Siemens" } },
-    { name: 'BMW Group',      meta: 'Plant leadership academy across the European production network. A six-month track for plant directors and their successors, with rotations through Munich, Leipzig and Regensburg.',
+    { name: 'Microsoft',      logo: 'microsoft.png',      meta: 'Azure and cloud transformation leadership cohort for EMEA. Three cohorts a year focused on managing high-velocity product cycles and cross-functional alignment at scale.',
+      quote: { text: "They understand how to develop leaders who thrive in environments of constant change.", author: "Sarah Müller", role: "VP Talent Development, Microsoft EMEA" } },
+    { name: 'BMW Group',      logo: 'bmw.png',            meta: 'Plant leadership academy across the European production network. A six-month track for plant directors and their successors, with rotations through Munich, Leipzig and Regensburg.',
       quote: { text: "We have run plant leadership academies for a decade. MLG is the only partner who pushed us harder than we pushed them.", author: "Stefan Becker", role: "Director Production Network, BMW Group" } },
-    { name: 'Mercedes-Benz',  meta: 'Board practice intensives for next-generation NEDs. Designed with the supervisory board secretariat — eight participants per cohort, all chair-track within five years.',
-      quote: { text: "Most board programmes teach optics. This one taught judgment.", author: "Dr. Andrea Vogt", role: "Member, Supervisory Board, Mercedes-Benz" } },
-    { name: 'Bosch',          meta: 'Mobility solutions division — strategy intensive over four modules. Built around the difficult middle of the EV transition, with cases from in-house and Tier-1 peers.',
-      quote: { text: "We came in with a strategy. We left questioning it — and improved it.", author: "Thomas Krüger", role: "Head of Strategy, Mobility Solutions, Bosch" } },
-    { name: 'SAP',            meta: 'Founders-at-scale cohort for the enterprise software ecosystem. Half the room is past unicorn; half is on the way. We don’t smooth the difference.',
-      quote: { text: "The mix of veterans and operators in the room is the whole point.", author: "Lena Hofmann", role: "Chief of Staff to the CEO, SAP" } },
-    { name: 'BASF',           meta: 'Operating board readiness programme. Ten executives a year, two years to the seat, paired throughout with a current board mentor.',
-      quote: { text: "By the time our fellows take the seat, they have lived the decisions ten times.", author: "Dr. Peter Stiehl", role: "CHRO, BASF" } },
-    { name: 'Adidas',         meta: 'Brand leadership cohort — cross-functional by design. Marketing, product and ops in one room, working through the same case from three angles each session.',
-      quote: { text: "Marketing, product, ops — same case, three answers, one room. That's the magic.", author: "Jana Weiss", role: "VP Global Brand Leadership, Adidas" } },
-    { name: 'Lufthansa',      meta: 'Crisis leadership clinic, recurring since the 2020 restart. We bring the cases the press never saw and the decisions the airline still doesn’t discuss publicly.',
-      quote: { text: "They worked the cases that never went public. Our team got better fast.", author: "Captain Daniel Roth", role: "Director Crisis Operations, Lufthansa" } },
-    { name: 'Deutsche Bank',  meta: 'Risk and culture workshop at MD level. Closed cohorts of fifteen, with personal pre-reading and one regulator in the room each session.',
-      quote: { text: "Having a regulator in the room changes every conversation.", author: "Sabine Klein", role: "MD, Risk & Culture, Deutsche Bank" } },
-    { name: 'Munich Re',      meta: 'Reinsurance leadership track since 2016. We teach the trade, not the textbook — including the Bermuda flight and the syndicate visit.',
+    { name: 'Nestlé',         logo: 'nestle.png',         meta: 'General manager readiness programme for EMEA zone leaders. A structured 18-month path combining in-person modules with peer coaching between sessions.',
+      quote: { text: "The peer coaching structure meant the learning never stopped between modules.", author: "Isabelle Dupont", role: "Zone Talent Lead, Nestlé EMEA" } },
+    { name: 'Siemens',        logo: 'siemens.png',        meta: 'Digital industries division — senior cohort, two cohorts annually since 2017. Focused on transition leadership as the legacy industrial business reshapes around software and services.',
+      quote: { text: "The cases were uncomfortable on purpose. That's why we keep coming back.", author: "Markus Renner", role: "SVP Digital Industries, Siemens" } },
+    { name: 'Munich Re',      logo: 'munich-re.png',      meta: 'Reinsurance leadership track since 2016. We teach the trade, not the textbook — including the Bermuda flight and the syndicate visit.',
       quote: { text: "They taught the trade, not the textbook. That's rare.", author: "Friedrich Mayer", role: "Head of Reinsurance Talent, Munich Re" } },
-    { name: 'Continental',    meta: 'Strategy under transition — closed cohort of twelve. Built when the company was deciding what to keep and what to spin out, with cases from both sides of the line.',
-      quote: { text: "We made the spin-out call inside the programme. That tells you everything.", author: "Holger Schneider", role: "EVP Strategy, Continental" } },
-    { name: 'Henkel',         meta: 'Consumer brands division — talent track for high-potential GMs. Twelve months, four modules, ending with a board-level recommendation each fellow defends.',
-      quote: { text: "Each cohort closes with a board-level recommendation. Three of ours have shipped.", author: "Tanja Brandt", role: "Head of Talent, Consumer Brands, Henkel" } },
-    { name: 'Audi',           meta: 'Engineering leadership in the electrification era. A cohort of fifteen R&D directors, drawn from the fastest-moving programmes inside the group.',
-      quote: { text: "Electrification is a leadership problem before it's an engineering one. They get that.", author: "Dr. Matthias Bauer", role: "Head of R&D Leadership, Audi" } },
-    { name: 'Porsche',        meta: 'Senior executive masterclass series. Quarterly half-day sessions for the top forty, plus a full week residential each November.',
-      quote: { text: "Quarterly sessions plus the November week — it's the rhythm we run on.", author: "Christian Hartmann", role: "Member, Executive Board, Porsche" } },
-    { name: 'Bayer',          meta: 'Crop science division — succession programme for general managers. Two-year cycle, paired with a current SVP throughout.',
+    { name: 'Bayer',          logo: 'bayer.png',          meta: 'Crop science division — succession programme for general managers. Two-year cycle, paired with a current SVP throughout.',
       quote: { text: "The SVP pairing is what separates this from every other succession programme.", author: "Dr. Elena Fischer", role: "SVP Crop Science, Bayer" } },
-    { name: 'Merck',          meta: 'Healthcare innovation cohort, biennial. Focused on the leadership challenge of long-cycle innovation when quarterly markets keep asking the wrong question.',
-      quote: { text: "Long-cycle innovation in a quarterly market is a leadership challenge first.", author: "Dr. Anja Berger", role: "Head of Innovation Leadership, Merck" } },
-    { name: 'Roche',          meta: 'Diagnostics leadership academy partner since 2018. We share faculty with their internal team and run the residentials in Munich and Basel.',
-      quote: { text: "Sharing faculty across Basel and Munich made the whole thing portable.", author: "Marc Keller", role: "Head of Diagnostics Academy, Roche" } },
-    { name: 'Volkswagen',     meta: 'Group strategy office — board practice for the heads of the brand groups. Closed sessions, no agenda published, no recordings.',
-      quote: { text: "No agenda, no recordings — and the highest-stakes conversation of the year.", author: "Klaus Wagner", role: "Head of Group Strategy Office, Volkswagen" } },
-    { name: 'Telefónica',     meta: 'Digital transformation cohort across EU markets. A twelve-month programme with field weeks in Munich, Madrid and Düsseldorf.',
-      quote: { text: "Three field weeks across three markets — the cohort never lost momentum.", author: "Carlos Ruiz", role: "Chief Transformation Officer, Telefónica" } },
+    { name: 'Philip Morris',  logo: 'philip-morris.png',  meta: 'Transformation leadership programme spanning global markets. Focused on managing cultural and strategic change as the business reorients around reduced-risk products.',
+      quote: { text: "When the business model is changing this fast, leadership development has to keep pace.", author: "Marco Ferretti", role: "Director Leadership Development, PMI" } },
+    { name: 'Gilead Sciences', logo: 'gilead.png',        meta: 'Commercial and medical leadership academy for EMEA operations. Annual cohort of senior directors, with an emphasis on cross-functional decision-making in regulated environments.',
+      quote: { text: "Science is only half the job. The leadership work they do is the other half.", author: "Dr. Anna Bauer", role: "VP Medical Affairs, Gilead EMEA" } },
+    { name: 'Hannover Re',    logo: 'hannover-re.png',    meta: 'Executive development programme for the underwriting leadership. Closed cohorts focused on risk culture, long-cycle decision-making, and leading specialists.',
+      quote: { text: "Leading specialists requires a different kind of leadership. They understand that distinction.", author: "Thorsten Wolf", role: "Chief Underwriting Officer, Hannover Re" } },
+    { name: 'BayWa',          logo: 'baywa.png',          meta: 'Strategic leadership track for the agricultural and energy divisions. Built around the complexity of managing two distinct business models within one organisation.',
+      quote: { text: "Our leaders had to hold both worlds at once. The programme was built for exactly that.", author: "Katharina Lehmann", role: "Head of HR, BayWa" } },
+    { name: 'UniCredit',      logo: 'unicredit.png',      meta: 'Pan-European leadership programme for country and segment heads. Designed to build alignment across markets while preserving the local judgment that defines the business.',
+      quote: { text: "Central alignment and local judgment — most programmes sacrifice one for the other. This one didn't.", author: "Pietro Romano", role: "Head of Leadership Development, UniCredit" } },
+    { name: 'Strabag',        logo: 'strabag.png',        meta: 'Project leadership programme for major infrastructure directors. Cohorts drawn from the largest live projects, with cases built from in-house decisions as they unfold.',
+      quote: { text: "We used live cases from our own sites. That made everything count.", author: "Franz Huber", role: "Regional Director Central Europe, Strabag" } },
+    { name: 'Schaeffler',     logo: 'schaeffler.png',     meta: 'Precision industries leadership track for R&D and operations executives. A two-year programme bridging the transition from engineering excellence to enterprise leadership.',
+      quote: { text: "The step from engineering excellence to enterprise leadership is the hardest one. They map it clearly.", author: "Dr. Petra Haas", role: "VP Engineering Leadership, Schaeffler" } },
+    { name: 'Knauf',          logo: 'knauf.png',          meta: 'Family business leadership programme for senior operating executives. Tailored to the complexity of a private global company where ownership, culture and performance intersect.',
+      quote: { text: "In a family business, culture is the strategy. They know how to work with that.", author: "Alexander Knauf", role: "Executive Board, Knauf" } },
+    { name: 'BCG',            logo: 'bcg.png',            meta: 'Partner development programme for Central European offices. Focused on the distinct leadership demands of a knowledge organisation at partnership level.',
+      quote: { text: "We know leadership development well. We came to MLG because they know it differently.", author: "Dr. Julia Berg", role: "Partner & Head of People, BCG DACH" } },
+    { name: 'KION Group',     logo: 'kion.png',           meta: 'Industrial transformation leadership track for the KION brand portfolio. Annual cohort focused on post-merger integration, cultural alignment, and scaling leadership capacity.',
+      quote: { text: "Post-merger, the leadership question is always the hardest. They helped us answer it.", author: "Rainer Hoffmann", role: "CHRO, KION Group" } },
+    { name: 'Harman',         logo: 'harman.png',         meta: 'Connected technologies leadership programme for senior leaders across the JBL, Harman Kardon and connected car divisions. Three cohorts since the Samsung integration.',
+      quote: { text: "Post-integration, we needed leaders who could run a global business. That's what this built.", author: "Susanne Park", role: "VP Global Leadership, Harman" } },
+    { name: 'Knorr-Bremse',  logo: 'knorr-bremse.png',  meta: 'Safety-critical leadership programme for rail and truck division heads. Built around the specific challenges of leading in a zero-defect culture under commercial pressure.',
+      quote: { text: "In safety-critical business, leadership mistakes cost more than money. This programme respects that.", author: "Dr. Heinrich Moll", role: "Division Head, Knorr-Bremse Rail" } },
+    { name: 'Hexagon',        logo: 'hexagon.png',        meta: 'Digital reality solutions leadership track for global business unit heads. Annual programme aligned to the acquisition integration cycle and geospatial market expansion.',
+      quote: { text: "We acquire fast. This programme helps our leaders integrate even faster.", author: "Lisa Strand", role: "Chief People Officer, Hexagon" } },
+    { name: 'KUKA',           logo: 'kuka.png',           meta: 'Robotics and automation leadership programme for plant and product executives. Focused on the leadership dimension of the AI and automation disruption reshaping the industry.',
+      quote: { text: "The industry is automating. The leadership challenge is uniquely human. They get the difference.", author: "Dr. Michael Roth", role: "VP People & Organisation, KUKA" } },
   ];
 
   const globeEl    = $('#globe');
@@ -507,7 +508,11 @@
       const chip = document.createElement('button');
       chip.type = 'button';
       chip.className = 'chip';
-      chip.textContent = c.name;
+      const chipImg = document.createElement('img');
+      chipImg.className = 'chip__logo';
+      chipImg.src = 'assets/clients/' + c.logo;
+      chipImg.alt = c.name;
+      chip.appendChild(chipImg);
       chip.dataset.index = String(i);
       chip.addEventListener('click', (e) => {
         e.stopPropagation();
