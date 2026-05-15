@@ -128,18 +128,21 @@
      Excuses interstitial — drifting chips, pop to burst
      ===================================================== */
   const EXCUSES = [
-    "We don't have the budget",
-    "The market is unpredictable",
-    "The team isn't ready",
-    "We tried that before",
-    "We need more data",
-    "Compliance won't allow it",
-    "Leadership has other priorities",
-    "The timing is wrong",
-    "Our culture is different",
-    "We're not a tech company",
-    "The consultants said no",
-    "Let's revisit next quarter",
+    "I am working in the best of all teams",
+    "My decisions are safe, sound, and fast",
+    "We are attracting the smartest talents",
+    "I have become the best boss ever",
+    "Our company culture fosters best performance",
+    "The leaders in our company are role models",
+    "We are a learning community",
+    "My team strives, and we outsmart the competition",
+    "The competition is jealous of us",
+    "We are a winning team, curious and innovative",
+    "I am proud of my company",
+    "Our engagement is legend",
+    "I am an authentic leader with natural authority",
+    "We give each other candid feedback",
+    "Everyone of us learns from their mistakes",
   ];
 
   let chipsState = [];
@@ -272,54 +275,6 @@
   }
 
 
-  /* =====================================================
-     Contact slide — team carousel
-     ===================================================== */
-  const TEAM = [
-    { name: "Klaus Müller",   role: "Founder · Senior Faculty",       initials: "KM", linkedin: "https://www.linkedin.com/in/klaus-mueller" },
-    { name: "Anna Schmidt",   role: "Programme Director",             initials: "AS", linkedin: "https://www.linkedin.com/in/anna-schmidt" },
-    { name: "Thomas Becker",  role: "Head of Board Practice",         initials: "TB", linkedin: "https://www.linkedin.com/in/thomas-becker" },
-    { name: "Julia Hoffmann", role: "Head of Admissions",             initials: "JH", linkedin: "https://www.linkedin.com/in/julia-hoffmann" },
-    { name: "Stefan Wagner",  role: "Senior Faculty · Strategy",      initials: "SW", linkedin: "https://www.linkedin.com/in/stefan-wagner" },
-  ];
-
-  const teamCard   = $('#teamCard');
-  const teamAvatar = $('#teamAvatar');
-  const teamName   = $('#teamName');
-  const teamRole   = $('#teamRole');
-  const teamLink   = $('#teamLink');
-  const teamNow    = $('#teamNow');
-  const teamAll    = $('#teamAll');
-  const teamPrev   = $('#teamPrev');
-  const teamNext   = $('#teamNext');
-
-  let teamIdx = 0;
-
-  function renderTeam() {
-    const m = TEAM[teamIdx];
-    teamCard.classList.add('is-swap');
-    setTimeout(() => {
-      teamAvatar.textContent = m.initials;
-      teamName.textContent   = m.name;
-      teamRole.textContent   = m.role;
-      teamNow.textContent    = String(teamIdx + 1);
-      teamCard.classList.remove('is-swap');
-    }, 180);
-  }
-
-  if (teamCard) {
-    teamAll.textContent = String(TEAM.length);
-    renderTeam();
-    teamPrev.addEventListener('click', () => {
-      teamIdx = (teamIdx - 1 + TEAM.length) % TEAM.length;
-      renderTeam();
-    });
-    teamNext.addEventListener('click', () => {
-      teamIdx = (teamIdx + 1) % TEAM.length;
-      renderTeam();
-    });
-  }
-
   // Bottom-right mark inside the deck — click plays the fly animation.
   const cornerMark = $('#cornerMark');
   if (cornerMark) {
@@ -393,6 +348,17 @@
     btn.addEventListener('click', () => {
       const idx = parseInt(btn.dataset.jump, 10);
       if (!Number.isNaN(idx)) goTo(idx);
+    });
+  });
+
+  // Title-jump buttons — `data-jump-title="Services"` jumps to the slide
+  // whose data-title matches. Survives slide reorders better than indices.
+  $$('[data-jump-title]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const title = btn.dataset.jumpTitle;
+      const idx = slides.findIndex((s) => s.dataset.title === title);
+      if (idx >= 0) goTo(idx);
     });
   });
 

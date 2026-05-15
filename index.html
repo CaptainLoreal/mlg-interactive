@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0e0f10" />
   <title>MLG — Munich Leadership Group</title>
-  <link rel="stylesheet" href="styles.css?v=80" />
+  <link rel="stylesheet" href="styles.css?v=87" />
 </head>
 <body>
 
@@ -16,6 +16,7 @@
     <div class="intro__bg" aria-hidden="true"></div>
 
     <img class="intro__logo" src="assets/logo-white-red.svg" alt="Munich Leadership Group" />
+    <p class="intro__prompt">What is your dream?</p>
 
     <div id="enterBtn" class="slide-start" role="button" tabindex="0" aria-label="Slide to start">
       <div class="slide-start__track">
@@ -112,25 +113,6 @@
         </div>
       </article>
 
-      <!-- 2 — Approach -->
-      <article class="slide" data-slide="1" data-anim="kenburns2" data-title="Approach">
-        <div class="slide__media">
-          <img src="assets/photos/photo-15.png" alt="" loading="eager" />
-        </div>
-        <div class="slide__scrim"></div>
-        <div class="slide__copy">
-          <p class="eyebrow">Approach</p>
-          <h2 class="display">A rigorous approach to leadership development.</h2>
-          <p class="display display--sub"><em class="display-accent">High performance</em> or <em class="display-accent">Best performance?</em></p>
-          <div class="cta-row">
-            <a class="btn btn--ghost btn--more" href="approach.html">
-              <span>more</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-      </article>
-
       <!-- 2 — Welcome -->
       <article class="slide" data-slide="1" data-anim="kenburns" data-title="Welcome">
         <div class="slide__media">
@@ -142,8 +124,33 @@
           <h1 class="display">Developing leaders<br>who <em class="display-accent">shape</em> organizations.</h1>
           <p class="display display--sub">Tailored to your needs.</p>
           <div class="cta-row">
-            <a class="btn btn--ghost btn--more" href="services.html">
-              <span>services</span>
+            <a class="btn btn--ghost btn--more btn--tailor" href="tailor.html">
+              <span>go to our tailor</span>
+              <svg class="tailor-icon" viewBox="0 0 32 20" width="28" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path class="tailor-icon__thread" d="M2 15 L22 15"/>
+                <g class="tailor-icon__needle">
+                  <line x1="22" y1="15" x2="29" y2="6"/>
+                  <circle cx="29" cy="6" r="1.4"/>
+                </g>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 — Approach -->
+      <article class="slide" data-slide="2" data-anim="kenburns2" data-title="Approach">
+        <div class="slide__media">
+          <img src="assets/photos/photo-15.png" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim"></div>
+        <div class="slide__copy">
+          <p class="eyebrow">Approach</p>
+          <h2 class="display">A rigorous approach to leadership development.</h2>
+          <p class="display display--sub"><em class="display-accent">High performance</em> or <em class="display-accent">Best performance?</em></p>
+          <div class="cta-row">
+            <a class="btn btn--ghost btn--more" href="approach.html">
+              <span>more</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
             <a class="btn btn--ghost btn--more" href="usp.html">
@@ -154,8 +161,8 @@
         </div>
       </article>
 
-      <!-- 2 — GLOBE / Clients -->
-      <article class="slide slide--globe" data-slide="1" data-anim="zoom" data-title="Clients">
+      <!-- 4 — GLOBE / Clients -->
+      <article class="slide slide--globe" data-slide="3" data-anim="zoom" data-title="Clients">
         <div class="slide__media slide__media--soft">
           <img src="assets/munich/bmw-welt.jpg" alt="" loading="lazy" />
         </div>
@@ -204,8 +211,52 @@
         </div>
       </article>
 
-      <!-- 4 — Team -->
-      <article class="slide slide--team" data-slide="3" data-anim="parallax" data-title="Team">
+      <!-- 5 — Services -->
+      <article class="slide slide--cards" data-slide="4" data-anim="parallax" data-title="Services">
+        <div class="slide__media slide__media--soft">
+          <img src="assets/photos/photo-16.png" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="slide__copy slide__copy--top">
+          <p class="eyebrow">Services</p>
+          <h2 class="display">A rigorous approach to leadership development.</h2>
+        </div>
+
+        <div class="cards-row">
+          <div class="card-item">
+            <h3 class="card-item__title">Leadership development</h3>
+            <button class="btn btn--ghost btn--more" type="button" data-placeholder>
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="card-item">
+            <h3 class="card-item__title">Coaching &amp; sparring</h3>
+            <button class="btn btn--ghost btn--more" type="button" data-placeholder>
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="card-item">
+            <h3 class="card-item__title">Audits &amp; assessments</h3>
+            <button class="btn btn--ghost btn--more" type="button" data-placeholder>
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="card-item">
+            <h3 class="card-item__title">Cultural transformation</h3>
+            <button class="btn btn--ghost btn--more" type="button" data-placeholder>
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 — Team -->
+      <article class="slide slide--team" data-slide="5" data-anim="parallax" data-title="Team">
         <div class="slide__media slide__media--soft">
           <img src="assets/photos/photo-17.png" alt="" loading="lazy" />
         </div>
@@ -213,8 +264,8 @@
 
         <div class="team-wrap">
           <div class="team-head">
-            <p class="eyebrow">Team</p>
-            <h2 class="display">Who you'll work with.</h2>
+            <p class="eyebrow">Credibility and experience</p>
+            <h2 class="display">A hand-selected<br>team of experts.</h2>
             <div class="team-tabs" role="tablist">
               <button class="team-tab is-active" role="tab" type="button" data-tab="core">Core team</button>
               <button class="team-tab" role="tab" type="button" data-tab="associates">Associate partners</button>
@@ -410,30 +461,6 @@
             </form>
           </div>
 
-          <div class="team">
-            <p class="team__label">Or speak to one of us directly</p>
-            <div class="team__carousel">
-              <button class="team__nav team__nav--prev" id="teamPrev" type="button" aria-label="Previous team member">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-              </button>
-              <div class="team__card" id="teamCard">
-                <span class="team__avatar" id="teamAvatar" aria-hidden="true">—</span>
-                <div class="team__meta">
-                  <h3 class="team__name" id="teamName">—</h3>
-                  <p class="team__role" id="teamRole">—</p>
-                  <a class="team__link" id="teamLink" href="#" data-placeholder>
-                    <span>Learn more</span>
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-                  </a>
-                </div>
-              </div>
-              <button class="team__nav team__nav--next" id="teamNext" type="button" aria-label="Next team member">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </button>
-            </div>
-            <p class="team__pos"><span id="teamNow">1</span><span class="team__posSep">/</span><span id="teamAll">5</span></p>
-          </div>
-
           <div class="contact-block__phone-row contact-block__phone-row--standalone">
             <p class="contact-block__label">Or call us directly</p>
             <a class="contact-block__phone" href="tel:+49894131910">+49 89 413191-0</a>
@@ -456,6 +483,6 @@
 
   </main>
 
-  <script src="app.js?v=80" defer></script>
+  <script src="app.js?v=87" defer></script>
 </body>
 </html>
