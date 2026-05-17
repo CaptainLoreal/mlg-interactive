@@ -514,6 +514,7 @@
       chipImg.alt = c.name;
       chip.appendChild(chipImg);
       chip.dataset.index = String(i);
+      chip.dataset.client = c.logo.replace('.png', '');
       chip.addEventListener('click', (e) => {
         e.stopPropagation();
         selectClient(i);
@@ -608,6 +609,15 @@
   });
 
   // Team slide — tab switching (core / associates)
+  const regionFilter = document.querySelector('.region-filter');
+
+  function applyRegion(region) {
+    $$('.region-btn').forEach((b) => b.classList.toggle('is-active', b.dataset.region === region));
+    $$('.team-grid--associates .member').forEach((m) => {
+      m.hidden = region !== 'all' && m.dataset.region !== region;
+    });
+  }
+
   $$('.team-tab').forEach((tab) => {
     tab.addEventListener('click', () => {
       const target = tab.dataset.tab;
@@ -615,10 +625,18 @@
       $$('.team-grid').forEach((g) => {
         g.hidden = g.dataset.pane !== target;
       });
+      if (regionFilter) {
+        regionFilter.hidden = target !== 'associates';
+        if (target === 'associates') applyRegion('all');
+      }
       // Reset scroll to top of the new pane
       const wrap = document.querySelector('.team-wrap');
       if (wrap) wrap.scrollTop = 0;
     });
+  });
+
+  $$('.region-btn').forEach((btn) => {
+    btn.addEventListener('click', () => applyRegion(btn.dataset.region));
   });
 
   // Contact form — Typeform-style state machine. One question per step,

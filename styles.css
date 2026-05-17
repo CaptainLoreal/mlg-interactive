@@ -1486,7 +1486,6 @@ button { font-family: inherit; cursor: pointer; }
   border: 1px solid rgba(255,255,255,0.18);
   border-radius: 999px;
   padding: 4px;
-  margin-top: clamp(12px, 2vh, 22px);
   background: rgba(0,0,0,0.18);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -1511,6 +1510,43 @@ button { font-family: inherit; cursor: pointer; }
   color: #fff;
 }
 
+.team-tab-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(12px, 2vh, 22px);
+}
+.region-filter {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.region-filter[hidden] { display: none; }
+.region-btn {
+  appearance: none;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.58);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+}
+.region-btn:hover { color: #fff; border-color: rgba(255,255,255,0.35); }
+.region-btn.is-active {
+  background: rgba(181,0,52,0.18);
+  border-color: var(--mlg-red);
+  color: #fff;
+}
+
 .team-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1519,6 +1555,7 @@ button { font-family: inherit; cursor: pointer; }
   max-width: 1400px;
 }
 .team-grid[hidden] { display: none; }
+.team-grid .member[hidden] { display: none; }
 
 .team-grid--core { max-width: 980px; gap: clamp(16px, 2vw, 24px); }
 
@@ -2274,6 +2311,15 @@ button { font-family: inherit; cursor: pointer; }
 .chip:hover .chip__logo, .chip.is-selected .chip__logo {
   opacity: 1;
 }
+/* Per-client logo size overrides */
+.chip[data-client="hannover-re"] {
+  width: 130px;
+}
+.chip[data-client="hannover-re"] .chip__logo {
+  width: 104px;
+  height: 42px;
+}
+
 /* Fade chips on the back of the sphere — set via JS opacity per frame */
 
 .globe__hint {
