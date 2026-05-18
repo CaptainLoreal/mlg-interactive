@@ -286,19 +286,59 @@
   /* =====================================================
      Slideshow
      ===================================================== */
-  const slides     = $$('.slide');
-  const railFill   = $('#railFill');
-  const counterNow = $('#counterNow');
-  const counterAll = $('#counterAll');
+  const slides   = $$('.slide');
+  const railFill = $('#railFill');
+  const slideNav = document.querySelector('.slide-nav');
 
   let current = 0;
   let transitioning = false;
 
-  counterAll.textContent = String(slides.length).padStart(2, '0');
+  const serviceLinks = [
+    { label: 'Leadership Development', href: 'leadership-development.html' },
+    { label: 'Coaching & Sparring',    href: 'coaching-sparring.html' },
+    { label: 'Audits & Assessments',  href: 'audits-assessments.html' },
+    { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
+  ];
+
+  if (slideNav) {
+    slides.forEach((slide, i) => {
+      const title = slide.dataset.title || `${i + 1}`;
+      if (title === 'Services') {
+        const wrap = document.createElement('div');
+        wrap.className = 'slide-nav__dropdown-wrap';
+
+        const btn = document.createElement('button');
+        btn.className = 'slide-nav__btn slide-nav__btn--has-drop';
+        btn.innerHTML = `${title}<svg class="slide-nav__chevron" viewBox="0 0 10 6" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>`;
+        btn.addEventListener('click', () => goTo(i));
+
+        const drop = document.createElement('div');
+        drop.className = 'slide-nav__dropdown';
+        serviceLinks.forEach(({ label, href }) => {
+          const a = document.createElement('a');
+          a.className = 'slide-nav__dropdown-item';
+          a.href = href;
+          a.textContent = label;
+          drop.appendChild(a);
+        });
+
+        wrap.appendChild(btn);
+        wrap.appendChild(drop);
+        slideNav.appendChild(wrap);
+      } else {
+        const btn = document.createElement('button');
+        btn.className = 'slide-nav__btn';
+        btn.textContent = title;
+        btn.addEventListener('click', () => goTo(i));
+        slideNav.appendChild(btn);
+      }
+    });
+  }
+
   updateMeta();
 
   function goTo(idx) {
-    idx = (idx + slides.length) % slides.length;
+    idx = Math.max(0, Math.min(slides.length - 1, idx));
     if (idx === current || transitioning) return;
     transitioning = true;
 
@@ -332,8 +372,12 @@
   }
 
   function updateMeta() {
-    counterNow.textContent = String(current + 1).padStart(2, '0');
     railFill.style.height = `${((current + 1) / slides.length) * 100}%`;
+    if (slideNav) {
+      slideNav.querySelectorAll('.slide-nav__btn').forEach((btn, i) => {
+        btn.classList.toggle('is-active', i === current);
+      });
+    }
   }
 
   window.addEventListener('keydown', (e) => {
@@ -341,6 +385,19 @@
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
     if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goTo(current - 1); }
   });
+
+  // "Straight to website" — same destination as clicking the logo (slide 0).
+  const websiteCtaBtn = document.querySelector('.website-cta');
+  if (websiteCtaBtn) {
+    websiteCtaBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      excuses.classList.add('is-leaving');
+      deck.classList.add('is-on');
+      setTimeout(() => { excuses.style.display = 'none'; }, 1100);
+      current = 0;
+      updateMeta();
+    });
+  }
 
   // Direct-jump buttons — any element with `data-jump="N"` advances to slide N.
   $$('[data-jump]').forEach((btn) => {

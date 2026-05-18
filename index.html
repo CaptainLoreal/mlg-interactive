@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e0f10" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=104" />
+  <link rel="stylesheet" href="styles.css?v=106" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -39,10 +39,10 @@
     <p class="excuses__prompt" id="excusesPrompt">choose your 3 dreams</p>
     <div class="excuses__field" id="excusesField" aria-label="Tap each excuse"></div>
     <p class="excuses__reveal" id="excusesReveal">It's a leadership issue.</p>
-    <a class="website-cta" href="https://www.munichleadership.com" target="_blank" rel="noopener" aria-label="Visit Munich Leadership Group website">
+    <button class="website-cta" aria-label="Skip to first slide">
       <span class="website-cta__label">Straight to website</span>
-      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-    </a>
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
   </section>
 
 
@@ -56,13 +56,15 @@
       <div class="rail__bar"><span class="rail__fill" id="railFill"></span></div>
     </nav>
 
-    <!-- Top corner brand + audience toggle + counter -->
+    <!-- Top corner brand + slide nav + audience toggle -->
     <div class="topbar">
       <a class="topbar__logo" href="#" data-jump="0" aria-label="Munich Leadership Group">
         <img src="assets/logo-white.svg" alt="Munich Leadership Group" />
       </a>
 
-      <span class="topbar__counter"><span id="counterNow">01</span><span class="topbar__counterSep">/</span><span id="counterAll">06</span></span>
+      <nav class="slide-nav" aria-label="Slide navigation">
+        <!-- built by JS -->
+      </nav>
     </div>
 
     <!-- Bottom-right mark — click to play the fly animation -->
@@ -80,7 +82,7 @@
       <!-- 1 — Welcome -->
       <article class="slide is-active" data-slide="0" data-anim="kenburns" data-title="Welcome">
         <div class="slide__media">
-          <img src="assets/photos/photo-03.png" alt="" loading="eager" />
+          <img src="assets/photos/photo-g1.webp" alt="" loading="eager" />
         </div>
         <div class="slide__scrim"></div>
         <div class="slide__copy">
@@ -93,7 +95,7 @@
       <!-- 2 — Tailor -->
       <article class="slide slide--contact" data-slide="1" data-anim="parallax" data-title="Tailor">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-08.png" alt="" loading="lazy" />
+          <img src="assets/photos/photo-m1.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -267,13 +269,13 @@
       <!-- 3 — Approach Intro -->
       <article class="slide slide--approach-intro" data-slide="2" data-anim="parallax" data-title="Approach">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-16.png" alt="" loading="lazy" />
+          <img src="assets/photos/photo-g2.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
         <div class="approach-intro-wrap">
           <div class="approach-intro__left">
-            <p class="eyebrow eyebrow--mixed">Approach</p>
+            <p class="eyebrow">Approach</p>
             <h2 class="display">A rigorous approach to Executive Education.</h2>
             <p class="approach-intro__body">Times are changing faster than ever, and so are the requirements for impactful executive education.</p>
             <p class="approach-intro__body">The <strong>WHAT</strong> for leaders is still the same: Create best performance in your area of responsibility. But the <strong>HOW</strong> has changed: Lead without formal authority, be open to the new, adapt fast, learn from mistakes, inspire your environment.</p>
@@ -312,18 +314,19 @@
       <!-- 4 — Services / Approach -->
       <article class="slide slide--cards slide--approach" data-slide="2" data-anim="parallax" data-title="Services">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-16.png" alt="" loading="lazy" />
+          <img src="assets/photos/photo-g3.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
         <div class="slide__copy slide__copy--top">
-          <p class="eyebrow">Approach</p>
-          <h2 class="display">A rigorous approach to leadership development.</h2>
+          <p class="eyebrow">Services</p>
+          <h2 class="display">Everything a leader needs. Nothing they don't.</h2>
         </div>
 
         <div class="cards-row">
           <div class="card-item">
             <h3 class="card-item__title">Leadership development</h3>
+            <p class="card-item__body">Itinera ducendi ex fundamento tuo — tailor-made, scientifice fundata, et pro gradu proximo parata.</p>
             <a class="btn btn--ghost btn--more" href="leadership-development.html">
               <span>more</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -331,6 +334,7 @@
           </div>
           <div class="card-item">
             <h3 class="card-item__title">Coaching &amp; sparring</h3>
+            <p class="card-item__body">Sparring partner expertus et independens — provocat, acuit, et semper in tuum latus stat.</p>
             <a class="btn btn--ghost btn--more" href="coaching-sparring.html">
               <span>more</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -338,6 +342,7 @@
           </div>
           <div class="card-item">
             <h3 class="card-item__title">Audits &amp; assessments</h3>
+            <p class="card-item__body">Antequam evolvas, intellege. Diagnosi profunda dat fundamentum pro omni interventu qui re vera mutat.</p>
             <a class="btn btn--ghost btn--more" href="audits-assessments.html">
               <span>more</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -345,6 +350,7 @@
           </div>
           <div class="card-item">
             <h3 class="card-item__title">Cultural transformation</h3>
+            <p class="card-item__body">Cultura sequitur comportamentum. Mutatio vera incipit cum duces ipsi exemplum praebent quotidie.</p>
             <a class="btn btn--ghost btn--more" href="cultural-transformation.html">
               <span>more</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -353,10 +359,40 @@
         </div>
       </article>
 
-      <!-- 4 — The Challenges -->
+      <!-- 5 — Why MLG -->
+      <article class="slide slide--approach-intro slide--why-mlg" data-slide="2" data-anim="parallax" data-title="Why MLG">
+        <div class="slide__media slide__media--soft">
+          <img src="assets/photos/photo-g4.webp" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="approach-intro-wrap">
+          <div class="approach-intro__left">
+            <p class="eyebrow">About</p>
+            <h2 class="display">Why MLG?</h2>
+            <p class="approach-intro__body">Three reasons why the world's leading organisations choose us — and keep choosing us.</p>
+          </div>
+          <div class="approach-intro__right" style="grid-template-columns: 1fr; gap: 14px;">
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">Unbeatable professional experience</h3>
+              <p class="challenge-box__body">Since 2008 we have supported leading companies on all topics to create great leadership – rewarded with an outstanding reputation and awarded by professional institutions. We have designed and delivered thousands of tailor-made programs on leadership, change and transformation. Our team: 50+ experts from more than 10 nationalities ensuring the most pragmatic solutions for all our clients' unique challenges.</p>
+            </div>
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">Science-based solutions and approaches</h3>
+              <p class="challenge-box__body">Leadership is a science, not an art – our work is based on psychology, neuroscience and a strong focus on culture and innovation. We are independent and not bound to any certain "dogma". We collaborate with network partners e.g. UC Berkeley, Harvard, Stanford, Oxford, and the Max-Planck-Institute.</p>
+            </div>
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">Respect and independence are core values</h3>
+              <p class="challenge-box__body">Our work is rooted in a solid value system: integrity and trust are the keys to top performance. Independence means to us to be free of preconceptions — we always go for the best solution for our clients, disregarding any political influences. We only recommend those activities that create significant and sustainable value.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 — The Challenges -->
       <article class="slide slide--cards slide--mountain" data-slide="3" data-anim="kenburns2" data-anchor="right-80" data-title="The Challenges">
         <div class="slide__media">
-          <img src="assets/photos/photo-15.png" alt="" loading="lazy" />
+          <img src="assets/photos/photo-m2.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -404,7 +440,7 @@
       <!-- 5 — Team -->
       <article class="slide slide--team" data-slide="5" data-anim="parallax" data-title="Team">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-17.png" alt="" loading="lazy" />
+          <img src="assets/photos/photo-g5.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -489,7 +525,7 @@
       <!-- 6 — Contact -->
       <article class="slide slide--contact" data-slide="8" data-anim="zoom" data-title="Contact">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-19.png" alt="" loading="lazy" />
+          <img src="assets/photos/photo-w1.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -499,6 +535,7 @@
             <h2 class="display">Don't wait. Act.<br>Start the conversation.</h2>
           </div>
 
+          <div class="contact-body">
           <div class="contact-block">
             <form class="tf" id="contactForm" novalidate>
               <div class="tf__progress"><span class="tf__progress-fill" id="tfFill"></span></div>
@@ -608,6 +645,7 @@
             <a class="contact-block__phone" href="tel:+49894131910">+49 89 413191-0</a>
             <p class="contact-block__copy">We're reachable Monday to Friday, 9:00–18:00 CET.</p>
           </div>
+          </div><!-- /.contact-body -->
         </div>
 
         <footer class="imprint">
@@ -625,7 +663,7 @@
 
   </main>
 
-  <script src="app.js?v=103" defer></script>
+  <script src="app.js?v=107" defer></script>
   <script>
     // Tailor form step machine — inline because the form lives inside the deck slide.
     (() => {
