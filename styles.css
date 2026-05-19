@@ -1035,13 +1035,10 @@ button { font-family: inherit; cursor: pointer; }
 
 .slide__scrim {
   position: absolute; inset: 0;
-  background:
-    linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.35) 38%, rgba(0,0,0,0.05) 70%),
-    linear-gradient(to right, rgba(0,0,0,0.45), rgba(0,0,0,0.10) 50%, rgba(0,0,0,0));
+  background: rgba(0,0,0,0.10);
 }
 .slide__scrim--strong {
-  background:
-    radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.55), rgba(0,0,0,0.85) 90%);
+  background: rgba(0,0,0,0.10);
 }
 
 .slide__copy {
