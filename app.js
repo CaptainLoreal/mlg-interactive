@@ -819,3 +819,36 @@
   }
   requestAnimationFrame(tickGlobe);
 })();
+
+/* ── Testimonials carousel ── */
+(function () {
+  const track   = document.getElementById('testimonialsTrack');
+  const prev    = document.getElementById('testimonialsPrev');
+  const next    = document.getElementById('testimonialsNext');
+  const idxEl   = document.getElementById('testimonialsIdx');
+  const totalEl = document.getElementById('testimonialsTotal');
+  if (!track || !prev || !next) return;
+
+  const items = track.querySelectorAll('.testimonial');
+  const total = items.length;
+  let current = 0;
+
+  totalEl.textContent = total;
+
+  function go(n) {
+    current = (n + total) % total;
+    track.style.transform = `translateX(${-current * 100}%)`;
+    idxEl.textContent = current + 1;
+  }
+
+  prev.addEventListener('click', () => go(current - 1));
+  next.addEventListener('click', () => go(current + 1));
+
+  // Swipe support
+  let startX = 0;
+  track.addEventListener('pointerdown', e => { startX = e.clientX; }, { passive: true });
+  track.addEventListener('pointerup',   e => {
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+})();
