@@ -4,769 +4,134 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0e0f10" />
-  <title>MLG — Munich Leadership Group</title>
+  <title>Cultural Transformation — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=118" />
-  <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
+  <link rel="stylesheet" href="styles.css?v=119" />
+  <style>
+    body { overflow: visible; }
+    .standalone { overflow: visible; min-height: 100dvh; }
+    .ld-hero { position: relative; height: 56vh; min-height: 360px; overflow: hidden; }
+    .ld-hero__media { position: absolute; inset: 0; }
+    .ld-hero__media img { width: 100%; height: 100%; object-fit: cover;  }
+    .ld-hero__scrim { position: absolute; inset: 0; background: rgba(0,0,0,0.10); }
+    .ld-hero__copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 6vh, 64px); }
+    .ld-hero__eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 12px; }
+    .ld-hero__title { font-size: clamp(32px, 5.5vw, 64px); font-weight: 600; letter-spacing: -0.02em; color: #fff; margin: 0 0 12px; line-height: 1.1; }
+    .ld-hero__lead { font-size: clamp(14px, 1.6vw, 17px); line-height: 1.6; color: rgba(255,255,255,0.72); max-width: 620px; margin: 0; }
+    .ld-content { background: #0e0f10; padding: clamp(48px, 7vh, 96px) clamp(24px, 5vw, 72px); }
+    .ld-intro { max-width: 820px; margin: 0 auto clamp(56px, 8vh, 96px); }
+    .ld-intro__heading { font-size: clamp(18px, 2.4vw, 26px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; margin: 0 0 28px; }
+    .ld-intro p { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,0.65); margin: 0 0 18px; }
+    .ld-intro p strong { color: rgba(255,255,255,0.88); }
+    .ld-section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 32px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .ld-offerings { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto clamp(56px, 8vh, 96px); }
+    .ld-offering { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 8px; padding: 32px 28px 36px; display: flex; flex-direction: column; }
+    .ld-offering__title { font-size: 20px; font-weight: 600; color: #fff; margin: 0 0 20px; letter-spacing: -0.01em; }
+    .ld-offering__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+    .ld-offering__list li { font-size: 14px; color: rgba(255,255,255,0.6); padding-left: 16px; position: relative; line-height: 1.5; }
+    .ld-offering__list li::before { content: '—'; position: absolute; left: 0; color: var(--mlg-red); font-size: 12px; }
+    .ld-usp { max-width: 820px; margin: 0 auto clamp(48px, 7vh, 80px); padding: 36px 40px; background: rgba(181,0,52,0.10); border: 1px solid rgba(181,0,52,0.28); border-radius: 8px; }
+    .ld-usp__label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 14px; }
+    .ld-usp__text { font-size: clamp(15px, 1.8vw, 18px); line-height: 1.7; color: rgba(255,255,255,0.80); margin: 0; font-style: italic; }
+    .ld-cta { text-align: center; padding: clamp(32px, 5vh, 56px) 0; border-top: 1px solid rgba(255,255,255,0.08); max-width: 1200px; margin: 0 auto; }
+    .ld-cta p { color: rgba(255,255,255,0.55); font-size: 14px; margin: 0 0 20px; }
+    .ld-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--mlg-red); color: #fff; font-family: var(--font-sans); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 28px; border-radius: 999px; transition: opacity 200ms; }
+    .ld-cta__btn:hover { opacity: 0.85; }
+    .ld-offering__list-highlight { color: rgba(255,255,255,0.88) !important; font-weight: 600; }
+    .ld-offering__list-highlight::before { color: var(--mlg-red); }
+    @media (max-width: 640px) { .ld-offerings { grid-template-columns: 1fr; } .ld-usp { padding: 24px; } }
+  </style>
 </head>
 <body>
-
-  <!-- ============================================================
-       INTRO — click to enter, play with the logo
-       ============================================================ -->
-  <section id="intro" class="intro" aria-label="Welcome">
-    <div class="intro__bg" aria-hidden="true"></div>
-
-    <img class="intro__logo" src="assets/logo-white-red.svg" alt="Munich Leadership Group" />
-    <p class="intro__prompt">What is your dream?</p>
-
-    <div id="enterBtn" class="slide-start" role="button" tabindex="0" aria-label="Slide to start">
-      <div class="slide-start__track">
-        <span class="slide-start__label">slide to start</span>
-        <span class="slide-start__fill" aria-hidden="true"></span>
-      </div>
-      <span class="slide-start__knob" id="enterKnob" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </span>
-    </div>
-  </section>
-
-
-  <!-- ============================================================
-       EXCUSES — interstitial: pop the excuses, reveal the truth
-       ============================================================ -->
-  <section id="excuses" class="excuses" aria-hidden="true">
-    <p class="excuses__prompt" id="excusesPrompt">pick &amp; click your dream</p>
-    <div class="excuses__field" id="excusesField" aria-label="Tap each excuse"></div>
-    <p class="excuses__reveal" id="excusesReveal">It's a leadership issue.</p>
-    <button class="website-cta" aria-label="Skip to first slide">
-      <span class="website-cta__label">Straight to website</span>
-      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-    </button>
-  </section>
-
-
-  <!-- ============================================================
-       MAIN — slideshow
-       ============================================================ -->
-  <main id="deck" class="deck" aria-hidden="true">
-
-    <!-- Vertical progress rail -->
-    <nav class="rail" aria-label="Slide progress">
-      <div class="rail__bar"><span class="rail__fill" id="railFill"></span></div>
-    </nav>
-
-    <!-- Top corner brand + slide nav + audience toggle -->
+  <main class="standalone">
     <div class="topbar">
-      <a class="topbar__logo" href="#" data-jump="0" aria-label="Munich Leadership Group">
+      <a class="topbar__logo" href="index.html" aria-label="Munich Leadership Group — back to home">
         <img src="assets/logo-white.svg" alt="Munich Leadership Group" />
       </a>
-
-      <nav class="slide-nav" aria-label="Slide navigation">
-        <!-- built by JS -->
-      </nav>
-
-      <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
-        <svg class="burger__icon burger__icon--open" viewBox="0 0 22 16" width="22" height="16" fill="none" aria-hidden="true">
-          <rect y="0"  width="22" height="1.5" rx="1" fill="currentColor"/>
-          <rect y="7"  width="22" height="1.5" rx="1" fill="currentColor"/>
-          <rect y="14" width="22" height="1.5" rx="1" fill="currentColor"/>
-        </svg>
-        <svg class="burger__icon burger__icon--close" viewBox="0 0 18 18" width="18" height="18" fill="none" aria-hidden="true">
-          <line x1="1" y1="1" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="17" y1="1" x2="1" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </button>
     </div>
-
-    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" aria-hidden="true">
-      <!-- built by JS -->
-    </nav>
-
-    <!-- Bottom-right mark — click to play the fly animation -->
-    <button id="cornerMark" class="corner-mark" type="button" aria-label="Munich Leadership Group">
+    <span class="corner-mark" aria-hidden="true">
       <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
       <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
-      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="currentColor"/></svg>
-    </button>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
 
-    <!-- Slides
-         Munich architecture imagery courtesy of Wikimedia Commons (CC-BY-SA).
-         Mirrored slides use data-mirror="1" to flip the photo on the X axis. -->
-    <div class="slides" id="slides">
-
-      <!-- 1 — Welcome -->
-      <article class="slide" data-slide="0" data-anim="kenburns" data-title="Welcome">
-        <div class="slide__media">
-          <img src="assets/photos/photo-g1.webp" alt="" loading="eager" />
-        </div>
-        <div class="slide__scrim"></div>
-        <div class="slide__copy">
-          <p class="eyebrow">Empowering Leadership</p>
-          <h1 class="display">Developing leaders<br>who <em class="display-accent">shape</em> organizations.</h1>
-          <p class="display display--sub">Tailored to your needs.</p>
-        </div>
-      </article>
-
-      <!-- 2 — Tailor -->
-      <article class="slide slide--contact" data-slide="1" data-anim="parallax" data-title="Tailor">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-m2.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="contact-wrap contact-wrap--tailor">
-          <div class="slide__copy contact-wrap__head">
-            <p class="eyebrow">Tailor</p>
-            <h2 class="display">What do you need?</h2>
-          </div>
-
-          <div class="contact-block">
-            <form class="tf" id="tailorForm" novalidate>
-              <div class="tf__progress"><span class="tf__progress-fill" id="tailorFill"></span></div>
-
-              <!-- Step 1 — Who are you -->
-              <div class="tf__step is-active" data-step="0" data-field="profile" data-required="1">
-                <p class="tf__num">01 — about you</p>
-                <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="hr">
-                    <span><strong>I am an owner, a board member, or an HR responsible,</strong> looking for smart ways to develop our leaders</span>
-                  </button>
-                  <button class="tf__choice" type="button" data-value="executive">
-                    <span><strong>I am an executive,</strong> looking for ways to make my team(s) more productive</span>
-                  </button>
-                  <button class="tf__choice" type="button" data-value="curious-culture">
-                    <span><strong>I am curious</strong> how you can help to drive a cultural transformation</span>
-                  </button>
-                  <button class="tf__choice" type="button" data-value="ambitious">
-                    <span><strong>I am an ambitious leader,</strong> looking for smart ways to develop myself</span>
-                  </button>
-                  <button class="tf__choice" type="button" data-value="alumnus">
-                    <span><strong>I am a former participant</strong> of one of your programs and want to know more</span>
-                  </button>
-                  <button class="tf__choice" type="button" data-value="general">
-                    <span><strong>I want to learn about MLG</strong> in general</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Step 2 — Company size -->
-              <div class="tf__step" data-step="1" data-field="company_size" data-required="1">
-                <p class="tf__num">02 — your company</p>
-                <p class="tf__sublabel">My company has …</p>
-                <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="small">&lt; 50 employees</button>
-                  <button class="tf__choice" type="button" data-value="medium">50–500 employees</button>
-                  <button class="tf__choice" type="button" data-value="large">500–5.000 employees</button>
-                  <button class="tf__choice" type="button" data-value="enterprise">&gt; 5.000 employees</button>
-                </div>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                </div>
-              </div>
-
-              <!-- Step 3 — Company type -->
-              <div class="tf__step" data-step="2" data-field="company_type" data-required="1">
-                <p class="tf__num">03 — your company</p>
-                <p class="tf__sublabel">My company is …</p>
-                <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="startup">a start-up</button>
-                  <button class="tf__choice" type="button" data-value="family">family owned</button>
-                  <button class="tf__choice" type="button" data-value="pe">private equity</button>
-                  <button class="tf__choice" type="button" data-value="listed">stock listed</button>
-                </div>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                </div>
-              </div>
-
-              <!-- Step 4 — Optional context -->
-              <div class="tf__step" data-step="3" data-field="message">
-                <p class="tf__num">04 — context</p>
-                <textarea class="tf__input tf__input--area" name="tailor-message" rows="3" placeholder="Optional — what you're trying to solve, the people involved, the timing."></textarea>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 5 — Name -->
-              <div class="tf__step" data-step="4" data-field="name" data-required="1">
-                <p class="tf__num">05 — your details</p>
-                <input class="tf__input" type="text" name="tailor-name" placeholder="First and last" autocomplete="name" />
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 6 — Email -->
-              <div class="tf__step" data-step="5" data-field="email" data-required="1" data-type="email">
-                <p class="tf__num">06 — your details</p>
-                <input class="tf__input" type="email" name="tailor-email" placeholder="you@company.com" autocomplete="email" />
-                <p class="tf__error" hidden>Please enter a valid email.</p>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 7 — Company -->
-              <div class="tf__step" data-step="6" data-field="company">
-                <p class="tf__num">07 — your details</p>
-                <input class="tf__input" type="text" name="tailor-company" placeholder="Optional" autocomplete="organization" />
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta tf__cta--send" type="button" data-action="submit">Send<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 8 — Done -->
-              <div class="tf__step tf__step--done" data-step="7">
-                <p class="tf__num">✓ — sent</p>
-                <h3 class="tf__q">Thanks — we'll be in touch.</h3>
-                <p class="tf__sub">A partner reads every inquiry. Expect a personal reply within one business day.</p>
-              </div>
-            </form>
-          </div>
-        </div>
-      </article>
-
-      <!-- 3 — GLOBE / Clients -->
-      <article class="slide slide--globe" data-slide="3" data-anim="zoom" data-title="Clients">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/munich/bmw-welt.jpg" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="globe-wrap">
-          <div class="globe-stage" id="globeStage">
-            <div class="globe" id="globe">
-              <div class="globe__ring globe__ring--equator"></div>
-              <div class="globe__ring globe__ring--meridian"></div>
-              <div class="globe__core"></div>
-              <!-- Client chips injected by JS -->
-            </div>
-          </div>
-
-          <p class="globe__hint">Drag to spin · tap a client</p>
-
-          <!-- Right column on desktop: headline + selected-client card + quote stacked vertically -->
-          <div class="globe-side">
-            <div class="slide__copy slide__copy--side">
-              <p class="eyebrow">Selected clients</p>
-              <h2 class="display">Trusted by leading organizations</h2>
-            </div>
-
-            <div class="globe-card" id="globeCard" aria-live="polite">
-              <p class="globe-card__eyebrow">Selected client</p>
-              <h3 class="globe-card__name" id="globeCardName">—</h3>
-              <p class="globe-card__meta" id="globeCardMeta">Tap a logo on the globe to read the engagement.</p>
-              <a class="globe-card__more" id="globeCardMore" href="#" hidden>
-                <span>more</span>
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </a>
-            </div>
-
-            <aside class="client-quote" id="clientQuote" hidden>
-              <blockquote class="client-quote__text" id="quoteText"></blockquote>
-              <div class="client-quote__attr-row">
-                <span class="client-quote__avatar" id="quoteAvatar" aria-hidden="true">—</span>
-                <p class="client-quote__attr">
-                  <strong id="quoteAuthor"></strong>
-                  <span id="quoteRole"></span>
-                </p>
-              </div>
-            </aside>
-          </div>
-        </div>
-      </article>
-
-      <!-- 3 — Approach Intro -->
-      <article class="slide slide--approach-intro" data-slide="2" data-anim="parallax" data-title="Approach">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-g2.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="approach-centered-wrap">
-          <div class="approach-centered__header">
-            <p class="eyebrow">Approach</p>
-            <h2 class="display">A rigorous approach to Executive Education.</h2>
-            <p class="approach-intro__body">Times are changing faster than ever, and so are the requirements for impactful executive education.</p>
-            <p class="approach-intro__body">The <strong>WHAT</strong> for leaders is still the same: Create best performance in your area of responsibility. But the <strong>HOW</strong> has changed: Lead without formal authority, be open to the new, adapt fast, learn from mistakes, inspire your environment.</p>
-            <p class="approach-intro__label">MLG Executive Education:</p>
-            <ul class="approach-intro__usps" style="display:inline-flex; flex-direction:column; align-items:flex-start; text-align:left;">
-              <li><strong>Deeply rooted in science.</strong> <a href="https://theleadingbrain.com/" target="_blank" rel="noopener" class="approach-intro__link">Learn more</a></li>
-              <li><strong>Tailor-made.</strong> <a href="leadership-development.html" class="approach-intro__link">Learn more</a></li>
-              <li><strong>Perfectly working in practice.</strong> <a href="#" data-jump="2" class="approach-intro__link">Learn more</a></li>
-            </ul>
-          </div>
-          <div class="approach-centered__cards">
-            <div class="challenge-box">
-              <h3 class="challenge-box__title">Artificial Intelligence (AI)</h3>
-              <p class="challenge-box__body">How can AI make me better, faster, and more productive? What does AI mean for a performance boost in my team(s)? How can I keep up with the speed of AI development?</p>
-              <p class="challenge-box__conclusion">Those who adapt AI early will strive. Those who hesitate — will struggle.</p>
-            </div>
-            <div class="challenge-box">
-              <h3 class="challenge-box__title">Uncertainty</h3>
-              <p class="challenge-box__body">How can I make better decisions in growing uncertainty? How can I give orientation when times are getting rough? Are there situations when I can trust my gut feeling?</p>
-              <p class="challenge-box__conclusion">Those who embrace uncertainty will strive. Those who hesitate — will struggle.</p>
-            </div>
-            <div class="challenge-box">
-              <h3 class="challenge-box__title">Ambidexterity</h3>
-              <p class="challenge-box__body">How long will I keep optimizing today's business — until it's perfect or obsolete? Where am I killing innovation by managing it with yesterday's KPIs?</p>
-              <p class="challenge-box__conclusion">Those who understand ambidexterity will strive. Those who hesitate — will struggle.</p>
-            </div>
-            <div class="challenge-box">
-              <h3 class="challenge-box__title">Self Awareness</h3>
-              <p class="challenge-box__body">Which feedback do I avoid because it threatens how I see myself? How can I create a climate of psychological safety so everyone feels safe to speak up?</p>
-              <p class="challenge-box__conclusion">Those who are self-aware will strive. Those who hesitate — will struggle.</p>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 4 — Services -->
-      <article class="slide slide--cards" data-slide="2" data-anim="parallax" data-title="Services">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-g3.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="services-wrap">
-          <div class="services-wrap__head">
-            <p class="eyebrow">Services</p>
-            <h2 class="display">Everything a leader needs.<br>Nothing they don't.</h2>
-          </div>
-          <div class="services-grid">
-            <a class="card-item" href="leadership-development.html">
-              <h3 class="card-item__title">Leadership development</h3>
-              <p class="card-item__body">Bespoke leadership journeys — grounded in science, built for your next level.</p>
-              <span class="btn btn--ghost btn--more">
-                <span>more</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </span>
-            </a>
-            <a class="card-item" href="coaching-sparring.html">
-              <h3 class="card-item__title">Coaching &amp; sparring</h3>
-              <p class="card-item__body">An expert, independent sparring partner — challenging, sharpening, always in your corner.</p>
-              <span class="btn btn--ghost btn--more">
-                <span>more</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </span>
-            </a>
-            <a class="card-item" href="audits-assessments.html">
-              <h3 class="card-item__title">Audits &amp; assessments</h3>
-              <p class="card-item__body">Understand before you evolve. Deep diagnosis creates the foundation for every lasting change.</p>
-              <span class="btn btn--ghost btn--more">
-                <span>more</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </span>
-            </a>
-            <a class="card-item" href="cultural-transformation.html">
-              <h3 class="card-item__title">Cultural transformation</h3>
-              <p class="card-item__body">Culture follows behaviour. Real change begins when leaders model it every day.</p>
-              <span class="btn btn--ghost btn--more">
-                <span>more</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </span>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- 5 — Why MLG -->
-      <article class="slide slide--approach-intro slide--why-mlg" data-slide="2" data-anim="parallax" data-title="Why MLG">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-m4.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="why-mlg-wrap">
-          <div class="why-mlg__header">
-            <p class="eyebrow">About</p>
-            <h2 class="display">Why MLG?</h2>
-            <p class="approach-intro__body">Three reasons why the world's leading organisations choose us — and keep choosing us.</p>
-          </div>
-          <div class="why-mlg__cards">
-            <div class="challenge-box">
-              <h3 class="challenge-box__title">Unbeatable professional experience</h3>
-              <p class="challenge-box__body">Since 2008 we have supported leading companies on all topics to create great leadership – rewarded with an outstanding reputation and awarded by professional institutions. We have designed and delivered thousands of tailor-made programs on leadership, change and transformation. Our team: 50+ experts from more than 10 nationalities ensuring the most pragmatic solutions for all our clients' unique challenges.</p>
-            </div>
-            <div class="challenge-box">
-              <h3 class="challenge-box__title">Science-based solutions and approaches</h3>
-              <p class="challenge-box__body">Leadership is a science, not an art – our work is based on psychology, neuroscience and a strong focus on culture and innovation. We are independent and not bound to any certain "dogma". We collaborate with network partners e.g. UC Berkeley, Harvard, Stanford, Oxford, and the Max-Planck-Institute.</p>
-            </div>
-            <div class="challenge-box">
-              <h3 class="challenge-box__title">Respect and independence are core values</h3>
-              <p class="challenge-box__body">Our work is rooted in a solid value system: integrity and trust are the keys to top performance. Independence means to us to be free of preconceptions — we always go for the best solution for our clients, disregarding any political influences. We only recommend those activities that create significant and sustainable value.</p>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 6 — Tools -->
-      <article class="slide slide--approach-intro slide--tools" data-slide="2" data-anim="parallax" data-title="Tools">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-g5.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-        <div class="approach-centered-wrap">
-          <div class="approach-centered__header">
-            <p class="eyebrow">Tools</p>
-            <h2 class="display">Science &amp; assessment tools we stand behind.</h2>
-            <p class="approach-intro__body">Two instruments — one for leadership science, one for team potential — that we integrate across our work.</p>
-          </div>
-          <div class="approach-centered__cards">
-            <div class="challenge-box">
-              <h3 class="challenge-box__title">The Leading Brain</h3>
-              <p class="challenge-box__body">The internationally acclaimed book by Friederike Fabritius and Dr. Hans W. Hagemann translates the latest breakthroughs in neuroscience into practical strategies for leaders — on focus, emotion regulation, decision-making, and peak performance. Named Best Business Book 2017 by strategy+business.</p>
-              <p class="challenge-box__conclusion"><a href="https://theleadingbrain.com/" target="_blank" rel="noopener" class="approach-intro__link">theleadingbrain.com →</a></p>
-            </div>
-            <div class="challenge-box">
-              <h3 class="challenge-box__title">Team BPTI Assessment</h3>
-              <p class="challenge-box__body">The High Potential Trait Indicator (HPTI) is a validated personality assessment measuring six traits linked to long-term leadership success: Conscientiousness, Adjustment, Curiosity, Risk Approach, Ambiguity Acceptance, and Competitiveness. Used for succession planning, team development, and leadership recruitment.</p>
-              <p class="challenge-box__conclusion"><a href="http://team-hpti.com/theidea" target="_blank" rel="noopener" class="approach-intro__link">team-hpti.com →</a></p>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <!-- 7 — Team -->
-      <article class="slide slide--team" data-slide="5" data-anim="parallax" data-title="Team">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-g5.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="team-wrap">
-          <div class="team-head">
-            <p class="eyebrow">Credibility and experience</p>
-            <h2 class="display">A hand-selected<br>team of experts.</h2>
-            <div class="team-tab-row">
-              <div class="team-tabs" role="tablist">
-                <button class="team-tab is-active" role="tab" type="button" data-tab="core">Core team</button>
-                <button class="team-tab" role="tab" type="button" data-tab="associates">Associate partners</button>
-              </div>
-              <!-- Region filter — visible only when associates tab is active -->
-              <div class="region-filter" hidden>
-                <button class="region-btn is-active" type="button" data-region="all">All</button>
-                <button class="region-btn" type="button" data-region="americas">Americas</button>
-                <button class="region-btn" type="button" data-region="europe">Europe</button>
-                <button class="region-btn" type="button" data-region="asia-pacific">Asia Pacific</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Core team — 8 members, visible by default -->
-          <div class="team-grid team-grid--core" data-pane="core">
-            <article class="member"><div class="member__photo"><img src="assets/team/hagemann.jpg" alt="Dr. Hans W. Hagemann" loading="lazy" /></div><h3 class="member__name">Dr. Hans W. Hagemann</h3><p class="member__role">Managing Partner</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/knieling.jpg" alt="Michael Knieling" loading="lazy" /></div><h3 class="member__name">Michael Knieling</h3><p class="member__role">Managing Partner</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/rosengart.jpg" alt="Natalie Rosengart" loading="lazy" /></div><h3 class="member__name">Natalie Rosengart</h3><p class="member__role">Partner</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/duerrbeck.jpg" alt="Klaus Dürrbeck" loading="lazy" /></div><h3 class="member__name">Klaus Dürrbeck</h3><p class="member__role">Partner</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/bohnenstiel.png" alt="Martina Bohnenstiel" loading="lazy" /></div><h3 class="member__name">Martina Bohnenstiel</h3><p class="member__role">Management Team</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/westermayr.jpg" alt="Christine Westermayr" loading="lazy" /></div><h3 class="member__name">Christine Westermayr</h3><p class="member__role">Management Team</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/sickinger.jpg" alt="Dr. Sabine Sickinger" loading="lazy" /></div><h3 class="member__name">Dr. Sabine Sickinger</h3><p class="member__role">Management Team</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/sarnes.jpg" alt="Kristof Sarnes" loading="lazy" /></div><h3 class="member__name">Kristof Sarnes</h3><p class="member__role">Management Team</p></article>
-          </div>
-
-          <!-- Associate partners — 41 members, hidden until tab is selected -->
-          <div class="team-grid team-grid--associates" data-pane="associates" hidden>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/aguilar.png" alt="Margarita Aguilar" loading="lazy" /></div><h3 class="member__name">Margarita Aguilar</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/albrecht-s.jpg" alt="Simone Albrecht" loading="lazy" /></div><h3 class="member__name">Simone Albrecht</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/albrecht-frueh.png" alt="Dr. Ulrich Albrecht-Früh" loading="lazy" /></div><h3 class="member__name">Dr. Ulrich Albrecht-Früh</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/ambrosini.png" alt="Monica Ambrosini" loading="lazy" /></div><h3 class="member__name">Monica Ambrosini</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/banks.png" alt="Deanna Banks, PhD" loading="lazy" /></div><h3 class="member__name">Deanna Banks, PhD</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/beadle.png" alt="Matt Beadle" loading="lazy" /></div><h3 class="member__name">Matt Beadle</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/fichtel.png" alt="Dr. Roland Fichtel" loading="lazy" /></div><h3 class="member__name">Dr. Roland Fichtel</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/ganslmayr.png" alt="Thomas Ganslmayr" loading="lazy" /></div><h3 class="member__name">Thomas Ganslmayr</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/graham.jpg" alt="Paige K. Graham, PhD" loading="lazy" /></div><h3 class="member__name">Paige K. Graham, PhD</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/grayson.jpg" alt="Adam Grayson" loading="lazy" /></div><h3 class="member__name">Adam Grayson</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/guo.png" alt="Mark Guo" loading="lazy" /></div><h3 class="member__name">Mark Guo</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/heindl.png" alt="Hubert Heindl" loading="lazy" /></div><h3 class="member__name">Hubert Heindl</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/hessenauer.jpg" alt="Jürgen Hessenauer" loading="lazy" /></div><h3 class="member__name">Jürgen Hessenauer</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/holch.jpg" alt="Gabor Holch" loading="lazy" /></div><h3 class="member__name">Gabor Holch</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/hyatt.jpg" alt="David E. Hyatt, PhD" loading="lazy" /></div><h3 class="member__name">David E. Hyatt, PhD</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/jones.jpg" alt="Glyn Jones" loading="lazy" /></div><h3 class="member__name">Glyn Jones</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/klawitter.png" alt="Kate Klawitter" loading="lazy" /></div><h3 class="member__name">Kate Klawitter</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/kraen.png" alt="Thomas Krän" loading="lazy" /></div><h3 class="member__name">Thomas Krän</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/koehler.jpg" alt="Doreen Köhler" loading="lazy" /></div><h3 class="member__name">Doreen Köhler</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/lale.png" alt="Serdar Lale" loading="lazy" /></div><h3 class="member__name">Serdar Lale</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/lo.png" alt="Patti Lo" loading="lazy" /></div><h3 class="member__name">Patti Lo</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/lucke.jpg" alt="Lynn Lucke" loading="lazy" /></div><h3 class="member__name">Lynn Lucke</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/marsh.jpg" alt="Elena Marsh" loading="lazy" /></div><h3 class="member__name">Elena Marsh</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/mauve.jpg" alt="Ulrike Mauve" loading="lazy" /></div><h3 class="member__name">Ulrike Mauve</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/michaely.jpg" alt="Tonia Maria Michaely" loading="lazy" /></div><h3 class="member__name">Tonia Maria Michaely</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/millar.png" alt="Jane Millar" loading="lazy" /></div><h3 class="member__name">Jane Millar</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/naeslund.png" alt="Vivianne Näslund" loading="lazy" /></div><h3 class="member__name">Vivianne Näslund</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/orbea.png" alt="Angelita Orbea" loading="lazy" /></div><h3 class="member__name">Angelita Orbea</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/ramos.png" alt="Teresa Ramos" loading="lazy" /></div><h3 class="member__name">Teresa Ramos</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/rentel.png" alt="Susanne Rentel" loading="lazy" /></div><h3 class="member__name">Susanne Rentel</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/saliba.jpg" alt="Basel Saliba" loading="lazy" /></div><h3 class="member__name">Basel Saliba</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/sanchez.png" alt="Margaret A. Sánchez" loading="lazy" /></div><h3 class="member__name">Margaret A. Sánchez</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/seidenfus.png" alt="Christoph Seidenfus" loading="lazy" /></div><h3 class="member__name">Christoph Seidenfus</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/sellani.jpg" alt="Francesca Sellani" loading="lazy" /></div><h3 class="member__name">Francesca Sellani</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/shields.jpg" alt="Jim Shields" loading="lazy" /></div><h3 class="member__name">Jim Shields</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/tallman.jpg" alt="Rich Tallman" loading="lazy" /></div><h3 class="member__name">Rich Tallman</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/vanetti.jpg" alt="Eric Vanetti, PhD" loading="lazy" /></div><h3 class="member__name">Eric Vanetti, PhD</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/west.jpg" alt="Jan West" loading="lazy" /></div><h3 class="member__name">Jan West</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/xue.png" alt="Christine Xue" loading="lazy" /></div><h3 class="member__name">Christine Xue</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/yong.png" alt="Stephen Yong" loading="lazy" /></div><h3 class="member__name">Stephen Yong</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/yilancioglu.png" alt="Biran Yılancıoğlu" loading="lazy" /></div><h3 class="member__name">Biran Yılancıoğlu</h3></article>
-          </div>
-        </div>
-      </article>
-
-      <!-- 6 — Contact -->
-      <article class="slide slide--contact" data-slide="8" data-anim="zoom" data-title="Contact">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-w1.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="contact-wrap">
-          <div class="slide__copy contact-wrap__head">
-            <p class="eyebrow">Contact</p>
-            <h2 class="display">Don't wait. Act.<br>Start the conversation.</h2>
-          </div>
-
-          <div class="contact-body">
-          <div class="contact-block">
-            <form class="tf" id="contactForm" novalidate>
-              <div class="tf__progress"><span class="tf__progress-fill" id="tfFill"></span></div>
-
-              <!-- Step 1 — Problem -->
-              <div class="tf__step is-active" data-step="0" data-field="problem" data-required="1">
-                <p class="tf__num">01 — your challenge</p>
-                <h3 class="tf__q">What's your problem?</h3>
-                <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="alignment">Leadership team is not aligned</button>
-                  <button class="tf__choice" type="button" data-value="retention">We are losing top talent</button>
-                  <button class="tf__choice" type="button" data-value="readiness">Leaders aren't ready for the next level</button>
-                  <button class="tf__choice" type="button" data-value="culture">Culture or engagement is broken</button>
-                  <button class="tf__choice" type="button" data-value="transformation">We are in a major transformation</button>
-                  <button class="tf__choice" type="button" data-value="other">Something else</button>
-                </div>
-              </div>
-
-              <!-- Step 2 — What you need -->
-              <div class="tf__step" data-step="1" data-field="interest" data-required="1">
-                <p class="tf__num">02 — what you need</p>
-                <h3 class="tf__q">What are you looking for?</h3>
-                <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="open-cohort">An open cohort to join</button>
-                  <button class="tf__choice" type="button" data-value="custom-programme">A custom programme for our team</button>
-                  <button class="tf__choice" type="button" data-value="coaching">One-to-one coaching</button>
-                  <button class="tf__choice" type="button" data-value="audit">An audit or assessment</button>
-                  <button class="tf__choice" type="button" data-value="exploring">Still exploring — open to ideas</button>
-                </div>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                </div>
-              </div>
-
-              <!-- Step 3 — Role -->
-              <div class="tf__step" data-step="2" data-field="role" data-required="1">
-                <p class="tf__num">03 — about you</p>
-                <h3 class="tf__q">What best describes your role?</h3>
-                <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="top-talent">Top talent</button>
-                  <button class="tf__choice" type="button" data-value="senior-manager">Senior manager</button>
-                  <button class="tf__choice" type="button" data-value="top-exec">Top executive</button>
-                  <button class="tf__choice" type="button" data-value="hr-talent">HR or talent lead</button>
-                  <button class="tf__choice" type="button" data-value="other">Other</button>
-                </div>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                </div>
-              </div>
-
-              <!-- Step 4 — Anything else (optional) -->
-              <div class="tf__step" data-step="3" data-field="message">
-                <p class="tf__num">04 — anything else</p>
-                <h3 class="tf__q">Anything we should know before we reply?</h3>
-                <textarea class="tf__input tf__input--area" name="message" rows="3" placeholder="Optional — the people in the room, what's been tried, the urgency."></textarea>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 5 — Name -->
-              <div class="tf__step" data-step="4" data-field="name" data-required="1">
-                <p class="tf__num">05 — your details</p>
-                <h3 class="tf__q">What's your name?</h3>
-                <input class="tf__input" type="text" name="name" placeholder="First and last" autocomplete="name" />
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 6 — Email -->
-              <div class="tf__step" data-step="5" data-field="email" data-required="1" data-type="email">
-                <p class="tf__num">06 — your details</p>
-                <h3 class="tf__q">Where can we reach you?</h3>
-                <input class="tf__input" type="email" name="email" placeholder="you@company.com" autocomplete="email" />
-                <p class="tf__error" hidden>Please enter a valid email.</p>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 7 — Company -->
-              <div class="tf__step" data-step="6" data-field="company">
-                <p class="tf__num">07 — your details</p>
-                <h3 class="tf__q">Which company are you with?</h3>
-                <input class="tf__input" type="text" name="company" placeholder="Optional" autocomplete="organization" />
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta tf__cta--send" type="button" data-action="submit">Send<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 8 — Done -->
-              <div class="tf__step tf__step--done" data-step="7">
-                <p class="tf__num">✓ — sent</p>
-                <h3 class="tf__q">Thanks — we'll be in touch.</h3>
-                <p class="tf__sub">A partner reads every inquiry. Expect a personal reply within one business day.</p>
-              </div>
-            </form>
-          </div>
-
-          <div class="contact-block__phone-row contact-block__phone-row--standalone">
-            <p class="contact-block__label">Or call us directly</p>
-            <a class="contact-block__phone" href="tel:+49894131910">+49 89 413191-0</a>
-            <p class="contact-block__copy">We're reachable Monday to Friday, 9:00–18:00 CET.</p>
-          </div>
-          </div><!-- /.contact-body -->
-        </div>
-
-        <footer class="imprint">
-          <p class="imprint__links">
-            <a href="disclaimer.html">Disclaimer</a>
-            <span aria-hidden="true">·</span>
-            <span class="imprint__copy">© 2026 Munich Leadership Group</span>
-          </p>
-        </footer>
-      </article>
-
+    <div class="ld-hero">
+      <div class="ld-hero__media">
+        <img src="assets/photos/photo-g2.webp" alt="" />
+      </div>
+      <div class="ld-hero__scrim"></div>
+      <div class="ld-hero__copy">
+        <a class="page-back" href="index.html#slide=4">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>back</span>
+        </a>
+        <p class="ld-hero__eyebrow">Services</p>
+        <h1 class="ld-hero__title">Cultural<br>Transformation.</h1>
+        <p class="ld-hero__lead">Cultura non est exercitatio communicationis — est summa morum ducendi quotidie. Adiuvamus organizationes in mutatione profunda ut duces culturam aspiratam ipsi ostendant, inserant, et sustineant.</p>
+      </div>
     </div>
 
-    <button id="jumpToApproach" data-jump="3" style="display:none" aria-hidden="true" tabindex="-1"></button>
+    <div class="ld-content">
 
+      <div class="ld-intro">
+        <h2 class="ld-intro__heading">Culture is built by leaders, every day</h2>
+        <p>Cultura non in documentis vivit. Vivit in decisionibus quas duces faciunt, in verbis quae dicunt, et in exemplis quae praebent.</p>
+        <p><strong>Mutatio culturalis vera incipit cum mutatio ducendi vera incipit. Non ante.</strong></p>
+        <p>Comitamur organizationes per integrum iter transformationis — a diagnosi initiatis usque ad mutationem systematicam comportamentorum ducendi. Nolumus solas "initiationes culturales". Volumus mutationem permanentem quae in cotidiana vita operationis radicatur. Hoc exigit patientiam, constanciam, et methodum quam scientifice fundavimus et per multos annos exercuimus.</p>
+        <p><strong>Transformatio culturalis non est eventus — est itineris multos annos duraturum quod acompagnamus passo post passum.</strong></p>
+        <p>Experti nostri provenerunt ex industriis multis et viderunt quid operatur et quid non operatur in cultura organizationis vera.</p>
+      </div>
+
+      <div class="ld-usp">
+        <p class="ld-usp__label">Our belief</p>
+        <p class="ld-usp__text">"Cultura sequitur comportamentum. Si vis culturam novam, prius mutanda sunt comportamenta ducendi — non sola verba in posters et in praesentation­ibus."</p>
+      </div>
+
+      <p class="ld-section-label" style="margin-bottom:24px;">What we offer</p>
+      <div class="ld-offerings">
+
+        <div class="ld-offering">
+          <h3 class="ld-offering__title">The Process</h3>
+          <ul class="ld-offering__list">
+            <li>Problem</li>
+            <li>Solution</li>
+            <li class="ld-offering__list-highlight">Testimonials</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="ld-cta">
+        <p>Ready to transform the culture that shapes everything?</p>
+        <a class="ld-cta__btn" href="index.html#slide=8">
+          Start the conversation
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+
+      <footer class="imprint" style="margin-top: clamp(32px,4vh,56px);">
+        <p class="imprint__links">
+          <a href="disclaimer.html">Disclaimer</a>
+          <span aria-hidden="true">&middot;</span>
+          <span class="imprint__copy">&copy; 2026 Munich Leadership Group</span>
+        </p>
+      </footer>
+
+    </div>
   </main>
 
-  <script src="app.js?v=116" defer></script>
   <script>
-    // Tailor form step machine — inline because the form lives inside the deck slide.
-    (() => {
-      const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
-      const tf = document.getElementById('tailorForm');
-      if (!tf) return;
-      const steps = $$('.tf__step', tf);
-      const fill  = document.getElementById('tailorFill');
-      let stepIdx = 0;
-      const answers = {};
-
-      function updateProgress() {
-        fill.style.width = Math.min(100, ((stepIdx + 1) / 3) * 100) + '%';
-      }
-      function show(i) {
-        steps.forEach((s, k) => s.classList.toggle('is-active', k === i));
-        stepIdx = i;
-        updateProgress();
-        const input = steps[i].querySelector('input, textarea');
-        if (input) setTimeout(() => input.focus(), 320);
-      }
-      function validate(step) {
-        const required = step.dataset.required === '1';
-        const type = step.dataset.type;
-        const input = step.querySelector('input, textarea');
-        const err = step.querySelector('.tf__error');
-        if (err) err.hidden = true;
-        if (!input) return true;
-        const v = input.value.trim();
-        if (required && !v) { input.focus(); return false; }
-        if (type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-          if (err) err.hidden = false;
-          input.focus();
-          return false;
-        }
-        return true;
-      }
-      function next() {
-        const step = steps[stepIdx];
-        if (!validate(step)) return;
-        const input = step.querySelector('input, textarea');
-        if (input && step.dataset.field) answers[step.dataset.field] = input.value.trim();
-        show(Math.min(stepIdx + 1, steps.length - 1));
-      }
-      function back() { show(Math.max(stepIdx - 1, 0)); }
-      function pickChoice(btn) {
-        const step = steps[stepIdx];
-        const field = step.dataset.field;
-        $$('.tf__choice', step).forEach((c) => c.classList.toggle('is-selected', c === btn));
-        if (field) answers[field] = btn.dataset.value;
-        if (stepIdx === 2) {
-          setTimeout(() => {
-            document.getElementById('jumpToApproach').click();
-          }, 280);
-        } else {
-          setTimeout(() => show(Math.min(stepIdx + 1, steps.length - 1)), 280);
-        }
-      }
-
-      tf.addEventListener('click', (e) => {
-        const btn = e.target.closest('button');
-        if (!btn) return;
-        const action = btn.dataset.action;
-        if (action === 'next')   { e.preventDefault(); e.stopPropagation(); next(); }
-        else if (action === 'back') { e.preventDefault(); e.stopPropagation(); back(); }
-        else if (action === 'submit') {
-          e.preventDefault(); e.stopPropagation();
-          const lastStep = steps[steps.length - 2];
-          if (lastStep) {
-            const input = lastStep.querySelector('input, textarea');
-            if (input && lastStep.dataset.field) answers[lastStep.dataset.field] = input.value.trim();
-          }
-          show(steps.length - 1);
-        }
-        else if (btn.classList.contains('tf__choice')) { e.stopPropagation(); pickChoice(btn); }
+    document.querySelectorAll('.page-back').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        e.preventDefault();
+        document.querySelector('.standalone').classList.add('is-leaving');
+        setTimeout(() => { location.href = href; }, 320);
       });
-
-      tf.addEventListener('keydown', (e) => {
-        if (e.key !== 'Enter') return;
-        const step = steps[stepIdx];
-        if (e.target.tagName === 'TEXTAREA' && e.shiftKey) return;
-        e.preventDefault(); e.stopPropagation();
-        const primary = step.querySelector('.tf__cta');
-        if (primary && primary.dataset.action === 'submit') {
-          if (!validate(step)) return;
-          const input = step.querySelector('input, textarea');
-          if (input && step.dataset.field) answers[step.dataset.field] = input.value.trim();
-          show(steps.length - 1);
-        } else if ($$('.tf__choice', step).length) {
-          const first = step.querySelector('.tf__choice.is-selected') || step.querySelector('.tf__choice');
-          if (first) pickChoice(first);
-        } else next();
-      }, true);
-
-      tf.addEventListener('keydown', (e) => {
-        const step = steps[stepIdx];
-        const choices = $$('.tf__choice', step);
-        if (!choices.length) return;
-        const letter = e.key.toUpperCase();
-        const idx = 'ABCDEFGHIJ'.indexOf(letter);
-        if (idx < 0 || idx >= choices.length) return;
-        e.preventDefault(); e.stopPropagation();
-        pickChoice(choices[idx]);
-      }, true);
-
-      updateProgress();
-    })();
+    });
   </script>
+  <script src="subnav.js"></script>
 </body>
 </html>
