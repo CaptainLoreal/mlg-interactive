@@ -254,7 +254,7 @@
     setTimeout(() => c.el.remove(), 200);
 
     chipsCleared += 1;
-    if (chipsCleared >= 3) {
+    if (chipsCleared >= 1) {
       triggerReveal();
     }
   }
