@@ -2808,7 +2808,7 @@ button { font-family: inherit; cursor: pointer; }
   .programmes li { grid-template-columns: 32px 1fr; }
   .programmes__num { font-size: 18px; }
   .controls { left: 16px; }
-  .topbar { left: 16px; right: 16px; }
+  .topbar { left: 0; right: 0; border-radius: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
