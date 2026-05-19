@@ -356,6 +356,7 @@
     slideNav.innerHTML = '';
     slides.forEach((slide, i) => {
       const title = slide.dataset.title || `${i + 1}`;
+      if (title === 'Tailor') return;
       if (title === 'Services') {
         const wrap = document.createElement('div');
         wrap.className = 'slide-nav__dropdown-wrap';
@@ -451,6 +452,7 @@
     // Build mobile nav items
     slides.forEach((slide, i) => {
       const title = slide.dataset.title || String(i + 1);
+      if (title === 'Tailor') return;
       const item = document.createElement('button');
       item.className = 'mobile-nav__item';
       item.textContent = title;

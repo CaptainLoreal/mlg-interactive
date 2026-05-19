@@ -1,7 +1,6 @@
 (function () {
   var slides = [
     { title: 'Welcome',         href: 'index.html' },
-    { title: 'Tailor',          href: 'index.html#slide=1' },
     { title: 'Clients',         href: 'index.html#slide=2' },
     { title: 'Approach',        href: 'index.html#slide=3' },
     { title: 'Services',        href: 'index.html#slide=4', dropdown: [
