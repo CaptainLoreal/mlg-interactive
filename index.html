@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e0f10" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=113" />
+  <link rel="stylesheet" href="styles.css?v=114" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -67,9 +67,15 @@
       </nav>
 
       <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
-        <span class="burger__bar"></span>
-        <span class="burger__bar"></span>
-        <span class="burger__bar"></span>
+        <svg class="burger__icon burger__icon--open" viewBox="0 0 22 16" width="22" height="16" fill="none" aria-hidden="true">
+          <rect y="0"  width="22" height="1.5" rx="1" fill="currentColor"/>
+          <rect y="7"  width="22" height="1.5" rx="1" fill="currentColor"/>
+          <rect y="14" width="22" height="1.5" rx="1" fill="currentColor"/>
+        </svg>
+        <svg class="burger__icon burger__icon--close" viewBox="0 0 18 18" width="18" height="18" fill="none" aria-hidden="true">
+          <line x1="1" y1="1" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="17" y1="1" x2="1" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
       </button>
     </div>
 
