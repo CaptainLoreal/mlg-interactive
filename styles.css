@@ -684,8 +684,10 @@ button { font-family: inherit; cursor: pointer; }
   transition: color 200ms, border-color 200ms;
 }
 .standalone .topbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
 }
 .slide-nav__btn:hover { color: rgba(255,255,255,0.75); }
