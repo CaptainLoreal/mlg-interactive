@@ -304,6 +304,13 @@ button { font-family: inherit; cursor: pointer; }
   animation: fadeIn 600ms var(--ease-out) 1100ms forwards;
 }
 
+@media (max-width: 640px) {
+  .slide-start {
+    margin-top: auto;
+    margin-bottom: max(env(safe-area-inset-bottom, 0px) + 32px, 48px);
+  }
+}
+
 .slide-start__track {
   position: absolute;
   inset: 0;
