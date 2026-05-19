@@ -11,7 +11,7 @@
       { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
     ]},
     { title: 'Why MLG',         href: 'index.html#slide=5' },
-    { title: 'The Challenges',  href: 'index.html#slide=6' },
+    { title: 'Tools',           href: 'index.html#slide=6' },
     { title: 'Team',            href: 'index.html#slide=7' },
     { title: 'Contact',         href: 'index.html#slide=8' },
   ];

@@ -69,9 +69,13 @@ html, body {
 }
 
 body {
-  /* prevent the page itself scrolling — slideshow handles its own paging */
   overflow: hidden;
   touch-action: pan-y;
+}
+
+body.deck-active {
+  overflow-y: scroll;
+  height: auto;
 }
 
 img { display: block; max-width: 100%; }
@@ -555,6 +559,7 @@ button { font-family: inherit; cursor: pointer; }
 .deck {
   position: fixed;
   inset: 0;
+  overflow: hidden;
   background: #000;
   opacity: 0;
   visibility: hidden;
@@ -567,21 +572,21 @@ button { font-family: inherit; cursor: pointer; }
 
 /* topbar — glass menu bar across the top */
 .topbar {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 5;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: clamp(12px, 2vw, 24px);
   padding: 12px var(--pad-x);
   padding-top: calc(env(safe-area-inset-top, 0px) + 12px);
-  background: rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255,255,255,0.16);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
   color: rgba(255,255,255,0.85);
   font-size: 12px;
   letter-spacing: 0.18em;
@@ -656,10 +661,10 @@ button { font-family: inherit; cursor: pointer; }
   background: none;
   border: none;
   border-bottom: 1px solid transparent;
-  color: rgba(255,255,255,0.40);
+  color: rgba(255,255,255,0.50);
   font: inherit;
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
@@ -699,6 +704,105 @@ button { font-family: inherit; cursor: pointer; }
 }
 @media (max-width: 640px) {
   .slide-nav { display: none; }
+}
+
+/* ── Burger menu (mobile only) ─────────────────────────────── */
+.burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto;
+  flex-shrink: 0;
+}
+.burger__bar {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 2px;
+  transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out);
+}
+.burger__bar + .burger__bar { margin-top: 5px; }
+
+.burger.is-open .burger__bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.burger.is-open .burger__bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger.is-open .burger__bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile nav drawer */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+  background: rgba(10,11,12,0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  flex-direction: column;
+  padding: 80px 28px 40px;
+  gap: 4px;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+  pointer-events: none;
+}
+.mobile-nav.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.mobile-nav__item {
+  display: block;
+  width: 100%;
+  padding: 14px 0;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  font-family: var(--font-sans);
+}
+.mobile-nav__item:last-child { border-bottom: none; }
+.mobile-nav__item:hover, .mobile-nav__item:focus { color: #fff; outline: none; }
+.mobile-nav__item.is-active { color: var(--mlg-red); }
+.mobile-nav__sub {
+  padding: 6px 0 6px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mobile-nav__sub-item {
+  display: block;
+  padding: 9px 0;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+.mobile-nav__sub-item:hover { color: rgba(255,255,255,0.85); }
+
+@media (max-width: 640px) {
+  .burger { display: flex; }
+  .mobile-nav { display: flex; }
 }
 
 /* Audience toggle — 3-button segmented control in the middle of the topbar.
@@ -762,7 +866,7 @@ button { font-family: inherit; cursor: pointer; }
 
 /* Bottom-right mark — sits over slides, click triggers the fly animation. */
 .corner-mark {
-  position: absolute;
+  position: fixed;
   right: var(--pad-x);
   bottom: max(env(safe-area-inset-bottom), 22px);
   z-index: 5;
@@ -825,7 +929,7 @@ button { font-family: inherit; cursor: pointer; }
    RAIL — vertical progress on the right
    ============================================================= */
 .rail {
-  position: absolute;
+  position: fixed;
   top: 50%;
   right: clamp(14px, 2.4vw, 28px);
   transform: translateY(-50%);
@@ -884,25 +988,17 @@ button { font-family: inherit; cursor: pointer; }
    SLIDES
    ============================================================= */
 .slides {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  will-change: transform;
 }
 
 .slide {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  min-height: 100dvh;
   overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity var(--dur-4) var(--ease-out), visibility 0s linear var(--dur-4);
-  contain: paint;
-}
-.slide.is-active {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: opacity var(--dur-4) var(--ease-out), visibility 0s linear 0s;
 }
 
 .slide__media {
@@ -956,24 +1052,13 @@ button { font-family: inherit; cursor: pointer; }
   bottom: auto;
 }
 
-/* Per-slide enter animations on the COPY */
-.slide__copy > * {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity var(--dur-4) var(--ease-out), transform var(--dur-4) var(--ease-out);
-  transition-delay: 0ms;
-}
-.slide.is-active .slide__copy > * { opacity: 1; transform: translateY(0); }
-.slide.is-active .slide__copy > *:nth-child(1) { transition-delay: 200ms; }
-.slide.is-active .slide__copy > *:nth-child(2) { transition-delay: 320ms; }
-.slide.is-active .slide__copy > *:nth-child(3) { transition-delay: 440ms; }
-.slide.is-active .slide__copy > *:nth-child(4) { transition-delay: 560ms; }
+/* Slide copy — animated via .reveal system on scroll */
 
 
 /* ---- Per-slide IMAGE animations ---- */
 
 /* Ken Burns — slow zoom-in + drift */
-.slide[data-anim="kenburns"].is-active .slide__media img {
+.slide[data-anim="kenburns"].is-in-view .slide__media img {
   animation: kenburnsA 14s var(--ease-out) forwards;
 }
 @keyframes kenburnsA {
@@ -981,7 +1066,7 @@ button { font-family: inherit; cursor: pointer; }
   100% { transform: scale(1.22) translate(-2%, -1.5%); }
 }
 
-.slide[data-anim="kenburns2"].is-active .slide__media img {
+.slide[data-anim="kenburns2"].is-in-view .slide__media img {
   animation: kenburnsB 16s var(--ease-out) forwards;
 }
 @keyframes kenburnsB {
@@ -993,20 +1078,19 @@ button { font-family: inherit; cursor: pointer; }
 .slide[data-anim="parallax"] .slide__media img {
   transform: scale(1.12) translateX(6%);
 }
-.slide[data-anim="parallax"].is-active .slide__media img {
+.slide[data-anim="parallax"].is-in-view .slide__media img {
   animation: parallaxIn 12s var(--ease-out) forwards;
 }
 @keyframes parallaxIn {
-  0%   { transform: scale(1.18) translateX(6%); filter: blur(6px); }
-  10%  { filter: blur(0); }
-  100% { transform: scale(1.04) translateX(-4%); filter: blur(0); }
+  0%   { transform: scale(1.18) translateX(6%); }
+  100% { transform: scale(1.04) translateX(-4%); }
 }
 
 /* Slide-up — image rises into place */
 .slide[data-anim="slideup"] .slide__media img {
   transform: scale(1.15) translateY(8%);
 }
-.slide[data-anim="slideup"].is-active .slide__media img {
+.slide[data-anim="slideup"].is-in-view .slide__media img {
   animation: slideUpImg 1500ms var(--ease-out) forwards, kenburnsA 18s var(--ease-out) 1500ms forwards;
 }
 @keyframes slideUpImg {
@@ -1017,40 +1101,33 @@ button { font-family: inherit; cursor: pointer; }
 /* Zoom — image tightens hard */
 .slide[data-anim="zoom"] .slide__media img {
   transform: scale(1.45);
-  filter: brightness(0.6) saturate(0.7);
 }
-.slide[data-anim="zoom"].is-active .slide__media img {
+.slide[data-anim="zoom"].is-in-view .slide__media img {
   animation: zoomBack 2200ms var(--ease-out) forwards;
 }
 @keyframes zoomBack {
-  0%   { transform: scale(1.45); filter: brightness(0.6) saturate(0.7); }
-  100% { transform: scale(1.10); filter: brightness(0.55) saturate(0.8); }
+  0%   { transform: scale(1.45); }
+  100% { transform: scale(1.10); }
 }
 
 /* Fade-blur — image breathes in from blur */
 .slide[data-anim="fadeblur"] .slide__media img {
   transform: scale(1.18);
-  filter: blur(10px) brightness(0.7);
+  filter: blur(10px);
 }
-.slide[data-anim="fadeblur"].is-active .slide__media img {
+.slide[data-anim="fadeblur"].is-in-view .slide__media img {
   animation: fadeBlurIn 1800ms var(--ease-out) forwards, kenburnsA 16s var(--ease-out) 1800ms forwards;
 }
 @keyframes fadeBlurIn {
-  0%   { transform: scale(1.18); filter: blur(10px) brightness(0.7); }
-  100% { transform: scale(1.10); filter: blur(0)    brightness(1); }
+  0%   { transform: scale(1.18); filter: blur(10px); }
+  100% { transform: scale(1.10); filter: blur(0); }
 }
 
 @media (min-width: 768px) {
   .slide[data-anchor="top"] .slide__media img { object-position: center 0%; }
 }
 
-/* The slide that's leaving gets a soft push */
-.slide.is-leaving .slide__media img {
-  animation: leaveImg var(--dur-4) var(--ease-out) forwards !important;
-}
-@keyframes leaveImg {
-  to { transform: scale(1.0) translateY(-2%); filter: brightness(0.4) blur(2px); }
-}
+/* is-leaving removed — scrollable layout */
 
 
 /* =============================================================
@@ -1225,19 +1302,17 @@ button { font-family: inherit; cursor: pointer; }
 /* =============================================================
    CARDS — Services & USP slides
    ============================================================= */
-.slide--cards .slide__media img { filter: brightness(0.40) saturate(0.55); }
-.slide--mountain .slide__media img { filter: brightness(0.82) saturate(0.85); }
+.slide--cards .slide__media img { }
+.slide--mountain .slide__media img { }
 
 .cards-row {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 2;
   display: grid;
   grid-template-columns: 1fr;
   gap: 14px;
-  align-content: center;
-  padding: clamp(240px, 34vh, 360px) var(--pad-x) clamp(80px, 12vh, 140px);
-  pointer-events: none;                 /* let clicks land on whatever is in the padding area */
+  padding: clamp(200px, 28vh, 300px) var(--pad-x) clamp(80px, 12vh, 140px);
+  pointer-events: none;
 }
 .cards-row > * { pointer-events: auto; }
 
@@ -1288,10 +1363,11 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .card-item__body {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
-  color: rgba(255,255,255,0.72);
+  color: rgba(255,255,255,0.86);
   margin: 0;
+  font-weight: 450;
 }
 
 /* "More" pill sits at the bottom of each card, left-aligned. */
@@ -1425,17 +1501,52 @@ button { font-family: inherit; cursor: pointer; }
 /* =============================================================
    TEAM SLIDE — tabs (Core team / Associate partners) + grid of members
    ============================================================= */
-.slide--team .slide__media img,
-.slide--team.is-active .slide__media img,
-.slide[data-anim="parallax"].slide--team .slide__media img,
-.slide[data-anim="parallax"].slide--team.is-active .slide__media img {
-  filter: brightness(1.1) saturate(0.9) !important;
+.slide--team .slide__media img {
   object-position: left center;
   transition: none !important;
+  animation: none !important;
 }
 
 .slide--approach .card-item__title {
   text-transform: capitalize;
+}
+
+/* ── Approach slide — centered scrollable layout ─────────────── */
+
+.approach-centered-wrap {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  padding: clamp(80px, 11vh, 120px) var(--pad-x) clamp(60px, 8vh, 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 4vh, 40px);
+}
+.approach-centered__header {
+  text-align: center;
+  max-width: 680px;
+  width: 100%;
+}
+.approach-centered__header .display { font-size: clamp(26px, 4vw, 44px); margin-bottom: 18px; }
+.approach-centered__header .approach-intro__label { margin-top: 18px; }
+.approach-centered__header .approach-intro__body { margin-left: auto; margin-right: auto; text-align: center; }
+.approach-centered__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  max-width: 880px;
+}
+@media (max-width: 600px) {
+  .approach-centered__cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tools slide — normal padding (approach slide uses 100vh for scroll extension) */
+.slide--tools .approach-centered-wrap {
+  padding-bottom: clamp(60px, 8vh, 100px);
 }
 
 /* ── Approach Intro slide ─────────────────────────────────────── */
@@ -1462,11 +1573,12 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .approach-intro__body {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
-  color: rgba(255,255,255,0.80);
+  color: rgba(255,255,255,0.88);
   margin: 0 0 10px;
   max-width: 56ch;
+  font-weight: 450;
 }
 
 .approach-intro__label {
@@ -1526,11 +1638,12 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .challenge-box__body {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.55;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.82);
   margin: 0;
   flex: 1;
+  font-weight: 450;
 }
 
 .challenge-box__conclusion {
@@ -1540,6 +1653,30 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0;
   padding-top: 6px;
   border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Why MLG slide — centered headline + vertical card stack */
+.why-mlg-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(24px, 4vh, 40px);
+  padding: clamp(80px, 11vh, 120px) var(--pad-x) clamp(60px, 8vh, 100px);
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+  min-height: 100dvh;
+}
+.why-mlg__header { max-width: 600px; }
+.why-mlg__header .display { margin-bottom: 10px; }
+.why-mlg__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(100%, 640px);
+  text-align: left;
 }
 
 @media (min-width: 900px) {
@@ -1563,17 +1700,15 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .team-wrap {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 2;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+  overflow: visible;
   padding: clamp(96px, 11vh, 132px) var(--pad-x) clamp(40px, 6vh, 72px);
   color: #fff;
   background: rgba(255,255,255,0.06);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  min-height: 100dvh;
 }
 
 .team-head {
@@ -1720,21 +1855,19 @@ button { font-family: inherit; cursor: pointer; }
 /* =============================================================
    CONTACT
    ============================================================= */
-.slide--contact .slide__media img { filter: brightness(0.72) saturate(0.75); }
+.slide--contact .slide__media img { }
 
 .contact-wrap {
-  position: absolute;
-  inset: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: clamp(28px, 5vh, 48px);
-  padding: clamp(90px, 12vh, 130px) var(--pad-x) clamp(80px, 10vh, 120px);
+  padding: clamp(90px, 12vh, 130px) var(--pad-x) clamp(60px, 8vh, 100px);
   z-index: 2;
   color: #fff;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+  overflow: visible;
+  min-height: 100dvh;
 }
 
 .contact-wrap__head {
@@ -2239,7 +2372,7 @@ button { font-family: inherit; cursor: pointer; }
     justify-content: center;
     padding: clamp(90px, 11vh, 130px) var(--pad-x) clamp(60px, 8vh, 100px);
     gap: clamp(20px, 3vh, 40px);
-    overflow-y: auto;
+    overflow: visible;
   }
   .contact-wrap__head {
     max-width: 720px;
@@ -2281,11 +2414,9 @@ button { font-family: inherit; cursor: pointer; }
 
 /* Imprint — small print at the very bottom of the contact slide. */
 .imprint {
-  position: absolute;
-  left: var(--pad-x);
-  right: calc(var(--pad-x) + 60px);   /* clear the corner mark */
-  bottom: max(env(safe-area-inset-bottom), 14px);
+  position: relative;
   z-index: 3;
+  padding: 20px var(--pad-x) max(env(safe-area-inset-bottom, 0px) + 24px, 24px);
   color: rgba(255, 255, 255, 0.45);
   font-family: var(--font-sans);
   font-size: 11px;
@@ -2322,7 +2453,7 @@ button { font-family: inherit; cursor: pointer; }
 /* =============================================================
    GLOBE
    ============================================================= */
-.slide--globe .slide__media img { filter: brightness(0.42) saturate(0.55); }
+.slide--globe .slide__media img { }
 
 /* The top headline floats above the globe — let pointer events pass through
    so the globe can be grabbed anywhere underneath the type. */
@@ -2342,8 +2473,7 @@ button { font-family: inherit; cursor: pointer; }
 .slide__copy--side .display { margin: 0; }
 
 .globe-wrap {
-  position: absolute;
-  inset: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2351,6 +2481,7 @@ button { font-family: inherit; cursor: pointer; }
   gap: clamp(14px, 3vh, 28px);
   z-index: 2;
   padding: clamp(140px, 18vh, 220px) var(--pad-x) clamp(40px, 6vh, 80px);
+  min-height: 100dvh;
 }
 
 .globe-stage {
@@ -2592,17 +2723,17 @@ button { font-family: inherit; cursor: pointer; }
      wrapper which stacks the headline and the selected-client card. */
   .globe-wrap {
     display: grid;
-    grid-template-columns: min(46vw, 520px) min(36vw, 420px);
+    grid-template-columns: min(44vw, 500px) min(34vw, 400px);
     grid-template-rows: 1fr auto;
     column-gap: clamp(32px, 5vw, 64px);
     row-gap: clamp(10px, 2vh, 22px);
     justify-content: center;
     align-items: center;
-    padding: clamp(140px, 14vh, 200px) var(--pad-x) clamp(110px, 14vh, 160px);
+    padding: clamp(140px, 14vh, 200px) var(--pad-x) clamp(110px, 14vh, 160px) clamp(80px, 10vw, 160px);
   }
   .globe-stage {
     grid-column: 1; grid-row: 1;
-    width: min(46vw, 520px);
+    width: min(44vw, 500px);
     align-self: center;
     justify-self: center;
   }
@@ -2647,3 +2778,23 @@ button { font-family: inherit; cursor: pointer; }
   }
   .globe { animation: none; }
 }
+
+/* =============================================================
+   REVEAL — scroll-triggered entry animations
+   ============================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 680ms var(--ease-out), transform 680ms var(--ease-out);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Stagger children inside revealed containers */
+.reveal.is-visible > *:nth-child(2) { transition-delay: 80ms; }
+.reveal.is-visible > *:nth-child(3) { transition-delay: 160ms; }
+.reveal.is-visible > *:nth-child(4) { transition-delay: 240ms; }
+
+/* Slide copy — ensure it layers above background */
+.slide__copy { z-index: 2; }

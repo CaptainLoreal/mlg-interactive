@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e0f10" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=106" />
+  <link rel="stylesheet" href="styles.css?v=111" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -65,7 +65,17 @@
       <nav class="slide-nav" aria-label="Slide navigation">
         <!-- built by JS -->
       </nav>
+
+      <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span class="burger__bar"></span>
+        <span class="burger__bar"></span>
+        <span class="burger__bar"></span>
+      </button>
     </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" aria-hidden="true">
+      <!-- built by JS -->
+    </nav>
 
     <!-- Bottom-right mark — click to play the fly animation -->
     <button id="cornerMark" class="corner-mark" type="button" aria-label="Munich Leadership Group">
@@ -80,7 +90,7 @@
     <div class="slides" id="slides">
 
       <!-- 1 — Welcome -->
-      <article class="slide is-active" data-slide="0" data-anim="kenburns" data-title="Welcome">
+      <article class="slide" data-slide="0" data-anim="kenburns" data-title="Welcome">
         <div class="slide__media">
           <img src="assets/photos/photo-g1.webp" alt="" loading="eager" />
         </div>
@@ -95,7 +105,7 @@
       <!-- 2 — Tailor -->
       <article class="slide slide--contact" data-slide="1" data-anim="parallax" data-title="Tailor">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-m1.webp" alt="" loading="lazy" />
+          <img src="assets/photos/photo-m2.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -273,20 +283,20 @@
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
-        <div class="approach-intro-wrap">
-          <div class="approach-intro__left">
+        <div class="approach-centered-wrap">
+          <div class="approach-centered__header">
             <p class="eyebrow">Approach</p>
             <h2 class="display">A rigorous approach to Executive Education.</h2>
             <p class="approach-intro__body">Times are changing faster than ever, and so are the requirements for impactful executive education.</p>
             <p class="approach-intro__body">The <strong>WHAT</strong> for leaders is still the same: Create best performance in your area of responsibility. But the <strong>HOW</strong> has changed: Lead without formal authority, be open to the new, adapt fast, learn from mistakes, inspire your environment.</p>
             <p class="approach-intro__label">MLG Executive Education:</p>
-            <ul class="approach-intro__usps">
-              <li><strong>Deeply rooted in science.</strong> <a href="usp.html" class="approach-intro__link">Learn more</a></li>
+            <ul class="approach-intro__usps" style="display:inline-flex; flex-direction:column; align-items:flex-start; text-align:left;">
+              <li><strong>Deeply rooted in science.</strong> <a href="https://theleadingbrain.com/" target="_blank" rel="noopener" class="approach-intro__link">Learn more</a></li>
               <li><strong>Tailor-made.</strong> <a href="leadership-development.html" class="approach-intro__link">Learn more</a></li>
               <li><strong>Perfectly working in practice.</strong> <a href="#" data-jump="2" class="approach-intro__link">Learn more</a></li>
             </ul>
           </div>
-          <div class="approach-intro__right">
+          <div class="approach-centered__cards">
             <div class="challenge-box">
               <h3 class="challenge-box__title">Artificial Intelligence (AI)</h3>
               <p class="challenge-box__body">How can AI make me better, faster, and more productive? What does AI mean for a performance boost in my team(s)? How can I keep up with the speed of AI development?</p>
@@ -320,7 +330,7 @@
 
         <div class="slide__copy slide__copy--top">
           <p class="eyebrow">Services</p>
-          <h2 class="display">Everything a leader needs. Nothing they don't.</h2>
+          <h2 class="display">Omnia quae dux quaerit. Nihil quod non opus est.</h2>
         </div>
 
         <div class="cards-row">
@@ -362,17 +372,17 @@
       <!-- 5 — Why MLG -->
       <article class="slide slide--approach-intro slide--why-mlg" data-slide="2" data-anim="parallax" data-title="Why MLG">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-g4.webp" alt="" loading="lazy" />
+          <img src="assets/photos/photo-m4.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
-        <div class="approach-intro-wrap">
-          <div class="approach-intro__left">
+        <div class="why-mlg-wrap">
+          <div class="why-mlg__header">
             <p class="eyebrow">About</p>
             <h2 class="display">Why MLG?</h2>
             <p class="approach-intro__body">Three reasons why the world's leading organisations choose us — and keep choosing us.</p>
           </div>
-          <div class="approach-intro__right" style="grid-template-columns: 1fr; gap: 14px;">
+          <div class="why-mlg__cards">
             <div class="challenge-box">
               <h3 class="challenge-box__title">Unbeatable professional experience</h3>
               <p class="challenge-box__body">Since 2008 we have supported leading companies on all topics to create great leadership – rewarded with an outstanding reputation and awarded by professional institutions. We have designed and delivered thousands of tailor-made programs on leadership, change and transformation. Our team: 50+ experts from more than 10 nationalities ensuring the most pragmatic solutions for all our clients' unique challenges.</p>
@@ -389,55 +399,34 @@
         </div>
       </article>
 
-      <!-- 6 — The Challenges -->
-      <article class="slide slide--cards slide--mountain" data-slide="3" data-anim="kenburns2" data-anchor="right-80" data-title="The Challenges">
-        <div class="slide__media">
-          <img src="assets/photos/photo-m2.webp" alt="" loading="lazy" />
+      <!-- 6 — Tools -->
+      <article class="slide slide--approach-intro slide--tools" data-slide="2" data-anim="parallax" data-title="Tools">
+        <div class="slide__media slide__media--soft">
+          <img src="assets/photos/photo-g5.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="slide__copy slide__copy--top">
-          <p class="eyebrow">The Challenges</p>
-          <h2 class="display">The challenges leaders actually face.</h2>
-        </div>
-
-        <div class="cards-row">
-          <div class="card-item">
-            <h3 class="card-item__title">AI.</h3>
-            <p class="card-item__body">Those who adapt early will strive. Those who wait will struggle.</p>
-            <a class="btn btn--ghost btn--more" href="ai.html">
-              <span>more</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
+        <div class="approach-centered-wrap">
+          <div class="approach-centered__header">
+            <p class="eyebrow">Tools</p>
+            <h2 class="display">Science &amp; assessment tools we stand behind.</h2>
+            <p class="approach-intro__body">Two instruments — one for leadership science, one for team potential — that we integrate across our work.</p>
           </div>
-          <div class="card-item">
-            <h3 class="card-item__title">Navigating through uncertainty.</h3>
-            <p class="card-item__body">Give orientation.</p>
-            <a class="btn btn--ghost btn--more" href="navigating-uncertainty.html">
-              <span>more</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-          <div class="card-item">
-            <h3 class="card-item__title">Ambidexterity.</h3>
-            <p class="card-item__body">Use both of your hands.</p>
-            <a class="btn btn--ghost btn--more" href="ambidexterity.html">
-              <span>more</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-          <div class="card-item">
-            <h3 class="card-item__title">NeuroScience.</h3>
-            <p class="card-item__body">The Leading Brain.</p>
-            <a class="btn btn--ghost btn--more" href="neuroscience.html">
-              <span>more</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
+          <div class="approach-centered__cards">
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">The Leading Brain</h3>
+              <p class="challenge-box__body">The internationally acclaimed book by Friederike Fabritius and Dr. Hans W. Hagemann translates the latest breakthroughs in neuroscience into practical strategies for leaders — on focus, emotion regulation, decision-making, and peak performance. Named Best Business Book 2017 by strategy+business.</p>
+              <p class="challenge-box__conclusion"><a href="https://theleadingbrain.com/" target="_blank" rel="noopener" class="approach-intro__link">theleadingbrain.com →</a></p>
+            </div>
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">Team BPTI Assessment</h3>
+              <p class="challenge-box__body">The High Potential Trait Indicator (HPTI) is a validated personality assessment measuring six traits linked to long-term leadership success: Conscientiousness, Adjustment, Curiosity, Risk Approach, Ambiguity Acceptance, and Competitiveness. Used for succession planning, team development, and leadership recruitment.</p>
+              <p class="challenge-box__conclusion"><a href="http://team-hpti.com/theidea" target="_blank" rel="noopener" class="approach-intro__link">team-hpti.com →</a></p>
+            </div>
           </div>
         </div>
       </article>
 
-      <!-- 5 — Team -->
+      <!-- 7 — Team -->
       <article class="slide slide--team" data-slide="5" data-anim="parallax" data-title="Team">
         <div class="slide__media slide__media--soft">
           <img src="assets/photos/photo-g5.webp" alt="" loading="lazy" />
@@ -663,7 +652,7 @@
 
   </main>
 
-  <script src="app.js?v=107" defer></script>
+  <script src="app.js?v=108" defer></script>
   <script>
     // Tailor form step machine — inline because the form lives inside the deck slide.
     (() => {

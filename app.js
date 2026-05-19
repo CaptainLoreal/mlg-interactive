@@ -1,5 +1,5 @@
 /* =============================================================
-   MLG interactive landing — slideshow + globe
+   MLG interactive landing — smooth scrollable
    ============================================================= */
 
 (() => {
@@ -10,7 +10,7 @@
      Intro: static logo + slide-to-start
      ===================================================== */
   const intro    = $('#intro');
-  const enterBtn = $('#enterBtn');                    // outer slide-start container
+  const enterBtn = $('#enterBtn');
   const knob     = $('#enterKnob');
   const fill     = enterBtn.querySelector('.slide-start__fill');
   const excuses       = $('#excuses');
@@ -22,23 +22,26 @@
     excuses.classList.add('is-on');
     excuses.setAttribute('aria-hidden', 'false');
     setTimeout(() => { intro.style.display = 'none'; }, 1100);
-    // Build chips after the page has had a frame to lay out at full size
     setTimeout(buildExcuses, 200);
   }
 
   function enterDeck() {
     excuses.classList.add('is-leaving');
     deck.classList.add('is-on');
-    deck.classList.add('is-armed');
     deck.setAttribute('aria-hidden', 'false');
     setTimeout(() => { excuses.style.display = 'none'; }, 1100);
+    // Enable native scroll + start smooth scroll
+    document.body.classList.add('deck-active');
+    syncHeight();
+    startSmoothScroll();
     setTimeout(buildGlobe, 16);
+    setTimeout(initReveal, 400);
   }
 
   // Slide-to-start drag handler
   let startDrag = null;
   function maxKnobX() {
-    return enterBtn.clientWidth - knob.offsetWidth - 8; // 4px padding each side
+    return enterBtn.clientWidth - knob.offsetWidth - 8;
   }
   function setKnob(x) {
     const clamped = Math.max(0, Math.min(maxKnobX(), x));
@@ -80,7 +83,6 @@
     enterBtn.classList.remove('is-dragging');
     document.removeEventListener('pointermove', onSlideMove);
     if (cur >= maxKnobX() * 0.85) {
-      // Snap to the end and trigger
       setKnob(maxKnobX());
       enterBtn.classList.add('is-done');
       startExperience();
@@ -90,7 +92,6 @@
     startDrag = null;
   }
 
-  // Keyboard accessibility — Enter or Space starts the deck.
   enterBtn.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -100,10 +101,7 @@
     }
   });
 
-  /* Reusable: fling the three chevrons of a stepped-pyramid mark out to the
-     top-right one by one, then back from the bottom-left. The target element
-     must contain three `.mark__path` children (separate <svg> roots).
-     Exposed on window.MLG for later wiring elsewhere on the site. */
+  /* Fly animation for the stepped-pyramid mark. */
   function flyMark(markEl) {
     if (!markEl || markEl.dataset.flying === '1') return;
     markEl.dataset.flying = '1';
@@ -165,13 +163,11 @@
       const inner = document.createElement('span');
       inner.className = 'excuse-chip__inner';
       inner.textContent = text;
-      // Stagger the bob so chips don't all rise and fall in unison
       inner.style.animationDelay = `${(Math.random() * -4).toFixed(2)}s`;
       chip.appendChild(inner);
 
       excusesField.appendChild(chip);
 
-      // Force layout to read width/height
       const w = chip.offsetWidth;
       const h = chip.offsetHeight;
 
@@ -179,7 +175,7 @@
       const x = margin + Math.random() * Math.max(0, W - w - margin * 2);
       const y = 100 + Math.random() * Math.max(0, H - h - 200);
       const angle = Math.random() * Math.PI * 2;
-      const speed = 0.35 + Math.random() * 0.45;       // faster drift
+      const speed = 0.35 + Math.random() * 0.45;
 
       chip.style.transform = `translate3d(${x}px, ${y}px, 0)`;
 
@@ -225,13 +221,10 @@
     const cx = r.x - parentR.x + r.width / 2;
     const cy = r.y - parentR.y + r.height / 2;
 
-    // Chip itself fades out fast
     c.el.style.transition = 'opacity 120ms var(--ease-out), transform 120ms var(--ease-out)';
     c.el.style.opacity = '0';
     c.el.style.pointerEvents = 'none';
 
-    // Burst into letter fragments scattering outward
-    const fragLifetimes = [];
     for (let i = 0; i < text.length; i++) {
       const ch = text[i];
       if (ch === ' ') continue;
@@ -255,7 +248,7 @@
         ],
         { duration: dur, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)', fill: 'forwards' }
       );
-      fragLifetimes.push(setTimeout(() => frag.remove(), dur + 50));
+      setTimeout(() => frag.remove(), dur + 50);
     }
 
     setTimeout(() => c.el.remove(), 200);
@@ -271,12 +264,11 @@
     revealed = true;
     excuses.classList.add('is-revealing');
     cancelAnimationFrame(chipsRAF);
-    // Hold the line on screen, then advance to the deck
     setTimeout(enterDeck, 3500);
   }
 
 
-  // Bottom-right mark inside the deck — click plays the fly animation.
+  // Corner mark
   const cornerMark = $('#cornerMark');
   if (cornerMark) {
     cornerMark.addEventListener('click', () => flyMark(cornerMark));
@@ -284,23 +276,84 @@
 
 
   /* =====================================================
-     Slideshow
+     Smooth scroll (lerp virtual scroller)
      ===================================================== */
-  const slides   = $$('.slide');
-  const railFill = $('#railFill');
-  const slideNav = document.querySelector('.slide-nav');
+  const slidesEl   = $('#slides');
+  const railFill   = $('#railFill');
+  const slides     = $$('.slide');
+  const slideNav   = document.querySelector('.slide-nav');
 
-  let current = 0;
-  let transitioning = false;
+  let scrollCurrent = 0;
+  let scrollTarget  = 0;
+  const EASE = 0.085;
+  let smoothRunning = false;
+  let revealEls = [];
 
+  function syncHeight() {
+    // Set body height = slides content height so the native scrollbar is real
+    document.body.style.height = slidesEl.scrollHeight + 'px';
+  }
+
+  window.addEventListener('scroll', () => {
+    scrollTarget = window.scrollY;
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (document.body.classList.contains('deck-active')) syncHeight();
+  });
+
+  function startSmoothScroll() {
+    if (smoothRunning) return;
+    smoothRunning = true;
+    requestAnimationFrame(tickSmooth);
+  }
+
+  function tickSmooth() {
+    const diff = scrollTarget - scrollCurrent;
+    scrollCurrent = Math.abs(diff) < 0.5 ? scrollTarget : scrollCurrent + diff * EASE;
+
+    slidesEl.style.transform = `translateY(${-scrollCurrent}px)`;
+
+    // Rail progress
+    const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+    if (railFill) {
+      railFill.style.height = `${Math.min(100, (scrollCurrent / maxScroll) * 100)}%`;
+    }
+
+    // Active nav highlight
+    updateActiveNav();
+
+    // Trigger is-in-view for image entrance animations
+    updateInView();
+
+    // Scroll-driven reveal
+    if (revealEls.length) {
+      const vh = window.innerHeight;
+      revealEls = revealEls.filter((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < vh * 0.88) {
+          el.classList.add('is-visible');
+          return false;
+        }
+        return true;
+      });
+    }
+
+    requestAnimationFrame(tickSmooth);
+  }
+
+  /* =====================================================
+     Navigation
+     ===================================================== */
   const serviceLinks = [
-    { label: 'Leadership Development', href: 'leadership-development.html' },
-    { label: 'Coaching & Sparring',    href: 'coaching-sparring.html' },
-    { label: 'Audits & Assessments',  href: 'audits-assessments.html' },
+    { label: 'Leadership Development',  href: 'leadership-development.html' },
+    { label: 'Coaching & Sparring',     href: 'coaching-sparring.html' },
+    { label: 'Audits & Assessments',    href: 'audits-assessments.html' },
     { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
   ];
 
   if (slideNav) {
+    slideNav.innerHTML = '';
     slides.forEach((slide, i) => {
       const title = slide.dataset.title || `${i + 1}`;
       if (title === 'Services') {
@@ -310,7 +363,7 @@
         const btn = document.createElement('button');
         btn.className = 'slide-nav__btn slide-nav__btn--has-drop';
         btn.innerHTML = `${title}<svg class="slide-nav__chevron" viewBox="0 0 10 6" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>`;
-        btn.addEventListener('click', () => goTo(i));
+        btn.addEventListener('click', () => scrollToSlide(i));
 
         const drop = document.createElement('div');
         drop.className = 'slide-nav__dropdown';
@@ -329,110 +382,116 @@
         const btn = document.createElement('button');
         btn.className = 'slide-nav__btn';
         btn.textContent = title;
-        btn.addEventListener('click', () => goTo(i));
+        btn.addEventListener('click', () => scrollToSlide(i));
         slideNav.appendChild(btn);
       }
     });
   }
 
-  updateMeta();
-
-  function goTo(idx) {
-    idx = Math.max(0, Math.min(slides.length - 1, idx));
-    if (idx === current || transitioning) return;
-    transitioning = true;
-
-    const outgoing = slides[current];
-    const incoming = slides[idx];
-
-    outgoing.classList.add('is-leaving');
-    outgoing.classList.remove('is-active');
-
-    void incoming.offsetWidth;          // restart animations
-    incoming.classList.add('is-active');
-
-    // Signature flourish: fly the corner mark whenever the deck crosses
-    // between the Approach and Team slides (in either direction).
-    const fromTitle = outgoing.dataset.title;
-    const toTitle   = incoming.dataset.title;
-    const crossingTeam =
-      (fromTitle === 'Approach' && toTitle === 'Team') ||
-      (fromTitle === 'Team' && toTitle === 'Approach');
-    if (crossingTeam && cornerMark) {
-      flyMark(cornerMark);
-    }
-
-    current = idx;
-    updateMeta();
-
-    setTimeout(() => {
-      outgoing.classList.remove('is-leaving');
-      transitioning = false;
-    }, 700);
+  function scrollToSlide(idx) {
+    if (idx < 0 || idx >= slides.length) return;
+    const y = slides[idx].offsetTop;
+    scrollTarget = y;
+    window.scrollTo({ top: y, behavior: 'instant' });
   }
 
-  function updateMeta() {
-    railFill.style.height = `${((current + 1) / slides.length) * 100}%`;
-    if (slideNav) {
-      slideNav.querySelectorAll('.slide-nav__btn').forEach((btn, i) => {
-        btn.classList.toggle('is-active', i === current);
-      });
-    }
-  }
-
-  window.addEventListener('keydown', (e) => {
-    if (deck.getAttribute('aria-hidden') === 'true') return;
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); goTo(current + 1); }
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); goTo(current - 1); }
-  });
-
-  // "Straight to website" — same destination as clicking the logo (slide 0).
-  const websiteCtaBtn = document.querySelector('.website-cta');
-  if (websiteCtaBtn) {
-    websiteCtaBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      excuses.classList.add('is-leaving');
-      deck.classList.add('is-on');
-      setTimeout(() => { excuses.style.display = 'none'; }, 1100);
-      current = 0;
-      updateMeta();
+  function updateActiveNav() {
+    if (!slideNav) return;
+    const midY = scrollCurrent + window.innerHeight * 0.4;
+    let activeIdx = 0;
+    slides.forEach((slide, i) => {
+      if (slide.offsetTop <= midY) activeIdx = i;
+    });
+    slideNav.querySelectorAll('.slide-nav__btn').forEach((btn, i) => {
+      btn.classList.toggle('is-active', i === activeIdx);
     });
   }
 
-  // Direct-jump buttons — any element with `data-jump="N"` advances to slide N.
+  function updateInView() {
+    const viewTop    = scrollCurrent - 80;
+    const viewBottom = scrollCurrent + window.innerHeight + 80;
+    slides.forEach((slide) => {
+      if (slide.classList.contains('is-in-view')) return;
+      const top = slide.offsetTop;
+      const bot = top + slide.offsetHeight;
+      if (bot > viewTop && top < viewBottom) slide.classList.add('is-in-view');
+    });
+  }
+
+  // data-jump buttons
   $$('[data-jump]').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const idx = parseInt(btn.dataset.jump, 10);
-      if (!Number.isNaN(idx)) goTo(idx);
+      if (!Number.isNaN(idx)) scrollToSlide(idx);
     });
   });
 
-  // Title-jump buttons — `data-jump-title="Services"` jumps to the slide
-  // whose data-title matches. Survives slide reorders better than indices.
+  // data-jump-title buttons
   $$('[data-jump-title]').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const title = btn.dataset.jumpTitle;
       const idx = slides.findIndex((s) => s.dataset.title === title);
-      if (idx >= 0) goTo(idx);
+      if (idx >= 0) scrollToSlide(idx);
     });
   });
 
-  // Audience state — declared up here so jumpFromHash (below) can read it.
-  // The full toggle wiring (click handlers, etc.) sits further down.
-  let currentAudience = null;     // null until the user picks on the selector slide
-  function selectAudience(aud) {
-    currentAudience = aud;
-    $$('.audience-tab').forEach((t) => {
-      const on = t.dataset.audience === aud;
-      t.classList.toggle('is-active', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
+  // Burger menu (mobile)
+  const burgerBtn  = $('#burgerBtn');
+  const mobileNav  = $('#mobileNav');
+  const serviceSubLinks = [
+    { label: 'Leadership Development',  href: 'leadership-development.html' },
+    { label: 'Coaching & Sparring',     href: 'coaching-sparring.html' },
+    { label: 'Audits & Assessments',    href: 'audits-assessments.html' },
+    { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
+  ];
+
+  if (burgerBtn && mobileNav) {
+    // Build mobile nav items
+    slides.forEach((slide, i) => {
+      const title = slide.dataset.title || String(i + 1);
+      const item = document.createElement('button');
+      item.className = 'mobile-nav__item';
+      item.textContent = title;
+      item.addEventListener('click', () => { closeMobileNav(); scrollToSlide(i); });
+      mobileNav.appendChild(item);
+      if (title === 'Services') {
+        const sub = document.createElement('div');
+        sub.className = 'mobile-nav__sub';
+        serviceSubLinks.forEach(({ label, href }) => {
+          const a = document.createElement('a');
+          a.className = 'mobile-nav__sub-item';
+          a.href = href;
+          a.textContent = label;
+          sub.appendChild(a);
+        });
+        mobileNav.appendChild(sub);
+      }
     });
+
+    function openMobileNav() {
+      burgerBtn.classList.add('is-open');
+      burgerBtn.setAttribute('aria-expanded', 'true');
+      mobileNav.classList.add('is-open');
+      mobileNav.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileNav() {
+      burgerBtn.classList.remove('is-open');
+      burgerBtn.setAttribute('aria-expanded', 'false');
+      mobileNav.classList.remove('is-open');
+      mobileNav.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    burgerBtn.addEventListener('click', () => {
+      mobileNav.classList.contains('is-open') ? closeMobileNav() : openMobileNav();
+    });
+    // Close on Escape
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileNav(); });
   }
 
-  // Deep-link from a standalone page (services.html, approach.html, etc.):
-  // if the URL has #slide=N, skip the intro + excuses and land on that slide.
+  // Deep-link: #slide=N skips intro and scrolls to the right section
   function jumpFromHash() {
     const m = location.hash.match(/^#slide=(\d+)$/);
     if (!m) return false;
@@ -441,48 +500,67 @@
     intro.style.display = 'none';
     if (excuses) excuses.style.display = 'none';
     deck.classList.add('is-on');
-    deck.classList.add('is-armed');               // skip the audience-gate too
-    if (!currentAudience) selectAudience('senior'); // sensible default for deep links
     deck.setAttribute('aria-hidden', 'false');
-    slides[0].classList.remove('is-active');
-    slides[idx].classList.add('is-active');
-    current = idx;
-    updateMeta();
+    document.body.classList.add('deck-active');
+    syncHeight();
+    const y = slides[idx]?.offsetTop || 0;
+    scrollTarget  = y;
+    scrollCurrent = y;
+    window.scrollTo({ top: y, behavior: 'instant' });
+    startSmoothScroll();
     setTimeout(buildGlobe, 16);
-    // Wipe the hash so a refresh starts the experience clean.
+    setTimeout(initReveal, 300);
     history.replaceState(null, '', location.pathname + location.search);
     return true;
   }
   jumpFromHash();
 
-  let wheelLock = false;
-  deck.addEventListener('wheel', (e) => {
-    if (wheelLock) return;
-    if (Math.abs(e.deltaY) < 14) return;
-    wheelLock = true;
-    goTo(current + (e.deltaY > 0 ? 1 : -1));
-    setTimeout(() => { wheelLock = false; }, 750);
-  }, { passive: true });
+  // "Straight to website" button
+  const websiteCtaBtn = document.querySelector('.website-cta');
+  if (websiteCtaBtn) {
+    websiteCtaBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      excuses.classList.add('is-leaving');
+      deck.classList.add('is-on');
+      deck.setAttribute('aria-hidden', 'false');
+      setTimeout(() => { excuses.style.display = 'none'; }, 1100);
+      document.body.classList.add('deck-active');
+      syncHeight();
+      startSmoothScroll();
+      setTimeout(buildGlobe, 16);
+      setTimeout(initReveal, 300);
+    });
+  }
 
-  let touchStart = null;
-  deck.addEventListener('touchstart', (e) => {
-    if (e.target.closest('.globe-stage, .team-wrap, .contact-wrap')) { touchStart = null; return; }
-    const t = e.touches[0];
-    touchStart = { x: t.clientX, y: t.clientY };
-  }, { passive: true });
-  deck.addEventListener('touchend', (e) => {
-    if (!touchStart) return;
-    const t = e.changedTouches[0];
-    const dx = t.clientX - touchStart.x;
-    const dy = t.clientY - touchStart.y;
-    if (Math.abs(dy) > 50 && Math.abs(dy) > Math.abs(dx)) {
-      goTo(current + (dy < 0 ? 1 : -1));
-    } else if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
-      goTo(current + (dx < 0 ? 1 : -1));
-    }
-    touchStart = null;
-  }, { passive: true });
-
+  /* =====================================================
+     Reveal animations (scroll-triggered)
+     ===================================================== */
+  function initReveal() {
+    if (revealEls.length) return; // already initialized
+    const vh = window.innerHeight;
+    const selectors = [
+      '.slide__copy',
+      '.challenge-box',
+      '.card-item',
+      '.team-head',
+      '.globe-side',
+      '.globe-stage',
+      '.globe-card',
+      '.why-mlg__header',
+      '.approach-centered__header',
+    ];
+    selectors.forEach((sel) => {
+      $$(sel).forEach((el) => {
+        if (el.classList.contains('reveal')) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.top >= vh * 0.88) {
+          // Only off-screen elements animate in; on-screen ones are already visible
+          el.classList.add('reveal');
+          revealEls.push(el);
+        }
+      });
+    });
+  }
 
   /* =====================================================
      Globe of clients
@@ -535,7 +613,7 @@
   const cardName   = $('#globeCardName');
   const cardMeta   = $('#globeCardMeta');
 
-  let chips  = [];        // [{el, x,y,z}]  unit-sphere coords
+  let chips  = [];
   let radius = 200;
   let rotY = 0, rotX = -12;
   let velY = 0;
@@ -547,9 +625,7 @@
     if (built) return;
     built = true;
 
-    // Stop the CSS keyframe spin — we drive rotation in JS now
     globeEl.style.animation = 'none';
-
     radius = Math.min(globeStage.clientWidth, globeStage.clientHeight) / 2 * 0.92;
 
     const N = CLIENTS.length;
@@ -594,7 +670,6 @@
     const more = document.getElementById('globeCardMore');
     if (more) more.hidden = false;
 
-    // Quote card — populate and reveal if this client has one
     const quote = c.quote;
     const quoteEl = document.getElementById('clientQuote');
     if (quote && quoteEl) {
@@ -617,55 +692,9 @@
       .toUpperCase();
   }
 
-  // The "More" button has no destination yet — keep clicks inert for now.
   document.getElementById('globeCardMore')?.addEventListener('click', (e) => e.preventDefault());
 
-  // Topbar toggle clicks — only after the deck is armed (selector passed)
-  $$('.audience-tab').forEach((tab) => {
-    tab.addEventListener('click', () => {
-      const aud = tab.dataset.audience;
-      if (aud === currentAudience) return;
-      selectAudience(aud);
-      goTo(1);  // skip past the selector slide (index 0) to the first content slide
-    });
-  });
-
-  // Selector slide — first-time audience pick that arms the deck and lifts
-  // the toggle "up into the menu" (the topbar audience toggle fades in).
-  const selectorSlide = $('.slide--selector');
-  $$('.selector__tab').forEach((tab) => {
-    tab.addEventListener('click', () => {
-      const aud = tab.dataset.audience;
-      $$('.selector__tab').forEach((t) => t.classList.toggle('is-picked', t === tab));
-      selectAudience(aud);
-      // brief beat of feedback, then arm + lift
-      setTimeout(() => {
-        deck.classList.add('is-armed');
-        selectorSlide.classList.add('is-armed');
-        setTimeout(() => goTo(1), 520);
-        // Reset the selector content state once the slide is off-screen so
-        // the user sees it again if they scroll back.
-        setTimeout(() => {
-          selectorSlide.classList.remove('is-armed');
-          $$('.selector__tab').forEach((t) => t.classList.remove('is-picked'));
-        }, 1500);
-      }, 220);
-    });
-  });
-
-  // Keyboard A/B/C on the selector slide
-  window.addEventListener('keydown', (e) => {
-    if (!selectorSlide.classList.contains('is-active')) return;
-    if (deck.classList.contains('is-armed')) return;
-    const letter = e.key.toUpperCase();
-    const idx = 'ABC'.indexOf(letter);
-    if (idx >= 0) {
-      const tabs = $$('.selector__tab');
-      if (tabs[idx]) { e.preventDefault(); tabs[idx].click(); }
-    }
-  });
-
-  // Team slide — tab switching (core / associates)
+  // Team slide — tab switching
   const regionFilter = document.querySelector('.region-filter');
 
   function applyRegion(region) {
@@ -686,9 +715,8 @@
         regionFilter.hidden = target !== 'associates';
         if (target === 'associates') applyRegion('all');
       }
-      // Reset scroll to top of the new pane
-      const wrap = document.querySelector('.team-wrap');
-      if (wrap) wrap.scrollTop = 0;
+      // Sync body height after grid change (associates grid is large)
+      setTimeout(syncHeight, 50);
     });
   });
 
@@ -696,134 +724,7 @@
     btn.addEventListener('click', () => applyRegion(btn.dataset.region));
   });
 
-  // Contact form — Typeform-style state machine. One question per step,
-  // Enter / OK advances, choice clicks auto-advance, ← Back returns. No
-  // backend wired yet — the final step is a confirmation card.
-  const tf = $('#contactForm');
-  if (tf) {
-    const steps = $$('.tf__step', tf);
-    const fill  = $('#tfFill');
-    const totalAdvanceable = steps.length - 1; // last step is the "done" view
-    let stepIdx = 0;
-    const answers = {};
-
-    function updateProgress() {
-      const pct = Math.min(100, (stepIdx / totalAdvanceable) * 100);
-      fill.style.width = pct + '%';
-    }
-
-    function show(idx) {
-      steps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
-      stepIdx = idx;
-      updateProgress();
-      // Focus the input on the active step (if any) for a fluid keyboard flow
-      const input = steps[idx].querySelector('input, textarea');
-      if (input) setTimeout(() => input.focus(), 320);
-    }
-
-    function validate(step) {
-      const required = step.dataset.required === '1';
-      const type = step.dataset.type;
-      const input = step.querySelector('input, textarea');
-      const err = step.querySelector('.tf__error');
-      if (err) err.hidden = true;
-      if (!input) return true;
-      const v = input.value.trim();
-      if (required && !v) {
-        input.focus();
-        return false;
-      }
-      if (type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-        if (err) err.hidden = false;
-        input.focus();
-        return false;
-      }
-      return true;
-    }
-
-    function next() {
-      const step = steps[stepIdx];
-      if (!validate(step)) return;
-      const input = step.querySelector('input, textarea');
-      if (input && step.dataset.field) answers[step.dataset.field] = input.value.trim();
-      show(Math.min(stepIdx + 1, steps.length - 1));
-    }
-
-    function back() {
-      show(Math.max(stepIdx - 1, 0));
-    }
-
-    function pickChoice(btn) {
-      const step = steps[stepIdx];
-      const field = step.dataset.field;
-      const v = btn.dataset.value;
-      $$('.tf__choice', step).forEach((c) => c.classList.toggle('is-selected', c === btn));
-      if (field) answers[field] = v;
-      // Brief highlight then advance
-      setTimeout(() => show(Math.min(stepIdx + 1, steps.length - 1)), 280);
-    }
-
-    tf.addEventListener('click', (e) => {
-      const btn = e.target.closest('button');
-      if (!btn) return;
-      const action = btn.dataset.action;
-      if (action === 'next')   { e.preventDefault(); next(); }
-      else if (action === 'back') { e.preventDefault(); back(); }
-      else if (action === 'submit') {
-        e.preventDefault();
-        // No backend yet — just advance to the confirmation step.
-        const lastStep = steps[steps.length - 2];
-        if (lastStep) {
-          const input = lastStep.querySelector('input, textarea');
-          if (input && lastStep.dataset.field) answers[lastStep.dataset.field] = input.value.trim();
-        }
-        show(steps.length - 1);
-      }
-      else if (btn.classList.contains('tf__choice')) {
-        pickChoice(btn);
-      }
-    });
-
-    // Enter advances (Shift+Enter in textarea keeps the newline)
-    tf.addEventListener('keydown', (e) => {
-      if (e.key !== 'Enter') return;
-      const step = steps[stepIdx];
-      const isTextarea = e.target.tagName === 'TEXTAREA';
-      if (isTextarea && e.shiftKey) return;
-      e.preventDefault();
-      const primary = step.querySelector('.tf__cta');
-      if (primary && primary.dataset.action === 'submit') {
-        // Final input step — submit
-        if (!validate(step)) return;
-        const input = step.querySelector('input, textarea');
-        if (input && step.dataset.field) answers[step.dataset.field] = input.value.trim();
-        show(steps.length - 1);
-      } else if ($$('.tf__choice', step).length) {
-        // Choice step — Enter picks the first choice for keyboard users
-        const first = step.querySelector('.tf__choice.is-selected') || step.querySelector('.tf__choice');
-        if (first) pickChoice(first);
-      } else {
-        next();
-      }
-    });
-
-    // Letter keys for choice steps (A, B, C, ...)
-    tf.addEventListener('keydown', (e) => {
-      const step = steps[stepIdx];
-      const choices = $$('.tf__choice', step);
-      if (!choices.length) return;
-      const letter = e.key.toUpperCase();
-      const idx = 'ABCDEFGHIJ'.indexOf(letter);
-      if (idx < 0 || idx >= choices.length) return;
-      e.preventDefault();
-      pickChoice(choices[idx]);
-    });
-
-    updateProgress();
-  }
-
   function onGrab(e) {
-    // Don't start a drag from a chip click — let the click handler win
     if (e.target && e.target.closest('.chip')) return;
     e.preventDefault();
     isAuto = false;
@@ -859,15 +760,12 @@
 
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
-  // Per-frame globe + chip update.
-  // Architecture: the parent .globe owns the 3D rotation (rings & core go for
-  // the ride). Chips are placed at fixed unit-sphere positions inside the
-  // parent — the browser's 3D pipeline rotates them with the parent. JS only
-  // computes each chip's *post-rotation* z so we can fade / scale / blur the
-  // back hemisphere and counter-rotate the chip a touch to keep text upright.
   let chipsPlaced = false;
   function tickGlobe() {
     if (built) {
+      if (radius === 0 && globeStage.clientWidth > 0) {
+        radius = Math.min(globeStage.clientWidth, globeStage.clientHeight) / 2 * 0.92;
+      }
       if (isAuto) {
         rotY += 0.18;
       } else {
@@ -875,14 +773,12 @@
         velY *= 0.94;
         if (Math.abs(velY) < 0.004) {
           velY = 0;
-          // Momentum spent — resume auto-spin (unless the user is still dragging)
           if (!dragG) isAuto = true;
         }
       }
 
       globeEl.style.transform = `rotateY(${rotY}deg) rotateX(${rotX}deg)`;
 
-      // One-time placement of chips in the un-rotated sphere frame
       if (!chipsPlaced) {
         for (const c of chips) {
           c.el.style.left = '50%';
@@ -898,18 +794,14 @@
 
       for (let i = 0; i < chips.length; i++) {
         const c = chips[i];
-
-        // Apply the same rotation manually JUST to derive z for visuals.
         const x1 =  c.x * cosY + c.z * sinY;
         const z1 = -c.x * sinY + c.z * cosY;
         const z2 =  c.y * sinX + z1 * cosX;
 
-        const t  = (z2 + 1) / 2;             // 0 far, 1 near
+        const t  = (z2 + 1) / 2;
         const op = 0.12 + t * 0.88;
         const sc = 0.78 + t * 0.32;
 
-        // Place at unit-sphere position (parent rotation does the visual move),
-        // counter-rotate to keep label readable, scale by depth.
         c.el.style.transform =
           `translate(-50%, -50%) ` +
           `translate3d(${(c.x * radius).toFixed(2)}px, ${(c.y * radius).toFixed(2)}px, ${(c.z * radius).toFixed(2)}px) ` +
