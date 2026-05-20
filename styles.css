@@ -1330,7 +1330,7 @@ button { font-family: inherit; cursor: pointer; }
 .offerings-bg__scrim {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.10);
+  background: rgba(0,0,0,0.60);
   z-index: 1;
 }
 .offerings-bg > .ld-section-label,
@@ -2531,6 +2531,8 @@ button { font-family: inherit; cursor: pointer; }
 /* =============================================================
    GLOBE
    ============================================================= */
+.slide--globe { background: #0e0f10; }
+.slide--globe .slide__media { display: none; }
 .slide--globe .slide__media img { }
 
 /* The top headline floats above the globe — let pointer events pass through
