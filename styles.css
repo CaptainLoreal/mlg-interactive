@@ -2008,6 +2008,10 @@ button { font-family: inherit; cursor: pointer; }
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+.ld-offering__list li {
+  color: rgba(255,255,255,0.86);
+  font-weight: 450;
+}
 
 .contact-block {
   text-align: center;
