@@ -853,3 +853,116 @@
     if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
   }, { passive: true });
 })();
+
+/* ── Tailor / Contact multi-step form ── */
+(function () {
+  const form = document.getElementById('tailorForm');
+  if (!form) return;
+
+  const steps     = Array.from(form.querySelectorAll('.tf__step'));
+  const fillEl    = document.getElementById('tailorFill');
+  const DONE_IDX  = steps.length - 1;   // last step is the "thank you" screen
+  let current     = 0;
+  const answers   = {};
+
+  /* ── Progress bar ── */
+  function setProgress(idx) {
+    if (!fillEl) return;
+    const pct = Math.round((idx / (DONE_IDX - 1)) * 100);
+    fillEl.style.width = Math.min(pct, 100) + '%';
+  }
+
+  /* ── Show a step ── */
+  function showStep(idx) {
+    steps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+    current = idx;
+    setProgress(idx);
+    // Focus first interactive element
+    const el = steps[idx].querySelector('input, textarea, .tf__choice');
+    if (el) setTimeout(() => el.focus(), 60);
+  }
+
+  /* ── Validation ── */
+  function validate(step) {
+    if (!step.dataset.required) return true;
+    if (step.querySelector('.tf__choices')) {
+      return !!step.querySelector('.tf__choice.is-selected');
+    }
+    const input = step.querySelector('input, textarea');
+    if (!input) return true;
+    const val = input.value.trim();
+    if (!val) return false;
+    if (step.dataset.type === 'email') {
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      const err = step.querySelector('.tf__error');
+      if (err) err.hidden = ok;
+      return ok;
+    }
+    return true;
+  }
+
+  /* ── Collect current step's value into answers ── */
+  function collect(step) {
+    const field = step.dataset.field;
+    if (!field) return;
+    const sel = step.querySelector('.tf__choice.is-selected');
+    if (sel) { answers[field] = sel.dataset.value; return; }
+    const inp = step.querySelector('input, textarea');
+    if (inp) answers[field] = inp.value.trim();
+  }
+
+  /* ── Advance ── */
+  function advance() {
+    const step = steps[current];
+    if (!validate(step)) {
+      step.classList.add('is-shake');
+      setTimeout(() => step.classList.remove('is-shake'), 500);
+      return;
+    }
+    collect(step);
+    showStep(current + 1);
+  }
+
+  /* ── Submit ── */
+  function submitForm() {
+    const step = steps[current];
+    collect(step);
+    // Build a mailto body so MLG actually receives it
+    const body = Object.entries(answers)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join('\n');
+    const mailto = `mailto:info@munich-leadership-group.com?subject=Tailor%20inquiry&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+    showStep(DONE_IDX);
+  }
+
+  /* ── Event delegation ── */
+  form.addEventListener('click', (e) => {
+    // Choice button
+    const choice = e.target.closest('.tf__choice');
+    if (choice) {
+      const step = choice.closest('.tf__step');
+      step.querySelectorAll('.tf__choice').forEach(c => c.classList.remove('is-selected'));
+      choice.classList.add('is-selected');
+      setTimeout(advance, 280);  // brief pause so user sees the selection
+      return;
+    }
+    // Action buttons
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    if (action === 'next')   advance();
+    if (action === 'back')   showStep(Math.max(0, current - 1));
+    if (action === 'submit') submitForm();
+  });
+
+  // Enter key advances / submits
+  form.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const step = steps[current];
+    if (step.querySelector('[data-action="submit"]')) { e.preventDefault(); submitForm(); }
+    else if (!step.querySelector('.tf__choices'))     { e.preventDefault(); advance(); }
+  });
+
+  showStep(0);
+})();
