@@ -1642,11 +1642,10 @@ button { font-family: inherit; cursor: pointer; }
   padding-bottom: clamp(60px, 8vh, 100px);
 }
 
-/* Clients slide — restore image, gradient fades from dark at top */
+/* Clients slide — solid dark, no photo */
 .slide--globe { background: #0e0f10; }
-.slide--globe .slide__scrim {
-  background: linear-gradient(to bottom, #0e0f10 0%, rgba(14,15,16,0) 18%);
-}
+.slide--globe .slide__media { display: none; }
+.slide--globe .slide__scrim { display: none; }
 
 /* Approach slide — darken scrim to match Clients */
 .slide--approach-intro .slide__scrim {
@@ -2915,7 +2914,12 @@ button { font-family: inherit; cursor: pointer; }
    TESTIMONIALS CAROUSEL
    ============================================================= */
 .slide--testimonials .slide__scrim {
-  background: rgba(0,0,0,0.38);
+  background: linear-gradient(to bottom,
+    #0e0f10 0%,
+    rgba(14,15,16,0) 18%,
+    rgba(14,15,16,0) 82%,
+    #0e0f10 100%
+  );
 }
 
 /* Welcome (hero) slide — gradient fades image bottom to dark */
