@@ -363,6 +363,7 @@
 
         const btn = document.createElement('button');
         btn.className = 'slide-nav__btn slide-nav__btn--has-drop';
+        btn.dataset.slideIdx = i;
         btn.innerHTML = `${title}<svg class="slide-nav__chevron" viewBox="0 0 10 6" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>`;
         btn.addEventListener('click', () => scrollToSlide(i));
 
@@ -382,6 +383,7 @@
       } else {
         const btn = document.createElement('button');
         btn.className = 'slide-nav__btn';
+        btn.dataset.slideIdx = i;
         btn.textContent = title;
         btn.addEventListener('click', () => scrollToSlide(i));
         slideNav.appendChild(btn);
@@ -403,8 +405,9 @@
     slides.forEach((slide, i) => {
       if (slide.offsetTop <= midY) activeIdx = i;
     });
-    slideNav.querySelectorAll('.slide-nav__btn').forEach((btn, i) => {
-      btn.classList.toggle('is-active', i === activeIdx);
+    slideNav.querySelectorAll('.slide-nav__btn').forEach((btn) => {
+      const si = parseInt(btn.dataset.slideIdx || '0', 10);
+      btn.classList.toggle('is-active', si === activeIdx);
     });
   }
 
