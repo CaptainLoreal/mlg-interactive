@@ -6,6 +6,9 @@
   const $  = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
+  // Prevent browser scroll-restoration from fighting our manual jump
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
   /* =====================================================
      Intro: static logo + slide-to-start
      ===================================================== */
@@ -293,10 +296,7 @@
   }
 
   window.addEventListener('scroll', () => {
-    // Clamp to the last slide's start so content taller than 100dvh
-    // doesn't create a dead-scroll gap at the bottom on mobile.
-    const lastY = slides.length ? slides[slides.length - 1].offsetTop : Infinity;
-    scrollTarget = Math.min(window.scrollY, lastY);
+    scrollTarget = window.scrollY;
   }, { passive: true });
 
   window.addEventListener('resize', () => {
@@ -358,6 +358,9 @@
     slides.forEach((slide, i) => {
       const title = slide.dataset.title || `${i + 1}`;
       if (title === 'Tailor') return;
+      if (title === 'Testimonials') return;
+      if (title === 'Welcome') return;
+      if (title === 'Tools') return;
       if (title === 'Services') {
         const wrap = document.createElement('div');
         wrap.className = 'slide-nav__dropdown-wrap';
@@ -398,18 +401,31 @@
     scrollTarget = y;
     window.scrollTo({ top: y, behavior: 'instant' });
   }
+  // Expose globally so other IIFEs (tailor form, etc.) can navigate slides
+  window.__mlgScrollTo = scrollToSlide;
 
   function updateActiveNav() {
     if (!slideNav) return;
-    const midY = scrollCurrent + window.innerHeight * 0.4;
+    const midY = scrollCurrent + window.innerHeight * 0.5;
     let activeIdx = 0;
     slides.forEach((slide, i) => {
+      // Skip display:none slides — their offsetTop is 0 which corrupts tracking
+      if (i > 0 && slide.offsetParent === null) return;
       if (slide.offsetTop <= midY) activeIdx = i;
     });
-    slideNav.querySelectorAll('.slide-nav__btn').forEach((btn) => {
+    // Find the nav button whose slideIdx is closest to (but not above) activeIdx
+    const btns = Array.from(slideNav.querySelectorAll('.slide-nav__btn'));
+    let bestBtn = null;
+    let bestDiff = Infinity;
+    btns.forEach((btn) => {
       const si = parseInt(btn.dataset.slideIdx || '0', 10);
-      btn.classList.toggle('is-active', si === activeIdx);
+      const diff = activeIdx - si;
+      if (diff >= 0 && diff < bestDiff) {
+        bestDiff = diff;
+        bestBtn = btn;
+      }
     });
+    btns.forEach((btn) => btn.classList.toggle('is-active', btn === bestBtn));
   }
 
   function updateInView() {
@@ -457,6 +473,9 @@
     slides.forEach((slide, i) => {
       const title = slide.dataset.title || String(i + 1);
       if (title === 'Tailor') return;
+      if (title === 'Testimonials') return;
+      if (title === 'Welcome') return;
+      if (title === 'Tools') return;
       const item = document.createElement('button');
       item.className = 'mobile-nav__item';
       item.textContent = title;
@@ -509,13 +528,17 @@
     deck.setAttribute('aria-hidden', 'false');
     document.body.classList.add('deck-active');
     syncHeight();
-    const y = slides[idx]?.offsetTop || 0;
-    scrollTarget  = y;
-    scrollCurrent = y;
-    window.scrollTo({ top: y, behavior: 'instant' });
-    startSmoothScroll();
-    setTimeout(buildGlobe, 16);
-    setTimeout(initReveal, 300);
+    // Defer scroll to next frame so browser layout is committed before we jump
+    requestAnimationFrame(() => {
+      syncHeight(); // re-sync after layout pass
+      const y = slides[idx]?.offsetTop || 0;
+      scrollTarget  = y;
+      scrollCurrent = y;
+      window.scrollTo({ top: y, behavior: 'instant' });
+      startSmoothScroll();
+      setTimeout(buildGlobe, 16);
+      setTimeout(initReveal, 300);
+    });
     history.replaceState(null, '', location.pathname + location.search);
     return true;
   }
@@ -826,35 +849,86 @@
 
 /* ── Testimonials carousel ── */
 (function () {
-  const track   = document.getElementById('testimonialsTrack');
-  const prev    = document.getElementById('testimonialsPrev');
-  const next    = document.getElementById('testimonialsNext');
-  const idxEl   = document.getElementById('testimonialsIdx');
-  const totalEl = document.getElementById('testimonialsTotal');
+  const carousel = document.getElementById('testimonialsCarousel');
+  const track    = document.getElementById('testimonialsTrack');
+  const prev     = document.getElementById('testimonialsPrev');
+  const next     = document.getElementById('testimonialsNext');
+  const idxEl    = document.getElementById('testimonialsIdx');
+  const totalEl  = document.getElementById('testimonialsTotal');
   if (!track || !prev || !next) return;
 
-  const items = track.querySelectorAll('.testimonial');
+  const items = Array.from(track.querySelectorAll('.testimonial'));
   const total = items.length;
   let current = 0;
 
-  totalEl.textContent = total;
+  if (totalEl) totalEl.textContent = total;
+
+  function cardStep() {
+    // card width + gap (20px in CSS)
+    return items[0].offsetWidth + 20;
+  }
 
   function go(n) {
-    current = (n + total) % total;
-    track.style.transform = `translateX(${-current * 100}%)`;
-    idxEl.textContent = current + 1;
+    current = Math.max(0, Math.min(total - 1, n));
+    track.style.transform = `translateX(${-current * cardStep()}px)`;
+    if (idxEl) idxEl.textContent = current + 1;
+    prev.disabled = current === 0;
+    next.disabled = current === total - 1;
   }
+
+  go(0); // initialise
 
   prev.addEventListener('click', () => go(current - 1));
   next.addEventListener('click', () => go(current + 1));
 
-  // Swipe support
-  let startX = 0;
-  track.addEventListener('pointerdown', e => { startX = e.clientX; }, { passive: true });
-  track.addEventListener('pointerup',   e => {
-    const dx = e.clientX - startX;
-    if (Math.abs(dx) > 40) go(current + (dx < 0 ? 1 : -1));
-  }, { passive: true });
+  /* ── Drag / swipe (pointer capture — works on desktop AND mobile) ── */
+  let dragStartX = 0;
+  let dragLive   = false;
+  let dragDelta  = 0;
+  const BASE_OFFSET = () => -current * cardStep();
+
+  carousel.addEventListener('pointerdown', (e) => {
+    if (e.button !== 0) return;          // left-click / touch only
+    dragStartX = e.clientX;
+    dragLive   = true;
+    dragDelta  = 0;
+    track.classList.add('no-transition');
+    carousel.classList.add('is-dragging');
+    carousel.setPointerCapture(e.pointerId); // keeps capture even if pointer leaves element
+    e.preventDefault();
+  });
+
+  carousel.addEventListener('pointermove', (e) => {
+    if (!dragLive) return;
+    dragDelta = e.clientX - dragStartX;
+    track.style.transform = `translateX(${BASE_OFFSET() + dragDelta}px)`;
+  });
+
+  carousel.addEventListener('pointerup', (e) => {
+    if (!dragLive) return;
+    dragLive = false;
+    carousel.classList.remove('is-dragging');
+    track.classList.remove('no-transition');
+    const threshold = cardStep() * 0.2; // 20% of card width
+    if (dragDelta < -threshold) go(current + 1);
+    else if (dragDelta > threshold) go(current - 1);
+    else go(current); // snap back
+  });
+
+  carousel.addEventListener('pointercancel', () => {
+    if (!dragLive) return;
+    dragLive = false;
+    carousel.classList.remove('is-dragging');
+    track.classList.remove('no-transition');
+    go(current);
+  });
+
+  /* ── Keyboard navigation ── */
+  carousel.setAttribute('tabindex', '0');
+  carousel.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(current - 1); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
+  });
 })();
 
 /* ── Tailor / Contact multi-step form ── */
@@ -937,6 +1011,10 @@
     const mailto = `mailto:info@munich-leadership-group.com?subject=Tailor%20inquiry&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
     showStep(DONE_IDX);
+    // After a moment on the thank-you screen, scroll to Services (slide 5)
+    setTimeout(() => {
+      if (typeof window.__mlgScrollTo === 'function') window.__mlgScrollTo(5);
+    }, 1800);
   }
 
   /* ── Event delegation ── */
@@ -969,3 +1047,134 @@
 
   showStep(0);
 })();
+
+/* ── Contact multi-step form ── */
+(function () {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+
+  const steps    = Array.from(form.querySelectorAll('.tf__step'));
+  const fillEl   = document.getElementById('tfFill');
+  const DONE_IDX = steps.length - 1;
+  let current    = 0;
+  const answers  = {};
+
+  function setProgress(idx) {
+    if (!fillEl) return;
+    const pct = Math.round((idx / (DONE_IDX - 1)) * 100);
+    fillEl.style.width = Math.min(pct, 100) + '%';
+  }
+
+  function showStep(idx) {
+    steps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+    current = idx;
+    setProgress(idx);
+    const el = steps[idx].querySelector('input, textarea, .tf__choice');
+    if (el) setTimeout(() => el.focus(), 60);
+  }
+
+  function validate(step) {
+    if (!step.dataset.required) return true;
+    if (step.querySelector('.tf__choices')) {
+      return !!step.querySelector('.tf__choice.is-selected');
+    }
+    const input = step.querySelector('input, textarea');
+    if (!input) return true;
+    const val = input.value.trim();
+    if (!val) return false;
+    if (step.dataset.type === 'email') {
+      const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      const err = step.querySelector('.tf__error');
+      if (err) err.hidden = ok;
+      return ok;
+    }
+    return true;
+  }
+
+  function collect(step) {
+    const field = step.dataset.field;
+    if (!field) return;
+    const sel = step.querySelector('.tf__choice.is-selected');
+    if (sel) { answers[field] = sel.dataset.value; return; }
+    const inp = step.querySelector('input, textarea');
+    if (inp) answers[field] = inp.value.trim();
+  }
+
+  function advance() {
+    const step = steps[current];
+    if (!validate(step)) {
+      step.classList.add('is-shake');
+      setTimeout(() => step.classList.remove('is-shake'), 500);
+      return;
+    }
+    collect(step);
+    showStep(current + 1);
+  }
+
+  function submitForm() {
+    const step = steps[current];
+    collect(step);
+    const body = Object.entries(answers)
+      .map(([k, v]) => `${k}: ${v}`)
+      .join('\n');
+    const mailto = `mailto:info@munich-leadership-group.com?subject=Contact%20inquiry&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+    showStep(DONE_IDX);
+  }
+
+  form.addEventListener('click', (e) => {
+    const choice = e.target.closest('.tf__choice');
+    if (choice) {
+      const step = choice.closest('.tf__step');
+      step.querySelectorAll('.tf__choice').forEach(c => c.classList.remove('is-selected'));
+      choice.classList.add('is-selected');
+      setTimeout(advance, 280);
+      return;
+    }
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    if (action === 'next')   advance();
+    if (action === 'back')   showStep(Math.max(0, current - 1));
+    if (action === 'submit') submitForm();
+  });
+
+  form.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return;
+    const step = steps[current];
+    if (step.querySelector('[data-action="submit"]')) { e.preventDefault(); submitForm(); }
+    else if (!step.querySelector('.tf__choices'))     { e.preventDefault(); advance(); }
+  });
+
+  showStep(0);
+})();
+
+/* ── Language switcher ──────────────────────────────────────────── */
+(function () {
+  function applyLang(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem('mlg-lang', lang);
+    document.querySelectorAll('.lang-switch__btn').forEach(function (btn) {
+      btn.classList.toggle('is-active', btn.dataset.lang === lang);
+    });
+    // Swap any elements that have data-en / data-de translations
+    document.querySelectorAll('[data-en][data-de]').forEach(function (el) {
+      el.textContent = lang === 'de' ? el.dataset.de : el.dataset.en;
+    });
+  }
+
+  function initLangSwitch() {
+    var saved = localStorage.getItem('mlg-lang') || 'en';
+    applyLang(saved);
+    document.querySelectorAll('.lang-switch__btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { applyLang(btn.dataset.lang); });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLangSwitch);
+  } else {
+    initLangSwitch();
+  }
+})();
+

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e0f10" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=138" />
+  <link rel="stylesheet" href="styles.css?v=153" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -18,7 +18,7 @@
     <div class="intro__bg" aria-hidden="true"></div>
 
     <img class="intro__logo" src="assets/logo-white-red.svg" alt="Munich Leadership Group" />
-    <p class="intro__prompt">What is your dream?</p>
+    <p class="intro__prompt">What is your<br>dream?</p>
 
     <div id="enterBtn" class="slide-start" role="button" tabindex="0" aria-label="Slide to start">
       <div class="slide-start__track">
@@ -66,6 +66,11 @@
       <nav class="slide-nav" aria-label="Slide navigation">
         <!-- built by JS -->
       </nav>
+
+      <div class="lang-switch" id="langSwitch" aria-label="Language switcher">
+        <button class="lang-switch__btn" data-lang="de">DE</button>
+        <button class="lang-switch__btn is-active" data-lang="en">EN</button>
+      </div>
 
       <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
         <svg class="burger__icon burger__icon--open" viewBox="0 0 22 16" width="22" height="16" fill="none" aria-hidden="true">
@@ -388,17 +393,18 @@
               </div>
 
             </div><!-- /.testimonials-track -->
+          </div><!-- /.testimonials-carousel -->
 
+          <div class="testimonials-controls">
             <button class="testimonials-arrow testimonials-arrow--prev" id="testimonialsPrev" aria-label="Previous testimonial">
               <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             </button>
-            <button class="testimonials-arrow testimonials-arrow--next" id="testimonialsNext" aria-label="Next testimonial">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </button>
-
             <div class="testimonials-counter">
               <span id="testimonialsIdx">1</span> / <span id="testimonialsTotal"></span>
             </div>
+            <button class="testimonials-arrow testimonials-arrow--next" id="testimonialsNext" aria-label="Next testimonial">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
           </div>
           </div><!-- /.testimonials-card -->
         </div>
@@ -453,50 +459,51 @@
       </article>
 
       <!-- 4 — Services -->
-      <article class="slide slide--cards" data-slide="2" data-anim="parallax" data-title="Services">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-g3.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="services-wrap">
-          <div class="services-wrap__head">
-            <p class="eyebrow">Services</p>
-            <h2 class="display">Everything a leader needs.<br>Nothing they don't.</h2>
+      <article class="slide slide--cards slide--services-split" data-slide="2" data-anim="parallax" data-title="Services">
+        <div class="services-split">
+          <div class="services-split__photo">
+            <img src="assets/photos/photo-g3.webp" alt="" loading="lazy" />
+            <div class="services-split__scrim"></div>
+            <div class="services-split__copy">
+              <p class="eyebrow">Services</p>
+              <h2 class="display">Everything a leader needs.<br>Nothing they don't.</h2>
+            </div>
           </div>
-          <div class="services-grid">
-            <a class="card-item" href="leadership-development.html">
-              <h3 class="card-item__title">Leadership development</h3>
-              <p class="card-item__body">Bespoke leadership journeys — grounded in science, built for your next level.</p>
-              <span class="btn btn--ghost btn--more">
-                <span>more</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </span>
-            </a>
-            <a class="card-item" href="coaching-sparring.html">
-              <h3 class="card-item__title">Coaching &amp; sparring</h3>
-              <p class="card-item__body">An expert, independent sparring partner — challenging, sharpening, always in your corner.</p>
-              <span class="btn btn--ghost btn--more">
-                <span>more</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </span>
-            </a>
-            <a class="card-item" href="audits-assessments.html">
-              <h3 class="card-item__title">Audits &amp; assessments</h3>
-              <p class="card-item__body">Understand before you evolve. Deep diagnosis creates the foundation for every lasting change.</p>
-              <span class="btn btn--ghost btn--more">
-                <span>more</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </span>
-            </a>
-            <a class="card-item" href="cultural-transformation.html">
-              <h3 class="card-item__title">Cultural transformation</h3>
-              <p class="card-item__body">Culture follows behaviour. Real change begins when leaders model it every day.</p>
-              <span class="btn btn--ghost btn--more">
-                <span>more</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </span>
-            </a>
+          <div class="services-wrap">
+            <div class="services-grid">
+              <a class="card-item" href="leadership-development.html">
+                <h3 class="card-item__title">Leadership development</h3>
+                <p class="card-item__body">Bespoke leadership journeys — grounded in science, built for your next level.</p>
+                <span class="btn btn--ghost btn--more">
+                  <span>more</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </span>
+              </a>
+              <a class="card-item" href="coaching-sparring.html">
+                <h3 class="card-item__title">Coaching &amp; sparring</h3>
+                <p class="card-item__body">An expert, independent sparring partner — challenging, sharpening, always in your corner.</p>
+                <span class="btn btn--ghost btn--more">
+                  <span>more</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </span>
+              </a>
+              <a class="card-item" href="audits-assessments.html">
+                <h3 class="card-item__title">Audits &amp; assessments</h3>
+                <p class="card-item__body">Understand before you evolve. Deep diagnosis creates the foundation for every lasting change.</p>
+                <span class="btn btn--ghost btn--more">
+                  <span>more</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </span>
+              </a>
+              <a class="card-item" href="cultural-transformation.html">
+                <h3 class="card-item__title">Cultural transformation</h3>
+                <p class="card-item__body">Culture follows behaviour. Real change begins when leaders model it every day.</p>
+                <span class="btn btn--ghost btn--more">
+                  <span>more</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       </article>
@@ -586,14 +593,14 @@
 
           <!-- Core team — 8 members, visible by default -->
           <div class="team-grid team-grid--core" data-pane="core">
-            <article class="member"><div class="member__photo"><img src="assets/team/hagemann.jpg" alt="Dr. Hans W. Hagemann" loading="lazy" /></div><h3 class="member__name">Dr. Hans W. Hagemann</h3><p class="member__role">Managing Partner</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/knieling.jpg" alt="Michael Knieling" loading="lazy" /></div><h3 class="member__name">Michael Knieling</h3><p class="member__role">Managing Partner</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/rosengart.jpg" alt="Natalie Rosengart" loading="lazy" /></div><h3 class="member__name">Natalie Rosengart</h3><p class="member__role">Partner</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/duerrbeck.jpg" alt="Klaus Dürrbeck" loading="lazy" /></div><h3 class="member__name">Klaus Dürrbeck</h3><p class="member__role">Partner</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/bohnenstiel.png" alt="Martina Bohnenstiel" loading="lazy" /></div><h3 class="member__name">Martina Bohnenstiel</h3><p class="member__role">Management Team</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/westermayr.jpg" alt="Christine Westermayr" loading="lazy" /></div><h3 class="member__name">Christine Westermayr</h3><p class="member__role">Management Team</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/sickinger.jpg" alt="Dr. Sabine Sickinger" loading="lazy" /></div><h3 class="member__name">Dr. Sabine Sickinger</h3><p class="member__role">Management Team</p></article>
-            <article class="member"><div class="member__photo"><img src="assets/team/sarnes.jpg" alt="Kristof Sarnes" loading="lazy" /></div><h3 class="member__name">Kristof Sarnes</h3><p class="member__role">Management Team</p></article>
+            <a class="member member--link" href="team-hagemann.html"><div class="member__photo"><img src="assets/team/hagemann.jpg" alt="Dr. Hans W. Hagemann" loading="lazy" /></div><h3 class="member__name">Dr. Hans W. Hagemann</h3><p class="member__role">Managing Partner</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-knieling.html"><div class="member__photo"><img src="assets/team/knieling.jpg" alt="Michael Knieling" loading="lazy" /></div><h3 class="member__name">Michael Knieling</h3><p class="member__role">Managing Partner</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-rosengart.html"><div class="member__photo"><img src="assets/team/rosengart.jpg" alt="Natalie Rosengart" loading="lazy" /></div><h3 class="member__name">Natalie Rosengart</h3><p class="member__role">Partner</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-duerrbeck.html"><div class="member__photo"><img src="assets/team/duerrbeck.jpg" alt="Klaus Dürrbeck" loading="lazy" /></div><h3 class="member__name">Klaus Dürrbeck</h3><p class="member__role">Partner</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-bohnenstiel.html"><div class="member__photo"><img src="assets/team/bohnenstiel.png" alt="Martina Bohnenstiel" loading="lazy" /></div><h3 class="member__name">Martina Bohnenstiel</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-westermayr.html"><div class="member__photo"><img src="assets/team/westermayr.jpg" alt="Christine Westermayr" loading="lazy" /></div><h3 class="member__name">Christine Westermayr</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-sickinger.html"><div class="member__photo"><img src="assets/team/sickinger.jpg" alt="Dr. Sabine Sickinger" loading="lazy" /></div><h3 class="member__name">Dr. Sabine Sickinger</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-sarnes.html"><div class="member__photo"><img src="assets/team/sarnes.jpg" alt="Kristof Sarnes" loading="lazy" /></div><h3 class="member__name">Kristof Sarnes</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
           </div>
 
           <!-- Associate partners — 41 members, hidden until tab is selected -->
@@ -784,7 +791,7 @@
 
   </main>
 
-  <script src="app.js?v=139" defer></script>
+  <script src="app.js?v=148" defer></script>
   <script>
     // Tailor form step machine — inline because the form lives inside the deck slide.
     (() => {

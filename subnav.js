@@ -1,18 +1,19 @@
 (function () {
+  // Indices match the live slide NodeList in index.html:
+  // 0=Welcome 1=Tailor 2=Clients 3=Testimonials 4=Approach 5=Services
+  // 6=Why-MLG 7=Tools(hidden) 8=Team 9=Contact
   var slides = [
-    { title: 'Welcome',         href: 'index.html#slide=0' },
     { title: 'Clients',         href: 'index.html#slide=2' },
-    { title: 'Approach',        href: 'index.html#slide=3' },
-    { title: 'Services',        href: 'index.html#slide=4', dropdown: [
+    { title: 'Approach',        href: 'index.html#slide=4' },
+    { title: 'Services',        href: 'index.html#slide=5', dropdown: [
       { label: 'Leadership Development',  href: 'leadership-development.html' },
       { label: 'Coaching & Sparring',     href: 'coaching-sparring.html' },
       { label: 'Audits & Assessments',    href: 'audits-assessments.html' },
       { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
     ]},
-    { title: 'Why MLG',         href: 'index.html#slide=5' },
-    { title: 'Tools',           href: 'index.html#slide=6' },
-    { title: 'Team',            href: 'index.html#slide=7' },
-    { title: 'Contact',         href: 'index.html#slide=8' },
+    { title: 'Why MLG',         href: 'index.html#slide=6' },
+    { title: 'Team',            href: 'index.html#slide=8' },
+    { title: 'Contact',         href: 'index.html#slide=9' },
   ];
 
   var topbar = document.querySelector('.topbar');
@@ -77,6 +78,15 @@
       '<line x1="1" y1="1" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>' +
       '<line x1="17" y1="1" x2="1" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>' +
     '</svg>';
+  /* ── Language switcher ── */
+  var langSwitch = document.createElement('div');
+  langSwitch.className = 'lang-switch';
+  langSwitch.setAttribute('aria-label', 'Language switcher');
+  langSwitch.innerHTML =
+    '<button class="lang-switch__btn" data-lang="de">DE</button>' +
+    '<button class="lang-switch__btn is-active" data-lang="en">EN</button>';
+  topbar.appendChild(langSwitch);
+
   topbar.appendChild(burger);
 
   /* ── Mobile nav drawer ── */
@@ -138,4 +148,23 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeNav();
   });
+
+  /* ── Language switcher init ── */
+  (function () {
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      localStorage.setItem('mlg-lang', lang);
+      document.querySelectorAll('.lang-switch__btn').forEach(function (b) {
+        b.classList.toggle('is-active', b.dataset.lang === lang);
+      });
+      document.querySelectorAll('[data-en][data-de]').forEach(function (el) {
+        el.textContent = lang === 'de' ? el.dataset.de : el.dataset.en;
+      });
+    }
+    var saved = localStorage.getItem('mlg-lang') || 'en';
+    applyLang(saved);
+    document.querySelectorAll('.lang-switch__btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { applyLang(btn.dataset.lang); });
+    });
+  })();
 })();

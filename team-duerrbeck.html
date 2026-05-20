@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0e0f10" />
+  <title>Klaus Dürrbeck — Munich Leadership Group</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css?v=152" />
+  <style>
+    body { overflow: visible; }
+    .standalone { overflow: visible; min-height: 100dvh; }
+    .profile-hero { position: relative; height: 58vh; min-height: 360px; overflow: hidden; }
+    .profile-hero__media { position: absolute; inset: 0; }
+    .profile-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+    .profile-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, #0e0f10 0%, rgba(14,15,16,0.55) 45%, rgba(14,15,16,0.05) 100%); }
+    .profile-hero__copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(24px,5vw,72px) clamp(24px,5vw,72px) clamp(32px,6vh,64px); }
+    .profile-hero__eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 12px; }
+    .profile-hero__name { font-size: clamp(30px,4.5vw,58px); font-weight: 600; letter-spacing: -0.02em; color: #fff; margin: 0 0 10px; line-height: 1.1; }
+    .profile-hero__role { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.50); margin: 0; }
+    .profile-content { background: #0e0f10; padding: clamp(48px,7vh,96px) clamp(24px,5vw,72px) 0; }
+    .profile-body { max-width: 820px; margin: 0 auto clamp(48px,7vh,80px); }
+    .profile-body p { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,0.65); margin: 0 0 18px; }
+    .profile-body p strong { color: rgba(255,255,255,0.88); }
+    .profile-section-label { font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 32px 0 14px; }
+    .profile-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; }
+    .profile-tag { font-size: 12px; font-weight: 500; letter-spacing: 0.05em; color: rgba(255,255,255,0.60); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; padding: 5px 14px; }
+    .profile-quote { max-width: 820px; margin: 0 auto clamp(40px,6vh,72px); padding: 32px 40px; background: rgba(181,0,52,0.10); border: 1px solid rgba(181,0,52,0.28); border-radius: 8px; }
+    .profile-quote__label { font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 14px; }
+    .profile-quote__text { font-size: clamp(15px,1.8vw,18px); line-height: 1.7; color: rgba(255,255,255,0.80); margin: 0; font-style: italic; }
+    .profile-cta { text-align: center; padding: clamp(32px,5vh,56px) 0; border-top: 1px solid rgba(255,255,255,0.08); max-width: 1200px; margin: 0 auto; }
+    .profile-cta p { color: rgba(255,255,255,0.55); font-size: 14px; margin: 0 0 20px; }
+    .profile-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--mlg-red); color: #fff; font-family: var(--font-sans); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 28px; border-radius: 999px; transition: opacity 200ms; }
+    .profile-cta__btn:hover { opacity: 0.85; }
+    @media (max-width: 640px) { .profile-quote { padding: 24px; } }
+  </style>
+</head>
+<body>
+  <main class="standalone">
+    <div class="topbar">
+      <a class="topbar__logo" href="index.html#slide=0" aria-label="Munich Leadership Group — back to home">
+        <img src="assets/logo-white.svg" alt="Munich Leadership Group" />
+      </a>
+    </div>
+    <span class="corner-mark" aria-hidden="true">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
+
+    <div class="profile-hero">
+      <div class="profile-hero__media">
+        <img src="assets/team/klaus-duerrbeck.jpg" alt="Klaus Dürrbeck" />
+      </div>
+      <div class="profile-hero__scrim"></div>
+      <div class="profile-hero__copy">
+        <a class="page-back" href="index.html#slide=8">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>back to team</span>
+        </a>
+        <p class="profile-hero__eyebrow">Partner</p>
+        <h1 class="profile-hero__name">Klaus<br>Dürrbeck</h1>
+        <p class="profile-hero__role">Munich Leadership Group</p>
+      </div>
+    </div>
+
+    <div class="profile-content">
+
+      <div class="profile-body">
+        <p>Klaus brings an uncommon background to leadership development: a <strong>12-year career as an officer in the German Armed Forces</strong>, including deployments to Spain, Italy, Denmark, Norway, Afghanistan, Lithuania, and the Netherlands. As a Public Affairs Officer and leadership trainer, he developed first-hand expertise in high-stakes decision-making, team cohesion under pressure, and the development of future leaders.</p>
+
+        <p>He holds a <strong>double degree in International Business Administration</strong> from Hochschule München, Tampere University of Applied Sciences (Finland), and St. Petersburg State Polytechnic University (Russia), with majors in Change Management and Entrepreneurship. He completed his coaching training at the renowned Coaches Training Institute (CTI).</p>
+
+        <p>Klaus specialises in developing the <strong>next generation of leaders — Generations Y and Z</strong> — and is a sought-after partner for organisations navigating digital transformation, neuroleadership, and innovation. His military background lends him a unique ability to engage leaders who need to perform under real pressure, while his entrepreneurial training keeps his approach forward-looking and practical.</p>
+
+        <p class="profile-section-label">Areas of Focus</p>
+        <div class="profile-tags">
+          <span class="profile-tag">Next Generation Leadership</span>
+          <span class="profile-tag">Executive Coaching</span>
+          <span class="profile-tag">Neuroleadership</span>
+          <span class="profile-tag">Innovation &amp; Entrepreneurship</span>
+          <span class="profile-tag">Digital Training Concepts</span>
+          <span class="profile-tag">Social Media</span>
+          <span class="profile-tag">Change Management</span>
+        </div>
+      </div>
+
+      <div class="profile-quote">
+        <p class="profile-quote__label">Leadership mindset</p>
+        <p class="profile-quote__text">"I never lose. I either win or learn." — Nelson Mandela</p>
+      </div>
+
+      <div class="profile-cta">
+        <p>Want to work with Klaus?</p>
+        <a class="profile-cta__btn" href="index.html#slide=9">
+          Get in touch
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <footer class="imprint" style="margin-top: clamp(32px,4vh,56px);">
+        <p class="imprint__links">
+          <a href="disclaimer.html">Disclaimer</a>
+          <span aria-hidden="true">&middot;</span>
+          <span class="imprint__copy">&copy; 2026 Munich Leadership Group</span>
+        </p>
+      </footer>
+
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.page-back').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        e.preventDefault();
+        document.querySelector('.standalone').classList.add('is-leaving');
+        setTimeout(() => { location.href = href; }, 320);
+      });
+    });
+  </script>
+  <script src="subnav.js"></script>
+</body>
+</html>
