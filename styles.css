@@ -2002,6 +2002,9 @@ button { font-family: inherit; cursor: pointer; }
   max-width: 560px;
   text-align: left;
 }
+.contact-wrap--tailor .tf {
+  margin-bottom: 0;
+}
 
 /* Blur glass effect on sub-page offering cards */
 .ld-offering {
