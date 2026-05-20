@@ -1625,6 +1625,11 @@ button { font-family: inherit; cursor: pointer; }
   padding-bottom: clamp(60px, 8vh, 100px);
 }
 
+/* Approach slide — darken scrim to match Clients */
+.slide--approach-intro .slide__scrim {
+  background: rgba(0,0,0,0.82);
+}
+
 /* ── Approach Intro slide ─────────────────────────────────────── */
 .approach-intro-wrap {
   position: absolute;
