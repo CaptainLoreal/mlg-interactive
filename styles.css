@@ -93,12 +93,16 @@ button { font-family: inherit; cursor: pointer; }
 
 .eyebrow {
   font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--mlg-red);
   margin: 0 0 14px;
+  display: inline-block;
+  border: 1px solid rgba(181,0,52,0.45);
+  border-radius: 999px;
+  padding: 4px 12px;
 }
 
 /* Allow mixed-case in an eyebrow without losing the red colour or weight. */
@@ -698,10 +702,10 @@ button { font-family: inherit; cursor: pointer; }
   background: none;
   border: none;
   border-bottom: 1px solid transparent;
-  color: rgba(255,255,255,0.50);
+  color: rgba(255,255,255,0.88);
   font: inherit;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   text-decoration: none;
@@ -719,7 +723,7 @@ button { font-family: inherit; cursor: pointer; }
   z-index: 100;
   pointer-events: auto;
 }
-.slide-nav__btn:hover { color: rgba(255,255,255,0.75); }
+.slide-nav__btn:hover { color: #fff; }
 .slide-nav__btn.is-active {
   color: #fff;
   border-bottom-color: var(--mlg-red);
@@ -845,9 +849,9 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
   padding: 14px 0;
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.01em;
-  color: rgba(255,255,255,0.85);
+  color: #fff;
   text-decoration: none;
   border: none;
   background: none;
@@ -3304,3 +3308,103 @@ button { font-family: inherit; cursor: pointer; }
   .testimonials-carousel { margin-right: 0; padding-right: 0; }
   .testimonial { min-width: 100%; }
 }
+
+/* =============================================================
+   GLOBAL ADDITIONS — body text size, eyebrow pill intro centering,
+   approach two-col, hero pan, mobile centering, client spacing
+   ============================================================= */
+
+/* Slightly larger base body text */
+body { font-size: 16px; }
+p, li { font-size: inherit; }
+
+/* intro "What is your dream?" — centered on mobile */
+@media (max-width: 640px) {
+  .intro__prompt { text-align: center; }
+}
+
+/* ── Approach two-column layout ── */
+.approach-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 7vw, 100px);
+  align-items: center;
+  margin-bottom: clamp(48px, 6vh, 80px);
+}
+.approach-two-col__left { display: flex; flex-direction: column; align-items: flex-start; }
+.approach-two-col__right {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vh, 48px);
+}
+.approach-ordinal { display: flex; flex-direction: column; gap: 6px; }
+.approach-ordinal__num {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 54px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--mlg-red);
+}
+.approach-ordinal__text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.72);
+  margin: 0;
+}
+.approach-ordinal__text strong { color: #fff; }
+@media (max-width: 900px) {
+  .approach-two-col { grid-template-columns: 1fr; gap: 40px; }
+  .approach-ordinal__num { font-size: clamp(28px, 6vw, 40px); }
+}
+
+/* ── Team slide: more space between tab row and grid ── */
+.team-head { margin-bottom: clamp(24px, 4vh, 48px); }
+.team-tab-row { margin-top: clamp(20px, 3vh, 36px); }
+.team-grid--core { margin-top: clamp(20px, 3vh, 40px); }
+
+/* ── Team profile hero: slow panoramic pan ── */
+@keyframes heroPan {
+  from { object-position: 0% center; }
+  to   { object-position: 100% center; }
+}
+.profile-hero__media img {
+  animation: heroPan 24s ease-in-out infinite alternate;
+}
+
+/* ── Mobile: center body text ── */
+@media (max-width: 640px) {
+  .slide__copy p,
+  .approach-intro__body,
+  .challenge-box__body,
+  .challenge-box__conclusion,
+  .card-item__body,
+  .why-mlg-wrap p,
+  .ld-intro p,
+  .profile-body p,
+  .testimonial__quote,
+  .tf__sublabel,
+  .tf__sub {
+    text-align: center;
+  }
+  .approach-two-col__left { align-items: center; text-align: center; }
+  .approach-two-col__right { align-items: center; text-align: center; }
+  .approach-ordinal { align-items: center; }
+}
+
+/* ── Clients mobile: gap between selected card and quote ── */
+@media (max-width: 767px) {
+  .client-quote { margin-top: 16px; }
+  .globe-card { margin-bottom: 4px; }
+  .client-quote__text { font-size: 14px; line-height: 1.5; }
+}
+
+/* ── Cultural transformation: single offering card should not span full width ── */
+.ld-offerings { grid-template-columns: repeat(auto-fit, minmax(240px, 360px)); justify-content: center; }
+
+/* ── Corner mark: always visible, pointer on mobile ── */
+.corner-mark { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* ── Subpage intro text: slightly smaller to match "reduce by half" feel ── */
+.ld-intro p { font-size: 14px; line-height: 1.7; }
+

@@ -997,7 +997,9 @@
       return;
     }
     collect(step);
-    showStep(current + 1);
+    // After the last question, submit automatically
+    if (current + 1 >= DONE_IDX) { submitForm(); }
+    else { showStep(current + 1); }
   }
 
   /* ── Submit ── */

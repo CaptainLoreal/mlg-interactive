@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e0f10" />
   <title>Leadership Development — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=139" />
+  <link rel="stylesheet" href="styles.css?v=154" />
   <style>
     body { overflow: visible; }
     .standalone { overflow: visible; min-height: 100dvh; }
@@ -138,11 +138,13 @@
       flex-shrink: 0;
     }
     .ld-offering__title {
-      font-size: 20px;
-      font-weight: 600;
+      font-size: clamp(17px, 1.6vw, 21px);
+      font-weight: 500;
+      font-family: var(--font-display);
+      letter-spacing: -0.005em;
+      line-height: 1.2;
       color: #fff;
-      margin: 0 0 20px;
-      letter-spacing: -0.01em;
+      margin: 0 0 16px;
     }
     .ld-offering__list {
       list-style: none;
@@ -154,7 +156,8 @@
     }
     .ld-offering__list li {
       font-size: 14px;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.86);
+      font-weight: 450;
       padding-left: 16px;
       position: relative;
       line-height: 1.5;
@@ -255,7 +258,7 @@
         </a>
         <p class="ld-hero__eyebrow">Services</p>
         <h1 class="ld-hero__title">Leadership<br>Development.</h1>
-        <p class="ld-hero__lead">We design and deliver leadership programmes that equip individuals and teams with the mindset, tools, and behaviours to lead with clarity and impact — at every level of the organisation.</p>
+        <p class="ld-hero__lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.</p>
       </div>
     </div>
 
@@ -265,17 +268,17 @@
       <!-- Intro -->
       <div class="ld-intro">
         <h2 class="ld-intro__heading">We turn your potential into performance</h2>
-        <p>Societas tua unica est. Ita et duces tui. Et condicio mercatus tui. Et ambitio tua. Et consilium tuum.</p>
-        <p><strong>Quidquid facimus pro te: omnino ad necessitatem tuam specificam creatum est.</strong></p>
-        <p>Loquimur tecum. Provocamus te. Exempla prospera discutimus. Una nobiscum optiones co-creamus. In fortitudinibus tuis individualibus et organisatoriis nitimur ut impetum summae performantiae accendamus per programma ducendi et itinera discendi nostra. USP noster est plena intellegentia unicae tuae naturae. Ex ea solutiones pro te co-creamus.</p>
-        <p><strong>Exercitationes nostrae praemiatae et itinera discendi omnia argumenta tangunt quae duces et collegia ad gradum proximum perducunt.</strong></p>
-        <p>Disce una cum facilitatoribus internationalibus excellentibus cum peritia, experientia, et vasto spectro methodico ad discendum permanenter.</p>
+        <p>Your company is unique. So are your leaders. And so is your market situation. And your ambition. And your strategy.</p>
+        <p><strong>Whatever we do for you: it is completely tailor-made for your needs.</strong></p>
+        <p>We speak with you. We challenge you. We discuss successful examples. We co-create options together with you. We focus on your individual and organizational strengths to ignite the ultimate performance boost with our leadership programs and learning journeys. Our USP is our full understanding of your uniqueness. Based on it, we co-create solutions for you.</p>
+        <p><strong>Our award-winning trainings and learning journeys cover all topics that help leaders and teams to reach the next level.</strong></p>
+        <p>Learn together with excellent international facilitators with expertise, experience, and a vast methodical spectrum to ensure sustainable learning.</p>
       </div>
 
       <!-- USP -->
       <div class="ld-usp">
         <p class="ld-usp__label">Our USP</p>
-        <p class="ld-usp__text">"Societas tua unica est — ita et omne programma quod construimus. Non solemus aptare contenta praeparata. Co-creamus solutiones in tua realitate, in tuis hominibus, et in tua ambitione fundatas."</p>
+        <p class="ld-usp__text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."</p>
       </div>
 
       <!-- Offerings heading — centered above the image card -->
@@ -300,6 +303,10 @@
               <li>BPTI — Take the test</li>
               <li>Testimonials</li>
             </ul>
+            <a class="btn btn--ghost btn--more" href="team-development.html" >
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
           </div>
 
           <div class="ld-offering">
@@ -313,6 +320,10 @@
               <li>Evaluation</li>
               <li>Testimonials</li>
             </ul>
+            <a class="btn btn--ghost btn--more" href="learning-journeys.html" >
+              <span>more</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
           </div>
 
           <div class="ld-offering">
@@ -329,7 +340,7 @@
       <div class="ld-cta">
         <p>Ready to build something exceptional together?</p>
         <a class="ld-cta__btn" href="index.html#slide=8">
-          Start the conversation
+          Get in touch with us
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
         </a>
       </div>

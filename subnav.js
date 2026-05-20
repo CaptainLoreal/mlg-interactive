@@ -149,6 +149,27 @@
     if (e.key === 'Escape') closeNav();
   });
 
+  /* ── Corner mark: wire flyMark if on main page, navigate home on subpages ── */
+  var cm = document.querySelector('.corner-mark');
+  if (cm) {
+    if (window.MLG && window.MLG.flyMark) {
+      // Main page — flyMark already wired in app.js; ensure it's accessible on mobile
+      cm.style.cursor = 'pointer';
+    } else {
+      // Subpages — make the mark navigate back to the homepage
+      cm.style.cursor = 'pointer';
+      cm.setAttribute('role', 'button');
+      cm.setAttribute('tabindex', '0');
+      cm.setAttribute('aria-label', 'Back to home');
+      function triggerFly() {
+        if (window.MLG && window.MLG.flyMark) { window.MLG.flyMark(cm); }
+        setTimeout(function () { location.href = 'index.html'; }, 320);
+      }
+      cm.addEventListener('click', triggerFly);
+      cm.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') triggerFly(); });
+    }
+  }
+
   /* ── Language switcher init ── */
   (function () {
     function applyLang(lang) {
