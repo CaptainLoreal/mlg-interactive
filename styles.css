@@ -2886,6 +2886,11 @@ button { font-family: inherit; cursor: pointer; }
   background: rgba(0,0,0,0.38);
 }
 
+/* Tailor slide — solid dark, no photo */
+.slide--tailor { background: #0e0f10; }
+.slide--tailor .slide__media,
+.slide--tailor .slide__scrim { display: none; }
+
 .testimonials-wrap {
   position: relative;
   z-index: 2;
@@ -2893,18 +2898,30 @@ button { font-family: inherit; cursor: pointer; }
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(64px, 10vh, 120px);
   pointer-events: none;
 }
-.testimonials-wrap .eyebrow {
-  margin-bottom: clamp(24px, 3vh, 40px);
+
+/* Dark card that holds the eyebrow + carousel */
+.testimonials-card {
+  background: rgba(14,15,16,0.82);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  padding: clamp(28px, 4vh, 44px) clamp(28px, 4vw, 44px) clamp(28px, 4vh, 44px);
+  max-width: 900px;
+  width: 100%;
+  pointer-events: auto;
+}
+
+.testimonials-card .eyebrow {
+  margin-bottom: clamp(20px, 3vh, 36px);
 }
 
 .testimonials-carousel {
   position: relative;
-  max-width: 860px;
   overflow: hidden;
-  pointer-events: auto;
+  padding-bottom: 60px; /* breathing room for arrows */
 }
 
 .testimonials-track {
@@ -2914,18 +2931,18 @@ button { font-family: inherit; cursor: pointer; }
 
 .testimonial {
   min-width: 100%;
-  padding-right: clamp(48px, 8vw, 120px);
+  padding-right: clamp(56px, 8vw, 120px);
   box-sizing: border-box;
 }
 
 .testimonial__quote {
   font-family: var(--font-display);
-  font-size: clamp(17px, 2vw, 23px);
+  font-size: clamp(15px, 1.8vw, 21px);
   font-weight: 400;
   font-style: italic;
-  line-height: 1.6;
+  line-height: 1.65;
   color: rgba(255,255,255,0.92);
-  margin: 0 0 clamp(20px, 3vh, 32px);
+  margin: 0 0 clamp(18px, 2.5vh, 28px);
   quotes: none;
 }
 
@@ -2941,10 +2958,10 @@ button { font-family: inherit; cursor: pointer; }
   font-weight: 600;
 }
 
-/* Arrows */
+/* Arrows — positioned inside the carousel's bottom padding */
 .testimonials-arrow {
   position: absolute;
-  bottom: 0;
+  bottom: 8px;
   width: 44px;
   height: 44px;
   display: flex;
@@ -2969,7 +2986,7 @@ button { font-family: inherit; cursor: pointer; }
 /* Counter */
 .testimonials-counter {
   position: absolute;
-  bottom: 13px;
+  bottom: 21px;
   right: 112px;
   font-size: 11px;
   letter-spacing: 0.12em;
@@ -2978,9 +2995,9 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 @media (max-width: 640px) {
-  .testimonials-wrap { padding-bottom: 80px; }
+  .testimonials-card { padding: 20px 20px clamp(20px,3vh,32px); }
   .testimonial { padding-right: 0; }
-  .testimonials-arrow--prev { right: auto; left: 0; bottom: -60px; }
-  .testimonials-arrow--next { right: auto; left: 52px; bottom: -60px; }
-  .testimonials-counter { left: 108px; right: auto; bottom: -47px; }
+  .testimonials-arrow--prev { right: auto; left: 0; bottom: 8px; }
+  .testimonials-arrow--next { right: auto; left: 52px; bottom: 8px; }
+  .testimonials-counter { left: 108px; right: auto; bottom: 21px; }
 }

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e0f10" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=123" />
+  <link rel="stylesheet" href="styles.css?v=125" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -109,7 +109,7 @@
       </article>
 
       <!-- 2 — Tailor -->
-      <article class="slide slide--contact" data-slide="1" data-anim="parallax" data-title="Tailor">
+      <article class="slide slide--contact slide--tailor" data-slide="1" data-anim="parallax" data-title="Tailor">
         <div class="slide__media slide__media--soft">
           <img src="assets/photos/photo-m2.webp" alt="" loading="lazy" />
         </div>
@@ -290,6 +290,7 @@
         <div class="slide__scrim"></div>
 
         <div class="testimonials-wrap">
+          <div class="testimonials-card">
           <p class="eyebrow">What clients say</p>
 
           <div class="testimonials-carousel" id="testimonialsCarousel">
@@ -398,6 +399,7 @@
               <span id="testimonialsIdx">1</span> / <span id="testimonialsTotal"></span>
             </div>
           </div>
+          </div><!-- /.testimonials-card -->
         </div>
       </article>
 
@@ -778,7 +780,7 @@
 
   </main>
 
-  <script src="app.js?v=123" defer></script>
+  <script src="app.js?v=125" defer></script>
   <script>
     // Tailor form step machine — inline because the form lives inside the deck slide.
     (() => {
