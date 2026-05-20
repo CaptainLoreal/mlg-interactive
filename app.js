@@ -128,20 +128,18 @@
      ===================================================== */
   const EXCUSES = [
     "I am working in the best of all teams",
-    "My decisions are safe, sound, and fast",
+    "Our decisions are safe, sound, and fast",
     "We are attracting the smartest talents",
-    "I have become the best boss ever",
+    "I am the best boss ever",
     "Our company culture fosters best performance",
-    "The leaders in our company are role models",
-    "We are a learning community",
-    "My team strives, and we outsmart the competition",
+    "We are leaders and role models",
+    "Pick and Click",
+    "We are a fast learning community",
     "The competition is jealous of us",
     "We are a winning team, curious and innovative",
     "I am proud of my company",
-    "Our engagement is legend",
     "I am an authentic leader with natural authority",
     "We give each other candid feedback",
-    "Everyone of us learns from their mistakes",
   ];
 
   let chipsState = [];

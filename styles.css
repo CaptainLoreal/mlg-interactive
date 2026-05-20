@@ -1319,12 +1319,13 @@ button { font-family: inherit; cursor: pointer; }
   flex-direction: column;
 }
 
-/* ── Offerings background strip — card rising from below ── */
+/* ── Offerings image banner — eyebrow/label sits on the image, cards below on dark ── */
 .offerings-bg {
   position: relative;
+  height: clamp(200px, 32vh, 380px);
   border-radius: 20px 20px 0 0;
-  padding: clamp(40px, 6vh, 72px) clamp(24px, 5vw, 72px) clamp(48px, 7vh, 80px);
   overflow: hidden;
+  margin-bottom: 0;
 }
 .offerings-bg__img {
   position: absolute;
@@ -1334,16 +1335,41 @@ button { font-family: inherit; cursor: pointer; }
   object-fit: cover;
   z-index: 0;
 }
+/* Bottom-fade so label reads cleanly — no full darkening */
 .offerings-bg__scrim {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.28);
+  background: linear-gradient(to top, rgba(14,15,16,0.75) 0%, rgba(14,15,16,0) 55%);
   z-index: 1;
 }
-.offerings-bg > .ld-offerings {
-  position: relative;
+/* Label block pinned to the bottom of the image */
+.offerings-bg__label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
   z-index: 2;
-  margin-bottom: 0;
+  padding: 0 clamp(24px, 5vw, 72px) clamp(20px, 3vh, 32px);
+}
+.offerings-bg__label .ld-section-label {
+  margin: 0 0 6px;
+}
+.offerings-bg__label .offerings-bg__heading {
+  font-size: clamp(22px, 3.5vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+  line-height: 1.15;
+}
+
+/* Cards grid sits directly below the image on the dark background */
+.ld-content > .ld-offerings {
+  margin-top: clamp(24px, 4vh, 40px);
+}
+
+/* Sub-page hero — full viewport height, matching main page */
+.ld-hero {
+  height: 100dvh !important;
+  min-height: unset !important;
 }
 
 /* Footer always at page bottom */
@@ -1641,9 +1667,36 @@ button { font-family: inherit; cursor: pointer; }
 .slide--globe .slide__media { display: none; }
 .slide--globe .slide__scrim { display: none; }
 
-/* Approach slide — darken scrim to match Clients */
+/* Approach slide — solid dark text area, image only behind cards */
 .slide--approach-intro .slide__scrim {
   background: rgba(0,0,0,0.82);
+}
+/* Main Approach slide only (not Why MLG / Tools) */
+.slide--approach-main .slide__media { display: none; }
+.slide--approach-main .slide__scrim { display: none; }
+.slide--approach-main { background: #0e0f10; }
+
+/* Cards section gets its own image background */
+.approach-cards-bg {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.approach-cards-bg__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.approach-cards-bg .approach-centered__cards {
+  position: relative;
+  z-index: 1;
+  max-width: none;
+  padding: clamp(24px, 4vh, 40px);
 }
 
 /* ── Approach Intro slide ─────────────────────────────────────── */
