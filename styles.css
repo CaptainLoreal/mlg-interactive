@@ -1332,13 +1332,31 @@ button { font-family: inherit; cursor: pointer; }
   flex-direction: column;
 }
 
-/* ── Offerings image banner — eyebrow/label sits on the image, cards below on dark ── */
+/* ── Offerings section header — eyebrow + heading centered above the image card ── */
+.offerings-above {
+  text-align: center;
+  margin: 0 auto clamp(24px, 3.5vh, 40px);
+  max-width: 720px;
+}
+.offerings-above .ld-section-label {
+  margin: 0 0 10px;
+}
+.offerings-above .offerings-bg__heading {
+  font-size: clamp(22px, 3.5vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+  line-height: 1.15;
+}
+
+/* ── Offerings image card — full rounded, cards overlaid on the photo ── */
 .offerings-bg {
   position: relative;
-  height: clamp(200px, 32vh, 380px);
   border-radius: 20px;
   overflow: hidden;
-  margin-bottom: 0;
+  padding: clamp(32px, 5vh, 56px) clamp(24px, 4vw, 48px) clamp(36px, 6vh, 64px);
+  margin-bottom: clamp(32px, 5vh, 56px);
 }
 .offerings-bg__img {
   position: absolute;
@@ -1348,35 +1366,18 @@ button { font-family: inherit; cursor: pointer; }
   object-fit: cover;
   z-index: 0;
 }
-/* Bottom-fade so label reads cleanly — no full darkening */
+/* Subtle darkening so cards read clearly on the photo */
 .offerings-bg__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(14,15,16,0.75) 0%, rgba(14,15,16,0) 55%);
+  background: rgba(0,0,0,0.30);
   z-index: 1;
 }
-/* Label block pinned to the bottom of the image */
-.offerings-bg__label {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
+/* Cards grid sits on top of the image */
+.offerings-bg > .ld-offerings {
+  position: relative;
   z-index: 2;
-  padding: 0 clamp(24px, 5vw, 72px) clamp(20px, 3vh, 32px);
-}
-.offerings-bg__label .ld-section-label {
-  margin: 0 0 6px;
-}
-.offerings-bg__label .offerings-bg__heading {
-  font-size: clamp(22px, 3.5vw, 40px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: #fff;
-  margin: 0;
-  line-height: 1.15;
-}
-
-/* Cards grid sits directly below the image on the dark background */
-.ld-content > .ld-offerings {
-  margin-top: clamp(24px, 4vh, 40px);
+  margin-bottom: 0;
 }
 
 /* Sub-page hero — full viewport height, matching main page */
