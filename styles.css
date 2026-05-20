@@ -1958,6 +1958,9 @@ button { font-family: inherit; cursor: pointer; }
 /* =============================================================
    CONTACT
    ============================================================= */
+.slide--contact:not(.slide--tailor) .slide__scrim {
+  background: rgba(0,0,0,0.72);
+}
 .slide--contact .slide__media img { }
 
 .contact-wrap {
