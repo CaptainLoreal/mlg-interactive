@@ -1642,6 +1642,12 @@ button { font-family: inherit; cursor: pointer; }
   padding-bottom: clamp(60px, 8vh, 100px);
 }
 
+/* Clients slide — restore image, gradient fades from dark at top */
+.slide--globe { background: #0e0f10; }
+.slide--globe .slide__scrim {
+  background: linear-gradient(to bottom, #0e0f10 0%, rgba(14,15,16,0) 18%);
+}
+
 /* Approach slide — darken scrim to match Clients */
 .slide--approach-intro .slide__scrim {
   background: rgba(0,0,0,0.82);
@@ -2559,8 +2565,6 @@ button { font-family: inherit; cursor: pointer; }
 /* =============================================================
    GLOBE
    ============================================================= */
-.slide--globe { background: #0e0f10; }
-.slide--globe .slide__media { display: none; }
 .slide--globe .slide__media img { }
 
 /* The top headline floats above the globe — let pointer events pass through
@@ -2914,10 +2918,19 @@ button { font-family: inherit; cursor: pointer; }
   background: rgba(0,0,0,0.38);
 }
 
+/* Welcome (hero) slide — gradient fades image bottom to dark */
+.slide[data-title="Welcome"] .slide__scrim {
+  background: linear-gradient(to top, #0e0f10 0%, rgba(14,15,16,0) 18%);
+}
+
 /* Tailor slide — solid dark, no photo */
 .slide--tailor { background: #0e0f10; }
 .slide--tailor .slide__media,
 .slide--tailor .slide__scrim { display: none; }
+
+/* Team slide — solid dark, no photo */
+.slide--team { background: #0e0f10; }
+.slide--team .slide__media { display: none; }
 
 .testimonials-wrap {
   position: relative;
