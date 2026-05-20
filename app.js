@@ -293,7 +293,10 @@
   }
 
   window.addEventListener('scroll', () => {
-    scrollTarget = window.scrollY;
+    // Clamp to the last slide's start so content taller than 100dvh
+    // doesn't create a dead-scroll gap at the bottom on mobile.
+    const lastY = slides.length ? slides[slides.length - 1].offsetTop : Infinity;
+    scrollTarget = Math.min(window.scrollY, lastY);
   }, { passive: true });
 
   window.addEventListener('resize', () => {
