@@ -1322,9 +1322,6 @@ button { font-family: inherit; cursor: pointer; }
 /* ── Offerings background strip — card rising from below ── */
 .offerings-bg {
   position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   border-radius: 20px 20px 0 0;
   padding: clamp(40px, 6vh, 72px) clamp(24px, 5vw, 72px) clamp(48px, 7vh, 80px);
   overflow: hidden;
@@ -1343,17 +1340,14 @@ button { font-family: inherit; cursor: pointer; }
   background: rgba(0,0,0,0.28);
   z-index: 1;
 }
-.offerings-bg > .ld-section-label,
-.offerings-bg > .ld-offerings,
-.offerings-bg > .ld-cta,
-.offerings-bg > .imprint {
+.offerings-bg > .ld-offerings {
   position: relative;
   z-index: 2;
-}
-.offerings-bg > .ld-offerings {
   margin-bottom: 0;
 }
-.offerings-bg > .imprint {
+
+/* Footer always at page bottom */
+.standalone .ld-content > .imprint {
   margin-top: auto;
 }
 
@@ -2663,7 +2657,7 @@ button { font-family: inherit; cursor: pointer; }
   padding: 0 12px;
   border-radius: 999px;
   background: rgba(14,15,16,0.72);
-  border: 1px solid rgba(255,255,255,0.20);
+  border: 1px solid rgba(255,255,255,0.90);
   display: flex;
   align-items: center;
   justify-content: center;
