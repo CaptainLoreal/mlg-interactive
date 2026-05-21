@@ -3341,9 +3341,9 @@ p, li { font-size: inherit; }
 .approach-ordinal { display: flex; flex-direction: column; gap: 6px; }
 .approach-ordinal__num {
   font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 54px);
+  font-size: clamp(56px, 7vw, 96px);
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   line-height: 1;
   color: var(--mlg-red);
 }
@@ -3356,7 +3356,7 @@ p, li { font-size: inherit; }
 .approach-ordinal__text strong { color: #fff; }
 @media (max-width: 900px) {
   .approach-two-col { grid-template-columns: 1fr; gap: 40px; }
-  .approach-ordinal__num { font-size: clamp(28px, 6vw, 40px); }
+  .approach-ordinal__num { font-size: clamp(48px, 10vw, 72px); }
 }
 
 /* ── Team slide: more space between tab row and grid ── */
@@ -3364,13 +3364,15 @@ p, li { font-size: inherit; }
 .team-tab-row { margin-top: clamp(20px, 3vh, 36px); }
 .team-grid--core { margin-top: clamp(20px, 3vh, 40px); }
 
-/* ── Team profile hero: slow panoramic pan ── */
+/* ── Team profile hero: pan right→left on mobile only, fixed on desktop ── */
 @keyframes heroPan {
-  from { object-position: 0% center; }
-  to   { object-position: 100% center; }
+  from { object-position: 100% center; }
+  to   { object-position: 20% center; }
 }
-.profile-hero__media img {
-  animation: heroPan 24s ease-in-out infinite alternate;
+@media (max-width: 768px) {
+  .profile-hero__media img {
+    animation: heroPan 22s ease-out forwards;
+  }
 }
 
 /* ── Mobile: center body text ── */
