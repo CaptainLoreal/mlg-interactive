@@ -1793,10 +1793,26 @@ button { font-family: inherit; cursor: pointer; }
 .slide--approach-intro .slide__scrim {
   background: rgba(0,0,0,0.82);
 }
-/* Main Approach slide only (not Why MLG / Tools) */
-.slide--approach-main .slide__media { display: none; }
-.slide--approach-main .slide__scrim { display: none; }
-.slide--approach-main { background: #0e0f10; }
+/* Main Approach slide — show image background */
+.slide--approach-main .slide__media { display: block; }
+.slide--approach-main .slide__scrim { display: block; }
+.slide--approach-main { background: transparent; }
+
+/* Approach intro: full-width text, then 3-col ordinals below */
+.approach-intro-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 5vh, 64px);
+  max-width: 960px;
+}
+.approach-ordinals-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+}
+@media (max-width: 640px) {
+  .approach-ordinals-row { grid-template-columns: 1fr; }
+}
 
 /* Cards section gets its own image background */
 .approach-cards-bg {
