@@ -1878,7 +1878,25 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
   z-index: 0;
+}
+
+/* "Great Challenges" eyebrow pill — spans full grid width */
+.approach-challenges-eyebrow {
+  grid-column: 1 / -1;
+  display: inline-block;
+  width: fit-content;
+  background: var(--mlg-red);
+  border: 1px solid var(--mlg-red);
+  border-radius: 999px;
+  padding: 4px 12px;
+  color: #fff !important;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
 }
 /* Same 30% scrim as offerings-bg on service sub-pages */
 .approach-cards-bg::after {
@@ -3271,6 +3289,10 @@ button { font-family: inherit; cursor: pointer; }
   flex-direction: column;
   justify-content: center;
   padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(64px, 10vh, 120px);
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 /* Section heading row */
@@ -3354,7 +3376,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .testimonial__quote {
   font-family: var(--font-display);
-  font-size: clamp(14px, 1.3vw, 17px);
+  font-size: clamp(13px, 1.1vw, 15px);
   font-weight: 400;
   font-style: italic;
   line-height: 1.65;
