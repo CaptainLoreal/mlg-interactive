@@ -2937,6 +2937,21 @@ button { font-family: inherit; cursor: pointer; }
   width: 104px;
   height: 42px;
 }
+.chip[data-client="knorr-bremse"] {
+  width: 140px;
+}
+.chip[data-client="knorr-bremse"] .chip__logo {
+  width: 116px;
+  height: 38px;
+}
+.chip[data-client="microsoft"] .chip__logo {
+  width: 104px;
+  height: 38px;
+}
+.chip[data-client="gilead"] .chip__logo {
+  width: 100px;
+  height: 36px;
+}
 
 /* Fade chips on the back of the sphere — set via JS opacity per frame */
 
