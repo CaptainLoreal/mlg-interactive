@@ -1430,7 +1430,8 @@ button { font-family: inherit; cursor: pointer; }
   z-index: 1;
 }
 /* Cards grid sits on top of the image */
-.offerings-bg > .ld-offerings {
+.offerings-bg > .ld-offerings,
+.offerings-bg > .cs-detail-grid {
   position: relative;
   z-index: 2;
   margin-bottom: 0;
