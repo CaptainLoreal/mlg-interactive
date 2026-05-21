@@ -29,7 +29,7 @@
     .profile-quote__text { font-size: clamp(15px,1.8vw,18px); line-height: 1.7; color: rgba(255,255,255,0.80); margin: 0; font-style: italic; }
     .profile-cta { text-align: center; padding: clamp(32px,5vh,56px) 0; border-top: 1px solid rgba(255,255,255,0.08); max-width: 1200px; margin: 0 auto; }
     .profile-cta p { color: rgba(255,255,255,0.55); font-size: 14px; margin: 0 0 20px; }
-    .profile-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--mlg-red); color: #fff; font-family: var(--font-sans); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 28px; border-radius: 999px; transition: opacity 200ms; }
+    .profile-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--mlg-red); color: #fff; font-family: var(--font-sans); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 28px; border-radius: 999px; transition: opacity 200ms; border: none; cursor: pointer; }
     .profile-cta__btn:hover { opacity: 0.85; }
     @media (max-width: 640px) { .profile-quote { padding: 24px; } }
   </style>
@@ -92,10 +92,10 @@
 
       <div class="profile-cta">
         <p>Want to work with Klaus?</p>
-        <a class="profile-cta__btn" href="index.html#slide=9">
-          Get in touch
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </a>
+        <button class="profile-cta__btn" type="button" onclick="window.print()">
+          Generate PDF
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+        </button>
       </div>
 
       <footer class="imprint" style="margin-top: clamp(32px,4vh,56px);">

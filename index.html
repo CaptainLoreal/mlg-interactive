@@ -36,6 +36,7 @@
        EXCUSES — interstitial: pop the excuses, reveal the truth
        ============================================================ -->
   <section id="excuses" class="excuses" aria-hidden="true">
+    <p class="excuses__hint">Pick and click your dream</p>
     <p class="excuses__prompt" id="excusesPrompt" hidden></p>
     <div class="excuses__field" id="excusesField" aria-label="Tap each excuse"></div>
     <p class="excuses__reveal" id="excusesReveal">It's a leadership issue.</p>
@@ -107,10 +108,16 @@
           <img src="assets/photos/photo-g1.webp" alt="" loading="eager" />
         </div>
         <div class="slide__scrim"></div>
-        <div class="slide__copy">
-          <p class="eyebrow">Empowering Leadership</p>
-          <h1 class="display">Developing leaders<br>who <em class="display-accent">shape</em> organizations.</h1>
-          <p class="display display--sub">Tailored to your needs.</p>
+        <div class="slide__copy" style="display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(32px, 5vw, 80px); max-width: none; right: var(--pad-x);">
+          <div style="flex-shrink: 0;">
+            <p class="eyebrow">Munich Leadership Group</p>
+            <h1 class="display" style="text-transform: uppercase;">Empowering<br>leadership</h1>
+            <p class="display display--sub" style="font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; line-height: 1.3;">Developing leaders<br>who shape organizations</p>
+          </div>
+          <div style="flex-shrink: 0; width: clamp(320px, 40vw, 580px); background: rgba(255,255,255,0.10); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: clamp(28px, 3vw, 48px);">
+            <p style="font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; line-height: 1.3; color: #fff; margin: 0 0 20px;">For the experts at Munich Leadership Group (MLG), this pledge is both a commitment and a motivation.</p>
+            <p style="font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; line-height: 1.3; color: #fff; margin: 0;">MLG specializes in the identification and development of the single most important driver of corporate success: leadership.</p>
+          </div>
         </div>
       </article>
 
@@ -123,18 +130,34 @@
 
         <div class="contact-wrap contact-wrap--tailor">
           <div class="slide__copy contact-wrap__head">
-            <p class="eyebrow">Tailor</p>
-            <h2 class="display">What do you need?</h2>
+            <p class="eyebrow">Quick access</p>
+            <h2 class="display" style="font-size: clamp(40px, 6.5vw, 80px); margin-bottom: clamp(12px, 2.5vh, 28px);">What are you looking for?</h2>
           </div>
 
           <div class="contact-block">
             <form class="tf" id="tailorForm" novalidate>
               <div class="tf__progress"><span class="tf__progress-fill" id="tailorFill"></span></div>
 
-              <!-- Step 1 — Who are you -->
-              <div class="tf__step is-active" data-step="0" data-field="profile" data-required="1">
-                <p class="tf__num">01 — about you</p>
+              <!-- Step 1 — Company size -->
+              <div class="tf__step is-active" data-step="0" data-field="company_size" data-required="1">
+                <p class="tf__num">01 — your company</p>
+                <h3 class="tf__q">My company has …</h3>
                 <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="small">&lt; 50 employees</button>
+                  <button class="tf__choice" type="button" data-value="medium">50–500 employees</button>
+                  <button class="tf__choice" type="button" data-value="large">500–5.000 employees</button>
+                  <button class="tf__choice" type="button" data-value="enterprise">&gt; 5.000 employees</button>
+                </div>
+              </div>
+
+              <!-- Step 2 — Who are you -->
+              <div class="tf__step" data-step="1" data-field="profile" data-required="1">
+                <p class="tf__num">02 — about you</p>
+                <h3 class="tf__q">What brings you here?</h3>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="clients">
+                    <span><strong>I want to know</strong> who your clients are</span>
+                  </button>
                   <button class="tf__choice" type="button" data-value="general">
                     <span><strong>I want to learn about MLG</strong> in general</span>
                   </button>
@@ -153,18 +176,6 @@
                   <button class="tf__choice" type="button" data-value="alumnus">
                     <span><strong>I am a former participant</strong> of one of your programs and want to know more</span>
                   </button>
-                </div>
-              </div>
-
-              <!-- Step 2 — Company size -->
-              <div class="tf__step" data-step="1" data-field="company_size" data-required="1">
-                <p class="tf__num">02 — your company</p>
-                <p class="tf__sublabel">My company has …</p>
-                <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="small">&lt; 50 employees</button>
-                  <button class="tf__choice" type="button" data-value="medium">50–500 employees</button>
-                  <button class="tf__choice" type="button" data-value="large">500–5.000 employees</button>
-                  <button class="tf__choice" type="button" data-value="enterprise">&gt; 5.000 employees</button>
                 </div>
                 <div class="tf__foot">
                   <button class="tf__back" type="button" data-action="back">← Back</button>
@@ -214,8 +225,6 @@
             </div>
           </div>
 
-          <p class="globe__hint">Drag to spin · tap a client</p>
-
           <!-- Right column on desktop: headline + selected-client card + quote stacked vertically -->
           <div class="globe-side">
             <div class="slide__copy slide__copy--side">
@@ -259,27 +268,15 @@
             <div class="approach-ordinals-row">
               <div class="approach-ordinal">
                 <span class="approach-ordinal__num">1.</span>
-                <p class="approach-ordinal__text"><strong>Deeply rooted in science.</strong></p>
-                <a href="https://theleadingbrain.com/" target="_blank" rel="noopener" class="btn btn--ghost btn--more">
-                  <span>Learn more</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-                </a>
+                <p class="approach-ordinal__text"><strong>Deeply rooted<br>in science.</strong></p>
               </div>
               <div class="approach-ordinal">
                 <span class="approach-ordinal__num">2.</span>
                 <p class="approach-ordinal__text"><strong>Fully customized.</strong></p>
-                <a href="leadership-development.html" class="btn btn--ghost btn--more">
-                  <span>Learn more</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-                </a>
               </div>
               <div class="approach-ordinal">
                 <span class="approach-ordinal__num">3.</span>
-                <p class="approach-ordinal__text"><strong>Perfectly working in practice.</strong></p>
-                <a href="#" data-jump="2" class="btn btn--ghost btn--more">
-                  <span>Learn more</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-                </a>
+                <p class="approach-ordinal__text"><strong>Perfectly working<br>in practice.</strong></p>
               </div>
             </div>
           </div>
@@ -288,26 +285,28 @@
           <div class="approach-cards-bg">
             <img class="approach-cards-bg__img" src="assets/photos/photo-g2.webp" alt="" loading="lazy" />
             <div class="approach-centered__cards">
-              <p class="eyebrow approach-challenges-eyebrow">Great Challenges</p>
-              <div class="challenge-box">
-                <h3 class="challenge-box__title">Artificial Intelligence (AI)</h3>
-                <p class="challenge-box__body">How can AI make me better, faster, and more productive? What does AI mean for a performance boost in my team(s)? How can I keep up with the speed of AI development?</p>
-                <p class="challenge-box__conclusion">Those who adapt AI early will strive. Those who hesitate — will struggle.</p>
-              </div>
-              <div class="challenge-box">
-                <h3 class="challenge-box__title">Uncertainty</h3>
-                <p class="challenge-box__body">How can I make better decisions in growing uncertainty? How can I give orientation when times are getting rough? Are there situations when I can trust my gut feeling?</p>
-                <p class="challenge-box__conclusion">Those who embrace uncertainty will strive. Those who hesitate — will struggle.</p>
-              </div>
-              <div class="challenge-box">
-                <h3 class="challenge-box__title">Ambidexterity</h3>
-                <p class="challenge-box__body">How long will I keep optimizing today's business — until it's perfect or obsolete? Where am I killing innovation by managing it with yesterday's KPIs?</p>
-                <p class="challenge-box__conclusion">Those who understand ambidexterity will strive. Those who hesitate — will struggle.</p>
-              </div>
-              <div class="challenge-box">
-                <h3 class="challenge-box__title">Self Awareness</h3>
-                <p class="challenge-box__body">Which feedback do I avoid because it threatens how I see myself? How can I create a climate of psychological safety so everyone feels safe to speak up?</p>
-                <p class="challenge-box__conclusion">Those who are self-aware will strive. Those who hesitate — will struggle.</p>
+              <p class="eyebrow approach-challenges-eyebrow">Leader's challenges</p>
+              <div class="challenges-carousel">
+                <div class="challenge-box">
+                  <h3 class="challenge-box__title">Artificial Intelligence (AI)</h3>
+                  <p class="challenge-box__body">How can AI make me better, faster, and more productive? What does AI mean for a performance boost in my team(s)? How can I keep up with the speed of AI development?</p>
+                  <p class="challenge-box__conclusion">Those who adapt AI early will strive. Those who hesitate — will struggle.</p>
+                </div>
+                <div class="challenge-box">
+                  <h3 class="challenge-box__title">Uncertainty</h3>
+                  <p class="challenge-box__body">How can I make better decisions in growing uncertainty? How can I give orientation when times are getting rough? Are there situations when I can trust my gut feeling?</p>
+                  <p class="challenge-box__conclusion">Those who embrace uncertainty will strive. Those who hesitate — will struggle.</p>
+                </div>
+                <div class="challenge-box">
+                  <h3 class="challenge-box__title">Ambidexterity</h3>
+                  <p class="challenge-box__body">How long will I keep optimizing today's business — until it's perfect or obsolete? Where am I killing innovation by managing it with yesterday's KPIs?</p>
+                  <p class="challenge-box__conclusion">Those who understand ambidexterity will strive. Those who hesitate — will struggle.</p>
+                </div>
+                <div class="challenge-box">
+                  <h3 class="challenge-box__title">Self Awareness</h3>
+                  <p class="challenge-box__body">Which feedback do I avoid because it threatens how I see myself? How can I create a climate of psychological safety so everyone feels safe to speak up?</p>
+                  <p class="challenge-box__conclusion">Those who are self-aware will strive. Those who hesitate — will struggle.</p>
+                </div>
               </div>
             </div>
         </div><!-- /.approach-centered-wrap -->
@@ -438,14 +437,14 @@
             <div class="services-split__scrim"></div>
             <div class="services-split__copy">
               <p class="eyebrow">Services</p>
-              <h2 class="display">Everything a leader needs.<br>Nothing they don't.</h2>
+              <h2 class="display">We do everything to make you successful</h2>
             </div>
           </div>
           <div class="services-wrap">
             <div class="services-grid">
               <a class="card-item" href="leadership-development.html">
                 <h3 class="card-item__title">Leadership development</h3>
-                <p class="card-item__body">Bespoke leadership journeys — grounded in science, built for your next level.</p>
+                <p class="card-item__body">We turn your potential into performance</p>
                 <span class="btn btn--ghost btn--more">
                   <span>more</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -453,7 +452,7 @@
               </a>
               <a class="card-item" href="coaching-sparring.html">
                 <h3 class="card-item__title">Coaching &amp; sparring</h3>
-                <p class="card-item__body">An expert, independent sparring partner — challenging, sharpening, always in your corner.</p>
+                <p class="card-item__body">The fast lane to best performance</p>
                 <span class="btn btn--ghost btn--more">
                   <span>more</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -461,7 +460,7 @@
               </a>
               <a class="card-item" href="audits-assessments.html">
                 <h3 class="card-item__title">Audits &amp; assessments</h3>
-                <p class="card-item__body">Understand before you evolve. Deep diagnosis creates the foundation for every lasting change.</p>
+                <p class="card-item__body">Everyone in the perfect place</p>
                 <span class="btn btn--ghost btn--more">
                   <span>more</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -469,7 +468,7 @@
               </a>
               <a class="card-item" href="cultural-transformation.html">
                 <h3 class="card-item__title">Cultural transformation</h3>
-                <p class="card-item__body">Culture follows behaviour. Real change begins when leaders model it every day.</p>
+                <p class="card-item__body">Getting everyone on their toes</p>
                 <span class="btn btn--ghost btn--more">
                   <span>more</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -481,17 +480,17 @@
       </article>
 
       <!-- 5 — Why MLG -->
-      <article class="slide slide--approach-intro slide--why-mlg" data-slide="2" data-anim="parallax" data-title="Why MLG">
-        <div class="slide__media slide__media--soft">
+      <article class="slide slide--why-mlg" data-slide="2" data-anim="parallax" data-title="Why MLG">
+        <div class="slide__media">
           <img src="assets/photos/photo-m4.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
-        <div class="why-mlg-wrap">
-          <div class="why-mlg__header">
-            <p class="eyebrow">About</p>
+        <div class="why-mlg__overlay">
+          <div class="why-mlg__head">
+            <p class="eyebrow">Our USP</p>
             <h2 class="display">Why MLG?</h2>
-            <p class="approach-intro__body">Three reasons why the world's leading organisations choose us — and keep choosing us.</p>
+            <p class="why-mlg__sub">Three advantages that convince our clients</p>
           </div>
           <div class="why-mlg__cards">
             <div class="challenge-box">
@@ -763,6 +762,20 @@
   </main>
 
   <script src="app.js?v=153" defer></script>
+  <script>
+    (function () {
+      var topbar = document.querySelector('.topbar');
+      if (!topbar) return;
+      function checkHero() {
+        var hero = document.querySelector('.slide[data-slide="0"]');
+        if (!hero) return;
+        var past = window.scrollY > hero.offsetHeight * 0.5;
+        topbar.classList.toggle('topbar--past-hero', past);
+      }
+      window.addEventListener('scroll', checkHero, { passive: true });
+      checkHero();
+    })();
+  </script>
   <script>
     // Tailor form step machine — inline because the form lives inside the deck slide.
     (() => {

@@ -427,6 +427,22 @@ button { font-family: inherit; cursor: pointer; }
   pointer-events: none;
 }
 
+.excuses__hint {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0; right: 0;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  pointer-events: none;
+  z-index: 3;
+}
+
 .excuses__prompt {
   position: absolute;
   top: 50%;
@@ -625,6 +641,11 @@ button { font-family: inherit; cursor: pointer; }
   text-transform: uppercase;
   color: rgba(255,255,255,0.50);
   white-space: nowrap;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.topbar--past-hero .topbar__tagline {
+  opacity: 1;
 }
 @media (max-width: 640px) {
   .topbar__tagline { display: none; }
@@ -1505,6 +1526,22 @@ button { font-family: inherit; cursor: pointer; }
   flex: 1;
   gap: 0;
 }
+.slide--services-split .services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 400px));
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+}
+.slide--services-split .card-item {
+  padding: 48px 40px 52px;
+  align-items: center;
+  text-align: center;
+  min-height: unset;
+}
+.slide--services-split .card-item .btn--more {
+  align-self: center;
+}
 
 /* Services slide wrapper — full-height flex column */
 .services-wrap {
@@ -1523,14 +1560,12 @@ button { font-family: inherit; cursor: pointer; }
 .services-wrap__head { max-width: 680px; }
 .services-wrap__head .display { margin-bottom: 0; }
 
-/* 2×2 card grid */
+/* 2×2 card grid — coaching-card style flex wrap */
 .services-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-@media (min-width: 640px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); gap: clamp(14px, 1.4vw, 20px); }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
 }
 
 /* Legacy cards-row (kept for other slides that still use it) */
@@ -1884,21 +1919,10 @@ button { font-family: inherit; cursor: pointer; }
   z-index: 0;
 }
 
-/* "Great Challenges" eyebrow pill — spans full grid width */
+/* Challenges eyebrow pill — spans full grid width, pill centred */
 .approach-challenges-eyebrow {
-  grid-column: 1 / -1;
-  display: inline-block;
-  width: fit-content;
-  background: var(--mlg-red);
-  border: 1px solid var(--mlg-red);
-  border-radius: 999px;
-  padding: 4px 12px;
-  color: #fff !important;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin: 0 0 8px;
+  text-align: center;
+  margin-bottom: 4px;
 }
 /* Same 30% scrim as offerings-bg on service sub-pages */
 .approach-cards-bg::after {
@@ -1912,8 +1936,31 @@ button { font-family: inherit; cursor: pointer; }
 .approach-cards-bg .approach-centered__cards {
   position: relative;
   z-index: 2;
-  max-width: none;
-  padding: clamp(24px, 4vh, 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: clamp(24px, 4vh, 40px) var(--pad-x);
+  box-sizing: border-box;
+  width: 100%;
+}
+/* Pill centred above the grid */
+.approach-challenges-eyebrow {
+  text-align: center;
+  margin: 0;
+}
+/* Cards in a 2×2 grid */
+.challenges-carousel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 400px));
+  gap: 8px;
+  justify-content: center;
+  width: 100%;
+}
+.approach-cards-bg .challenge-box {
+  padding: 48px 40px 52px;
+  align-items: center;
+  text-align: center;
 }
 
 /* ── Approach Intro slide ─────────────────────────────────────── */
@@ -2024,36 +2071,57 @@ button { font-family: inherit; cursor: pointer; }
 
 .challenge-box__conclusion {
   font-size: 15px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.72);
+  font-weight: 700;
+  color: rgba(255,255,255,0.86);
   margin: 0;
   padding-top: 8px;
   border-top: 1px solid rgba(255,255,255,0.12);
-  font-style: italic;
+  font-style: normal;
 }
 
-/* Why MLG slide — centered headline + vertical card stack */
-.why-mlg-wrap {
+/* Why MLG — full-bleed image with right-aligned card column overlay */
+.slide--why-mlg {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: clamp(24px, 4vh, 40px);
-  padding: clamp(80px, 11vh, 120px) var(--pad-x) clamp(60px, 8vh, 100px);
-  z-index: 2;
-  color: #fff;
-  text-align: center;
-  min-height: 100dvh;
+  overflow: hidden;
 }
-.why-mlg__header { max-width: 600px; }
-.why-mlg__header .display { margin-bottom: 10px; }
+.why-mlg__overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(32px, 5vw, 80px);
+  min-height: 100dvh;
+  padding: clamp(80px, 12vh, 140px) var(--pad-x) clamp(48px, 7vh, 80px);
+}
+.why-mlg__head {
+  text-align: left;
+  max-width: 420px;
+  flex-shrink: 0;
+}
+.why-mlg__head .display { margin-bottom: 8px; }
+.why-mlg__sub {
+  font-size: clamp(14px, 1.3vw, 18px);
+  font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  margin: 0;
+  line-height: 1.4;
+}
 .why-mlg__cards {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: min(100%, 640px);
+  max-width: 480px;
+  width: 100%;
+}
+.why-mlg__cards .challenge-box {
+  padding: 32px 36px;
+  align-items: flex-start;
   text-align: left;
+}
+.why-mlg__cards .challenge-box__title {
+  font-size: clamp(16px, 1.6vw, 22px);
 }
 
 @media (min-width: 900px) {
@@ -2306,7 +2374,7 @@ button { font-family: inherit; cursor: pointer; }
   min-height: auto;
   padding-top: clamp(29px, 3.6vh, 43px);
   padding-bottom: clamp(2px, 0.3vh, 5px);
-  gap: clamp(16px, 3vh, 28px);
+  gap: clamp(24px, 5vh, 52px);
 }
 .contact-wrap--tailor .contact-wrap__head {
   text-align: center;
@@ -3038,6 +3106,15 @@ button { font-family: inherit; cursor: pointer; }
   width: 100px;
   height: 36px;
 }
+.chip[data-client="unicredit"] { width: 130px; }
+.chip[data-client="unicredit"] .chip__logo { width: 106px; height: 40px; }
+.chip[data-client="kuka"] .chip__logo { width: 100px; height: 40px; }
+.chip[data-client="nestle"] .chip__logo { width: 100px; height: 40px; }
+.chip[data-client="schaeffler"] { width: 130px; }
+.chip[data-client="schaeffler"] .chip__logo { width: 106px; height: 38px; }
+.chip[data-client="strabag"] .chip__logo { width: 100px; height: 40px; }
+.chip[data-client="vivawest"] { width: 148px; }
+.chip[data-client="vivawest"] .chip__logo { width: 124px; height: 40px; object-fit: contain; }
 
 /* Fade chips on the back of the sphere — set via JS opacity per frame */
 
@@ -3210,14 +3287,6 @@ button { font-family: inherit; cursor: pointer; }
     width: min(36vw, 420px);
   }
   .globe-card { width: 100%; }
-  .globe__hint {
-    position: static;
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: center;
-    transform: none;
-    top: auto; right: auto; bottom: auto; left: auto;
-  }
 }
 
 @media (min-width: 1100px) {
@@ -3231,7 +3300,129 @@ button { font-family: inherit; cursor: pointer; }
   .programmes li { grid-template-columns: 32px 1fr; }
   .programmes__num { font-size: 18px; }
   .controls { left: 16px; }
-  .topbar { left: 0; right: 0; border-radius: 0; }
+  .topbar { left: 0; right: 0; border-radius: 0; top: 0; }
+  .topbar__logo img { height: 58px; }
+  .globe-stage { touch-action: pan-y; }
+
+  /* Hero slide — stack headline + card vertically */
+  .slide[data-title="Welcome"] .slide__copy {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+    gap: 16px !important;
+  }
+  .slide[data-title="Welcome"] .slide__copy > div:last-child {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Services — ensure cards carousel sits close below photo headline */
+  .slide--services-split .services-wrap {
+    padding-top: 16px;
+    padding-bottom: 24px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Leader's challenges — pill above, cards as horizontal carousel */
+  .approach-cards-bg {
+    overflow: visible; /* allow horizontal scroll to escape clip */
+  }
+  .approach-cards-bg__img {
+    overflow: hidden; /* keep bg image clipped to its own box */
+    border-radius: 0;
+  }
+  .approach-cards-bg .approach-centered__cards {
+    gap: 12px;
+    padding: 20px 0 24px;
+    overflow: visible;
+  }
+  .challenges-carousel {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    padding: 0 16px;
+    scrollbar-width: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .challenges-carousel::-webkit-scrollbar { display: none; }
+  .approach-cards-bg .challenge-box {
+    flex: 0 0 82vw;
+    scroll-snap-align: start;
+    max-width: none;
+    padding: 24px 20px 28px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  /* Services cards — horizontal scroll carousel */
+  .slide--services-split .services-grid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    padding: 4px 16px 16px;
+    scrollbar-width: none;
+  }
+  .slide--services-split .services-grid::-webkit-scrollbar { display: none; }
+  .slide--services-split .card-item {
+    flex: 0 0 82vw;
+    scroll-snap-align: start;
+    max-width: none;
+    padding: 28px 24px 32px;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .slide--services-split .card-item .btn--more { align-self: flex-start; }
+
+  /* Testimonials */
+  .testimonials-wrap {
+    padding-top: 90px;
+    padding-bottom: 40px;
+    justify-content: flex-start;
+  }
+  .testimonials-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .testimonial {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.18);
+    padding: 24px 20px;
+  }
+  .testimonial__quote {
+    font-size: 14px;
+  }
+
+  .approach-hero__copy {
+    inset: auto;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    justify-content: flex-start;
+    padding: 20px;
+    gap: 12px;
+    background: rgba(14,15,16,0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+  }
+  /* Strip all child margins so gap alone controls spacing */
+  .approach-hero__copy > * { margin: 0 !important; }
+  /* Centre the pill */
+  .approach-hero__copy > .eyebrow { align-self: center; }
+  .excuses__hint {
+    font-size: clamp(32px, 9vw, 52px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -3378,7 +3569,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .testimonial__quote {
   font-family: var(--font-display);
-  font-size: clamp(13px, 1.1vw, 15px);
+  font-size: clamp(14px, 1.5vw, 15px);
   font-weight: 400;
   font-style: italic;
   line-height: 1.65;
@@ -3439,7 +3630,7 @@ p, li { font-size: inherit; }
   flex-direction: column;
   gap: clamp(28px, 4vh, 48px);
 }
-.approach-ordinal { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.approach-ordinal { display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; }
 .approach-ordinal__num {
   font-family: var(--font-display);
   font-size: clamp(56px, 7vw, 96px);
@@ -3449,8 +3640,8 @@ p, li { font-size: inherit; }
   color: var(--mlg-red);
 }
 .approach-ordinal__text {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: clamp(20px, 2.4vw, 32px);
+  line-height: 1.3;
   color: rgba(255,255,255,0.72);
   margin: 0;
 }
@@ -3467,8 +3658,8 @@ p, li { font-size: inherit; }
 
 /* ── Team profile hero: pan right→left on mobile only, fixed on desktop ── */
 @keyframes heroPan {
-  from { object-position: 100% center; }
-  to   { object-position: 20% center; }
+  from { object-position: 20% center; }
+  to   { object-position: 100% center; }
 }
 @media (max-width: 768px) {
   .profile-hero__media img {
@@ -3533,3 +3724,11 @@ p, li { font-size: inherit; }
   margin: 0 0 14px;
 }
 
+
+/* ── CTA button arrow hover animation ── */
+.ld-cta__btn svg {
+  transition: transform 200ms ease;
+}
+.ld-cta__btn:hover svg {
+  transform: translateX(5px);
+}
