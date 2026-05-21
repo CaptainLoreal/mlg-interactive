@@ -1796,22 +1796,52 @@ button { font-family: inherit; cursor: pointer; }
 .slide--approach-main .slide__scrim {
   background: rgba(0,0,0,0.30);
 }
-/* Main Approach slide — show image background */
-.slide--approach-main .slide__media { display: block; }
-.slide--approach-main .slide__scrim { display: block; }
-.slide--approach-main { background: transparent; }
+/* Main Approach slide — dark base, image handled by .approach-hero */
+.slide--approach-main { background: #0e0f10; overflow-y: auto; }
+.slide--approach-main .slide__media,
+.slide--approach-main .slide__scrim { display: none; }
+.slide--approach-main .approach-centered-wrap { padding-top: 0; }
 
-/* Approach intro: full-width text, then 3-col ordinals below */
-.approach-intro-stack {
+/* Hero image area — top portion, no scrim */
+.approach-hero {
+  position: relative;
+  height: 65vh;
+  min-height: 360px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.approach-hero__img {
+  position: absolute;
+  inset: 0;
+}
+.approach-hero__img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.approach-hero__copy {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(40px, 5vh, 64px);
-  max-width: 960px;
+  justify-content: flex-end;
+  padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 5vh, 56px);
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 55%);
+}
+.approach-hero__copy .display {
+  font-size: clamp(34px, 7vw, 80px);
+}
+
+/* Ordinals — solid dark strip below the image */
+.approach-ordinals-section {
+  background: #0e0f10;
+  padding: clamp(36px, 5vh, 64px) var(--pad-x);
 }
 .approach-ordinals-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: clamp(24px, 4vw, 56px);
+  max-width: 1200px;
+  margin: 0 auto;
 }
 @media (max-width: 640px) {
   .approach-ordinals-row { grid-template-columns: 1fr; }
