@@ -3414,3 +3414,19 @@ p, li { font-size: inherit; }
 /* ── Team profile body text: override inline styles ── */
 .profile-body p { font-size: 17px !important; line-height: 1.75; }
 
+/* ── Pilled eyebrow: apply pill style to every eyebrow variant site-wide ── */
+.ld-hero__eyebrow,
+.profile-hero__eyebrow {
+  display: inline-block;
+  background: var(--mlg-red);
+  border: 1px solid var(--mlg-red);
+  border-radius: 999px;
+  padding: 4px 12px;
+  color: #fff !important;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+
