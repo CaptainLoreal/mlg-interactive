@@ -821,20 +821,31 @@
   const total = items.length;
   let current = 0;
 
+  function perPage() {
+    const w = carousel.offsetWidth;
+    if (w < 640) return 1;
+    if (w < 900) return 2;
+    return 3;
+  }
+
+  function maxIdx() { return Math.max(0, total - perPage()); }
+
   if (totalEl) totalEl.textContent = total;
 
   function cardStep() {
-    // card width + gap (20px in CSS)
     return items[0].offsetWidth + 20;
   }
 
   function go(n) {
-    current = Math.max(0, Math.min(total - 1, n));
+    current = Math.max(0, Math.min(maxIdx(), n));
     track.style.transform = `translateX(${-current * cardStep()}px)`;
     if (idxEl) idxEl.textContent = current + 1;
+    if (totalEl) totalEl.textContent = maxIdx() + 1;
     prev.disabled = current === 0;
-    next.disabled = current === total - 1;
+    next.disabled = current >= maxIdx();
   }
+
+  window.addEventListener('resize', () => go(Math.min(current, maxIdx())));
 
   go(0); // initialise
 

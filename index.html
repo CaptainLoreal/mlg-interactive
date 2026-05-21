@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0e0f10" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=163" />
+  <link rel="stylesheet" href="styles.css?v=164" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -239,14 +239,22 @@
 
       <!-- Testimonials -->
       <article class="slide slide--testimonials" data-anim="parallax" data-title="Testimonials">
-        <div class="slide__media">
-          <img src="assets/photos/photo-g5.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim"></div>
 
         <div class="testimonials-wrap">
-          <div class="testimonials-card">
-          <p class="eyebrow">What clients say</p>
+          <div class="testimonials-header">
+            <h2 class="display">What clients say.</h2>
+            <div class="testimonials-controls">
+              <button class="testimonials-arrow testimonials-arrow--prev" id="testimonialsPrev" aria-label="Previous testimonial">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              </button>
+              <div class="testimonials-counter">
+                <span id="testimonialsIdx">1</span> / <span id="testimonialsTotal"></span>
+              </div>
+              <button class="testimonials-arrow testimonials-arrow--next" id="testimonialsNext" aria-label="Next testimonial">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
 
           <div class="testimonials-carousel" id="testimonialsCarousel">
             <div class="testimonials-track" id="testimonialsTrack">
@@ -342,20 +350,8 @@
               </div>
 
             </div><!-- /.testimonials-track -->
+          </div><!-- /.testimonials-track -->
           </div><!-- /.testimonials-carousel -->
-
-          <div class="testimonials-controls">
-            <button class="testimonials-arrow testimonials-arrow--prev" id="testimonialsPrev" aria-label="Previous testimonial">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            </button>
-            <div class="testimonials-counter">
-              <span id="testimonialsIdx">1</span> / <span id="testimonialsTotal"></span>
-            </div>
-            <button class="testimonials-arrow testimonials-arrow--next" id="testimonialsNext" aria-label="Next testimonial">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </button>
-          </div>
-          </div><!-- /.testimonials-card -->
         </div>
       </article>
 
@@ -761,7 +757,7 @@
 
   </main>
 
-  <script src="app.js?v=152" defer></script>
+  <script src="app.js?v=153" defer></script>
   <script>
     // Tailor form step machine — inline because the form lives inside the deck slide.
     (() => {
