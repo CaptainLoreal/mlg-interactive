@@ -3353,7 +3353,7 @@ p, li { font-size: inherit; }
   flex-direction: column;
   gap: clamp(28px, 4vh, 48px);
 }
-.approach-ordinal { display: flex; flex-direction: column; gap: 6px; }
+.approach-ordinal { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
 .approach-ordinal__num {
   font-family: var(--font-display);
   font-size: clamp(56px, 7vw, 96px);
