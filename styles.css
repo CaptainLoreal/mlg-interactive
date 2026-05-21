@@ -155,8 +155,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .lead {
-  font-size: clamp(15px, 1.4vw, 19px);
-  line-height: 1.5;
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.55;
   color: rgba(255, 255, 255, 0.86);
   max-width: 56ch;
   margin: 0;
@@ -1595,8 +1595,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .card-item__body {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.55;
   color: rgba(255,255,255,0.86);
   margin: 0;
   font-weight: 450;
@@ -1853,8 +1853,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .approach-intro__body {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.65;
   color: rgba(255,255,255,0.88);
   margin: 0 0 10px;
   max-width: 56ch;
@@ -1927,8 +1927,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .challenge-box__body {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.6;
   color: rgba(255,255,255,0.86);
   margin: 0;
   flex: 1;
@@ -1936,7 +1936,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .challenge-box__conclusion {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   color: rgba(255,255,255,0.72);
   margin: 0;
@@ -2370,7 +2370,7 @@ button { font-family: inherit; cursor: pointer; }
   padding: 12px 14px;
   border-radius: 8px;
   font: inherit;
-  font-size: 15px;
+  font-size: 17px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -2976,7 +2976,7 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0 0 6px;
 }
 .globe-card__meta {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.5;
   color: rgba(255,255,255,0.78);
   margin: 0 0 14px;
@@ -3246,7 +3246,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .testimonial__quote {
   font-family: var(--font-display);
-  font-size: clamp(15px, 1.8vw, 21px);
+  font-size: clamp(17px, 2vw, 24px);
   font-weight: 400;
   font-style: italic;
   line-height: 1.65;
@@ -3315,7 +3315,7 @@ button { font-family: inherit; cursor: pointer; }
    ============================================================= */
 
 /* Slightly larger base body text */
-body { font-size: 16px; }
+body { font-size: 18px; }
 p, li { font-size: inherit; }
 
 /* intro "What is your dream?" — centered on mobile */
@@ -3406,5 +3406,7 @@ p, li { font-size: inherit; }
 .corner-mark { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 
 /* ── Subpage intro text: slightly smaller to match "reduce by half" feel ── */
-.ld-intro p { font-size: 14px; line-height: 1.7; }
+.ld-intro p { font-size: 17px; line-height: 1.7; }
+/* ── Team profile body text: override inline styles ── */
+.profile-body p { font-size: 17px !important; line-height: 1.75; }
 
