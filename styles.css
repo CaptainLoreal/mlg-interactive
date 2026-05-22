@@ -569,7 +569,7 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(34px, 7vw, 80px);
+  font-size: clamp(48px, 9vw, 96px);
   line-height: 1.05;
   letter-spacing: -0.01em;
   color: var(--mlg-red);
@@ -3655,8 +3655,36 @@ button { font-family: inherit; cursor: pointer; }
     width: 100%;
     max-width: none;
     padding: 28px 24px;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
+  }
+  .challenge-box,
+  .challenge-box__title,
+  .challenge-box__body,
+  .challenge-box__conclusion,
+  .news-card,
+  .news-card__title,
+  .news-card__body,
+  .news-card__cta,
+  .card-item,
+  .card-item__title,
+  .card-item__body,
+  .contact-wrap__card,
+  .globe-card,
+  .globe-card__name,
+  .globe-card__meta,
+  .testimonial,
+  .testimonial__quote,
+  .testimonial__footer {
+    text-align: center;
+  }
+  .challenge-box,
+  .news-card,
+  .card-item,
+  .contact-wrap__card,
+  .globe-card,
+  .testimonial {
+    align-items: center;
   }
 
   /* Services — header overlaid on the image background, cards below on

@@ -52,6 +52,24 @@
   };
   const storeAnswers = window.storeAnswers;
 
+  /* Robust mailto opener — uses an anchor click which most browsers
+     (Safari, iOS Mail, Outlook Web) handle better than location.href.
+     Adds a single-space body so clients that refuse empty-body mailtos
+     (some Outlook configs) still open cleanly. */
+  window.openMailto = function (toAddress, subject) {
+    const url = `mailto:${toAddress}`
+      + `?subject=${encodeURIComponent(subject)}`
+      + `&body=${encodeURIComponent(' ')}`;
+    const a = document.createElement('a');
+    a.href = url;
+    a.rel = 'noopener';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => a.remove(), 100);
+  };
+  const openMailto = window.openMailto;
+
   /* =====================================================
      Intro: static logo + slide-to-start
      ===================================================== */
@@ -1209,8 +1227,7 @@
     /* Send the answers to MLG's backend (configure the endpoint below).
        The mailto only opens the user's mail client with subject + recipient. */
     storeAnswers('tailor', answers);
-    const mailto = `mailto:info@munichleadership.com?subject=${encodeURIComponent('Interested in MLG Services')}`;
-    window.location.href = mailto;
+    openMailto('info@munichleadership.com', 'Interested in MLG Services');
     showStep(DONE_IDX);
     // After a moment on the thank-you screen, scroll to Services (slide 5)
     setTimeout(() => {
@@ -1328,8 +1345,7 @@
     collect(step);
     /* Send answers to MLG's backend; mailto only opens with subject + recipient. */
     storeAnswers('contact', answers);
-    const mailto = `mailto:info@munichleadership.com?subject=${encodeURIComponent('Interested in MLG Services')}`;
-    window.location.href = mailto;
+    openMailto('info@munichleadership.com', 'Interested in MLG Services');
     showStep(DONE_IDX);
   }
 
