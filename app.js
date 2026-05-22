@@ -1167,7 +1167,7 @@
     const body = Object.entries(answers)
       .map(([k, v]) => `${k}: ${v}`)
       .join('\n');
-    const mailto = `mailto:info@munich-leadership-group.com?subject=Tailor%20inquiry&body=${encodeURIComponent(body)}`;
+    const mailto = `mailto:info@munichleadership.com?subject=Tailor%20inquiry&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
     showStep(DONE_IDX);
     // After a moment on the thank-you screen, scroll to Services (slide 5)
@@ -1287,7 +1287,7 @@
     const body = Object.entries(answers)
       .map(([k, v]) => `${k}: ${v}`)
       .join('\n');
-    const mailto = `mailto:info@munich-leadership-group.com?subject=Contact%20inquiry&body=${encodeURIComponent(body)}`;
+    const mailto = `mailto:info@munichleadership.com?subject=Contact%20inquiry&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
     showStep(DONE_IDX);
   }

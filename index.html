@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=275" />
+  <link rel="stylesheet" href="styles.css?v=277" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -669,36 +669,22 @@
               <!-- Step 1 — Problem -->
               <div class="tf__step is-active" data-step="0" data-field="problem" data-required="1">
                 <p class="tf__num">01 — your challenge</p>
-                <h3 class="tf__q">Where can we support you?</h3>
+                <h3 class="tf__q">What describes you best?</h3>
                 <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="alignment">Leadership team is not aligned</button>
-                  <button class="tf__choice" type="button" data-value="retention">We are losing top talent</button>
-                  <button class="tf__choice" type="button" data-value="readiness">Leaders aren't ready for the next level</button>
-                  <button class="tf__choice" type="button" data-value="culture">Culture or engagement is broken</button>
-                  <button class="tf__choice" type="button" data-value="transformation">We are in a major transformation</button>
-                  <button class="tf__choice" type="button" data-value="other">Something else</button>
+                  <button class="tf__choice" type="button" data-value="leadership-program">We need a great leadership program</button>
+                  <button class="tf__choice" type="button" data-value="coaching-sparring">I am interested in coaching &amp; sparring</button>
+                  <button class="tf__choice" type="button" data-value="retain-attract">We want to retain &amp; attract top talent</button>
+                  <button class="tf__choice" type="button" data-value="self-awareness">I am interested in more self awareness</button>
+                  <button class="tf__choice" type="button" data-value="diagnostic-tools">Tell me more about diagnostic tools</button>
+                  <button class="tf__choice" type="button" data-value="cultural-transformation">We are interested in cultural transformation</button>
+                  <button class="tf__choice" type="button" data-value="team-development">I am looking for a team development workshop</button>
+                  <button class="tf__choice" type="button" data-value="special-topic">I have a special topic</button>
                 </div>
               </div>
 
-              <!-- Step 2 — What you need -->
-              <div class="tf__step" data-step="1" data-field="interest" data-required="1">
-                <p class="tf__num">02 — what you need</p>
-                <h3 class="tf__q">What are you interested in?</h3>
-                <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="open-cohort">An open cohort to join</button>
-                  <button class="tf__choice" type="button" data-value="custom-programme">A custom programme for our team</button>
-                  <button class="tf__choice" type="button" data-value="coaching">One-to-one coaching</button>
-                  <button class="tf__choice" type="button" data-value="audit">An audit or assessment</button>
-                  <button class="tf__choice" type="button" data-value="exploring">Still exploring — open to ideas</button>
-                </div>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                </div>
-              </div>
-
-              <!-- Step 3 — Role -->
-              <div class="tf__step" data-step="2" data-field="role" data-required="1">
-                <p class="tf__num">03 — about you</p>
+              <!-- Step 2 — Role -->
+              <div class="tf__step" data-step="1" data-field="role" data-required="1">
+                <p class="tf__num">02 — about you</p>
                 <h3 class="tf__q">What best describes your role?</h3>
                 <div class="tf__choices">
                   <button class="tf__choice" type="button" data-value="top-talent">Top talent</button>
@@ -713,8 +699,8 @@
               </div>
 
               <!-- Step 4 — Anything else (optional) -->
-              <div class="tf__step" data-step="3" data-field="message">
-                <p class="tf__num">04 — anything else</p>
+              <div class="tf__step" data-step="2" data-field="message">
+                <p class="tf__num">03 — anything else</p>
                 <h3 class="tf__q">Anything we should know before we reply?</h3>
                 <textarea class="tf__input tf__input--area" name="message" rows="3" placeholder="Optional — the people in the room, what's been tried, the urgency."></textarea>
                 <div class="tf__foot">
@@ -724,50 +710,30 @@
               </div>
 
               <!-- Step 5 — Name -->
-              <div class="tf__step" data-step="4" data-field="name" data-required="1">
-                <p class="tf__num">05 — your details</p>
-                <h3 class="tf__q">What's your name?</h3>
-                <input class="tf__input" type="text" name="name" placeholder="First and last" autocomplete="name" />
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 6 — Email -->
-              <div class="tf__step" data-step="5" data-field="email" data-required="1" data-type="email">
-                <p class="tf__num">06 — your details</p>
+              <!-- Step 4 — Email -->
+              <div class="tf__step" data-step="3" data-field="email" data-required="1" data-type="email">
+                <p class="tf__num">04 — your details</p>
                 <h3 class="tf__q">Where can we reach you?</h3>
                 <input class="tf__input" type="email" name="email" placeholder="you@company.com" autocomplete="email" />
                 <p class="tf__error" hidden>Please enter a valid email.</p>
-                <div class="tf__foot">
-                  <button class="tf__back" type="button" data-action="back">← Back</button>
-                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint">press <kbd>↵</kbd></span></button>
-                </div>
-              </div>
-
-              <!-- Step 7 — Company -->
-              <div class="tf__step" data-step="6" data-field="company">
-                <p class="tf__num">07 — your details</p>
-                <h3 class="tf__q">Which company are you with?</h3>
-                <input class="tf__input" type="text" name="company" placeholder="Optional" autocomplete="organization" />
                 <div class="tf__foot">
                   <button class="tf__back" type="button" data-action="back">← Back</button>
                   <button class="tf__cta tf__cta--send" type="button" data-action="submit">Send<span class="tf__hint">press <kbd>↵</kbd></span></button>
                 </div>
               </div>
 
-              <!-- Step 8 — Done -->
-              <div class="tf__step tf__step--done" data-step="7">
+              <!-- Step 5 — Done -->
+              <div class="tf__step tf__step--done" data-step="4">
                 <p class="tf__num">✓ — sent</p>
-                <h3 class="tf__q">Thanks — we'll be in touch.</h3>
-                <p class="tf__sub">A partner reads every inquiry. Expect a personal reply within one business day.</p>
+                <h3 class="tf__q" style="text-align: center;">Thanks — we'll be in touch.</h3>
+                <p class="tf__sub">An MLG Expert reads your message.<br>Expect a personal reply within a business day.</p>
               </div>
             </form>
           </div>
 
           <div class="contact-block__phone-row contact-block__phone-row--standalone">
-            <p class="contact-block__label">Or call us directly</p>
+            <p class="contact-block__label">Or reach us directly</p>
+            <a class="contact-block__phone" href="mailto:info@munichleadership.com">info@munichleadership.com</a>
             <a class="contact-block__phone" href="tel:+49894131910">+49 89 413 191 0</a>
           </div>
           </div><!-- /.contact-body -->
@@ -789,7 +755,7 @@
 
   </main>
 
-  <script src="app.js?v=173" defer></script>
+  <script src="app.js?v=174" defer></script>
   <script>
     (function () {
       var topbar = document.querySelector('.topbar');

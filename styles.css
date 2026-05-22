@@ -2898,25 +2898,39 @@ button { font-family: inherit; cursor: pointer; }
   margin-left: auto;
   margin-right: auto;
 }
+/* Pill-styled eyebrow for "Or call us directly" — matches .eyebrow */
 .contact-block__label {
+  display: inline-block;
+  font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--mlg-red);
-  margin: 0 0 12px;
+  color: #fff;
+  background: var(--mlg-red);
+  border: 1px solid var(--mlg-red);
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin: 0 0 14px;
+  width: fit-content;
+  align-self: center;
 }
 .contact-block__phone {
   display: inline-block;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(24px, 4vw, 44px);
+  font-size: clamp(20px, 3vw, 32px);
   line-height: 1.05;
   letter-spacing: -0.01em;
   color: #fff;
   border: 0;
   margin: 0;
   text-decoration: none;
+}
+.contact-block__phone[href^="mailto:"] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
   white-space: nowrap;
   transition: color var(--dur-2) var(--ease-out);
 }
