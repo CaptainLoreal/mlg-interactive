@@ -2241,6 +2241,8 @@ button { font-family: inherit; cursor: pointer; }
   text-transform: uppercase;
   color: #fff;
   margin: 12px 0 20px;
+  text-align: center;
+  width: 100%;
 }
 .why-mlg__cards .challenge-box__body {
   font-size: 16px;
