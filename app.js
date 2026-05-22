@@ -336,6 +336,18 @@
   /* Belt-and-braces retriggers for any late layout shifts on mobile */
   setTimeout(() => { if (document.body.classList.contains('deck-active')) syncHeight(); }, 600);
   setTimeout(() => { if (document.body.classList.contains('deck-active')) syncHeight(); }, 1500);
+  setTimeout(() => { if (document.body.classList.contains('deck-active')) syncHeight(); }, 3000);
+  /* Sync after font/image layout shifts via ResizeObserver on the slides container */
+  if ('ResizeObserver' in window) {
+    let resizeTimer;
+    const ro = new ResizeObserver(() => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (document.body.classList.contains('deck-active')) syncHeight();
+      }, 100);
+    });
+    ro.observe(slidesEl);
+  }
 
   function startSmoothScroll() {
     if (smoothRunning) return;
@@ -345,11 +357,60 @@
 
   const heroSticky = document.getElementById('heroSticky');
 
+  /* Section-sticky helpers — each <div class="section-sticky"> has a
+     data-section selector that points at the in-slide section it tracks.
+     Cached on init for perf — we re-resolve target lazily. */
+  const sectionStickies = Array.from(document.querySelectorAll('.section-sticky'))
+    .map((el) => ({ el, sel: el.dataset.section, target: null, _opacity: -1, _transform: '' }));
+  function updateSectionStickies() {
+    const isMobile = window.innerWidth <= 480;
+    if (!isMobile) {
+      sectionStickies.forEach((s) => {
+        if (s._opacity !== 0) { s.el.style.opacity = 0; s._opacity = 0; }
+      });
+      return;
+    }
+    const vh = window.innerHeight;
+    sectionStickies.forEach((s) => {
+      if (!s.target) s.target = s.sel && document.querySelector(s.sel);
+      if (!s.target) return;
+      const rect = s.target.getBoundingClientRect();
+      let opacity, transform;
+      if (rect.bottom <= 0 || rect.top >= vh) {
+        opacity = 0;
+        transform = s._transform;
+      } else {
+        opacity = 1;
+        if (rect.top <= 0 && rect.bottom > vh) {
+          transform = 'translateY(0)';
+        } else if (rect.top > 0) {
+          transform = `translateY(${rect.top}px)`;
+        } else {
+          transform = `translateY(${rect.bottom - vh}px)`;
+        }
+      }
+      if (opacity !== s._opacity) { s.el.style.opacity = opacity; s._opacity = opacity; }
+      if (transform !== s._transform) { s.el.style.transform = transform; s._transform = transform; }
+    });
+  }
+
+  let lastTickScroll = -1;
   function tickSmooth() {
     const diff = scrollTarget - scrollCurrent;
     scrollCurrent = Math.abs(diff) < 0.5 ? scrollTarget : scrollCurrent + diff * EASE;
 
+    /* Skip the heavy work when scroll position hasn't actually changed —
+       saves ~16ms/frame of layout reads on idle. */
+    if (scrollCurrent === lastTickScroll) {
+      requestAnimationFrame(tickSmooth);
+      return;
+    }
+    lastTickScroll = scrollCurrent;
+
     slidesEl.style.transform = `translateY(${-scrollCurrent}px)`;
+
+    /* Section stickies (challenges, why-mlg) on mobile */
+    updateSectionStickies();
 
     /* Hero sticky: stays in place during slides 0+1, then scrolls up
        on the slide 1→2 transition, then disappears. */
@@ -806,11 +867,14 @@
   });
 
   function onGrab(e) {
-    if (e.target && e.target.closest('.chip')) return;
+    /* On a mouse/pen, clicking a chip should select it (no drag). On touch,
+       the chips cover most of the visible globe, so always allow drag and
+       use a movement threshold to suppress the chip tap if it became a drag. */
+    if (e.pointerType !== 'touch' && e.target && e.target.closest('.chip')) return;
     e.preventDefault();
     isAuto = false;
     globeStage.classList.add('is-dragging');
-    dragG = { x: e.clientX, y: e.clientY, rx: rotX, ry: rotY, t: performance.now(), lx: e.clientX, id: e.pointerId };
+    dragG = { x: e.clientX, y: e.clientY, rx: rotX, ry: rotY, t: performance.now(), lx: e.clientX, id: e.pointerId, moved: 0 };
     try { globeStage.setPointerCapture(e.pointerId); } catch (_) {}
     document.addEventListener('pointermove', onDragG, { passive: false });
     document.addEventListener('pointerup',     onRelease, { once: true });
@@ -822,6 +886,7 @@
     e.preventDefault();
     const dx = e.clientX - dragG.x;
     const dy = e.clientY - dragG.y;
+    dragG.moved = Math.max(dragG.moved, Math.hypot(dx, dy));
     rotY = dragG.ry + dx * 0.5;
     rotX = clamp(dragG.rx - dy * 0.3, -55, 55);
     const now = performance.now();
@@ -833,6 +898,15 @@
   function onRelease() {
     if (dragG) {
       try { globeStage.releasePointerCapture(dragG.id); } catch (_) {}
+      /* Suppress the subsequent chip click if this was actually a drag */
+      if (dragG.moved > 5) {
+        const suppress = (ev) => { ev.stopPropagation(); ev.preventDefault(); };
+        globeStage.addEventListener('click', suppress, { capture: true, once: true });
+        /* Some browsers don't fire click after capture/release — clear it next tick */
+        setTimeout(() => {
+          globeStage.removeEventListener('click', suppress, { capture: true });
+        }, 50);
+      }
     }
     dragG = null;
     globeStage.classList.remove('is-dragging');
@@ -842,8 +916,20 @@
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
   let chipsPlaced = false;
+  /* Skip per-frame globe work when the globe slide isn't on screen.
+     Updated via IntersectionObserver below (~30× cheaper at idle). */
+  let globeInView = false;
+  if (globeStage && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      globeInView = entries[0].isIntersecting;
+    }, { threshold: 0 });
+    io.observe(globeStage);
+  } else {
+    globeInView = true;
+  }
+
   function tickGlobe() {
-    if (built) {
+    if (built && globeInView) {
       if (radius === 0 && globeStage.clientWidth > 0) {
         radius = Math.min(globeStage.clientWidth, globeStage.clientHeight) / 2 * 0.92;
       }
@@ -1098,6 +1184,17 @@
       const step = choice.closest('.tf__step');
       step.querySelectorAll('.tf__choice').forEach(c => c.classList.remove('is-selected'));
       choice.classList.add('is-selected');
+      /* Special case: "I want to learn about MLG in general" — don't advance
+         the form, scroll the page down to the Clients (globe) slide instead. */
+      if (choice.dataset.value === 'general') {
+        const clients = document.querySelector('.slide[data-title="Clients"]');
+        if (clients) {
+          setTimeout(() => {
+            window.scrollTo({ top: clients.offsetTop, behavior: 'smooth' });
+          }, 280);
+          return;
+        }
+      }
       setTimeout(advance, 280);  // brief pause so user sees the selection
       return;
     }

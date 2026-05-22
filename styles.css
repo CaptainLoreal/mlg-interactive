@@ -3516,54 +3516,73 @@ button { font-family: inherit; cursor: pointer; }
   .controls { left: 16px; }
   .topbar { left: 0; right: 0; border-radius: 0; top: 0; }
   .topbar__logo img { height: 58px; }
+
+  /* Center "What is your dream?" vertically in the viewport on mobile */
+  .intro__prompt {
+    position: absolute;
+    top: 50%;
+    left: 0; right: 0;
+    transform: translateY(-50%);
+    text-align: center;
+    margin: 0;
+  }
+  /* Push the slide-to-start further down on mobile by reducing the intro's
+     bottom padding (less space below = slider sits lower on the screen) */
+  .intro {
+    padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px) !important;
+  }
+
   /* Keep default touch-action:none so the JS can capture horizontal drag for spinning */
 
-  /* Hero slide — header sits at the bottom of the first viewport (over the hero
-     image), then the glass card flows in the next viewport below. */
-  .slide[data-slide="0"] {
-    overflow: visible !important;
-    height: auto;
+  /* Globe a bit bigger on mobile — let it bleed past the screen edges */
+  .globe-stage {
+    width: 110vw !important;
+    max-width: none !important;
+    margin-left: -5vw;
+    margin-right: -5vw;
   }
+  .globe-wrap { overflow: visible !important; }
+
+  /* Hero slide — fits in one viewport so the header leaves together with
+     the Tailor form on the next slide. Layout: headline at the bottom of
+     the hero image, glass card hidden on mobile (text moved into the
+     header group instead via desktop card content). */
   .slide[data-title="Welcome"] .slide__copy {
-    position: relative !important;
-    inset: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    top: auto !important;
+    position: absolute !important;
+    inset: auto 0 0 0 !important;
     flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
     max-width: none !important;
     width: 100% !important;
-    padding: 0 var(--pad-x) !important;
-    gap: clamp(32px, 6vh, 64px) !important;
+    padding: 0 var(--pad-x) clamp(32px, 6vh, 64px) !important;
+    gap: 8px !important;
   }
-  /* First column: headline group — fills one viewport, sits at its bottom,
-     left-aligned with the pill at its natural width */
+  /* Headline group: left-aligned, pill at natural width */
   .slide[data-title="Welcome"] .slide__copy > div:first-child {
-    min-height: 100dvh;
     width: 100% !important;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-end;
     text-align: left;
-    padding-bottom: clamp(32px, 6vh, 64px);
   }
   .slide[data-title="Welcome"] .slide__copy > div:first-child .eyebrow {
     align-self: flex-start;
     width: fit-content;
     max-width: 100%;
+    margin-bottom: 12px;
   }
-  .slide[data-title="Welcome"] .slide__copy > div:first-child .display,
+  .slide[data-title="Welcome"] .slide__copy > div:first-child .display {
+    text-align: left;
+    margin-bottom: 8px;  /* tight gap so the sub-header sits close to the main */
+  }
   .slide[data-title="Welcome"] .slide__copy > div:first-child .display--sub {
     text-align: left;
+    margin-top: 0;
   }
-  /* Second column: the glass card flows below the hero */
+  /* Hide the long glass card on mobile (lives in desktop layout only) */
   .slide[data-title="Welcome"] .slide__copy > div:last-child {
-    width: 100% !important;
-    box-sizing: border-box;
+    display: none !important;
   }
 
   /* Services — ensure cards carousel sits close below photo headline */
@@ -3574,8 +3593,9 @@ button { font-family: inherit; cursor: pointer; }
     padding-right: 0;
   }
 
-  /* Current Leadership challenges — cards stack vertically below each other.
-     The fixed-image-during-scroll effect is handled by JS in tickSmooth. */
+  /* Current Leadership challenges — cards stack vertically, properly inset
+     from the screen edges. The fixed background image is provided by the
+     #challengesSticky element (sibling of .slides) controlled in tickSmooth. */
   .approach-cards-bg {
     position: relative;
     overflow: visible;
@@ -3583,13 +3603,17 @@ button { font-family: inherit; cursor: pointer; }
     margin: 0 calc(-1 * var(--pad-x));
     width: calc(100% + 2 * var(--pad-x));
   }
+  /* Keep the in-slide bg image visible on mobile as a fallback for the sticky */
   .approach-cards-bg__img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    z-index: 0 !important;
+  }
+  .approach-cards-bg::after {
+    display: none;  /* drop the heavy scrim */
   }
   .approach-cards-bg .approach-centered__cards {
     position: relative;
@@ -3608,7 +3632,7 @@ button { font-family: inherit; cursor: pointer; }
     flex-direction: column;
     overflow: visible;
     gap: clamp(32px, 6vh, 56px);
-    padding: 0;
+    padding: 0 20px;  /* keep cards inset from screen edges */
     width: 100%;
     box-sizing: border-box;
     scroll-snap-type: none;
@@ -3621,27 +3645,53 @@ button { font-family: inherit; cursor: pointer; }
     text-align: left;
   }
 
-  /* Services — eyebrow + headline outside the image, on solid black above it */
+  /* Services — header overlaid on the image background, cards below on
+     solid black. Image is positioned only over the header row. */
   .services-split {
-    display: block !important;
+    display: grid !important;
+    grid-template-rows: auto 1fr !important;
+    grid-template-columns: 1fr !important;
     padding: 0 !important;
+    min-height: 100dvh;
+    background: #000;
   }
+  /* Header row — image background sits in this same grid cell */
+  .services-split__copy {
+    grid-row: 1;
+    grid-column: 1;
+    position: relative;
+    z-index: 2;
+    padding: clamp(120px, 18vh, 200px) var(--pad-x) clamp(48px, 8vh, 80px) !important;
+    text-align: center !important;
+    background: transparent !important;
+  }
+  .services-split__copy .eyebrow { margin: 0 auto 12px !important; display: inline-block; }
+  .services-split__copy .display { margin: 0 auto !important; color: #fff; }
+  /* Image positioned to fill only the header row, with a subtle dark scrim */
   .services-split__photo {
+    grid-row: 1;
+    grid-column: 1;
     position: relative !important;
     inset: auto !important;
     width: 100%;
-    height: auto;
-    min-height: 60vh;
+    height: 100%;
+    z-index: 0;
   }
-  .services-split__copy {
-    background: #000 !important;
-    padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(28px, 5vh, 48px) !important;
-    text-align: center !important;
+  .services-split__photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.45) 100%);
+    pointer-events: none;
   }
-  .services-split__copy .eyebrow { margin: 0 auto 12px !important; display: inline-block; }
-  .services-split__copy .display { margin: 0 auto !important; }
+  /* Cards row — solid black background */
   .slide--services-split .services-wrap {
-    padding: clamp(20px, 4vh, 40px) var(--pad-x) clamp(48px, 8vh, 80px);
+    grid-row: 2;
+    grid-column: 1;
+    position: relative;
+    z-index: 2;
+    background: #000;
+    padding: clamp(40px, 7vh, 80px) var(--pad-x) clamp(48px, 8vh, 80px);
   }
 
   /* Services cards — horizontal scroll carousel */
@@ -3977,7 +4027,7 @@ p, li { font-size: inherit; }
 /* ── Clients mobile: gap between selected card and quote ── */
 @media (max-width: 767px) {
   .client-quote { margin-top: 16px; }
-  .globe-card { margin-bottom: 4px; }
+  .globe-card { margin-bottom: 4px; margin-top: clamp(28px, 5vh, 56px); }
   .client-quote__text { font-size: 14px; line-height: 1.5; }
 }
 
@@ -4417,3 +4467,80 @@ p, li { font-size: inherit; }
 /* Make Welcome + Tailor slides transparent so the sticky hero shows through */
 .slide[data-slide="0"],
 .slide--tailor { background: transparent; }
+
+
+/* ── Section sticky backgrounds (mobile) ──
+   The image is pinned to the viewport (position: fixed) while cards
+   scroll over it. The .slides container gets a higher z-index than the
+   sticky so the slides' stacking context renders ABOVE the sticky —
+   since slides themselves have no opaque background, the sticky shows
+   THROUGH them, and the cards' own dark glass bg renders on top. */
+.section-sticky { display: none; }
+.slides { position: relative; }  /* needed so z-index can apply */
+@media (max-width: 480px) {
+  .section-sticky {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .section-sticky img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Hide the in-slide images — the sticky handles the background */
+  .approach-cards-bg__img { display: none !important; }
+  .why-mlg__image-area .slide__media { display: none !important; }
+  .why-mlg__image-area .slide__scrim { display: none !important; }
+  /* Lift slides above the sticky so cards render on top of the visible image */
+  .slides { z-index: 2 !important; }
+  /* Make sure the sections AND their parent slides are transparent so the
+     sticky image shows through */
+  .approach-cards-bg,
+  .why-mlg__image-area,
+  .slide--approach-main,
+  .slide--why-mlg {
+    background: transparent !important;
+  }
+  /* The why-mlg__header-strip is solid black above the image area —
+     it covers the sticky in that region, which is what we want */
+}
+
+
+/* ── Performance optimisations ──────────────────────────────────── */
+/* Skip rendering off-screen slides until they approach the viewport.
+   Big win on long pages — browser elides layout + paint for them. */
+.slide {
+  content-visibility: auto;
+  contain-intrinsic-size: 100vh;
+}
+/* Mobile: cheaper backdrop blurs (heavy on GPUs in compositor passes) */
+@media (max-width: 480px) {
+  .card-item,
+  .challenge-box,
+  .testimonial,
+  .news-card,
+  .ld-offering,
+  .topbar,
+  .slide-nav__dropdown,
+  .tf__choice {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  /* Skip backdrop-filter on the team/news wraps where it's redundant
+     (they sit on solid #000 already) */
+  .team-wrap,
+  .news-wrap {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}

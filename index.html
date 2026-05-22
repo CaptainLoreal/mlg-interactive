@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=263" />
+  <link rel="stylesheet" href="styles.css?v=275" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -17,7 +17,7 @@
   <section id="intro" class="intro" aria-label="Welcome">
     <div class="intro__bg" aria-hidden="true"></div>
 
-    <img class="intro__logo" src="assets/logo-white-red.svg" alt="Munich Leadership Group" />
+    <img decoding="async" loading="lazy" class="intro__logo" src="assets/logo-white-red.svg" alt="Munich Leadership Group" />
     <p class="intro__prompt">What is<br>your dream?</p>
 
     <div id="enterBtn" class="slide-start" role="button" tabindex="0" aria-label="Slide to start">
@@ -60,7 +60,7 @@
     <!-- Top corner brand + slide nav + audience toggle -->
     <div class="topbar">
       <a class="topbar__logo" href="#" data-jump="0" aria-label="Munich Leadership Group">
-        <img src="assets/logo-white.svg" alt="Munich Leadership Group" />
+        <img decoding="async" loading="lazy" src="assets/logo-white.svg" alt="Munich Leadership Group" />
         <span class="topbar__tagline">… Empowering Leadership</span>
       </a>
 
@@ -100,8 +100,18 @@
     <!-- Sticky hero image — stays in place across slides 0 (Welcome) and 1 (Tailor),
          then scrolls up as the user goes to slide 2. Controlled by JS in tickSmooth. -->
     <div class="hero-sticky" id="heroSticky" aria-hidden="true">
-      <img src="assets/photos/group-1.webp" alt="" />
+      <img decoding="async" loading="lazy" src="assets/photos/group-1.webp" alt="" />
       <div class="hero-sticky__scrim"></div>
+    </div>
+
+    <!-- Sticky bg for the Current Leadership challenges section (mobile only) -->
+    <div class="section-sticky" id="challengesSticky" data-section=".approach-cards-bg" aria-hidden="true">
+      <img decoding="async" loading="lazy" src="assets/photos/working-2.webp" alt="" />
+    </div>
+
+    <!-- Sticky bg for the Why MLG image area (mobile only) -->
+    <div class="section-sticky" id="whyMlgSticky" data-section=".why-mlg__image-area" aria-hidden="true">
+      <img decoding="async" loading="lazy" src="assets/photos/man-1.webp" alt="" />
     </div>
 
     <!-- Slides
@@ -112,7 +122,7 @@
       <!-- 1 — Welcome -->
       <article class="slide" data-slide="0" data-anim="kenburns" data-title="Welcome">
         <div class="slide__media">
-          <img src="assets/photos/group-1.webp" alt="" loading="eager" />
+          <img decoding="async" src="assets/photos/group-1.webp" alt="" loading="eager" />
         </div>
         <div class="slide__scrim"></div>
         <div class="slide__copy" style="display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(32px, 5vw, 80px); max-width: none; right: var(--pad-x);">
@@ -131,7 +141,7 @@
       <!-- 2 — Tailor -->
       <article class="slide slide--contact slide--tailor" data-slide="1" data-anim="parallax" data-title="Tailor">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/group-1.webp" alt="" loading="lazy" />
+          <img decoding="async" src="assets/photos/group-1.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -217,7 +227,7 @@
       <!-- 3 — GLOBE / Clients -->
       <article class="slide slide--globe" data-slide="3" data-anim="zoom" data-title="Clients">
         <div class="slide__media slide__media--soft">
-          <img src="assets/munich/bmw-welt.jpg" alt="" loading="lazy" />
+          <img decoding="async" src="assets/munich/bmw-welt.jpg" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -254,7 +264,7 @@
           <!-- Hero image — top portion, no scrim -->
           <div class="approach-hero">
             <div class="approach-hero__img">
-              <img src="assets/photos/working-1.webp" alt="" loading="lazy" />
+              <img decoding="async" src="assets/photos/working-1.webp" alt="" loading="lazy" />
             </div>
             <div class="approach-hero__copy">
               <p class="eyebrow">Approach</p>
@@ -284,7 +294,7 @@
 
           <!-- Challenge cards -->
           <div class="approach-cards-bg">
-            <img class="approach-cards-bg__img" src="assets/photos/working-2.webp" alt="" loading="lazy" />
+            <img decoding="async" class="approach-cards-bg__img" src="assets/photos/working-2.webp" alt="" loading="lazy" />
             <div class="approach-centered__cards">
               <p class="eyebrow approach-challenges-eyebrow">Current Leadership challenges</p>
               <div class="challenges-carousel">
@@ -430,7 +440,7 @@
       <article class="slide slide--cards slide--services-split" data-slide="2" data-anim="parallax" data-title="Services">
         <div class="services-split">
           <div class="services-split__photo">
-            <img src="assets/photos/group-2.webp" alt="" loading="lazy" />
+            <img decoding="async" src="assets/photos/group-2.webp" alt="" loading="lazy" />
             <div class="services-split__scrim"></div>
           </div>
           <div class="services-split__copy">
@@ -489,7 +499,7 @@
         <!-- Bottom: image with cards overlaid -->
         <div class="why-mlg__image-area">
           <div class="slide__media">
-            <img src="assets/photos/man-1.webp" alt="" loading="lazy" />
+            <img decoding="async" src="assets/photos/man-1.webp" alt="" loading="lazy" />
           </div>
           <div class="slide__scrim slide__scrim--strong"></div>
           <div class="why-mlg__cards">
@@ -512,7 +522,7 @@
       <!-- 6 — Tools -->
       <article class="slide slide--approach-intro slide--tools" data-slide="2" data-anim="parallax" data-title="Tools">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/working-3.webp" alt="" loading="lazy" />
+          <img decoding="async" src="assets/photos/working-3.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
         <div class="approach-centered-wrap">
@@ -539,7 +549,7 @@
       <!-- 7 — Team -->
       <article class="slide slide--team" data-slide="5" data-anim="parallax" data-title="Team">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/group-4.webp" alt="" loading="lazy" />
+          <img decoding="async" src="assets/photos/group-4.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -564,59 +574,59 @@
 
           <!-- Core team — 8 members, visible by default -->
           <div class="team-grid team-grid--core" data-pane="core">
-            <a class="member member--link" href="team-hagemann.html"><div class="member__photo"><img src="assets/team/hagemann.jpg" alt="Dr. Hans W. Hagemann" loading="lazy" /></div><h3 class="member__name">Dr. Hans W. Hagemann</h3><p class="member__role">Managing Partner</p><span class="member__cta">View profile →</span></a>
-            <a class="member member--link" href="team-knieling.html"><div class="member__photo"><img src="assets/team/knieling.jpg" alt="Michael Knieling" loading="lazy" /></div><h3 class="member__name">Michael Knieling</h3><p class="member__role">Managing Partner</p><span class="member__cta">View profile →</span></a>
-            <a class="member member--link" href="team-rosengart.html"><div class="member__photo"><img src="assets/team/rosengart.jpg" alt="Natalie Rosengart" loading="lazy" /></div><h3 class="member__name">Natalie Rosengart</h3><p class="member__role">Partner</p><span class="member__cta">View profile →</span></a>
-            <a class="member member--link" href="team-duerrbeck.html"><div class="member__photo"><img src="assets/team/duerrbeck.jpg" alt="Klaus Dürrbeck" loading="lazy" /></div><h3 class="member__name">Klaus Dürrbeck</h3><p class="member__role">Partner</p><span class="member__cta">View profile →</span></a>
-            <a class="member member--link" href="team-bohnenstiel.html"><div class="member__photo"><img src="assets/team/bohnenstiel.png" alt="Martina Bohnenstiel" loading="lazy" /></div><h3 class="member__name">Martina Bohnenstiel</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
-            <a class="member member--link" href="team-westermayr.html"><div class="member__photo"><img src="assets/team/westermayr.jpg" alt="Christine Westermayr" loading="lazy" /></div><h3 class="member__name">Christine Westermayr</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
-            <a class="member member--link" href="team-sickinger.html"><div class="member__photo"><img src="assets/team/sickinger.jpg" alt="Dr. Sabine Sickinger" loading="lazy" /></div><h3 class="member__name">Dr. Sabine Sickinger</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
-            <a class="member member--link" href="team-sarnes.html"><div class="member__photo"><img src="assets/team/sarnes.jpg" alt="Kristof Sarnes" loading="lazy" /></div><h3 class="member__name">Kristof Sarnes</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-hagemann.html"><div class="member__photo"><img decoding="async" src="assets/team/hagemann.jpg" alt="Dr. Hans W. Hagemann" loading="lazy" /></div><h3 class="member__name">Dr. Hans W. Hagemann</h3><p class="member__role">Managing Partner</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-knieling.html"><div class="member__photo"><img decoding="async" src="assets/team/knieling.jpg" alt="Michael Knieling" loading="lazy" /></div><h3 class="member__name">Michael Knieling</h3><p class="member__role">Managing Partner</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-rosengart.html"><div class="member__photo"><img decoding="async" src="assets/team/rosengart.jpg" alt="Natalie Rosengart" loading="lazy" /></div><h3 class="member__name">Natalie Rosengart</h3><p class="member__role">Partner</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-duerrbeck.html"><div class="member__photo"><img decoding="async" src="assets/team/duerrbeck.jpg" alt="Klaus Dürrbeck" loading="lazy" /></div><h3 class="member__name">Klaus Dürrbeck</h3><p class="member__role">Partner</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-bohnenstiel.html"><div class="member__photo"><img decoding="async" src="assets/team/bohnenstiel.png" alt="Martina Bohnenstiel" loading="lazy" /></div><h3 class="member__name">Martina Bohnenstiel</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-westermayr.html"><div class="member__photo"><img decoding="async" src="assets/team/westermayr.jpg" alt="Christine Westermayr" loading="lazy" /></div><h3 class="member__name">Christine Westermayr</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-sickinger.html"><div class="member__photo"><img decoding="async" src="assets/team/sickinger.jpg" alt="Dr. Sabine Sickinger" loading="lazy" /></div><h3 class="member__name">Dr. Sabine Sickinger</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
+            <a class="member member--link" href="team-sarnes.html"><div class="member__photo"><img decoding="async" src="assets/team/sarnes.jpg" alt="Kristof Sarnes" loading="lazy" /></div><h3 class="member__name">Kristof Sarnes</h3><p class="member__role">Management Team</p><span class="member__cta">View profile →</span></a>
           </div>
 
           <!-- Associate partners — 41 members, hidden until tab is selected -->
           <div class="team-grid team-grid--associates" data-pane="associates" hidden>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/aguilar.png" alt="Margarita Aguilar" loading="lazy" /></div><h3 class="member__name">Margarita Aguilar</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/albrecht-s.jpg" alt="Simone Albrecht" loading="lazy" /></div><h3 class="member__name">Simone Albrecht</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/albrecht-frueh.png" alt="Dr. Ulrich Albrecht-Früh" loading="lazy" /></div><h3 class="member__name">Dr. Ulrich Albrecht-Früh</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/ambrosini.png" alt="Monica Ambrosini" loading="lazy" /></div><h3 class="member__name">Monica Ambrosini</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/banks.png" alt="Deanna Banks, PhD" loading="lazy" /></div><h3 class="member__name">Deanna Banks, PhD</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/beadle.png" alt="Matt Beadle" loading="lazy" /></div><h3 class="member__name">Matt Beadle</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/fichtel.png" alt="Dr. Roland Fichtel" loading="lazy" /></div><h3 class="member__name">Dr. Roland Fichtel</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/ganslmayr.png" alt="Thomas Ganslmayr" loading="lazy" /></div><h3 class="member__name">Thomas Ganslmayr</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/graham.jpg" alt="Paige K. Graham, PhD" loading="lazy" /></div><h3 class="member__name">Paige K. Graham, PhD</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/grayson.jpg" alt="Adam Grayson" loading="lazy" /></div><h3 class="member__name">Adam Grayson</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/guo.png" alt="Mark Guo" loading="lazy" /></div><h3 class="member__name">Mark Guo</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/heindl.png" alt="Hubert Heindl" loading="lazy" /></div><h3 class="member__name">Hubert Heindl</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/hessenauer.jpg" alt="Jürgen Hessenauer" loading="lazy" /></div><h3 class="member__name">Jürgen Hessenauer</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/holch.jpg" alt="Gabor Holch" loading="lazy" /></div><h3 class="member__name">Gabor Holch</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/hyatt.jpg" alt="David E. Hyatt, PhD" loading="lazy" /></div><h3 class="member__name">David E. Hyatt, PhD</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/jones.jpg" alt="Glyn Jones" loading="lazy" /></div><h3 class="member__name">Glyn Jones</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/klawitter.png" alt="Kate Klawitter" loading="lazy" /></div><h3 class="member__name">Kate Klawitter</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/kraen.png" alt="Thomas Krän" loading="lazy" /></div><h3 class="member__name">Thomas Krän</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/koehler.jpg" alt="Doreen Köhler" loading="lazy" /></div><h3 class="member__name">Doreen Köhler</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/lale.png" alt="Serdar Lale" loading="lazy" /></div><h3 class="member__name">Serdar Lale</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/lo.png" alt="Patti Lo" loading="lazy" /></div><h3 class="member__name">Patti Lo</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/lucke.jpg" alt="Lynn Lucke" loading="lazy" /></div><h3 class="member__name">Lynn Lucke</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/marsh.jpg" alt="Elena Marsh" loading="lazy" /></div><h3 class="member__name">Elena Marsh</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/mauve.jpg" alt="Ulrike Mauve" loading="lazy" /></div><h3 class="member__name">Ulrike Mauve</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/michaely.jpg" alt="Tonia Maria Michaely" loading="lazy" /></div><h3 class="member__name">Tonia Maria Michaely</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/millar.png" alt="Jane Millar" loading="lazy" /></div><h3 class="member__name">Jane Millar</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/naeslund.png" alt="Vivianne Näslund" loading="lazy" /></div><h3 class="member__name">Vivianne Näslund</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/orbea.png" alt="Angelita Orbea" loading="lazy" /></div><h3 class="member__name">Angelita Orbea</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/ramos.png" alt="Teresa Ramos" loading="lazy" /></div><h3 class="member__name">Teresa Ramos</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/rentel.png" alt="Susanne Rentel" loading="lazy" /></div><h3 class="member__name">Susanne Rentel</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/saliba.jpg" alt="Basel Saliba" loading="lazy" /></div><h3 class="member__name">Basel Saliba</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/sanchez.png" alt="Margaret A. Sánchez" loading="lazy" /></div><h3 class="member__name">Margaret A. Sánchez</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/seidenfus.png" alt="Christoph Seidenfus" loading="lazy" /></div><h3 class="member__name">Christoph Seidenfus</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/sellani.jpg" alt="Francesca Sellani" loading="lazy" /></div><h3 class="member__name">Francesca Sellani</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/shields.jpg" alt="Jim Shields" loading="lazy" /></div><h3 class="member__name">Jim Shields</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/tallman.jpg" alt="Rich Tallman" loading="lazy" /></div><h3 class="member__name">Rich Tallman</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/vanetti.jpg" alt="Eric Vanetti, PhD" loading="lazy" /></div><h3 class="member__name">Eric Vanetti, PhD</h3></article>
-            <article class="member" data-region="americas"><div class="member__photo"><img src="assets/team/associates/west.jpg" alt="Jan West" loading="lazy" /></div><h3 class="member__name">Jan West</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/xue.png" alt="Christine Xue" loading="lazy" /></div><h3 class="member__name">Christine Xue</h3></article>
-            <article class="member" data-region="asia-pacific"><div class="member__photo"><img src="assets/team/associates/yong.png" alt="Stephen Yong" loading="lazy" /></div><h3 class="member__name">Stephen Yong</h3></article>
-            <article class="member" data-region="europe"><div class="member__photo"><img src="assets/team/associates/yilancioglu.png" alt="Biran Yılancıoğlu" loading="lazy" /></div><h3 class="member__name">Biran Yılancıoğlu</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/aguilar.png" alt="Margarita Aguilar" loading="lazy" /></div><h3 class="member__name">Margarita Aguilar</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/albrecht-s.jpg" alt="Simone Albrecht" loading="lazy" /></div><h3 class="member__name">Simone Albrecht</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/albrecht-frueh.png" alt="Dr. Ulrich Albrecht-Früh" loading="lazy" /></div><h3 class="member__name">Dr. Ulrich Albrecht-Früh</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/ambrosini.png" alt="Monica Ambrosini" loading="lazy" /></div><h3 class="member__name">Monica Ambrosini</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/banks.png" alt="Deanna Banks, PhD" loading="lazy" /></div><h3 class="member__name">Deanna Banks, PhD</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/beadle.png" alt="Matt Beadle" loading="lazy" /></div><h3 class="member__name">Matt Beadle</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/fichtel.png" alt="Dr. Roland Fichtel" loading="lazy" /></div><h3 class="member__name">Dr. Roland Fichtel</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/ganslmayr.png" alt="Thomas Ganslmayr" loading="lazy" /></div><h3 class="member__name">Thomas Ganslmayr</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/graham.jpg" alt="Paige K. Graham, PhD" loading="lazy" /></div><h3 class="member__name">Paige K. Graham, PhD</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/grayson.jpg" alt="Adam Grayson" loading="lazy" /></div><h3 class="member__name">Adam Grayson</h3></article>
+            <article class="member" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="assets/team/associates/guo.png" alt="Mark Guo" loading="lazy" /></div><h3 class="member__name">Mark Guo</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/heindl.png" alt="Hubert Heindl" loading="lazy" /></div><h3 class="member__name">Hubert Heindl</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/hessenauer.jpg" alt="Jürgen Hessenauer" loading="lazy" /></div><h3 class="member__name">Jürgen Hessenauer</h3></article>
+            <article class="member" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="assets/team/associates/holch.jpg" alt="Gabor Holch" loading="lazy" /></div><h3 class="member__name">Gabor Holch</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/hyatt.jpg" alt="David E. Hyatt, PhD" loading="lazy" /></div><h3 class="member__name">David E. Hyatt, PhD</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/jones.jpg" alt="Glyn Jones" loading="lazy" /></div><h3 class="member__name">Glyn Jones</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/klawitter.png" alt="Kate Klawitter" loading="lazy" /></div><h3 class="member__name">Kate Klawitter</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/kraen.png" alt="Thomas Krän" loading="lazy" /></div><h3 class="member__name">Thomas Krän</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/koehler.jpg" alt="Doreen Köhler" loading="lazy" /></div><h3 class="member__name">Doreen Köhler</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/lale.png" alt="Serdar Lale" loading="lazy" /></div><h3 class="member__name">Serdar Lale</h3></article>
+            <article class="member" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="assets/team/associates/lo.png" alt="Patti Lo" loading="lazy" /></div><h3 class="member__name">Patti Lo</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/lucke.jpg" alt="Lynn Lucke" loading="lazy" /></div><h3 class="member__name">Lynn Lucke</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/marsh.jpg" alt="Elena Marsh" loading="lazy" /></div><h3 class="member__name">Elena Marsh</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/mauve.jpg" alt="Ulrike Mauve" loading="lazy" /></div><h3 class="member__name">Ulrike Mauve</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/michaely.jpg" alt="Tonia Maria Michaely" loading="lazy" /></div><h3 class="member__name">Tonia Maria Michaely</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/millar.png" alt="Jane Millar" loading="lazy" /></div><h3 class="member__name">Jane Millar</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/naeslund.png" alt="Vivianne Näslund" loading="lazy" /></div><h3 class="member__name">Vivianne Näslund</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/orbea.png" alt="Angelita Orbea" loading="lazy" /></div><h3 class="member__name">Angelita Orbea</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/ramos.png" alt="Teresa Ramos" loading="lazy" /></div><h3 class="member__name">Teresa Ramos</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/rentel.png" alt="Susanne Rentel" loading="lazy" /></div><h3 class="member__name">Susanne Rentel</h3></article>
+            <article class="member" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="assets/team/associates/saliba.jpg" alt="Basel Saliba" loading="lazy" /></div><h3 class="member__name">Basel Saliba</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/sanchez.png" alt="Margaret A. Sánchez" loading="lazy" /></div><h3 class="member__name">Margaret A. Sánchez</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/seidenfus.png" alt="Christoph Seidenfus" loading="lazy" /></div><h3 class="member__name">Christoph Seidenfus</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/sellani.jpg" alt="Francesca Sellani" loading="lazy" /></div><h3 class="member__name">Francesca Sellani</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/shields.jpg" alt="Jim Shields" loading="lazy" /></div><h3 class="member__name">Jim Shields</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/tallman.jpg" alt="Rich Tallman" loading="lazy" /></div><h3 class="member__name">Rich Tallman</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/vanetti.jpg" alt="Eric Vanetti, PhD" loading="lazy" /></div><h3 class="member__name">Eric Vanetti, PhD</h3></article>
+            <article class="member" data-region="americas"><div class="member__photo"><img decoding="async" src="assets/team/associates/west.jpg" alt="Jan West" loading="lazy" /></div><h3 class="member__name">Jan West</h3></article>
+            <article class="member" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="assets/team/associates/xue.png" alt="Christine Xue" loading="lazy" /></div><h3 class="member__name">Christine Xue</h3></article>
+            <article class="member" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="assets/team/associates/yong.png" alt="Stephen Yong" loading="lazy" /></div><h3 class="member__name">Stephen Yong</h3></article>
+            <article class="member" data-region="europe"><div class="member__photo"><img decoding="async" src="assets/team/associates/yilancioglu.png" alt="Biran Yılancıoğlu" loading="lazy" /></div><h3 class="member__name">Biran Yılancıoğlu</h3></article>
           </div>
         </div>
       </article>
@@ -635,7 +645,7 @@
             <p class="news-card__cta"><a href="https://www.amazon.de/Leading-Brain-Neuroscience-Smarter-Happier/dp/0143129368?source=ps-sl-shoppingads-lpcontext&amp;smid=A3JWKAKR8XB7XF&amp;language=de_DE" target="_blank" rel="noopener">Order the book here<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></p>
           </div>
           <div class="news-media">
-            <img src="assets/photos/leading-brain.png" alt="The Leading Brain — book by Friederike Fabritius and Dr. Hans W. Hagemann (Best Business Books 2017, strategy+business)" loading="lazy" />
+            <img decoding="async" src="assets/photos/leading-brain.png" alt="The Leading Brain — book by Friederike Fabritius and Dr. Hans W. Hagemann (Best Business Books 2017, strategy+business)" loading="lazy" />
           </div>
         </div>
       </article>
@@ -644,7 +654,7 @@
       <article class="slide slide--contact" data-slide="8" data-anim="zoom" data-title="Contact">
         <div class="contact-wrap">
           <div class="contact-wrap__card">
-            <img class="contact-wrap__bg" src="assets/photos/working-4.webp" alt="" loading="lazy" />
+            <img decoding="async" class="contact-wrap__bg" src="assets/photos/working-4.webp" alt="" loading="lazy" />
             <div class="contact-wrap__scrim"></div>
           <div class="slide__copy contact-wrap__head">
             <p class="eyebrow">Contact</p>
@@ -779,7 +789,7 @@
 
   </main>
 
-  <script src="app.js?v=166" defer></script>
+  <script src="app.js?v=173" defer></script>
   <script>
     (function () {
       var topbar = document.querySelector('.topbar');
