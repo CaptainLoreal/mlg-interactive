@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0e0f10" />
+  <meta name="theme-color" content="#000" />
   <title>Leadership Development — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=186" />
+  <link rel="stylesheet" href="styles.css?v=219" />
   <style>
     body { overflow: visible; }
     .standalone { overflow: visible; min-height: 100dvh; }
@@ -30,7 +30,7 @@
     .ld-hero__scrim {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, #0e0f10 0%, rgba(14,15,16,0.08) 15%, rgba(14,15,16,0) 100%);
+      background: linear-gradient(to top, #000 0%, rgba(14,15,16,0.08) 15%, rgba(14,15,16,0) 100%);
     }
     .ld-hero__copy {
       position: absolute;
@@ -69,7 +69,7 @@
 
     /* Content area */
     .ld-content {
-      background: #0e0f10;
+      background: #000;
       padding: clamp(48px, 7vh, 96px) clamp(24px, 5vw, 72px) 0;
     }
 
@@ -254,7 +254,7 @@
     <!-- Hero -->
     <div class="ld-hero">
       <div class="ld-hero__media">
-        <img src="assets/photos/photo-g6.webp" alt="" />
+        <img src="assets/photos/group-1.webp" alt="" />
       </div>
       <div class="ld-hero__scrim"></div>
       <div class="ld-hero__copy">
@@ -270,6 +270,12 @@
 
     <!-- Content -->
     <div class="ld-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html#slide=4">Services</a>
+        <span class="breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="breadcrumb__current">Leadership Development</span>
+      </nav>
+
 
       <!-- Intro -->
       <div class="ld-intro">
@@ -288,7 +294,7 @@
 
       <!-- Offerings image card — cards overlaid on photo -->
       <div class="offerings-bg">
-        <img class="offerings-bg__img" src="assets/photos/photo-g2.webp" alt="" loading="lazy" />
+        <img class="offerings-bg__img" src="assets/photos/working-2.webp" alt="" loading="lazy" />
         <div class="offerings-bg__scrim"></div>
 
         <div class="ld-offerings">

@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0e0f10" />
+  <meta name="theme-color" content="#000" />
   <title>Coaching &amp; Sparring — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=186" />
+  <link rel="stylesheet" href="styles.css?v=219" />
   <style>
     body { overflow: visible; }
     .standalone { overflow: visible; min-height: 100dvh; }
     .ld-hero { position: relative; height: 56vh; min-height: 360px; overflow: hidden; }
     .ld-hero__media { position: absolute; inset: 0; }
     .ld-hero__media img { width: 100%; height: 100%; object-fit: cover;  }
-    .ld-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, #0e0f10 0%, rgba(14,15,16,0.08) 15%, rgba(14,15,16,0) 100%); }
+    .ld-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, #000 0%, rgba(14,15,16,0.08) 15%, rgba(14,15,16,0) 100%); }
     .ld-hero__copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 6vh, 64px); }
     .ld-hero__title { font-size: clamp(32px, 5.5vw, 64px); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; margin: 0 0 12px; line-height: 1.1; }
     .ld-hero__lead { font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; letter-spacing: 0; line-height: 1.3; color: rgba(255,255,255,0.72); max-width: 820px; margin: 0; }
-    .ld-content { background: #0e0f10; padding: clamp(48px, 7vh, 96px) clamp(24px, 5vw, 72px) 0; }
+    .ld-content { background: #000; padding: clamp(48px, 7vh, 96px) clamp(24px, 5vw, 72px) 0; }
     .ld-intro { max-width: 820px; margin: 0 auto clamp(56px, 8vh, 96px); }
     .ld-intro__heading { font-size: clamp(18px, 2.4vw, 26px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; margin: 0 0 28px; }
     .ld-intro p { font-size: 19px; line-height: 1.75; color: rgba(255,255,255,0.65); margin: 0 0 18px; }
@@ -25,7 +25,7 @@
     .ld-section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 32px; max-width: 1200px; margin-left: auto; margin-right: auto; }
     .ld-offerings { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 1200px; margin: 0 auto clamp(56px, 8vh, 96px); }
     .ld-offering { flex: 0 1 calc(50% - 4px); }
-    .ld-offering { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 48px 40px 52px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .ld-offering { background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 48px 40px 52px; display: flex; flex-direction: column; align-items: center; text-align: center; }
     .ld-offering__title { font-size: clamp(26px, 3vw, 38px); font-weight: 700; font-family: var(--font-sans); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.1; color: #fff; margin: 0 0 24px; }
     .ld-offering__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
     .ld-offering__list li { font-size: 14px; color: rgba(255,255,255,0.86); font-weight: 450; padding-left: 16px; position: relative; line-height: 1.5; }
@@ -67,7 +67,7 @@
 
     <div class="ld-hero">
       <div class="ld-hero__media">
-        <img src="assets/photos/photo-m3.webp" alt="" />
+        <img src="assets/photos/man-2.webp" alt="" />
       </div>
       <div class="ld-hero__scrim"></div>
       <div class="ld-hero__copy">
@@ -82,6 +82,12 @@
     </div>
 
     <div class="ld-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html#slide=4">Services</a>
+        <span class="breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="breadcrumb__current">Coaching &amp; Sparring</span>
+      </nav>
+
 
       <div class="ld-intro">
         <p>We all are striving to give our best. But at certain stages, we need an expert who helps us sort out options, opportunities, and hidden powers.</p>
@@ -91,7 +97,7 @@
 
       <!-- Offerings image card — cards overlaid on photo -->
       <div class="offerings-bg">
-        <img class="offerings-bg__img" src="assets/photos/photo-g4.webp" alt="" loading="lazy" />
+        <img class="offerings-bg__img" src="assets/photos/working-3.webp" alt="" loading="lazy" />
         <div class="offerings-bg__scrim"></div>
 
         <div class="ld-offerings">

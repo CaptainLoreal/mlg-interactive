@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0e0f10" />
+  <meta name="theme-color" content="#000" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=186" />
+  <link rel="stylesheet" href="styles.css?v=219" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -105,7 +105,7 @@
       <!-- 1 — Welcome -->
       <article class="slide" data-slide="0" data-anim="kenburns" data-title="Welcome">
         <div class="slide__media">
-          <img src="assets/photos/photo-g1.webp" alt="" loading="eager" />
+          <img src="assets/photos/group-3.webp" alt="" loading="eager" />
         </div>
         <div class="slide__scrim"></div>
         <div class="slide__copy" style="display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(32px, 5vw, 80px); max-width: none; right: var(--pad-x);">
@@ -114,7 +114,7 @@
             <h1 class="display" style="text-transform: uppercase;">Empowering<br>leadership</h1>
             <p class="display display--sub" style="font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; line-height: 1.3;">Developing leaders<br>who shape organizations</p>
           </div>
-          <div style="flex-shrink: 0; width: clamp(320px, 40vw, 580px); background: rgba(255,255,255,0.10); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); border-radius: 12px; padding: clamp(28px, 3vw, 48px);">
+          <div style="flex-shrink: 0; width: clamp(320px, 40vw, 580px); background: rgba(0,0,0,0.28); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: clamp(28px, 3vw, 48px);">
             <p style="font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; line-height: 1.3; color: #fff; margin: 0 0 20px;">For the experts at Munich Leadership Group (MLG), this pledge is both a commitment and a motivation.</p>
             <p style="font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; line-height: 1.3; color: #fff; margin: 0;">MLG specializes in the identification and development of the single most important driver of corporate success: leadership.</p>
           </div>
@@ -124,42 +124,30 @@
       <!-- 2 — Tailor -->
       <article class="slide slide--contact slide--tailor" data-slide="1" data-anim="parallax" data-title="Tailor">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-m2.webp" alt="" loading="lazy" />
+          <img src="assets/photos/woman-1.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
         <div class="contact-wrap contact-wrap--tailor">
           <div class="slide__copy contact-wrap__head">
             <p class="eyebrow">Quick access</p>
-            <h2 class="display" style="font-size: clamp(40px, 6.5vw, 80px); margin-bottom: clamp(12px, 2.5vh, 28px);">What are you looking for?</h2>
+            <h2 class="display" style="margin-bottom: clamp(12px, 2.5vh, 28px);">What are you looking for?</h2>
           </div>
 
           <div class="contact-block">
             <form class="tf" id="tailorForm" novalidate>
               <div class="tf__progress"><span class="tf__progress-fill" id="tailorFill"></span></div>
 
-              <!-- Step 1 — Company size -->
-              <div class="tf__step is-active" data-step="0" data-field="company_size" data-required="1">
-                <p class="tf__num">01 — your company</p>
-                <h3 class="tf__q">My company has …</h3>
-                <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="small">&lt; 50 employees</button>
-                  <button class="tf__choice" type="button" data-value="medium">50–500 employees</button>
-                  <button class="tf__choice" type="button" data-value="large">500–5.000 employees</button>
-                  <button class="tf__choice" type="button" data-value="enterprise">&gt; 5.000 employees</button>
-                </div>
-              </div>
-
-              <!-- Step 2 — Who are you -->
-              <div class="tf__step" data-step="1" data-field="profile" data-required="1">
-                <p class="tf__num">02 — about you</p>
+              <!-- Step 1 — Who are you -->
+              <div class="tf__step is-active" data-step="0" data-field="profile" data-required="1">
+                <p class="tf__num">01 — about you</p>
                 <h3 class="tf__q">What brings you here?</h3>
                 <div class="tf__choices">
-                  <button class="tf__choice" type="button" data-value="clients">
-                    <span><strong>I want to know</strong> who your clients are</span>
-                  </button>
                   <button class="tf__choice" type="button" data-value="general">
                     <span><strong>I want to learn about MLG</strong> in general</span>
+                  </button>
+                  <button class="tf__choice" type="button" data-value="clients">
+                    <span><strong>I want to know</strong> who your clients are</span>
                   </button>
                   <button class="tf__choice" type="button" data-value="hr">
                     <span><strong>I am an owner, a board member, or an HR responsible,</strong> looking for smart ways to develop our leaders</span>
@@ -176,6 +164,18 @@
                   <button class="tf__choice" type="button" data-value="alumnus">
                     <span><strong>I am a former participant</strong> of one of your programs and want to know more</span>
                   </button>
+                </div>
+              </div>
+
+              <!-- Step 2 — Company size -->
+              <div class="tf__step" data-step="1" data-field="company_size" data-required="1">
+                <p class="tf__num">02 — your company</p>
+                <h3 class="tf__q">My company has …</h3>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="small">&lt; 50 employees</button>
+                  <button class="tf__choice" type="button" data-value="medium">50–500 employees</button>
+                  <button class="tf__choice" type="button" data-value="large">500–5.000 employees</button>
+                  <button class="tf__choice" type="button" data-value="enterprise">&gt; 5.000 employees</button>
                 </div>
                 <div class="tf__foot">
                   <button class="tf__back" type="button" data-action="back">← Back</button>
@@ -233,13 +233,8 @@
             </div>
 
             <div class="globe-card" id="globeCard" aria-live="polite">
-              <p class="globe-card__eyebrow">Selected client</p>
               <h3 class="globe-card__name" id="globeCardName">—</h3>
               <p class="globe-card__meta" id="globeCardMeta">Tap a logo on the globe to read the engagement.</p>
-              <a class="globe-card__more" id="globeCardMore" href="#" hidden>
-                <span>more</span>
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </a>
             </div>
 
           </div>
@@ -253,7 +248,7 @@
           <!-- Hero image — top portion, no scrim -->
           <div class="approach-hero">
             <div class="approach-hero__img">
-              <img src="assets/photos/photo-g2.webp" alt="" loading="lazy" />
+              <img src="assets/photos/working-1.webp" alt="" loading="lazy" />
             </div>
             <div class="approach-hero__copy">
               <p class="eyebrow">Approach</p>
@@ -283,7 +278,7 @@
 
           <!-- Challenge cards -->
           <div class="approach-cards-bg">
-            <img class="approach-cards-bg__img" src="assets/photos/photo-g2.webp" alt="" loading="lazy" />
+            <img class="approach-cards-bg__img" src="assets/photos/working-2.webp" alt="" loading="lazy" />
             <div class="approach-centered__cards">
               <p class="eyebrow approach-challenges-eyebrow">Leader's challenges</p>
               <div class="challenges-carousel">
@@ -317,22 +312,18 @@
 
         <div class="testimonials-wrap">
           <div class="testimonials-header">
-            <h2 class="display">What clients say.</h2>
-            <div class="testimonials-controls">
-              <button class="testimonials-arrow testimonials-arrow--prev" id="testimonialsPrev" aria-label="Previous testimonial">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-              </button>
-              <div class="testimonials-counter">
-                <span id="testimonialsIdx">1</span> / <span id="testimonialsTotal"></span>
-              </div>
-              <button class="testimonials-arrow testimonials-arrow--next" id="testimonialsNext" aria-label="Next testimonial">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-              </button>
-            </div>
+            <h2 class="display">What clients say</h2>
           </div>
 
+          <div class="testimonials-stage">
+            <button class="testimonials-arrow testimonials-arrow--prev" id="testimonialsPrev" aria-label="Previous testimonial">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <button class="testimonials-arrow testimonials-arrow--next" id="testimonialsNext" aria-label="Next testimonial">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+
           <div class="testimonials-carousel" id="testimonialsCarousel">
-            <div class="testimonials-track" id="testimonialsTrack">
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"Together with MLG, we designed and delivered an innovative Learning Journey over 2 years for our more than 100 global Top Executives, including Board Members. All aspects — the modules, the coachings, the Learning Partnerships, the venues on different continents — all customized by MLG. The results exceeded our expectations. A true game changer for our culture."</blockquote>
@@ -424,8 +415,8 @@
                 <footer class="testimonial__footer"><strong>Prof. Dr. Dietmar Harhoff</strong>, Director — Max-Planck-Institute for Innovation and Competition</footer>
               </div>
 
-            </div><!-- /.testimonials-track -->
           </div><!-- /.testimonials-carousel -->
+          </div><!-- /.testimonials-stage -->
         </div>
       </article>
 
@@ -433,7 +424,7 @@
       <article class="slide slide--cards slide--services-split" data-slide="2" data-anim="parallax" data-title="Services">
         <div class="services-split">
           <div class="services-split__photo">
-            <img src="assets/photos/photo-g3.webp" alt="" loading="lazy" />
+            <img src="assets/photos/group-2.webp" alt="" loading="lazy" />
             <div class="services-split__scrim"></div>
             <div class="services-split__copy">
               <p class="eyebrow">Services</p>
@@ -482,7 +473,7 @@
       <!-- 5 — Why MLG -->
       <article class="slide slide--why-mlg" data-slide="2" data-anim="parallax" data-title="Why MLG">
         <div class="slide__media">
-          <img src="assets/photos/photo-m4.webp" alt="" loading="lazy" />
+          <img src="assets/photos/man-1.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -512,7 +503,7 @@
       <!-- 6 — Tools -->
       <article class="slide slide--approach-intro slide--tools" data-slide="2" data-anim="parallax" data-title="Tools">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-g5.webp" alt="" loading="lazy" />
+          <img src="assets/photos/working-3.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
         <div class="approach-centered-wrap">
@@ -539,7 +530,7 @@
       <!-- 7 — Team -->
       <article class="slide slide--team" data-slide="5" data-anim="parallax" data-title="Team">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-g5.webp" alt="" loading="lazy" />
+          <img src="assets/photos/group-4.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -621,10 +612,29 @@
         </div>
       </article>
 
+      <!-- News — The Leading Brain book -->
+      <article class="slide slide--news" data-anim="parallax" data-title="Book">
+        <div class="slide__media slide__media--soft"><!-- hidden; kept for DOM parity with team --></div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+        <div class="news-wrap">
+          <div class="news-card">
+            <p class="eyebrow">Grounded in science</p>
+            <h2 class="news-card__title">The Leading Brain: our book makes our experience available</h2>
+            <p class="news-card__body">Working with neuroscience, our clients wanted to learn more about our approaches and methods. So we decided to write a book.</p>
+            <p class="news-card__body">It is written in an entertaining style and focuses on neuroscience for leaders. It is full of surprising facts, useful knowledge, supporting mindsets, applicable tools and practical hacks.</p>
+            <p class="news-card__body">Published first in the U.S. by Penguin Random House in 2017, it has been awarded, turned into a bestseller and was translated into 7 languages — among them German, Mandarin, Korean, and Spanish.</p>
+            <p class="news-card__cta"><a href="https://www.amazon.de/Leading-Brain-Neuroscience-Smarter-Happier/dp/0143129368?source=ps-sl-shoppingads-lpcontext&amp;smid=A3JWKAKR8XB7XF&amp;language=de_DE" target="_blank" rel="noopener">Order the book here<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></p>
+          </div>
+          <div class="news-media">
+            <img src="assets/photos/leading-brain.png" alt="The Leading Brain — book by Friederike Fabritius and Dr. Hans W. Hagemann (Best Business Books 2017, strategy+business)" loading="lazy" />
+          </div>
+        </div>
+      </article>
+
       <!-- 6 — Contact -->
       <article class="slide slide--contact" data-slide="8" data-anim="zoom" data-title="Contact">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/photo-w1.webp" alt="" loading="lazy" />
+          <img src="assets/photos/working-4.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -761,7 +771,7 @@
 
   </main>
 
-  <script src="app.js?v=153" defer></script>
+  <script src="app.js?v=161" defer></script>
   <script>
     (function () {
       var topbar = document.querySelector('.topbar');

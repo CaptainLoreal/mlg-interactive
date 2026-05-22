@@ -25,7 +25,7 @@
   --mlg-stone-deep: #5e6663;
 
   /* Neutrals */
-  --ink-900: #0e0f10;
+  --ink-900: #000;
   --ink-700: #2a2d30;
   --ink-600: #4a4e52;
   --ink-500: #6b7075;
@@ -700,13 +700,15 @@ button { font-family: inherit; cursor: pointer; }
 }
 .slide-nav__dropdown-item {
   display: block;
-  color: rgba(255,255,255,0.50);
+  /* Match topbar typography exactly */
+  color: rgba(255,255,255,0.85);
   text-decoration: none;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 8px 14px;
+  padding: 10px 16px;
   border-radius: 4px;
   white-space: nowrap;
   transition: color 150ms;
@@ -719,8 +721,10 @@ button { font-family: inherit; cursor: pointer; }
 }
 .slide-nav__btn {
   appearance: none;
+  -webkit-appearance: none;
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
   background: none;
   border: none;
   border-bottom: 1px solid transparent;
@@ -733,6 +737,7 @@ button { font-family: inherit; cursor: pointer; }
   text-decoration: none;
   cursor: pointer;
   padding: 4px 0;
+  margin: 0;
   white-space: nowrap;
   line-height: 1;
   transition: color 200ms, border-color 200ms;
@@ -1354,7 +1359,7 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  background: #0e0f10;
+  background: #000;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1479,7 +1484,7 @@ button { font-family: inherit; cursor: pointer; }
 .slide--mountain .slide__media img { }
 
 /* Services split — image on top, cards on dark below */
-.slide--services-split { background: #0e0f10; }
+.slide--services-split { background: #000; }
 .slide--services-split .slide__media { display: none; }
 .slide--services-split .slide__scrim { display: none; }
 
@@ -1517,7 +1522,7 @@ button { font-family: inherit; cursor: pointer; }
   z-index: 2;
 }
 .services-split__copy .eyebrow { margin-bottom: 10px; }
-.services-split__copy .display { margin: 0; font-size: clamp(24px, 3.5vw, 44px); }
+.services-split__copy .display { margin: 0; }
 .slide--services-split .services-wrap {
   justify-content: flex-start;
   padding-top: clamp(28px, 4vh, 44px);
@@ -1534,13 +1539,14 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
 }
 .slide--services-split .card-item {
-  padding: 48px 40px 52px;
+  padding: 48px 40px 26px;
   align-items: center;
   text-align: center;
   min-height: unset;
 }
 .slide--services-split .card-item .btn--more {
   align-self: center;
+  margin-top: 24px;
 }
 
 /* Services slide wrapper — full-height flex column */
@@ -1585,11 +1591,11 @@ button { font-family: inherit; cursor: pointer; }
   display: flex;
   flex-direction: column;
   gap: 6px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.10);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-radius: 8px;
+  border-radius: 12px;
   text-decoration: none;
   color: inherit;
   padding: 22px 22px;
@@ -1600,8 +1606,8 @@ button { font-family: inherit; cursor: pointer; }
   transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
 }
 .card-item:hover {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.30);
+  background: rgba(0,0,0,0.40);
+  border-color: rgba(255,255,255,0.22);
   transform: translateY(-2px);
 }
 
@@ -1799,7 +1805,7 @@ button { font-family: inherit; cursor: pointer; }
   max-width: 680px;
   width: 100%;
 }
-.approach-centered__header .display { font-size: clamp(26px, 4vw, 44px); margin-bottom: 18px; }
+.approach-centered__header .display { margin-bottom: 18px; }
 .approach-centered__header .approach-intro__label { margin-top: 18px; }
 .approach-centered__header .approach-intro__body { margin-left: auto; margin-right: auto; text-align: center; }
 .approach-centered__cards {
@@ -1822,7 +1828,7 @@ button { font-family: inherit; cursor: pointer; }
 .slide--tools { display: none; }
 
 /* Clients slide — solid dark, no photo */
-.slide--globe { background: #0e0f10; }
+.slide--globe { background: #000; }
 .slide--globe .slide__media { display: none; }
 .slide--globe .slide__scrim { display: none; }
 
@@ -1834,7 +1840,7 @@ button { font-family: inherit; cursor: pointer; }
   background: rgba(0,0,0,0.30);
 }
 /* Main Approach slide — dark base, image via .approach-hero inside the scroll wrap */
-.slide--approach-main { background: #0e0f10; }
+.slide--approach-main { background: #000; }
 .slide--approach-main .slide__media,
 .slide--approach-main .slide__scrim { display: none; }
 /* Zero padding so hero image bleeds edge-to-edge */
@@ -1861,6 +1867,17 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%; height: 100%;
   object-fit: cover;
 }
+/* Black-to-transparent gradient at the TOP of the hero image — matches the
+   hero main bottom fade in shape & extent (just mirrored vertically). */
+.approach-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 18%);
+  z-index: 1;
+  pointer-events: none;
+}
+.approach-hero__copy { z-index: 2; }
 /* Subtle bottom gradient for text legibility only */
 .approach-hero__copy {
   position: absolute;
@@ -1884,7 +1901,7 @@ button { font-family: inherit; cursor: pointer; }
 
 /* Ordinals — solid dark strip below the image */
 .approach-ordinals-section {
-  background: #0e0f10;
+  background: #000;
   padding: clamp(36px, 5vh, 64px) var(--pad-x);
   width: 100%;
   box-sizing: border-box;
@@ -1924,38 +1941,48 @@ button { font-family: inherit; cursor: pointer; }
   text-align: center;
   margin-bottom: 4px;
 }
-/* Same 30% scrim as offerings-bg on service sub-pages */
+/* Black-to-transparent gradient at the BOTTOM of the challenges image — same
+   shape as the hero main bottom fade. */
 .approach-cards-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.30);
+  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%);
   z-index: 1;
   pointer-events: none;
 }
 .approach-cards-bg .approach-centered__cards {
   position: relative;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
   gap: 16px;
   padding: clamp(24px, 4vh, 40px) var(--pad-x);
   box-sizing: border-box;
   width: 100%;
+  text-align: center;
+  grid-template-columns: none !important;
+  max-width: none !important;
 }
 /* Pill centred above the grid */
 .approach-challenges-eyebrow {
+  align-self: center !important;
   text-align: center;
-  margin: 0;
+  margin: 0 auto !important;
+  display: inline-block;
 }
-/* Cards in a 2×2 grid */
+/* Cards in a 2×2 grid, centred as a group */
 .challenges-carousel {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 400px));
   gap: 8px;
   justify-content: center;
+  align-self: center;
   width: 100%;
+  max-width: 816px; /* 2*400 + 8 + 8 buffer */
+  margin: 0 auto;
 }
 .approach-cards-bg .challenge-box {
   padding: 48px 40px 52px;
@@ -1982,7 +2009,6 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .approach-intro__left .display {
-  font-size: clamp(26px, 4vw, 44px);
   margin-bottom: 18px;
 }
 
@@ -2033,11 +2059,11 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .challenge-box {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.10);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 22px 22px;
   display: flex;
   flex-direction: column;
@@ -2045,8 +2071,8 @@ button { font-family: inherit; cursor: pointer; }
   transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
 }
 .challenge-box:hover {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.30);
+  background: rgba(0,0,0,0.40);
+  border-color: rgba(255,255,255,0.22);
   transform: translateY(-2px);
 }
 
@@ -2097,16 +2123,19 @@ button { font-family: inherit; cursor: pointer; }
 }
 .why-mlg__head {
   text-align: left;
-  max-width: 420px;
-  flex-shrink: 0;
+  max-width: 560px;
+  flex-shrink: 1;
 }
-.why-mlg__head .display { margin-bottom: 8px; }
+.why-mlg__head .display {
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
 .why-mlg__sub {
-  font-size: clamp(14px, 1.3vw, 18px);
-  font-weight: 400;
-  color: rgba(255,255,255,0.55);
+  font-size: clamp(20px, 2.8vw, 36px);
+  font-weight: 500;
+  color: #fff;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 .why-mlg__cards {
   display: flex;
@@ -2161,7 +2190,7 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0 auto clamp(18px, 2.4vh, 30px);
   text-align: center;
 }
-.team-head .display { color: #fff; margin: 0 auto; font-size: clamp(28px, 4.8vw, 52px); }
+.team-head .display { color: #fff; margin: 0 auto; }
 
 .team-tabs {
   display: inline-flex;
@@ -2336,12 +2365,8 @@ button { font-family: inherit; cursor: pointer; }
    CONTACT
    ============================================================= */
 .slide--contact:not(.slide--tailor) .slide__scrim {
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.88) 0%,
-    rgba(0,0,0,0.55) 30%,
-    rgba(0,0,0,0.68) 100%
-  );
+  /* Same bottom fade as the hero main — black at bottom → transparent at 18% */
+  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%);
 }
 .slide--contact .slide__media img { }
 
@@ -3001,9 +3026,9 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .globe-stage {
-  width: min(78vw, 460px);
+  width: min(82vw, 640px);
   aspect-ratio: 1 / 1;
-  perspective: 1400px;
+  perspective: 1600px;
   display: grid;
   place-items: center;
   cursor: grab;
@@ -3055,17 +3080,29 @@ button { font-family: inherit; cursor: pointer; }
   height: 44px;
   padding: 0 12px;
   border-radius: 999px;
-  background: rgba(14,15,16,0.72);
+  background: rgba(14,15,16,0.92);
   border: 1px solid rgba(255,255,255,0.90);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   transform-origin: center;
+  transform-style: flat; /* chip itself is 2D; don't subject it to 3D sub-rendering */
   transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
   cursor: pointer;
+}
+/* Depth dimming via a separate overlay layer — value comes from JS as a CSS var.
+   When fully in front (--chip-veil: 0) the overlay is invisible and adds nothing
+   to the chip's appearance, avoiding the stuck-dark-snapshot bug caused by
+   stale `opacity`/`filter` GPU layers on the chip itself. */
+.chip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: var(--chip-veil, 0);
+  pointer-events: none;
+  border-radius: inherit;
 }
 .chip__logo {
   width: 84px;
@@ -3092,11 +3129,12 @@ button { font-family: inherit; cursor: pointer; }
   height: 42px;
 }
 .chip[data-client="knorr-bremse"] {
-  width: 140px;
+  width: 130px;
 }
 .chip[data-client="knorr-bremse"] .chip__logo {
-  width: 116px;
-  height: 38px;
+  width: 104px;
+  height: 42px;
+  object-fit: contain;
 }
 .chip[data-client="microsoft"] .chip__logo {
   width: 104px;
@@ -3113,8 +3151,13 @@ button { font-family: inherit; cursor: pointer; }
 .chip[data-client="schaeffler"] { width: 130px; }
 .chip[data-client="schaeffler"] .chip__logo { width: 106px; height: 38px; }
 .chip[data-client="strabag"] .chip__logo { width: 100px; height: 40px; }
-.chip[data-client="vivawest"] { width: 148px; }
-.chip[data-client="vivawest"] .chip__logo { width: 124px; height: 40px; object-fit: contain; }
+.chip[data-client="vivawest"] { width: 156px; }
+.chip[data-client="vivawest"] .chip__logo { width: 140px; height: 34px; object-fit: contain; }
+.chip[data-client="montblanc"] { width: 160px; }
+.chip[data-client="montblanc"] .chip__logo { width: 140px; height: 22px; object-fit: contain; }
+.chip[data-client="kion"] .chip__logo { width: 80px; height: 36px; object-fit: contain; }
+.chip[data-client="deutz"] { width: 130px; }
+.chip[data-client="deutz"] .chip__logo { width: 108px; height: 28px; object-fit: contain; }
 
 /* Fade chips on the back of the sphere — set via JS opacity per frame */
 
@@ -3456,22 +3499,22 @@ button { font-family: inherit; cursor: pointer; }
 /* =============================================================
    TESTIMONIALS CAROUSEL
    ============================================================= */
-.slide--testimonials { background: #0e0f10; }
+.slide--testimonials { background: #000; }
 .slide--testimonials .slide__media,
 .slide--testimonials .slide__scrim { display: none; }
 
 /* Welcome (hero) slide — gradient fades image bottom to dark */
 .slide[data-title="Welcome"] .slide__scrim {
-  background: linear-gradient(to top, #0e0f10 0%, rgba(14,15,16,0) 18%);
+  background: linear-gradient(to top, #000 0%, rgba(14,15,16,0) 18%);
 }
 
 /* Tailor slide — solid dark, no photo */
-.slide--tailor { background: #0e0f10; }
+.slide--tailor { background: #000; }
 .slide--tailor .slide__media,
 .slide--tailor .slide__scrim { display: none; }
 
 /* Team slide — solid dark, no photo */
-.slide--team { background: #0e0f10; }
+.slide--team { background: #000; }
 .slide--team .slide__media { display: none; }
 
 .testimonials-wrap {
@@ -3481,95 +3524,102 @@ button { font-family: inherit; cursor: pointer; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(64px, 10vh, 120px);
-  max-width: 1080px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: clamp(96px, 14vh, 160px) 0 clamp(64px, 10vh, 120px);
   width: 100%;
 }
 
-/* Section heading row */
+/* Section heading row — left-aligned, full width with edge padding */
 .testimonials-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
+  padding: 0 var(--pad-x);
   margin-bottom: clamp(28px, 4vh, 44px);
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
 }
 .testimonials-header .display {
-  font-size: clamp(22px, 3vw, 38px);
   margin: 0;
+  text-align: left;
 }
 
-/* Controls row: prev · counter · next */
-.testimonials-controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+/* Stage wraps the carousel so arrows can overlay it, vertically centred */
+.testimonials-stage {
+  position: relative;
+  width: 100%;
 }
 
 .testimonials-arrow {
-  width: 44px;
-  height: 44px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(14,15,16,0.85);
+  border: 1px solid rgba(255,255,255,0.22);
   border-radius: 50%;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.85);
   cursor: pointer;
-  transition: background 160ms, color 160ms, border-color 160ms;
+  transition: background 160ms, color 160ms, border-color 160ms, opacity 160ms;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
+.testimonials-arrow--prev { left: clamp(8px, 1.5vw, 24px); }
+.testimonials-arrow--next { right: clamp(8px, 1.5vw, 24px); }
 .testimonials-arrow:hover {
   background: var(--mlg-red);
   border-color: var(--mlg-red);
   color: #fff;
 }
-
-.testimonials-counter {
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  color: rgba(255,255,255,0.45);
-  min-width: 48px;
-  text-align: center;
+.testimonials-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
-/* Carousel viewport */
+/* Native horizontal scroll carousel — fully fluid, no snap jumping */
 .testimonials-carousel {
-  overflow: hidden;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-}
-.testimonials-carousel.is-dragging { cursor: grabbing; }
-
-.testimonials-track {
   display: flex;
   gap: 20px;
-  transition: transform 480ms cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px var(--pad-x);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  /* Override body's pan-y so horizontal swipe works on touch */
+  touch-action: pan-x;
+  cursor: grab;
 }
-.testimonials-track.no-transition { transition: none; }
+.testimonials-carousel::-webkit-scrollbar { display: none; }
+.testimonials-carousel:active { cursor: grabbing; }
 
-/* Each card — 3-up on desktop */
+/* Each card — fixed width so neighbours peek on both sides */
 .testimonial {
-  min-width: calc(33.333% - 14px);
-  flex-shrink: 0;
+  flex: 0 0 clamp(280px, 32%, 380px);
   box-sizing: border-box;
-  background: rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.28);
   border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 10px;
-  padding: clamp(20px, 2.5vw, 32px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: clamp(24px, 2.5vw, 32px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
+  min-height: 280px;
 }
 
 .testimonial__quote {
   font-family: var(--font-display);
-  font-size: clamp(14px, 1.5vw, 15px);
+  font-size: clamp(14px, 1.1vw, 16px);
   font-weight: 400;
   font-style: italic;
   line-height: 1.65;
@@ -3583,23 +3633,22 @@ button { font-family: inherit; cursor: pointer; }
   font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  border-top: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.50);
+  border-top: 1px solid rgba(255,255,255,0.10);
   padding-top: 14px;
 }
 .testimonial__footer strong {
-  color: rgba(255,255,255,0.80);
+  color: rgba(255,255,255,0.85);
   font-weight: 600;
 }
 
+/* Tablet + mobile: bigger cards, fewer visible at once but still peek */
 @media (max-width: 900px) {
-  .testimonial { min-width: calc(50% - 10px); }
+  .testimonial { flex: 0 0 clamp(280px, 60%, 420px); }
 }
 @media (max-width: 640px) {
-  .testimonial { min-width: calc(100% - 0px); }
   .testimonials-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .testimonials-carousel { margin-right: 0; padding-right: 0; }
-  .testimonial { min-width: 100%; }
+  .testimonial { flex: 0 0 82%; min-height: 240px; }
 }
 
 /* =============================================================
@@ -3731,4 +3780,364 @@ p, li { font-size: inherit; }
 }
 .ld-cta__btn:hover svg {
   transform: translateX(5px);
+}
+
+
+/* ── Breadcrumb — placed below hero on every subpage, left-aligned to match hero headline ── */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  /* No horizontal padding — parent (.ld-content / .profile-content) already provides it
+     so the breadcrumb aligns flush with the hero headline above */
+  padding: 0;
+  margin: 0 0 clamp(28px, 4vh, 48px) 0;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mlg-red);
+  text-align: left;
+  width: 100%;
+  max-width: none;
+}
+.breadcrumb a {
+  color: var(--mlg-red);
+  text-decoration: none;
+  transition: opacity 150ms;
+}
+.breadcrumb a:hover { opacity: 0.7; }
+/* Breadcrumb separator — CSS-drawn right-pointing chevron arrow */
+.breadcrumb__sep {
+  display: inline-block;
+  width: 14px;
+  height: 1em;
+  position: relative;
+  color: transparent;     /* hide the literal "/" character in the HTML */
+  font-size: inherit;
+  vertical-align: middle;
+  margin: 0 4px;
+  align-self: center;
+}
+.breadcrumb__sep::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid var(--mlg-red);
+  border-right: 2px solid var(--mlg-red);
+  transform: translate(-60%, -50%) rotate(45deg);
+  opacity: 0.9;
+}
+.breadcrumb__current { color: var(--mlg-red); }
+
+/* Pull breadcrumb up closer to the hero image (reduces the gap from .ld-content's
+   own top padding) so it sits just below the image */
+.ld-content > .breadcrumb:first-child,
+.profile-content > .breadcrumb:first-child {
+  margin-top: clamp(-60px, -5vh, -32px);
+}
+
+/* Overlay variant — used on full-image pages (challenges / usp / why-mlg)
+   where the slide__copy itself overlays the image; sits between the back
+   link area and the eyebrow/title block */
+.breadcrumb--overlay {
+  margin: 8px 0 16px 0;
+  padding: 0;
+  color: var(--mlg-red);
+}
+.breadcrumb--overlay a { color: var(--mlg-red); }
+
+
+/* ── News slide — The Leading Brain book promotion ────────────── */
+.slide--news { background: #000; }
+.slide--news .slide__media { display: none; }
+/* scrim left visible — matches team's 10% black overlay so backgrounds align */
+
+.news-wrap {
+  position: relative;
+  z-index: 2;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(32px, 5vw, 80px);
+  padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(64px, 10vh, 120px);
+  width: 100%;
+  box-sizing: border-box;
+  /* Match team-wrap glass look */
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+}
+
+.news-card {
+  flex: 1 1 0;
+  max-width: 560px;
+  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: clamp(28px, 3.2vw, 48px);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.news-card .eyebrow {
+  margin-bottom: 4px;
+  align-self: flex-start; /* prevent flex stretching the pill full-width */
+  width: fit-content;
+}
+.news-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin: 0 0 4px;
+  color: #fff;
+}
+.news-card__body {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.78);
+  margin: 0;
+}
+.news-card__cta {
+  margin: 16px 0 0;
+}
+/* Match the standard CTA button style used across subpages (.ld-cta__btn / .profile-cta__btn) */
+.news-card__cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--mlg-red);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 16px 36px;
+  border-radius: 999px;
+  border: 0;
+  transition: opacity 200ms;
+}
+.news-card__cta a:hover { opacity: 0.85; }
+.news-card__cta a svg { width: 14px; height: 14px; transition: transform 200ms ease; }
+.news-card__cta a:hover svg { transform: translateX(5px); }
+
+.news-media {
+  flex: 1.3 1 0;
+  max-width: 760px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.news-media img {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+@media (max-width: 900px) {
+  .news-wrap {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .news-card,
+  .news-media { max-width: 100%; width: 100%; }
+}
+
+
+/* ── Print / Save-as-PDF styling for team member profile pages ─────────
+   Triggered by the "Generate PDF" button → window.print().
+   Hides navigation, controls, and back-links; preserves background
+   colors and the hero image so the PDF looks like a polished one-pager. */
+@media print {
+  /* Force exact colors (browsers strip backgrounds by default to save ink) */
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Default page setup */
+  @page {
+    margin: 16mm 14mm;
+    size: A4;
+  }
+  html, body {
+    background: #fff !important;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    overflow: visible !important;
+    height: auto !important;
+  }
+  body { font-size: 11pt; }
+
+  /* Hide chrome we don't want on the PDF */
+  .topbar,
+  .corner-mark,
+  .breadcrumb,
+  .page-back,
+  .profile-cta,
+  .imprint,
+  .mobile-nav,
+  .burger,
+  .lang-switch,
+  .rail,
+  .website-cta {
+    display: none !important;
+  }
+
+  /* Standalone page → simple block flow */
+  .standalone {
+    position: static !important;
+    min-height: auto !important;
+    height: auto !important;
+    background: #fff !important;
+    overflow: visible !important;
+    animation: none !important;
+  }
+
+  /* ── Profile hero: keep the image as a banner up top ── */
+  .profile-hero {
+    position: relative !important;
+    height: 240px !important;
+    min-height: 0 !important;
+    margin-bottom: 16mm;
+    page-break-inside: avoid;
+  }
+  .profile-hero__media,
+  .profile-hero__media img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    animation: none !important;
+  }
+  .profile-hero__scrim {
+    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.10) 60%, transparent 100%) !important;
+  }
+  .profile-hero__copy {
+    position: absolute !important;
+    inset: auto 0 0 0 !important;
+    padding: 14mm !important;
+    display: block !important;
+  }
+  .profile-hero__eyebrow {
+    display: inline-block !important;
+    background: var(--mlg-red) !important;
+    color: #fff !important;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 8pt;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 6px !important;
+  }
+  .profile-hero__name {
+    color: #fff !important;
+    font-size: 26pt !important;
+    margin: 0 0 4px !important;
+    line-height: 1.1 !important;
+  }
+  .profile-hero__role {
+    color: rgba(255,255,255,0.9) !important;
+    font-size: 10pt;
+    margin: 0 !important;
+  }
+
+  /* ── Content area ── */
+  .profile-content {
+    background: #fff !important;
+    color: #111 !important;
+    padding: 0 !important;
+  }
+  .profile-body {
+    max-width: none !important;
+    margin: 0 !important;
+    color: #222 !important;
+  }
+  .profile-body p {
+    font-size: 11pt !important;
+    line-height: 1.55 !important;
+    color: #222 !important;
+    margin: 0 0 9pt !important;
+    page-break-inside: avoid;
+  }
+  .profile-body p strong { color: #000 !important; }
+
+  /* Round photo float inside the body — let it print */
+  .profile-body img {
+    width: 110px !important;
+    height: 110px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    float: left !important;
+    margin: 0 16px 8px 0 !important;
+    shape-outside: circle() !important;
+  }
+
+  .profile-section-label {
+    margin-top: 14pt !important;
+    font-size: 9pt !important;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #555 !important;
+  }
+  .profile-tags {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6pt;
+  }
+  .profile-tag {
+    display: inline-block !important;
+    background: #eee !important;
+    color: #111 !important;
+    border: 1px solid #ccc !important;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 9pt;
+    page-break-inside: avoid;
+  }
+
+  /* Quote block */
+  .profile-quote {
+    margin-top: 14pt !important;
+    padding: 12pt 14pt !important;
+    background: #f5f5f5 !important;
+    border-left: 3px solid var(--mlg-red) !important;
+    page-break-inside: avoid;
+  }
+  .profile-quote__label {
+    font-size: 9pt;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #666 !important;
+    margin: 0 0 4pt !important;
+  }
+  .profile-quote__text {
+    font-style: italic;
+    color: #222 !important;
+    margin: 0 !important;
+    font-size: 11pt !important;
+  }
 }

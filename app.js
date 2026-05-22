@@ -136,7 +136,6 @@
     "I am the best boss ever",
     "Our company culture fosters best performance",
     "We are leaders and role models",
-    "Pick and Click",
     "We are a fast learning community",
     "The competition is jealous of us",
     "We are a winning team, curious and innovative",
@@ -365,11 +364,12 @@
         const wrap = document.createElement('div');
         wrap.className = 'slide-nav__dropdown-wrap';
 
-        const btn = document.createElement('button');
+        const btn = document.createElement('a');
         btn.className = 'slide-nav__btn slide-nav__btn--has-drop';
+        btn.href = '#';
         btn.dataset.slideIdx = i;
         btn.innerHTML = `${title}<svg class="slide-nav__chevron" viewBox="0 0 10 6" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>`;
-        btn.addEventListener('click', () => scrollToSlide(i));
+        btn.addEventListener('click', (e) => { e.preventDefault(); scrollToSlide(i); });
 
         const drop = document.createElement('div');
         drop.className = 'slide-nav__dropdown';
@@ -597,7 +597,6 @@
   const CLIENTS = [
     { name: 'Microsoft',       logo: 'microsoft.png',      meta: 'Azure and cloud transformation leadership cohort for EMEA. Three cohorts a year focused on managing high-velocity product cycles and cross-functional alignment at scale.' },
     { name: 'BMW Group',       logo: 'bmw.png',            meta: 'Plant leadership academy across the European production network. A six-month track for plant directors and their successors, with rotations through Munich, Leipzig and Regensburg.' },
-    { name: 'Siemens',         logo: 'siemens.png',        meta: 'Digital industries division — senior cohort, two cohorts annually since 2017. Focused on transition leadership as the legacy industrial business reshapes around software and services.' },
     { name: 'Munich Re',       logo: 'munich-re.png',      meta: 'Reinsurance leadership track since 2016. We teach the trade, not the textbook — including the Bermuda flight and the syndicate visit.' },
     { name: 'Bayer',           logo: 'bayer.png',          meta: 'Crop science division — succession programme for general managers. Two-year cycle, paired with a current SVP throughout.' },
     { name: 'Hannover Re',     logo: 'hannover-re.png',    meta: 'Executive development programme for the underwriting leadership. Closed cohorts focused on risk culture, long-cycle decision-making, and leading specialists.' },
@@ -637,7 +636,7 @@
     { name: 'BayWa',           logo: 'baywa.png',          meta: 'Leadership programme for senior executives across the agriculture, energy and building materials divisions.' },
     { name: 'Knauf',           logo: 'knauf.png',          meta: 'Leadership development for regional and division executives in the global building materials group.' },
     { name: 'Deutz',           logo: 'deutz.png',          meta: 'Senior leadership programme for technology and operations executives in the engine manufacturing and drives technology business.' },
-    { name: 'Vivawest',        logo: 'vivawest.png',       meta: 'Leadership development for senior executives in one of Germany\'s largest housing companies. Focused on leading large residential operations teams.' },
+    { name: 'Vivawest',        logo: 'vivawest.svg',       meta: 'Leadership development for senior executives in one of Germany\'s largest housing companies. Focused on leading large residential operations teams.' },
     { name: 'Weidmüller',      logo: 'weidmueller.png',    meta: 'Leadership programme for senior executives in the global industrial connectivity and automation business.' },
     { name: 'Züblin',          logo: 'zueblin.png',        meta: 'Project and site leadership programme for major construction and engineering executives across the STRABAG Group.' },
     { name: 'Ingenics',        logo: 'ingenics.png',       meta: 'Leadership development for senior consultants and partners in the engineering and management consultancy.' },
@@ -824,18 +823,27 @@
         const z1 = -c.x * sinY + c.z * cosY;
         const z2 =  c.y * sinX + z1 * cosX;
 
-        const t  = (z2 + 1) / 2;
-        const op = 0.12 + t * 0.88;
-        const sc = 0.78 + t * 0.32;
+        const t  = (z2 + 1) / 2;        // 0 (back) → 1 (front)
+        const sc = 0.78 + t * 0.32;     // small at back, full at front
 
+        /* Depth is conveyed by scale + 3D z-position only.
+           - Chip opacity stays at 1.0 always (no opacity layer to get stuck).
+           - The dimming "veil" is applied to a ::after overlay via a CSS var.
+           - No `filter: blur()` anywhere — blur was the source of stuck dark snapshots. */
         c.el.style.transform =
           `translate(-50%, -50%) ` +
           `translate3d(${(c.x * radius).toFixed(2)}px, ${(c.y * radius).toFixed(2)}px, ${(c.z * radius).toFixed(2)}px) ` +
           `rotateX(${(-rotX).toFixed(2)}deg) rotateY(${(-rotY).toFixed(2)}deg) ` +
           `scale(${sc.toFixed(3)})`;
-        c.el.style.opacity = op.toFixed(3);
+
+        /* Veil: 0 at front, up to 0.55 at back. Animated via overlay opacity. */
+        const veil = ((1 - t) * 0.55).toFixed(3);
+        if (c._veil !== veil) {
+          c.el.style.setProperty('--chip-veil', veil);
+          c._veil = veil;
+        }
+
         c.el.style.zIndex = Math.round(t * 100);
-        c.el.style.filter = `blur(${((1 - t) * 1.4).toFixed(2)}px)`;
         c.el.style.pointerEvents = t < 0.35 ? 'none' : 'auto';
       }
     }
@@ -844,99 +852,64 @@
   requestAnimationFrame(tickGlobe);
 })();
 
-/* ── Testimonials carousel ── */
+/* ── Testimonials carousel — native scroll-snap with prev/next buttons ── */
 (function () {
   const carousel = document.getElementById('testimonialsCarousel');
-  const track    = document.getElementById('testimonialsTrack');
   const prev     = document.getElementById('testimonialsPrev');
   const next     = document.getElementById('testimonialsNext');
-  const idxEl    = document.getElementById('testimonialsIdx');
-  const totalEl  = document.getElementById('testimonialsTotal');
-  if (!track || !prev || !next) return;
+  if (!carousel || !prev || !next) return;
 
-  const items = Array.from(track.querySelectorAll('.testimonial'));
-  const total = items.length;
-  let current = 0;
-
-  function perPage() {
-    const w = carousel.offsetWidth;
-    if (w < 640) return 1;
-    if (w < 900) return 2;
-    return 3;
+  function step() {
+    const card = carousel.querySelector('.testimonial');
+    if (!card) return carousel.clientWidth * 0.8;
+    // Card width + gap (gap is 20px from CSS)
+    return card.getBoundingClientRect().width + 20;
   }
 
-  function maxIdx() { return Math.max(0, total - perPage()); }
-
-  if (totalEl) totalEl.textContent = total;
-
-  function cardStep() {
-    return items[0].offsetWidth + 20;
+  function updateButtons() {
+    const max = carousel.scrollWidth - carousel.clientWidth;
+    prev.disabled = carousel.scrollLeft <= 2;
+    next.disabled = carousel.scrollLeft >= max - 2;
   }
 
-  function go(n) {
-    current = Math.max(0, Math.min(maxIdx(), n));
-    track.style.transform = `translateX(${-current * cardStep()}px)`;
-    if (idxEl) idxEl.textContent = current + 1;
-    if (totalEl) totalEl.textContent = maxIdx() + 1;
-    prev.disabled = current === 0;
-    next.disabled = current >= maxIdx();
-  }
-
-  window.addEventListener('resize', () => go(Math.min(current, maxIdx())));
-
-  go(0); // initialise
-
-  prev.addEventListener('click', () => go(current - 1));
-  next.addEventListener('click', () => go(current + 1));
-
-  /* ── Drag / swipe (pointer capture — works on desktop AND mobile) ── */
-  let dragStartX = 0;
-  let dragLive   = false;
-  let dragDelta  = 0;
-  const BASE_OFFSET = () => -current * cardStep();
-
-  carousel.addEventListener('pointerdown', (e) => {
-    if (e.button !== 0) return;          // left-click / touch only
-    dragStartX = e.clientX;
-    dragLive   = true;
-    dragDelta  = 0;
-    track.classList.add('no-transition');
-    carousel.classList.add('is-dragging');
-    carousel.setPointerCapture(e.pointerId); // keeps capture even if pointer leaves element
-    e.preventDefault();
+  prev.addEventListener('click', () => {
+    carousel.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+  next.addEventListener('click', () => {
+    carousel.scrollBy({ left: step(), behavior: 'smooth' });
   });
 
-  carousel.addEventListener('pointermove', (e) => {
-    if (!dragLive) return;
-    dragDelta = e.clientX - dragStartX;
-    track.style.transform = `translateX(${BASE_OFFSET() + dragDelta}px)`;
-  });
+  carousel.addEventListener('scroll', updateButtons, { passive: true });
+  window.addEventListener('resize', updateButtons);
 
-  carousel.addEventListener('pointerup', (e) => {
-    if (!dragLive) return;
-    dragLive = false;
-    carousel.classList.remove('is-dragging');
-    track.classList.remove('no-transition');
-    const threshold = cardStep() * 0.2; // 20% of card width
-    if (dragDelta < -threshold) go(current + 1);
-    else if (dragDelta > threshold) go(current - 1);
-    else go(current); // snap back
-  });
-
-  carousel.addEventListener('pointercancel', () => {
-    if (!dragLive) return;
-    dragLive = false;
-    carousel.classList.remove('is-dragging');
-    track.classList.remove('no-transition');
-    go(current);
-  });
-
-  /* ── Keyboard navigation ── */
+  /* Keyboard navigation */
   carousel.setAttribute('tabindex', '0');
   carousel.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft')  { e.preventDefault(); go(current - 1); }
-    if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); carousel.scrollBy({ left: -step(), behavior: 'smooth' }); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); carousel.scrollBy({ left:  step(), behavior: 'smooth' }); }
   });
+
+  /* Mouse drag-to-scroll for desktop */
+  let isDown = false, startX = 0, startScroll = 0;
+  carousel.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX;
+    startScroll = carousel.scrollLeft;
+    carousel.style.scrollBehavior = 'auto';
+    e.preventDefault();
+  });
+  document.addEventListener('mouseup', () => {
+    if (!isDown) return;
+    isDown = false;
+    carousel.style.scrollBehavior = 'smooth';
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    carousel.scrollLeft = startScroll - (e.pageX - startX);
+  });
+
+  // Initial button state
+  updateButtons();
 })();
 
 /* ── Tailor / Contact multi-step form ── */
@@ -953,7 +926,7 @@
   /* ── Progress bar ── */
   function setProgress(idx) {
     if (!fillEl) return;
-    const pct = Math.round((idx / (DONE_IDX - 1)) * 100);
+    const pct = Math.round((idx / DONE_IDX) * 100);
     fillEl.style.width = Math.min(pct, 100) + '%';
   }
 
@@ -1071,7 +1044,7 @@
 
   function setProgress(idx) {
     if (!fillEl) return;
-    const pct = Math.round((idx / (DONE_IDX - 1)) * 100);
+    const pct = Math.round((idx / DONE_IDX) * 100);
     fillEl.style.width = Math.min(pct, 100) + '%';
   }
 
