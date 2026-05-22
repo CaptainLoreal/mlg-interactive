@@ -9,6 +9,49 @@
   // Prevent browser scroll-restoration from fighting our manual jump
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
+  /* ── Form submission storage ───────────────────────────────────
+     POSTs form answers to MLG's backend so they're stored server-side
+     (the mailto link only opens the user's mail client with our address
+     and subject — the answers are never exposed to the user).
+
+     Configure FORM_ENDPOINT below to point at:
+       • a Formspree URL  (e.g. "https://formspree.io/f/xxxxxxxx"), OR
+       • a Web3Forms URL  (e.g. "https://api.web3forms.com/submit"), OR
+       • your own serverless function / API route.
+
+     If FORM_ENDPOINT is empty, answers are written to localStorage as a
+     fallback so they're not lost during development. */
+  const FORM_ENDPOINT = '';  // ← set this to your backend URL
+
+  window.storeAnswers = function (formId, data) {
+    const payload = {
+      form: formId,
+      timestamp: new Date().toISOString(),
+      page: location.href,
+      data,
+    };
+    if (FORM_ENDPOINT) {
+      // Fire-and-forget POST; keepalive lets it complete after navigation.
+      try {
+        fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch(() => {});
+      } catch (_) {}
+    } else {
+      // Dev fallback — append to a localStorage queue.
+      try {
+        const key = 'mlg_form_submissions';
+        const existing = JSON.parse(localStorage.getItem(key) || '[]');
+        existing.push(payload);
+        localStorage.setItem(key, JSON.stringify(existing));
+      } catch (_) {}
+    }
+  };
+  const storeAnswers = window.storeAnswers;
+
   /* =====================================================
      Intro: static logo + slide-to-start
      ===================================================== */
@@ -1163,11 +1206,10 @@
   function submitForm() {
     const step = steps[current];
     collect(step);
-    // Build a mailto body so MLG actually receives it
-    const body = Object.entries(answers)
-      .map(([k, v]) => `${k}: ${v}`)
-      .join('\n');
-    const mailto = `mailto:info@munichleadership.com?subject=Tailor%20inquiry&body=${encodeURIComponent(body)}`;
+    /* Send the answers to MLG's backend (configure the endpoint below).
+       The mailto only opens the user's mail client with subject + recipient. */
+    storeAnswers('tailor', answers);
+    const mailto = `mailto:info@munichleadership.com?subject=${encodeURIComponent('Interested in MLG Services')}`;
     window.location.href = mailto;
     showStep(DONE_IDX);
     // After a moment on the thank-you screen, scroll to Services (slide 5)
@@ -1284,10 +1326,9 @@
   function submitForm() {
     const step = steps[current];
     collect(step);
-    const body = Object.entries(answers)
-      .map(([k, v]) => `${k}: ${v}`)
-      .join('\n');
-    const mailto = `mailto:info@munichleadership.com?subject=Contact%20inquiry&body=${encodeURIComponent(body)}`;
+    /* Send answers to MLG's backend; mailto only opens with subject + recipient. */
+    storeAnswers('contact', answers);
+    const mailto = `mailto:info@munichleadership.com?subject=${encodeURIComponent('Interested in MLG Services')}`;
     window.location.href = mailto;
     showStep(DONE_IDX);
   }
