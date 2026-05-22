@@ -20,13 +20,29 @@
   const excusesField  = $('#excusesField');
   const deck     = $('#deck');
 
+  let experienceStarted = false;
   function startExperience() {
+    if (experienceStarted) return;
+    experienceStarted = true;
+    clearTimeout(introAutoAdvance);
     intro.classList.add('is-leaving');
     excuses.classList.add('is-on');
     excuses.setAttribute('aria-hidden', 'false');
     setTimeout(() => { intro.style.display = 'none'; }, 1100);
     setTimeout(buildExcuses, 200);
   }
+
+  /* Auto-advance to bubbles after 5s if the user hasn't slid manually.
+     We animate the slider knob across so the visual transition still
+     reads as "the slide-to-start completed". */
+  const introAutoAdvance = setTimeout(() => {
+    if (experienceStarted) return;
+    knob.style.transition = 'transform 600ms var(--ease-out)';
+    fill.style.transition = 'width 600ms var(--ease-out)';
+    setKnob(maxKnobX());
+    enterBtn.classList.add('is-done');
+    setTimeout(startExperience, 380);
+  }, 5000);
 
   function enterDeck() {
     excuses.classList.add('is-leaving');
@@ -285,7 +301,8 @@
 
   let scrollCurrent = 0;
   let scrollTarget  = 0;
-  const EASE = 0.085;
+  /* EASE = 1 → instant 1:1 scroll (no lerp lag) */
+  const EASE = 1;
   let smoothRunning = false;
   let revealEls = [];
 
@@ -301,6 +318,24 @@
   window.addEventListener('resize', () => {
     if (document.body.classList.contains('deck-active')) syncHeight();
   });
+  /* Resync once all deck images have loaded (so layout has settled before
+     we lock body height — especially important on mobile where content
+     grows taller than 100vh per slide). */
+  function resyncWhenImagesLoaded() {
+    if (!document.body.classList.contains('deck-active')) return;
+    syncHeight();
+    const imgs = slidesEl.querySelectorAll('img');
+    let pending = imgs.length;
+    if (!pending) return;
+    imgs.forEach((img) => {
+      if (img.complete) { if (--pending === 0) syncHeight(); }
+      else img.addEventListener('load', () => { if (--pending === 0) syncHeight(); }, { once: true });
+    });
+  }
+  window.addEventListener('load', resyncWhenImagesLoaded);
+  /* Belt-and-braces retriggers for any late layout shifts on mobile */
+  setTimeout(() => { if (document.body.classList.contains('deck-active')) syncHeight(); }, 600);
+  setTimeout(() => { if (document.body.classList.contains('deck-active')) syncHeight(); }, 1500);
 
   function startSmoothScroll() {
     if (smoothRunning) return;
@@ -308,11 +343,32 @@
     requestAnimationFrame(tickSmooth);
   }
 
+  const heroSticky = document.getElementById('heroSticky');
+
   function tickSmooth() {
     const diff = scrollTarget - scrollCurrent;
     scrollCurrent = Math.abs(diff) < 0.5 ? scrollTarget : scrollCurrent + diff * EASE;
 
     slidesEl.style.transform = `translateY(${-scrollCurrent}px)`;
+
+    /* Hero sticky: stays in place during slides 0+1, then scrolls up
+       on the slide 1→2 transition, then disappears. */
+    if (heroSticky) {
+      const vh = window.innerHeight;
+      let translate, opacity;
+      if (scrollCurrent <= vh) {
+        translate = 0;            // slide 0: fully visible, anchored
+        opacity = 1;
+      } else if (scrollCurrent <= 2 * vh) {
+        translate = -(scrollCurrent - vh); // slide 1→2: scroll up with the rest
+        opacity = 1;
+      } else {
+        translate = -vh;
+        opacity = 0;              // past slide 2: hide
+      }
+      heroSticky.style.transform = `translateY(${translate}px)`;
+      heroSticky.style.opacity = opacity;
+    }
 
     // Rail progress
     const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
@@ -910,6 +966,40 @@
 
   // Initial button state
   updateButtons();
+
+  /* ── Auto-advance — moves through cards every 4s, stops on any
+     user interaction (drag, click, keyboard, wheel, touch). */
+  let autoTimer = null;
+  let userInteracted = false;
+  function stopAuto() {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+    userInteracted = true;
+  }
+  function startAuto() {
+    if (userInteracted || autoTimer) return;
+    autoTimer = setInterval(() => {
+      const max = carousel.scrollWidth - carousel.clientWidth;
+      // Loop back to the start once we hit the end
+      if (carousel.scrollLeft >= max - 2) {
+        carousel.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        carousel.scrollBy({ left: step(), behavior: 'smooth' });
+      }
+    }, 4000);
+  }
+  /* Any of these gestures = user has taken over */
+  ['pointerdown', 'wheel', 'keydown', 'touchstart'].forEach((ev) => {
+    carousel.addEventListener(ev, stopAuto, { passive: true });
+  });
+  prev.addEventListener('click', stopAuto);
+  next.addEventListener('click', stopAuto);
+  /* Start auto-scroll once the carousel scrolls into view */
+  const autoObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) startAuto();
+    });
+  }, { threshold: 0.3 });
+  autoObserver.observe(carousel);
 })();
 
 /* ── Tailor / Contact multi-step form ── */

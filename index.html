@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=220" />
+  <link rel="stylesheet" href="styles.css?v=263" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -18,7 +18,7 @@
     <div class="intro__bg" aria-hidden="true"></div>
 
     <img class="intro__logo" src="assets/logo-white-red.svg" alt="Munich Leadership Group" />
-    <p class="intro__prompt">What is your<br>dream?</p>
+    <p class="intro__prompt">What is<br>your dream?</p>
 
     <div id="enterBtn" class="slide-start" role="button" tabindex="0" aria-label="Slide to start">
       <div class="slide-start__track">
@@ -97,6 +97,13 @@
       <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="currentColor"/></svg>
     </button>
 
+    <!-- Sticky hero image — stays in place across slides 0 (Welcome) and 1 (Tailor),
+         then scrolls up as the user goes to slide 2. Controlled by JS in tickSmooth. -->
+    <div class="hero-sticky" id="heroSticky" aria-hidden="true">
+      <img src="assets/photos/group-1.webp" alt="" />
+      <div class="hero-sticky__scrim"></div>
+    </div>
+
     <!-- Slides
          Munich architecture imagery courtesy of Wikimedia Commons (CC-BY-SA).
          Mirrored slides use data-mirror="1" to flip the photo on the X axis. -->
@@ -105,7 +112,7 @@
       <!-- 1 — Welcome -->
       <article class="slide" data-slide="0" data-anim="kenburns" data-title="Welcome">
         <div class="slide__media">
-          <img src="assets/photos/group-3.webp" alt="" loading="eager" />
+          <img src="assets/photos/group-1.webp" alt="" loading="eager" />
         </div>
         <div class="slide__scrim"></div>
         <div class="slide__copy" style="display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(32px, 5vw, 80px); max-width: none; right: var(--pad-x);">
@@ -115,8 +122,8 @@
             <p class="display display--sub" style="font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; line-height: 1.3;">Developing leaders<br>who shape organizations</p>
           </div>
           <div style="flex-shrink: 0; width: clamp(320px, 40vw, 580px); background: rgba(0,0,0,0.28); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: clamp(28px, 3vw, 48px);">
-            <p style="font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; line-height: 1.3; color: #fff; margin: 0 0 20px;">For the experts at Munich Leadership Group (MLG), this pledge is both a commitment and a motivation.</p>
-            <p style="font-size: clamp(20px, 2.8vw, 36px); font-weight: 500; line-height: 1.3; color: #fff; margin: 0;">MLG specializes in the identification and development of the single most important driver of corporate success: leadership.</p>
+            <p style="font-size: 26px; font-weight: 500; line-height: 1.4; color: #fff; margin: 0 0 18px;">For the experts at Munich Leadership Group (MLG), this pledge is both a commitment and a motivation.</p>
+            <p style="font-size: 26px; font-weight: 500; line-height: 1.4; color: #fff; margin: 0;">MLG specializes in the identification and development of the single most important driver of corporate success: leadership.</p>
           </div>
         </div>
       </article>
@@ -124,7 +131,7 @@
       <!-- 2 — Tailor -->
       <article class="slide slide--contact slide--tailor" data-slide="1" data-anim="parallax" data-title="Tailor">
         <div class="slide__media slide__media--soft">
-          <img src="assets/photos/woman-1.webp" alt="" loading="lazy" />
+          <img src="assets/photos/group-1.webp" alt="" loading="lazy" />
         </div>
         <div class="slide__scrim slide__scrim--strong"></div>
 
@@ -141,7 +148,6 @@
               <!-- Step 1 — Who are you -->
               <div class="tf__step is-active" data-step="0" data-field="profile" data-required="1">
                 <p class="tf__num">01 — about you</p>
-                <h3 class="tf__q">What brings you here?</h3>
                 <div class="tf__choices">
                   <button class="tf__choice" type="button" data-value="general">
                     <span><strong>I want to learn about MLG</strong> in general</span>
@@ -228,13 +234,13 @@
           <!-- Right column on desktop: headline + selected-client card + quote stacked vertically -->
           <div class="globe-side">
             <div class="slide__copy slide__copy--side">
-              <p class="eyebrow">Selected clients</p>
+              <p class="eyebrow">Client universe</p>
               <h2 class="display">Trusted by leading organizations</h2>
             </div>
 
             <div class="globe-card" id="globeCard" aria-live="polite">
               <h3 class="globe-card__name" id="globeCardName">—</h3>
-              <p class="globe-card__meta" id="globeCardMeta">Tap a logo on the globe to read the engagement.</p>
+              <p class="globe-card__meta" id="globeCardMeta">Spin the globe and tap a logo.</p>
             </div>
 
           </div>
@@ -262,15 +268,15 @@
           <div class="approach-ordinals-section">
             <div class="approach-ordinals-row">
               <div class="approach-ordinal">
-                <span class="approach-ordinal__num">1.</span>
+                <span class="approach-ordinal__num">1</span>
                 <p class="approach-ordinal__text"><strong>Deeply rooted<br>in science.</strong></p>
               </div>
               <div class="approach-ordinal">
-                <span class="approach-ordinal__num">2.</span>
-                <p class="approach-ordinal__text"><strong>Fully customized.</strong></p>
+                <span class="approach-ordinal__num">2</span>
+                <p class="approach-ordinal__text"><strong>Fully<br>customized.</strong></p>
               </div>
               <div class="approach-ordinal">
-                <span class="approach-ordinal__num">3.</span>
+                <span class="approach-ordinal__num">3</span>
                 <p class="approach-ordinal__text"><strong>Perfectly working<br>in practice.</strong></p>
               </div>
             </div>
@@ -280,12 +286,12 @@
           <div class="approach-cards-bg">
             <img class="approach-cards-bg__img" src="assets/photos/working-2.webp" alt="" loading="lazy" />
             <div class="approach-centered__cards">
-              <p class="eyebrow approach-challenges-eyebrow">Leader's challenges</p>
+              <p class="eyebrow approach-challenges-eyebrow">Current Leadership challenges</p>
               <div class="challenges-carousel">
                 <div class="challenge-box">
                   <h3 class="challenge-box__title">Artificial Intelligence (AI)</h3>
                   <p class="challenge-box__body">How can AI make me better, faster, and more productive? What does AI mean for a performance boost in my team(s)? How can I keep up with the speed of AI development?</p>
-                  <p class="challenge-box__conclusion">Those who adapt AI early will strive. Those who hesitate — will struggle.</p>
+                  <p class="challenge-box__conclusion">Those who adapt AI early will strive.<br>Those who hesitate — will struggle.</p>
                 </div>
                 <div class="challenge-box">
                   <h3 class="challenge-box__title">Uncertainty</h3>
@@ -294,13 +300,13 @@
                 </div>
                 <div class="challenge-box">
                   <h3 class="challenge-box__title">Ambidexterity</h3>
-                  <p class="challenge-box__body">How long will I keep optimizing today's business — until it's perfect or obsolete? Where am I killing innovation by managing it with yesterday's KPIs?</p>
+                  <p class="challenge-box__body">How long will I keep optimizing today's business — until it's perfect, or obsolete? Where am I killing innovation by managing it with yesterday's KPIs?</p>
                   <p class="challenge-box__conclusion">Those who understand ambidexterity will strive. Those who hesitate — will struggle.</p>
                 </div>
                 <div class="challenge-box">
                   <h3 class="challenge-box__title">Self Awareness</h3>
                   <p class="challenge-box__body">Which feedback do I avoid because it threatens how I see myself? How can I create a climate of psychological safety so everyone feels safe to speak up?</p>
-                  <p class="challenge-box__conclusion">Those who are self-aware will strive. Those who hesitate — will struggle.</p>
+                  <p class="challenge-box__conclusion">Those who are self-aware will strive.<br>Those who hesitate — will struggle.</p>
                 </div>
               </div>
             </div>
@@ -426,10 +432,10 @@
           <div class="services-split__photo">
             <img src="assets/photos/group-2.webp" alt="" loading="lazy" />
             <div class="services-split__scrim"></div>
-            <div class="services-split__copy">
-              <p class="eyebrow">Services</p>
-              <h2 class="display">We do everything to make you successful</h2>
-            </div>
+          </div>
+          <div class="services-split__copy">
+            <p class="eyebrow">Our Services</p>
+            <h2 class="display">Everything for<br>your success</h2>
           </div>
           <div class="services-wrap">
             <div class="services-grid">
@@ -472,17 +478,20 @@
 
       <!-- 5 — Why MLG -->
       <article class="slide slide--why-mlg" data-slide="2" data-anim="parallax" data-title="Why MLG">
-        <div class="slide__media">
-          <img src="assets/photos/man-1.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
-        <div class="why-mlg__overlay">
+        <!-- Top: solid black header strip -->
+        <div class="why-mlg__header-strip">
           <div class="why-mlg__head">
             <p class="eyebrow">Our USP</p>
             <h2 class="display">Why MLG?</h2>
             <p class="why-mlg__sub">Three advantages that convince our clients</p>
           </div>
+        </div>
+        <!-- Bottom: image with cards overlaid -->
+        <div class="why-mlg__image-area">
+          <div class="slide__media">
+            <img src="assets/photos/man-1.webp" alt="" loading="lazy" />
+          </div>
+          <div class="slide__scrim slide__scrim--strong"></div>
           <div class="why-mlg__cards">
             <div class="challenge-box">
               <h3 class="challenge-box__title">Unbeatable professional experience</h3>
@@ -633,12 +642,10 @@
 
       <!-- 6 — Contact -->
       <article class="slide slide--contact" data-slide="8" data-anim="zoom" data-title="Contact">
-        <div class="slide__media slide__media--soft">
-          <img src="assets/photos/working-4.webp" alt="" loading="lazy" />
-        </div>
-        <div class="slide__scrim slide__scrim--strong"></div>
-
         <div class="contact-wrap">
+          <div class="contact-wrap__card">
+            <img class="contact-wrap__bg" src="assets/photos/working-4.webp" alt="" loading="lazy" />
+            <div class="contact-wrap__scrim"></div>
           <div class="slide__copy contact-wrap__head">
             <p class="eyebrow">Contact</p>
             <h2 class="display">Don't wait.<br>Start the conversation.</h2>
@@ -652,7 +659,7 @@
               <!-- Step 1 — Problem -->
               <div class="tf__step is-active" data-step="0" data-field="problem" data-required="1">
                 <p class="tf__num">01 — your challenge</p>
-                <h3 class="tf__q">What do you need?</h3>
+                <h3 class="tf__q">Where can we support you?</h3>
                 <div class="tf__choices">
                   <button class="tf__choice" type="button" data-value="alignment">Leadership team is not aligned</button>
                   <button class="tf__choice" type="button" data-value="retention">We are losing top talent</button>
@@ -754,6 +761,7 @@
             <a class="contact-block__phone" href="tel:+49894131910">+49 89 413 191 0</a>
           </div>
           </div><!-- /.contact-body -->
+          </div><!-- /.contact-wrap__card -->
         </div>
 
         <footer class="imprint">
@@ -771,7 +779,7 @@
 
   </main>
 
-  <script src="app.js?v=161" defer></script>
+  <script src="app.js?v=166" defer></script>
   <script>
     (function () {
       var topbar = document.querySelector('.topbar');

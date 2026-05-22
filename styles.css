@@ -174,9 +174,10 @@ button { font-family: inherit; cursor: pointer; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(36px, 7vw, 64px);
-  padding: clamp(28px, 8vw, 80px) 24px;
+  /* Logo pinned at top (via padding-top), headline centred between, slider at bottom */
+  justify-content: space-between;
+  gap: 0;
+  padding: clamp(48px, 10vh, 120px) 24px clamp(40px, 8vh, 96px);
   z-index: 50;
   transition: opacity var(--dur-5) var(--ease-out), transform var(--dur-5) var(--ease-out);
 }
@@ -196,7 +197,8 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .intro__logo {
-  width: clamp(220px, 56vw, 380px);
+  /* Match the slide-to-start slider width */
+  width: clamp(260px, 78vw, 340px);
   height: auto;
   display: block;
   position: relative;
@@ -204,14 +206,14 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .intro__prompt {
-  margin: clamp(-12px, -2vh, -20px) 0 0;
+  margin: 0;
   position: relative;
   z-index: 1;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(22px, 4vw, 40px);
-  letter-spacing: -0.005em;
-  line-height: 1.2;
+  font-size: clamp(48px, 9vw, 96px);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
   color: rgba(255, 255, 255, 0.92);
   text-align: center;
 }
@@ -302,12 +304,11 @@ button { font-family: inherit; cursor: pointer; }
   position: relative;
   width: clamp(260px, 78vw, 340px);
   height: 64px;
-  margin-top: clamp(28px, 6vw, 56px);
+  margin-top: 0;
   user-select: none;
   -webkit-user-select: none;
   touch-action: none;
-  opacity: 0;
-  animation: fadeIn 600ms var(--ease-out) 1100ms forwards;
+  opacity: 1;
 }
 
 @media (max-width: 640px) {
@@ -434,13 +435,20 @@ button { font-family: inherit; cursor: pointer; }
   left: 0; right: 0;
   margin: 0;
   text-align: center;
-  font-size: clamp(28px, 4vw, 52px);
+  font-size: clamp(13px, 1.4vw, 18px);
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
+  color: var(--mlg-red);
   pointer-events: none;
-  z-index: 3;
+  z-index: 100;
+  transition: opacity 600ms var(--ease-out);
+}
+/* Fade the hint out completely as the reveal text fades in, so they
+   don't overlap and don't stack on top of the reveal */
+.excuses.is-revealing .excuses__hint {
+  opacity: 0;
+  visibility: hidden;
 }
 
 .excuses__prompt {
@@ -571,6 +579,7 @@ button { font-family: inherit; cursor: pointer; }
   opacity: 0;
   pointer-events: none;
   transition: opacity 1.4s var(--ease-out);
+  z-index: 4;
 }
 
 .excuses.is-revealing .excuses__reveal { opacity: 1; }
@@ -1483,23 +1492,36 @@ button { font-family: inherit; cursor: pointer; }
 .slide--cards .slide__media img { }
 .slide--mountain .slide__media img { }
 
-/* Services split — image on top, cards on dark below */
+/* Services — image is a full-slide background, headline + cards overlaid on top.
+   Cards keep their dark blurry-glass style so they read cleanly on the photo. */
 .slide--services-split { background: #000; }
 .slide--services-split .slide__media { display: none; }
 .slide--services-split .slide__scrim { display: none; }
 
 .services-split {
-  display: flex;
-  flex-direction: column;
+  position: relative;
   min-height: 100dvh;
-  position: relative;
   z-index: 2;
+  /* Wrapper is full-width so the background photo bleeds edge-to-edge.
+     The content grid is constrained inside via a centred inner block. */
+  display: grid;
+  grid-template-columns:
+    minmax(var(--pad-x), 1fr)
+    minmax(0, 480px)
+    clamp(40px, 6vw, 96px)
+    minmax(0, 980px)
+    minmax(var(--pad-x), 1fr);
+  align-items: center;
+  padding: clamp(96px, 14vh, 160px) 0 clamp(60px, 8vh, 100px);
+  box-sizing: border-box;
 }
+.services-split__copy { grid-column: 2; }
+.slide--services-split .services-wrap { grid-column: 4; }
 .services-split__photo {
-  flex-shrink: 0;
-  height: clamp(240px, 44vh, 480px);
+  position: absolute;
+  inset: 0;
   overflow: hidden;
-  position: relative;
+  z-index: 0;
 }
 .services-split__photo img {
   width: 100%;
@@ -1508,45 +1530,69 @@ button { font-family: inherit; cursor: pointer; }
   display: block;
 }
 .services-split__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0) 100%);
-  pointer-events: none;
+  display: none;
 }
+/* Left column — headline + eyebrow */
 .services-split__copy {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: clamp(20px, 3vw, 40px) var(--pad-x) clamp(24px, 4vh, 40px);
+  position: relative;
   z-index: 2;
+  text-align: left;
 }
-.services-split__copy .eyebrow { margin-bottom: 10px; }
-.services-split__copy .display { margin: 0; }
+.services-split__copy .eyebrow { margin: 0 0 14px; display: inline-block; }
+.services-split__copy .display { margin: 0; text-wrap: balance; }
+/* Right column — cards */
 .slide--services-split .services-wrap {
-  justify-content: flex-start;
-  padding-top: clamp(28px, 4vh, 44px);
-  padding-bottom: clamp(40px, 6vh, 72px);
+  position: relative;
+  z-index: 2;
+  padding: 0;
   min-height: unset;
-  flex: 1;
+  flex: 0 0 auto;
   gap: 0;
+}
+@media (max-width: 900px) {
+  .services-split {
+    grid-template-columns: 1fr;
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+    row-gap: clamp(32px, 5vh, 56px);
+  }
+  .services-split__copy { grid-column: 1; text-align: center; }
+  .slide--services-split .services-wrap { grid-column: 1; }
 }
 .slide--services-split .services-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 400px));
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 480px));
+  gap: 12px;
   justify-content: center;
   width: 100%;
 }
+/* Services cards — same settings as challenge cards (.challenge-box) */
 .slide--services-split .card-item {
-  padding: 48px 40px 26px;
+  padding: 48px 40px 52px;
   align-items: center;
   text-align: center;
   min-height: unset;
 }
+.slide--services-split .card-item__title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 12px 0 20px;
+}
+.slide--services-split .card-item__body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.86);
+  margin: 0 0 20px;
+  font-weight: 450;
+}
 .slide--services-split .card-item .btn--more {
   align-self: center;
-  margin-top: 24px;
+  margin-top: auto;
 }
 
 /* Services slide wrapper — full-height flex column */
@@ -2078,19 +2124,19 @@ button { font-family: inherit; cursor: pointer; }
 
 .challenge-box__title {
   font-family: var(--font-display);
-  font-size: clamp(17px, 1.6vw, 21px);
-  font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 600;
   letter-spacing: -0.005em;
-  line-height: 1.2;
+  line-height: 1.15;
   color: #fff;
-  margin: 0;
+  margin: 12px 0 20px;
 }
 
 .challenge-box__body {
   font-size: 16px;
   line-height: 1.6;
   color: rgba(255,255,255,0.86);
-  margin: 0;
+  margin: 0 0 20px;
   flex: 1;
   font-weight: 450;
 }
@@ -2109,22 +2155,48 @@ button { font-family: inherit; cursor: pointer; }
 .slide--why-mlg {
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: #000;
 }
-.why-mlg__overlay {
+/* Top strip — solid black, headers live here */
+.why-mlg__header-strip {
   position: relative;
   z-index: 2;
+  background: #000;
+  padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(32px, 5vh, 56px);
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+}
+/* Bottom area — image fills it, cards overlay */
+.why-mlg__image-area {
+  position: relative;
+  flex: 1;
+  min-height: 60vh;
+  overflow: hidden;
+  display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: clamp(32px, 5vw, 80px);
-  min-height: 100dvh;
-  padding: clamp(80px, 12vh, 140px) var(--pad-x) clamp(48px, 7vh, 80px);
+  justify-content: center;
+  padding: clamp(40px, 6vh, 72px) var(--pad-x);
+}
+.why-mlg__image-area .slide__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.why-mlg__image-area .slide__media img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.why-mlg__image-area .slide__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Black-to-transparent fade at the bottom — matches hero / approach / challenges */
+  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%) !important;
 }
 .why-mlg__head {
-  text-align: left;
-  max-width: 560px;
-  flex-shrink: 1;
+  text-align: center;
+  max-width: 920px;
 }
 .why-mlg__head .display {
   margin-bottom: 16px;
@@ -2137,20 +2209,45 @@ button { font-family: inherit; cursor: pointer; }
   margin: 0;
   line-height: 1.3;
 }
+/* Three cards side-by-side, centred over the image */
 .why-mlg__cards {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 480px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 360px));
+  gap: 14px;
+  justify-content: center;
+  max-width: none;
   width: 100%;
 }
+@media (max-width: 900px) {
+  .why-mlg__cards {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+}
+/* USP cards use the same rules as challenge & services cards */
 .why-mlg__cards .challenge-box {
-  padding: 32px 36px;
+  padding: 48px 40px 52px;
   align-items: flex-start;
   text-align: left;
 }
 .why-mlg__cards .challenge-box__title {
-  font-size: clamp(16px, 1.6vw, 22px);
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 12px 0 20px;
+}
+.why-mlg__cards .challenge-box__body {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.86);
+  margin: 0 0 20px;
+  font-weight: 450;
 }
 
 @media (min-width: 900px) {
@@ -2179,9 +2276,7 @@ button { font-family: inherit; cursor: pointer; }
   overflow: visible;
   padding: clamp(96px, 11vh, 132px) var(--pad-x) clamp(40px, 6vh, 72px);
   color: #fff;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: #000;
   min-height: 100dvh;
 }
 
@@ -2364,12 +2459,9 @@ button { font-family: inherit; cursor: pointer; }
 /* =============================================================
    CONTACT
    ============================================================= */
-.slide--contact:not(.slide--tailor) .slide__scrim {
-  /* Bottom: solid black fading INTO a darker overlay (55%) that covers the rest
-     of the image — preserves readability of the contact form text on top while
-     still blending seamlessly into the dark page below the image. */
-  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.55) 18%, rgba(0,0,0,0.55) 100%);
-}
+.slide--contact:not(.slide--tailor) { background: #000; }
+.slide--contact:not(.slide--tailor) .slide__media,
+.slide--contact:not(.slide--tailor) .slide__scrim { display: none; }
 .slide--contact .slide__media img { }
 
 .contact-wrap {
@@ -2394,7 +2486,57 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%;
 }
 
-/* Tailor slide: single centered column instead of the two-column contact layout */
+/* Contact slide — single card with the image as its background, content on top */
+.contact-wrap__card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: min(94vw, 1440px);
+  padding: clamp(32px, 5vw, 64px);
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 5vh, 48px);
+}
+.contact-wrap__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.contact-wrap__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1;
+}
+/* Lift all card content above the bg image and scrim, in natural flow
+   (override any inherited absolute positioning from .slide__copy etc.) */
+.contact-wrap__card > *:not(.contact-wrap__bg):not(.contact-wrap__scrim) {
+  position: relative !important;
+  inset: auto !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  max-width: none;
+  width: 100%;
+  z-index: 2;
+}
+.contact-wrap__card .contact-wrap__head {
+  text-align: left;
+  margin: 0;
+}
+
+/* Tailor slide: form slides UP from the bottom, replacing the welcome
+   headline+card while the hero image stays visible behind it. */
 .contact-wrap--tailor {
   align-items: center;
   text-align: center;
@@ -2402,6 +2544,22 @@ button { font-family: inherit; cursor: pointer; }
   padding-top: clamp(29px, 3.6vh, 43px);
   padding-bottom: clamp(2px, 0.3vh, 5px);
   gap: clamp(24px, 5vh, 52px);
+  transform: translateY(100%);
+  opacity: 0;
+  transition:
+    transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity   500ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform, opacity;
+}
+.slide--tailor.is-in-view .contact-wrap--tailor {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Tailor slide background scrim — lighter so the continuous hero image
+   reads through behind the form panel */
+.slide--tailor .slide__scrim {
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.30) 60%, rgba(0,0,0,0.20) 100%) !important;
 }
 .contact-wrap--tailor .contact-wrap__head {
   text-align: center;
@@ -2428,7 +2586,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .contact-block {
   text-align: center;
-  max-width: 540px;
+  max-width: 720px;
   width: 100%;
 }
 
@@ -2543,8 +2701,9 @@ button { font-family: inherit; cursor: pointer; }
 }
 .tf__choice {
   appearance: none;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.06);
+  /* Match topbar/menu glass treatment */
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: #fff;
@@ -2559,9 +2718,18 @@ button { font-family: inherit; cursor: pointer; }
   cursor: pointer;
   transition: background var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
 }
+/* Highlight only the "I want to learn about MLG in general" answer on
+   the tailor form's first step — bigger type and extra spacing. */
+.tf__choice[data-value="general"] {
+  font-size: 22px;
+  font-weight: 500;
+  padding: 20px 22px;
+  margin-bottom: 18px;
+}
 .tf__choice:hover {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.45);
+  background: var(--mlg-red);
+  border-color: var(--mlg-red);
+  color: #fff;
 }
 .tf__choice.is-selected,
 .tf__choice:active {
@@ -3308,9 +3476,9 @@ button { font-family: inherit; cursor: pointer; }
      wrapper which stacks the headline and the selected-client card. */
   .globe-wrap {
     display: grid;
-    grid-template-columns: min(44vw, 500px) min(34vw, 400px);
+    grid-template-columns: min(52vw, 680px) min(30vw, 380px);
     grid-template-rows: 1fr auto;
-    column-gap: clamp(32px, 5vw, 64px);
+    column-gap: clamp(64px, 8vw, 120px);
     row-gap: clamp(10px, 2vh, 22px);
     justify-content: center;
     align-items: center;
@@ -3318,7 +3486,7 @@ button { font-family: inherit; cursor: pointer; }
   }
   .globe-stage {
     grid-column: 1; grid-row: 1;
-    width: min(44vw, 500px);
+    width: min(52vw, 680px);
     align-self: center;
     justify-self: center;
   }
@@ -3326,10 +3494,11 @@ button { font-family: inherit; cursor: pointer; }
     grid-column: 2;
     grid-row: 1 / 3;
     align-self: center;
+    justify-self: end;
     display: flex;
     flex-direction: column;
     gap: clamp(18px, 3vh, 32px);
-    width: min(36vw, 420px);
+    width: min(30vw, 380px);
   }
   .globe-card { width: 100%; }
 }
@@ -3347,15 +3516,51 @@ button { font-family: inherit; cursor: pointer; }
   .controls { left: 16px; }
   .topbar { left: 0; right: 0; border-radius: 0; top: 0; }
   .topbar__logo img { height: 58px; }
-  .globe-stage { touch-action: pan-y; }
+  /* Keep default touch-action:none so the JS can capture horizontal drag for spinning */
 
-  /* Hero slide — stack headline + card vertically */
-  .slide[data-title="Welcome"] .slide__copy {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    justify-content: flex-end !important;
-    gap: 16px !important;
+  /* Hero slide — header sits at the bottom of the first viewport (over the hero
+     image), then the glass card flows in the next viewport below. */
+  .slide[data-slide="0"] {
+    overflow: visible !important;
+    height: auto;
   }
+  .slide[data-title="Welcome"] .slide__copy {
+    position: relative !important;
+    inset: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    top: auto !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    max-width: none !important;
+    width: 100% !important;
+    padding: 0 var(--pad-x) !important;
+    gap: clamp(32px, 6vh, 64px) !important;
+  }
+  /* First column: headline group — fills one viewport, sits at its bottom,
+     left-aligned with the pill at its natural width */
+  .slide[data-title="Welcome"] .slide__copy > div:first-child {
+    min-height: 100dvh;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    text-align: left;
+    padding-bottom: clamp(32px, 6vh, 64px);
+  }
+  .slide[data-title="Welcome"] .slide__copy > div:first-child .eyebrow {
+    align-self: flex-start;
+    width: fit-content;
+    max-width: 100%;
+  }
+  .slide[data-title="Welcome"] .slide__copy > div:first-child .display,
+  .slide[data-title="Welcome"] .slide__copy > div:first-child .display--sub {
+    text-align: left;
+  }
+  /* Second column: the glass card flows below the hero */
   .slide[data-title="Welcome"] .slide__copy > div:last-child {
     width: 100% !important;
     box-sizing: border-box;
@@ -3369,39 +3574,74 @@ button { font-family: inherit; cursor: pointer; }
     padding-right: 0;
   }
 
-  /* Leader's challenges — pill above, cards as horizontal carousel */
+  /* Current Leadership challenges — cards stack vertically below each other.
+     The fixed-image-during-scroll effect is handled by JS in tickSmooth. */
   .approach-cards-bg {
-    overflow: visible; /* allow horizontal scroll to escape clip */
+    position: relative;
+    overflow: visible;
+    min-height: 100vh;
+    margin: 0 calc(-1 * var(--pad-x));
+    width: calc(100% + 2 * var(--pad-x));
   }
   .approach-cards-bg__img {
-    overflow: hidden; /* keep bg image clipped to its own box */
-    border-radius: 0;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
   }
   .approach-cards-bg .approach-centered__cards {
-    gap: 12px;
-    padding: 20px 0 24px;
-    overflow: visible;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(32px, 6vh, 56px);
+    padding: clamp(48px, 8vh, 100px) 20px clamp(80px, 12vh, 140px);
+  }
+  .approach-challenges-eyebrow {
+    margin: 0 auto !important;
   }
   .challenges-carousel {
     display: flex;
-    flex-direction: row;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 10px;
-    padding: 0 16px;
-    scrollbar-width: none;
+    flex-direction: column;
+    overflow: visible;
+    gap: clamp(32px, 6vh, 56px);
+    padding: 0;
     width: 100%;
     box-sizing: border-box;
+    scroll-snap-type: none;
   }
-  .challenges-carousel::-webkit-scrollbar { display: none; }
   .approach-cards-bg .challenge-box {
-    flex: 0 0 82vw;
-    scroll-snap-align: start;
+    width: 100%;
     max-width: none;
-    padding: 24px 20px 28px;
+    padding: 28px 24px;
     align-items: flex-start;
     text-align: left;
+  }
+
+  /* Services — eyebrow + headline outside the image, on solid black above it */
+  .services-split {
+    display: block !important;
+    padding: 0 !important;
+  }
+  .services-split__photo {
+    position: relative !important;
+    inset: auto !important;
+    width: 100%;
+    height: auto;
+    min-height: 60vh;
+  }
+  .services-split__copy {
+    background: #000 !important;
+    padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(28px, 5vh, 48px) !important;
+    text-align: center !important;
+  }
+  .services-split__copy .eyebrow { margin: 0 auto 12px !important; display: inline-block; }
+  .services-split__copy .display { margin: 0 auto !important; }
+  .slide--services-split .services-wrap {
+    padding: clamp(20px, 4vh, 40px) var(--pad-x) clamp(48px, 8vh, 80px);
   }
 
   /* Services cards — horizontal scroll carousel */
@@ -3448,10 +3688,8 @@ button { font-family: inherit; cursor: pointer; }
   }
 
   .approach-hero__copy {
-    inset: auto;
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
+    /* Equal 16px margin from all four edges of the hero image */
+    inset: 16px;
     justify-content: flex-start;
     padding: 20px;
     gap: 12px;
@@ -3466,7 +3704,7 @@ button { font-family: inherit; cursor: pointer; }
   /* Centre the pill */
   .approach-hero__copy > .eyebrow { align-self: center; }
   .excuses__hint {
-    font-size: clamp(32px, 9vw, 52px);
+    font-size: clamp(13px, 3.6vw, 18px);
   }
 }
 
@@ -3505,10 +3743,8 @@ button { font-family: inherit; cursor: pointer; }
 .slide--testimonials .slide__media,
 .slide--testimonials .slide__scrim { display: none; }
 
-/* Welcome (hero) slide — gradient fades image bottom to dark */
-.slide[data-title="Welcome"] .slide__scrim {
-  background: linear-gradient(to top, #000 0%, rgba(14,15,16,0) 18%);
-}
+/* Welcome (hero) slide — no scrim, sticky hero handles the gradient */
+.slide[data-title="Welcome"] .slide__scrim { display: none; }
 
 /* Tailor slide — solid dark, no photo */
 .slide--tailor { background: #000; }
@@ -3873,10 +4109,7 @@ p, li { font-size: inherit; }
   padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(64px, 10vh, 120px);
   width: 100%;
   box-sizing: border-box;
-  /* Match team-wrap glass look */
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: #000;
   color: #fff;
 }
 
@@ -3919,27 +4152,33 @@ p, li { font-size: inherit; }
 .news-card__cta {
   margin: 16px 0 0;
 }
-/* Match the standard CTA button style used across subpages (.ld-cta__btn / .profile-cta__btn) */
+/* Match the squared .btn--more ghost style — only turns red on hover/click */
 .news-card__cta a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--mlg-red);
+  background: transparent;
   color: #fff;
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   text-decoration: none;
-  padding: 16px 36px;
-  border-radius: 999px;
-  border: 0;
-  transition: opacity 200ms;
+  padding: 10px 18px;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: background var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out);
 }
-.news-card__cta a:hover { opacity: 0.85; }
-.news-card__cta a svg { width: 14px; height: 14px; transition: transform 200ms ease; }
-.news-card__cta a:hover svg { transform: translateX(5px); }
+.news-card__cta a:hover,
+.news-card__cta a:active {
+  background: var(--mlg-red);
+  border-color: var(--mlg-red);
+  color: #fff;
+}
+.news-card__cta a:active { transform: translateY(1px); }
+.news-card__cta a svg { width: 14px; height: 14px; transition: transform var(--dur-2) var(--ease-out); }
+.news-card__cta a:hover svg { transform: translateX(3px); }
 
 .news-media {
   flex: 1.3 1 0;
@@ -4143,3 +4382,38 @@ p, li { font-size: inherit; }
     font-size: 11pt !important;
   }
 }
+
+
+/* ── Sticky hero image — bridges slides 0 (Welcome) and 1 (Tailor) ──
+   Positioned fixed so it stays in place while the user scrolls through
+   the welcome and the form. JS in tickSmooth controls translate/opacity
+   to scroll it away once the user passes slide 1. */
+.hero-sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.hero-sticky img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-sticky__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%);
+  pointer-events: none;
+}
+/* Hide the per-slide media on Welcome + Tailor — the sticky hero covers them */
+.slide[data-slide="0"] .slide__media,
+.slide--tailor .slide__media { visibility: hidden; }
+/* Make Welcome + Tailor slides transparent so the sticky hero shows through */
+.slide[data-slide="0"],
+.slide--tailor { background: transparent; }
