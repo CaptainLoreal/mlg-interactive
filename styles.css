@@ -2365,8 +2365,10 @@ button { font-family: inherit; cursor: pointer; }
    CONTACT
    ============================================================= */
 .slide--contact:not(.slide--tailor) .slide__scrim {
-  /* Same bottom fade as the hero main — black at bottom → transparent at 18% */
-  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%);
+  /* Bottom: solid black fading INTO a darker overlay (55%) that covers the rest
+     of the image — preserves readability of the contact form text on top while
+     still blending seamlessly into the dark page below the image. */
+  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.55) 18%, rgba(0,0,0,0.55) 100%);
 }
 .slide--contact .slide__media img { }
 
