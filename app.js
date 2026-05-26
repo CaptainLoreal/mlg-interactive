@@ -753,8 +753,17 @@
       '.globe-side',
       '.globe-stage',
       '.globe-card',
-      '.why-mlg__header',
+      '.why-mlg__head',           // was .why-mlg__header (fix)
       '.approach-centered__header',
+      '.news-card',
+      '.news-media',
+      '.testimonials-header',
+      '.stat-item',
+      '.services-split__copy',
+      '.approach-ordinals-row',
+      '.approach-hero__copy',
+      '.network-strip__header',
+      '.network-logos',
     ];
     selectors.forEach((sel) => {
       $$(sel).forEach((el) => {
@@ -773,63 +782,63 @@
      Globe of clients
      ===================================================== */
   const CLIENTS = [
-    { name: 'Microsoft',       logo: 'microsoft.png',      meta: 'Azure and cloud transformation leadership cohort for EMEA. Three cohorts a year focused on managing high-velocity product cycles and cross-functional alignment at scale.' },
-    { name: 'BMW Group',       logo: 'bmw.png',            meta: 'Plant leadership academy across the European production network. A six-month track for plant directors and their successors, with rotations through Munich, Leipzig and Regensburg.' },
-    { name: 'Munich Re',       logo: 'munich-re.png',      meta: 'Reinsurance leadership track since 2016. We teach the trade, not the textbook — including the Bermuda flight and the syndicate visit.' },
-    { name: 'Bayer',           logo: 'bayer.png',          meta: 'Crop science division — succession programme for general managers. Two-year cycle, paired with a current SVP throughout.' },
-    { name: 'Hannover Re',     logo: 'hannover-re.png',    meta: 'Executive development programme for the underwriting leadership. Closed cohorts focused on risk culture, long-cycle decision-making, and leading specialists.' },
-    { name: 'Strabag',         logo: 'strabag.png',        meta: 'Project leadership programme for major infrastructure directors. Cohorts drawn from the largest live projects, with cases built from in-house decisions as they unfold.' },
-    { name: 'BCG',             logo: 'bcg.png',            meta: 'Partner development programme for Central European offices. Focused on the distinct leadership demands of a knowledge organisation at partnership level.' },
-    { name: 'Knorr-Bremse',   logo: 'knorr-bremse.png',   meta: 'Safety-critical leadership programme for rail and truck division heads. Built around the specific challenges of leading in a zero-defect culture under commercial pressure.' },
-    { name: 'KUKA',            logo: 'kuka.png',           meta: 'Robotics and automation leadership programme for plant and product executives. Focused on the leadership dimension of the AI and automation disruption reshaping the industry.' },
-    { name: 'ADAC',            logo: 'adac.png',           meta: 'Leadership development programme for division heads and regional directors. Focused on leading large member organisations through service transformation and digital channel expansion.' },
-    { name: 'Montblanc',       logo: 'montblanc.png',      meta: 'Senior leadership programme for global brand and retail executives. Centred on leading with craft and heritage while navigating the pressures of luxury market expansion.' },
-    { name: 'FC Bayern',       logo: 'fc-bayern.png',      meta: 'Leadership programme for commercial and operations management. Built around high-performance team dynamics, decision-making under pressure, and sustaining excellence over long cycles.' },
-    { name: 'Isar Aerospace',  logo: 'isar-aerospace.png', meta: 'Founder and senior leadership development for a fast-scaling deep tech organisation. Focused on scaling leadership capacity without losing the speed and clarity of early-stage decision-making.' },
-    { name: 'Rohde & Schwarz', logo: 'rohde-schwarz.png',  meta: 'Senior leadership programme for technology and business unit heads. Focused on leading in a dual-use, high-security environment where precision, integrity and trust are non-negotiable.' },
-    { name: 'Osram',           logo: 'osram.png',          meta: 'Transformation leadership programme for global operations and technology divisions. Built around the strategic pivot from traditional lighting to photonics and semiconductor technology.' },
-    { name: 'Walt Disney',     logo: 'walt-disney.png',    meta: 'Experience and operations leadership programme for European park and resort management. Focused on sustaining creative culture while scaling operational discipline across large teams.' },
-    { name: 'Villeroy & Boch', logo: 'villeroy-boch.png',  meta: 'Leadership development programme for senior commercial and brand executives. Designed around the unique tension of managing a 275-year-old brand in contemporary market conditions.' },
-    { name: 'Wella',           logo: 'wella.png',          meta: 'Global leadership programme for senior marketing and commercial executives following the brand separation from Coty. Focused on building autonomous leadership capacity in a newly independent company.' },
-    { name: 'Bilfinger',       logo: 'bilfinger.png',      meta: 'Project and site leadership programme for major industrial plant executives. Built around the complexity of multi-site, multi-discipline leadership in energy, chemicals and pharma infrastructure.' },
-    { name: 'TÜV Rheinland',   logo: 'tuev-rheinland.png', meta: 'Leadership development programme for regional and division directors in a global testing and certification organisation. Focused on sustaining technical authority while developing commercial and people leadership.' },
-    { name: 'Deutsche Bahn',   logo: 'deutsche-bahn.png',  meta: 'Leadership programme for senior operations and network executives across the rail and logistics divisions.' },
-    { name: 'Schaeffler',      logo: 'schaeffler.png',     meta: 'Senior leadership programme for division and plant heads navigating the automotive industry\'s shift to electrification and software-defined vehicles.' },
-    { name: 'Thyssenkrupp',    logo: 'thyssenkrupp.png',   meta: 'Leadership development for elevator and technology division executives. Focused on leading through structural transformation and portfolio reshaping.' },
-    { name: 'Nestlé',          logo: 'nestle.png',         meta: 'Senior leadership programme for EMEA market and category executives. Focused on brand leadership and driving growth in a mature consumer goods environment.' },
-    { name: 'UniCredit',       logo: 'unicredit.png',      meta: 'Leadership development for senior banking executives across the European network. Focused on leading large, matrixed organisations through regulatory and digital transformation.' },
-    { name: 'Freudenberg',     logo: 'freudenberg.png',    meta: 'Leadership programme for senior executives across the diversified technology group. Focused on value-based leadership and cross-divisional collaboration.' },
-    { name: 'Kion Group',      logo: 'kion.png',           meta: 'Senior leadership programme for operations and supply chain executives in the intralogistics and forklift divisions.' },
-    { name: 'Körber',          logo: 'koerber.png',        meta: 'Leadership development for senior executives across the technology conglomerate. Focused on leading autonomous business units in a decentralised ownership structure.' },
-    { name: 'Siemens Advanta', logo: 'siemens-advanta.png',meta: 'Consulting and transformation leadership programme for senior principals and partners. Focused on leading complex digital transformation engagements at scale.' },
-    { name: 'Harman',          logo: 'harman.png',         meta: 'Leadership programme for EMEA commercial and technology executives. Focused on leading in the intersection of consumer audio and automotive connectivity.' },
-    { name: 'Fraunhofer',      logo: 'fraunhofer.png',     meta: 'Leadership development for institute directors and senior researchers transitioning into organisational leadership roles.' },
-    { name: 'DIHK',            logo: 'dihk.png',           meta: 'Leadership programme for senior executives and regional directors in the German Chamber of Commerce network.' },
-    { name: 'DVAG',            logo: 'dvag.png',           meta: 'Senior leadership development for regional and national directors in the financial advisory organisation.' },
-    { name: 'HDI',             logo: 'hdi.png',            meta: 'Leadership programme for senior underwriting and operations executives in the insurance group.' },
-    { name: 'Hexagon',         logo: 'hexagon.png',        meta: 'Leadership development for senior executives in the precision measurement and digital reality technology divisions.' },
-    { name: 'Exyte',           logo: 'exyte.png',          meta: 'Project and site leadership programme for senior executives delivering high-tech manufacturing facilities in semiconductors and pharmaceuticals.' },
-    { name: 'BCG Platinion',   logo: 'bcg-platinion.png',  meta: 'Leadership programme for senior architects and principals in the technology and digital transformation arm of BCG.' },
-    { name: 'Sauber',          logo: 'sauber.png',         meta: 'Leadership development for senior management at the Formula 1 racing organisation. Focused on high-performance team dynamics and decision-making under extreme time pressure.' },
-    { name: 'BayWa',           logo: 'baywa.png',          meta: 'Leadership programme for senior executives across the agriculture, energy and building materials divisions.' },
-    { name: 'Knauf',           logo: 'knauf.png',          meta: 'Leadership development for regional and division executives in the global building materials group.' },
-    { name: 'Deutz',           logo: 'deutz.png',          meta: 'Senior leadership programme for technology and operations executives in the engine manufacturing and drives technology business.' },
-    { name: 'Vivawest',        logo: 'vivawest.svg',       meta: 'Leadership development for senior executives in one of Germany\'s largest housing companies. Focused on leading large residential operations teams.' },
-    { name: 'Weidmüller',      logo: 'weidmueller.png',    meta: 'Leadership programme for senior executives in the global industrial connectivity and automation business.' },
-    { name: 'Züblin',          logo: 'zueblin.png',        meta: 'Project and site leadership programme for major construction and engineering executives across the STRABAG Group.' },
-    { name: 'Ingenics',        logo: 'ingenics.png',       meta: 'Leadership development for senior consultants and partners in the engineering and management consultancy.' },
-    { name: 'Giesecke+Devrient', logo: 'giesecke-devrient.png', meta: 'Leadership programme for senior technology and business executives in the security technology and currency management group.' },
-    { name: 'Aqseptence',      logo: 'aqseptence.png',     meta: 'Leadership development for senior executives in the water treatment and filtration technology business.' },
-    { name: 'Eagle Burgmann',  logo: 'eagle-burgmann.png', meta: 'Leadership programme for senior technology and operations executives in the industrial sealing systems group.' },
-    { name: 'Reply',           logo: 'reply.png',          meta: 'Leadership development for senior consultants and partners across the technology and digital services network.' },
-    { name: 'RSM',             logo: 'rsm.png',            meta: 'Partner development programme for senior audit and advisory professionals in the international accounting and consulting network.' },
-    { name: 'Golding Capital', logo: 'golding-capital.png',meta: 'Leadership development for senior investment professionals in the private markets asset management firm.' },
-    { name: 'Natuvion',        logo: 'natuvion.png',       meta: 'Leadership programme for senior executives in the SAP-focused technology and data consultancy.' },
-    { name: 'Trivium',         logo: 'trivium.png',        meta: 'Leadership development for senior executives in the global metal packaging group.' },
-    { name: 'TÜV Süd',        logo: 'tuev-sued.png',      meta: 'Leadership programme for division directors and senior experts in the global testing, certification and advisory group.' },
-    { name: 'Käfer',           logo: 'kaefer.png',         meta: 'Leadership development for senior executives in the event catering and hospitality business.' },
-    { name: 'Hülskens',        logo: 'huelskens.png',      meta: 'Leadership programme for senior executives in the construction materials and waterways operations group.' },
-    { name: 'SSG',             logo: 'ssg.png',            meta: 'Leadership development programme for senior executives across the organisation.' },
+    { name: 'Microsoft',       logo: 'microsoft.png',      meta: 'If you are looking for ambitious, future-oriented leadership experts who understand your market, your culture and your leaders, contact MLG. We can highly recommend MLG as a partner of choice!' },
+    { name: 'BMW Group',       logo: 'bmw.png',            meta: '' },
+    { name: 'Munich Re',       logo: 'munich-re.png',      meta: 'We collaborate with the MLG on different leadership projects and cultural initiatives. They deliver excellent work! MLG enjoys a great reputation at Munich RE.' },
+    { name: 'Bayer',           logo: 'bayer.png',          meta: '' },
+    { name: 'Hannover Re',     logo: 'hannover-re.png',    meta: 'For our Top Leadership Program, MLG is our partner of choice. The collaboration with the experts from MLG is amazing — they definitely go the extra mile!' },
+    { name: 'Strabag',         logo: 'strabag.png',        meta: '' },
+    { name: 'BCG',             logo: 'bcg.png',            meta: '' },
+    { name: 'Knorr-Bremse',   logo: 'knorr-bremse.png',   meta: '' },
+    { name: 'KUKA',            logo: 'kuka.png',           meta: '' },
+    { name: 'ADAC',            logo: 'adac.png',           meta: '' },
+    { name: 'Montblanc',       logo: 'montblanc.png',      meta: 'MLG supported our ExCo to discover and align on the most relevant future leadership topics. Together with MLG, we fostered discussions on these topics on all leadership levels within Montblanc. We co-designed and deployed a process that ignited curiosity and movement within Montblanc. I can highly recommend working with MLG.' },
+    { name: 'FC Bayern',       logo: 'fc-bayern.png',      meta: '' },
+    { name: 'Isar Aerospace',  logo: 'isar-aerospace.png', meta: 'We are a fast growing company in a very dynamic, future-oriented market environment. We need speed, innovative ideas and directly applicable leadership concepts — MLG is our partner of choice.' },
+    { name: 'Rohde & Schwarz', logo: 'rohde-schwarz.png',  meta: 'MLG trains our talents in Singapore and Germany to become ready for new leadership roles as soon as possible. While the participants celebrate the facilitators and the great learning atmosphere, the performance improvements are remarkable.' },
+    { name: 'Osram',           logo: 'osram.png',          meta: '' },
+    { name: 'Walt Disney',     logo: 'walt-disney.png',    meta: '' },
+    { name: 'Villeroy & Boch', logo: 'villeroy-boch.png',  meta: '' },
+    { name: 'Wella',           logo: 'wella.png',          meta: '' },
+    { name: 'Bilfinger',       logo: 'bilfinger.png',      meta: 'We are collaborating on top level with the MLG coaches — where the individual sessions are labelled as "sparring" rather than coaching. Our top executives love this approach. The sparring process situationally includes technical experts from the vast MLG network. The feedback is excellent.' },
+    { name: 'TÜV Rheinland',   logo: 'tuev-rheinland.png', meta: 'Together with MLG, we designed and delivered an innovative Learning Journey over two years for our more than 100 global Top Executives. This journey is a true game changer for our culture and adds significantly to our overall performance.' },
+    { name: 'Deutsche Bahn',   logo: 'deutsche-bahn.png',  meta: '' },
+    { name: 'Schaeffler',      logo: 'schaeffler.png',     meta: 'Continuous change is one of our most challenging topics. MLG helps us to translate our mutual ideas into practical programmes which are really "hands-on" and create value for the global leaders and their teams in our factories.' },
+    { name: 'Thyssenkrupp',    logo: 'thyssenkrupp.png',   meta: '' },
+    { name: 'Nestlé',          logo: 'nestle.png',         meta: '' },
+    { name: 'UniCredit',       logo: 'unicredit.png',      meta: '' },
+    { name: 'Freudenberg',     logo: 'freudenberg.png',    meta: '' },
+    { name: 'Kion Group',      logo: 'kion.png',           meta: '' },
+    { name: 'Körber',          logo: 'koerber.png',        meta: '' },
+    { name: 'Siemens Advanta', logo: 'siemens-advanta.png',meta: 'MLG is flexible, creative, and highly customer oriented. They have extensive leadership knowledge and experience, and they know how to apply this in a pragmatic, creative and memorable setting for participants. The personal collaboration is not only successful, but also fun!' },
+    { name: 'Harman',          logo: 'harman.png',         meta: '' },
+    { name: 'Fraunhofer',      logo: 'fraunhofer.png',     meta: '' },
+    { name: 'DIHK',            logo: 'dihk.png',           meta: '' },
+    { name: 'DVAG',            logo: 'dvag.png',           meta: 'We are in a complex, vibrant business. I can highly recommend working with MLG in all facets of leadership development and transformation. The MLG experts understand our culture and the business we are in — and based on this, they customize successful measures for fostering our leadership performance.' },
+    { name: 'HDI',             logo: 'hdi.png',            meta: '' },
+    { name: 'Hexagon',         logo: 'hexagon.png',        meta: '' },
+    { name: 'Exyte',           logo: 'exyte.png',          meta: '' },
+    { name: 'BCG Platinion',   logo: 'bcg-platinion.png',  meta: 'Team development on top level is a skill that characterizes the work of the MLG experts. With a unique sense for individual strengths, they are helping to orchestrate the collaboration of leadership teams in a most successful way. Giving candid eye-opening feedback, speaking the truth — MLG works efficiently and straightforward.' },
+    { name: 'Sauber',          logo: 'sauber.png',         meta: '' },
+    { name: 'BayWa',           logo: 'baywa.png',          meta: '' },
+    { name: 'Knauf',           logo: 'knauf.png',          meta: '' },
+    { name: 'Deutz',           logo: 'deutz.png',          meta: '' },
+    { name: 'Vivawest',        logo: 'vivawest.svg',       meta: '' },
+    { name: 'Weidmüller',      logo: 'weidmueller.png',    meta: 'MLG helped us to focus and further develop the professional collaboration on top level. The toolset, the customization and the expertise of the MLG professionals let us remarkably grow our self-awareness.' },
+    { name: 'Züblin',          logo: 'zueblin.png',        meta: '' },
+    { name: 'Ingenics',        logo: 'ingenics.png',       meta: '' },
+    { name: 'Giesecke+Devrient', logo: 'giesecke-devrient.png', meta: '' },
+    { name: 'Aqseptence',      logo: 'aqseptence.png',     meta: 'The experts of the Munich Leadership Group have been supporting us for years in the consistent further development of our corporate culture. Trainings and workshops are optimally addressed to the respective target group, whether at the factory or at any management level. We have very much benefited from working with the MLG.' },
+    { name: 'Eagle Burgmann',  logo: 'eagle-burgmann.png', meta: '' },
+    { name: 'Reply',           logo: 'reply.png',          meta: 'The Munich Leadership Group supports us with a tailor-made leadership program that is in place since many years now and is continuously adapted to the new challenges in our vibrant environment. We can highly recommend working with the MLG experts.' },
+    { name: 'RSM',             logo: 'rsm.png',            meta: '' },
+    { name: 'Golding Capital', logo: 'golding-capital.png',meta: 'MLG helped us gain deep insights into the strengths and particular characteristics of our leadership team. The combination of psychometric tools, the technical expertise of the MLG experts and their facilitation of team workshops is unique and creates great value.' },
+    { name: 'Natuvion',        logo: 'natuvion.png',       meta: 'The Munich Leadership Group supports us with a tailor-made leadership program and, above all, contributes to transformation and cultural development through conceptual strength, innovative approaches and top facilitators.' },
+    { name: 'Trivium',         logo: 'trivium.png',        meta: '' },
+    { name: 'TÜV Süd',        logo: 'tuev-sued.png',      meta: '' },
+    { name: 'Käfer',           logo: 'kaefer.png',         meta: '' },
+    { name: 'Hülskens',        logo: 'huelskens.png',      meta: '' },
+    { name: 'SSG',             logo: 'ssg.png',            meta: '' },
   ];
 
   const globeEl    = $('#globe');
@@ -890,12 +899,92 @@
     chips.forEach((c, j) => c.el.classList.toggle('is-selected', i === j));
     const c = CLIENTS[i];
     cardName.textContent = c.name;
-    cardMeta.textContent = c.meta;
+    cardMeta.textContent = c.meta || '';
+    cardMeta.hidden = !c.meta;
     const more = document.getElementById('globeCardMore');
-    if (more) more.hidden = false;
+    if (more) more.hidden = !c.meta;
   }
 
   document.getElementById('globeCardMore')?.addEventListener('click', (e) => e.preventDefault());
+
+  // ── Network details toggle ─────────────────────────────────────
+  (function () {
+    const toggle  = document.getElementById('networkToggle');
+    const details = document.getElementById('networkDetails');
+    const label   = toggle?.querySelector('.network-toggle__label');
+    if (!toggle || !details) return;
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      const next     = !expanded;
+      toggle.setAttribute('aria-expanded', String(next));
+      details.hidden = !next;
+      if (label) label.textContent = next ? 'Show less' : 'Learn more';
+    });
+  })();
+
+  // ── Shuffle network logos on each load (details follow) ────────
+  (function () {
+    const wrap     = document.querySelector('.network-logos');
+    const details  = document.getElementById('networkDetails');
+    if (!wrap) return;
+    const logos = Array.from(wrap.children);
+    for (let i = logos.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [logos[i], logos[j]] = [logos[j], logos[i]];
+    }
+    logos.forEach((el) => wrap.appendChild(el));
+
+    // Re-order the details panel to mirror the shuffled logos
+    if (details) {
+      logos.forEach((logo) => {
+        const key = logo.dataset.partner;
+        const match = details.querySelector(`.network-detail[data-partner="${key}"]`);
+        if (match) details.appendChild(match);
+      });
+    }
+  })();
+
+  // ── Stat counter animation ─────────────────────────────────────
+  (function () {
+    const counters = $$('.stat-item__number[data-count]');
+    if (!counters.length) return;
+    let fired = false;
+
+    function formatNum(n, useDot) {
+      const s = Math.round(n).toString();
+      return useDot ? s.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : s;
+    }
+
+    function runCounters() {
+      if (fired) return;
+      fired = true;
+      const duration = 1800;
+      const ease = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      const start = performance.now();
+
+      counters.forEach((el) => {
+        const target  = parseInt(el.dataset.count, 10);
+        const suffix  = el.dataset.suffix || '';
+        const useDot  = el.dataset.format === 'dot';
+
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const value = Math.round(ease(progress) * target);
+          el.textContent = formatNum(value, useDot) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+
+    const statsSlide = document.querySelector('.stats-strip');
+    if (statsSlide && 'IntersectionObserver' in window) {
+      new IntersectionObserver((entries, obs) => {
+        if (entries[0].isIntersecting) { runCounters(); obs.disconnect(); }
+      }, { threshold: 0.3 }).observe(statsSlide);
+    }
+  })();
 
   // Team slide — tab switching
   const regionFilter = document.querySelector('.region-filter');

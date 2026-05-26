@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=285" />
+  <link rel="stylesheet" href="styles.css?v=317" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -264,7 +264,7 @@
           <!-- Hero image — top portion, no scrim -->
           <div class="approach-hero">
             <div class="approach-hero__img">
-              <img decoding="async" src="assets/photos/working-1.webp" alt="" loading="lazy" />
+              <img decoding="async" src="assets/photos/working-4.webp" alt="" loading="lazy" />
             </div>
             <div class="approach-hero__copy">
               <p class="eyebrow">Munich Leadership Group</p>
@@ -519,6 +519,31 @@
         </div>
       </article>
 
+      <!-- Facts & Figures strip — below Why MLG -->
+      <div class="stats-strip">
+        <p class="eyebrow stats-eyebrow">Facts &amp; Figures</p>
+        <div class="stats-cols">
+          <div class="stat-item">
+            <p class="stat-item__number" data-count="50" data-suffix="+">50+</p>
+            <h3 class="stat-item__label">Leadership Experts</h3>
+            <p class="stat-item__body">Our team members and associates live in 10+ countries, speak 12+ languages and work globally</p>
+            <a class="btn btn--ghost btn--more" href="#" data-jump="8">Team</a>
+          </div>
+          <div class="stat-item">
+            <p class="stat-item__number" data-count="182000" data-suffix="+" data-format="dot">182.000+</p>
+            <h3 class="stat-item__label">Participants</h3>
+            <p class="stat-item__body">MLG projects, programs and activities are tailor-made — read why they make the difference</p>
+            <a class="btn btn--ghost btn--more" href="#" data-jump="6">Why MLG</a>
+          </div>
+          <div class="stat-item">
+            <p class="stat-item__number" data-count="80" data-suffix="+">80+</p>
+            <h3 class="stat-item__label">Ambitious Clients</h3>
+            <p class="stat-item__body">MLG clients are the most ambitious companies — see why they work with us</p>
+            <a class="btn btn--ghost btn--more" href="#" data-jump="2">Client Universe</a>
+          </div>
+        </div>
+      </div>
+
       <!-- 6 — Tools -->
       <article class="slide slide--approach-intro slide--tools" data-slide="2" data-anim="parallax" data-title="Tools">
         <div class="slide__media slide__media--soft">
@@ -630,6 +655,43 @@
           </div>
         </div>
       </article>
+
+      <!-- MLG Network strip — below Team -->
+      <div class="network-strip">
+        <div class="network-strip__header">
+          <p class="eyebrow network-eyebrow">Network</p>
+          <h2 class="network-strip__title">Impactful projects require world class partners</h2>
+          <p class="network-strip__body">Everyone at MLG is an expert and a great learner. Collaborating with some of the world's best institutions ensures we are providing the best leadership development and most creative innovation for our clients</p>
+        </div>
+        <div class="network-logos">
+          <div class="network-logo" data-partner="harvard"><img src="assets/network/harvard.svg" alt="Harvard Business School" loading="lazy" /></div>
+          <div class="network-logo" data-partner="oxford"><img src="assets/network/oxford.svg" alt="Oxford Saïd Business School" loading="lazy" /></div>
+          <div class="network-logo" data-partner="berkeley"><img src="assets/network/berkeley.svg" alt="UC Berkeley — Sutardja Center for Entrepreneurship &amp; Technology" loading="lazy" /></div>
+          <div class="network-logo" data-partner="max-planck"><img src="assets/network/max-planck.svg" alt="Max-Planck-Institut für Innovation und Wettbewerb" loading="lazy" /></div>
+        </div>
+        <button id="networkToggle" class="btn btn--ghost btn--more network-toggle" type="button" aria-expanded="false" aria-controls="networkDetails">
+          <span class="network-toggle__label">Learn more</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div id="networkDetails" class="network-details" hidden>
+          <div class="network-detail" data-partner="oxford">
+            <h3 class="network-detail__title">Oxford Saïd Business School</h3>
+            <p class="network-detail__body">MLG is in continuous exchange and discussion on leadership development with OSBS, and is one of the OSBS preferred partners for high end leadership and change programs. We are currently running a European-wide leadership development program for a life-science company with OSBS.</p>
+          </div>
+          <div class="network-detail" data-partner="harvard">
+            <h3 class="network-detail__title">Harvard Business School</h3>
+            <p class="network-detail__body">At some of our clients, we are in touch with HBS Executive Development when delivering leadership programs together or in parallel.</p>
+          </div>
+          <div class="network-detail" data-partner="berkeley">
+            <h3 class="network-detail__title">University of Berkeley, CA</h3>
+            <p class="network-detail__body">We cooperate with Prof. Ken Singer, Director of the Center for Entrepreneurship and Technology UC Berkeley, and we are in touch with Prof. Henry Chesbrough, the world's leading expert for Open Innovation.</p>
+          </div>
+          <div class="network-detail" data-partner="max-planck">
+            <h3 class="network-detail__title">Max-Planck-Institute</h3>
+            <p class="network-detail__body">We are collaborating with Prof. Dietmar Harhoff, Director of the Max-Planck-Institute for Innovation and Competition.</p>
+          </div>
+        </div>
+      </div>
 
       <!-- News — The Leading Brain book -->
       <article class="slide slide--news" data-anim="parallax" data-title="Book">
@@ -755,7 +817,7 @@
 
   </main>
 
-  <script src="app.js?v=178" defer></script>
+  <script src="app.js?v=190" defer></script>
   <script>
     (function () {
       var topbar = document.querySelector('.topbar');
