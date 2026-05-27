@@ -635,7 +635,8 @@ button { font-family: inherit; cursor: pointer; }
               -webkit-backdrop-filter var(--dur-3) var(--ease-out),
               border-color var(--dur-3) var(--ease-out);
 }
-.topbar--past-hero {
+.topbar--past-hero,
+.standalone .topbar {
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
