@@ -1929,8 +1929,8 @@ button { font-family: inherit; cursor: pointer; }
 /* Hero image — top portion only, no scrim */
 .approach-hero {
   position: relative;
-  height: 65vh;
-  min-height: 360px;
+  height: 78vh;
+  min-height: 420px;
   overflow: hidden;
   flex-shrink: 0;
   width: 100%;
@@ -1943,13 +1943,21 @@ button { font-family: inherit; cursor: pointer; }
   width: 100%; height: 100%;
   object-fit: cover;
 }
-/* Black-to-transparent gradient at the TOP of the hero image — matches the
-   hero main bottom fade in shape & extent (just mirrored vertically). */
+/* Black gradient at the TOP of the hero image */
 .approach-hero::before {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 18%);
+  z-index: 1;
+  pointer-events: none;
+}
+/* Black gradient at the BOTTOM — matches the top, mirrored */
+.approach-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%);
   z-index: 1;
   pointer-events: none;
 }
@@ -3639,6 +3647,17 @@ button { font-family: inherit; cursor: pointer; }
   color: #fff;
   align-self: end;
   transition: transform var(--dur-3) var(--ease-out), opacity var(--dur-3) var(--ease-out);
+}
+.globe-card.is-updating .globe-card__name,
+.globe-card.is-updating .globe-card__meta,
+.globe-card.is-updating .globe-card__quote {
+  animation: globeCardFadeIn 360ms var(--ease-out) both;
+}
+.globe-card.is-updating .globe-card__meta { animation-delay: 60ms; }
+.globe-card.is-updating .globe-card__quote { animation-delay: 120ms; }
+@keyframes globeCardFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);  }
 }
 .globe-card__eyebrow {
   font-size: 10px;

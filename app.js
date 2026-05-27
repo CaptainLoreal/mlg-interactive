@@ -900,10 +900,17 @@
   function selectClient(i) {
     chips.forEach((c, j) => c.el.classList.toggle('is-selected', i === j));
     const c = CLIENTS[i];
+    const card = document.getElementById('globeCard');
     cardName.textContent = c.name;
     cardMeta.textContent = c.meta;
     const more = document.getElementById('globeCardMore');
     if (more) more.hidden = false;
+    if (card) {
+      card.classList.remove('is-updating');
+      // Force reflow so the animation re-triggers on every selection
+      void card.offsetWidth;
+      card.classList.add('is-updating');
+    }
   }
 
   document.getElementById('globeCardMore')?.addEventListener('click', (e) => e.preventDefault());
