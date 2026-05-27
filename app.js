@@ -81,6 +81,41 @@
   const excusesField  = $('#excusesField');
   const deck     = $('#deck');
 
+  /* ── Bubble-click logging ───────────────────────────────────────
+     Records every excuse-chip click. Persists to localStorage and
+     prints to the console. Expose window.__mlgBubbleLog (read) and
+     window.__mlgBubbleLogDownload() to grab the full log as JSON.   */
+  const BUBBLE_LOG_KEY = 'mlg.bubbleClicks';
+  function getBubbleLog() {
+    try { return JSON.parse(localStorage.getItem(BUBBLE_LOG_KEY) || '[]'); }
+    catch (e) { return []; }
+  }
+  function logBubbleClick(text) {
+    const entry = {
+      text: text,
+      ts: new Date().toISOString(),
+      ua: navigator.userAgent,
+      page: location.href,
+    };
+    const log = getBubbleLog();
+    log.push(entry);
+    try { localStorage.setItem(BUBBLE_LOG_KEY, JSON.stringify(log)); } catch (e) {}
+    console.log('[bubble-click]', entry);
+  }
+  window.__mlgBubbleLog = getBubbleLog;
+  window.__mlgBubbleLogDownload = function () {
+    const blob = new Blob([JSON.stringify(getBubbleLog(), null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'mlg-bubble-clicks-' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  window.__mlgBubbleLogClear = function () {
+    localStorage.removeItem(BUBBLE_LOG_KEY);
+    console.log('[bubble-click] log cleared');
+  };
+
   let experienceStarted = false;
   function startExperience() {
     if (experienceStarted) return;
@@ -264,7 +299,10 @@
         dead: false,
       };
       chipsState.push(c);
-      chip.addEventListener('click', () => popChip(c));
+      chip.addEventListener('click', () => {
+        logBubbleClick(text);
+        popChip(c);
+      });
     });
 
     chipsRAF = requestAnimationFrame(driftChips);

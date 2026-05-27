@@ -2906,6 +2906,26 @@ button { font-family: inherit; cursor: pointer; }
 }
 .contact-wrap--tailor .contact-wrap__head {
   text-align: center;
+  position: relative;
+  z-index: 2;
+}
+/* Faint black bloom behind the Tailor header — same as Services */
+.contact-wrap--tailor .contact-wrap__head::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%;
+  height: 220%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.30) 35%, rgba(0,0,0,0) 70%);
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(8px);
+}
+.contact-wrap--tailor .contact-wrap__head .eyebrow,
+.contact-wrap--tailor .contact-wrap__head .display {
+  position: relative;
 }
 .contact-wrap--tailor .contact-block {
   width: 100%;
