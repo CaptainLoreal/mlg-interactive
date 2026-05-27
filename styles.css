@@ -1613,8 +1613,22 @@ button { font-family: inherit; cursor: pointer; }
   z-index: 2;
   text-align: left;
 }
-.services-split__copy .eyebrow { margin: 0 0 14px; display: inline-block; }
-.services-split__copy .display { margin: 0; text-wrap: balance; }
+/* Faint black bloom behind the main header for legibility */
+.services-split__copy::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%;
+  height: 220%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.30) 35%, rgba(0,0,0,0) 70%);
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(8px);
+}
+.services-split__copy .eyebrow { margin: 0 0 14px; display: inline-block; position: relative; }
+.services-split__copy .display { margin: 0; text-wrap: balance; position: relative; }
 /* Right column — cards */
 .slide--services-split .services-wrap {
   position: relative;
