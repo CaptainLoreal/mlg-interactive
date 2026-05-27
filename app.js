@@ -764,6 +764,8 @@
       '.approach-hero__copy',
       '.network-strip__header',
       '.network-logos',
+      '.approach-future__copy',
+      '.approach-future__media',
     ];
     selectors.forEach((sel) => {
       $$(sel).forEach((el) => {
