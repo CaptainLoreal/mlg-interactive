@@ -2909,24 +2909,22 @@ button { font-family: inherit; cursor: pointer; }
   position: relative;
   z-index: 2;
 }
-/* Faint black bloom behind the Tailor header — kept compact so it doesn't
-   get clipped by the slide's overflow:hidden at the top */
-.contact-wrap--tailor .contact-wrap__head::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 130%;
-  height: 130%;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.30) 40%, rgba(0,0,0,0) 75%);
-  z-index: -1;
-  pointer-events: none;
-  filter: blur(10px);
-}
 .contact-wrap--tailor .contact-wrap__head .eyebrow,
 .contact-wrap--tailor .contact-wrap__head .display {
   position: relative;
+}
+/* Soft black glow behind the Tailor header — uses text-shadow so it hugs
+   the letterforms (no rectangle to clip against the slide's overflow) */
+.contact-wrap--tailor .contact-wrap__head .display {
+  text-shadow:
+    0 0 24px rgba(0,0,0,0.55),
+    0 0 48px rgba(0,0,0,0.45),
+    0 0 96px rgba(0,0,0,0.35);
+}
+.contact-wrap--tailor .contact-wrap__head .eyebrow {
+  text-shadow:
+    0 0 14px rgba(0,0,0,0.55),
+    0 0 28px rgba(0,0,0,0.40);
 }
 .contact-wrap--tailor .contact-block {
   width: 100%;
