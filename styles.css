@@ -665,21 +665,21 @@ button { font-family: inherit; cursor: pointer; }
 .deck .topbar.topbar--past-hero .topbar__logo-img--light { opacity: 1; }
 
 /* ── Dark text/UI over the hero (only on the deck/index, no past-hero) */
-.deck .topbar:not(.topbar--past-hero) .slide-nav__btn { color: rgba(0,0,0,0.85); }
+.deck .topbar:not(.topbar--past-hero) .slide-nav__btn { color: #000; }
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn:hover,
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn.is-active { color: #000; }
 .deck .topbar:not(.topbar--past-hero) .lang-switch {
   background: rgba(0,0,0,0.05);
-  border-color: rgba(0,0,0,0.13);
+  border-color: rgba(0,0,0,0.18);
 }
-.deck .topbar:not(.topbar--past-hero) .lang-switch__btn { color: rgba(0,0,0,0.45); }
+.deck .topbar:not(.topbar--past-hero) .lang-switch__btn { color: rgba(0,0,0,0.55); }
 .deck .topbar:not(.topbar--past-hero) .lang-switch__btn.is-active {
   color: #000;
-  background: rgba(0,0,0,0.10);
+  background: rgba(0,0,0,0.12);
 }
-.deck .topbar:not(.topbar--past-hero) .lang-switch__btn:hover:not(.is-active) { color: rgba(0,0,0,0.65); }
-.deck .topbar:not(.topbar--past-hero) .burger { color: rgba(0,0,0,0.85); }
-.deck .topbar:not(.topbar--past-hero) .topbar__tagline { color: rgba(0,0,0,0.55); }
+.deck .topbar:not(.topbar--past-hero) .lang-switch__btn:hover:not(.is-active) { color: #000; }
+.deck .topbar:not(.topbar--past-hero) .burger { color: #000; }
+.deck .topbar:not(.topbar--past-hero) .topbar__tagline { color: #000; }
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn,
 .deck .topbar:not(.topbar--past-hero) .lang-switch,
 .deck .topbar:not(.topbar--past-hero) .lang-switch__btn,
