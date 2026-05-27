@@ -2219,7 +2219,7 @@ button { font-family: inherit; cursor: pointer; }
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  height: 64px;
+  height: 88px;
   transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
   opacity: 0.75;
 }
@@ -2228,7 +2228,7 @@ button { font-family: inherit; cursor: pointer; }
   transform: translateY(-2px);
 }
 .network-logo img {
-  height: 64px;
+  height: 88px;
   width: auto;
   max-width: none;
   object-fit: contain;
