@@ -641,6 +641,51 @@ button { font-family: inherit; cursor: pointer; }
   -webkit-backdrop-filter: blur(14px);
   border-bottom-color: rgba(255,255,255,0.10);
 }
+
+/* ── Two-state logo (index only): black at top, white on scroll ─── */
+.topbar__logo-stack {
+  position: relative;
+  display: inline-block;
+  height: clamp(42px, 6vw, 62px);
+  flex-shrink: 0;
+}
+.topbar__logo-stack .topbar__logo-img {
+  height: 100%;
+  width: auto;
+  display: block;
+  transition: opacity var(--dur-3) var(--ease-out);
+}
+.topbar__logo-stack .topbar__logo-img--light {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.deck .topbar.topbar--past-hero .topbar__logo-img--dark { opacity: 0; }
+.deck .topbar.topbar--past-hero .topbar__logo-img--light { opacity: 1; }
+
+/* ── Dark text/UI over the hero (only on the deck/index, no past-hero) */
+.deck .topbar:not(.topbar--past-hero) .slide-nav__btn { color: rgba(0,0,0,0.85); }
+.deck .topbar:not(.topbar--past-hero) .slide-nav__btn:hover,
+.deck .topbar:not(.topbar--past-hero) .slide-nav__btn.is-active { color: #000; }
+.deck .topbar:not(.topbar--past-hero) .lang-switch {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.13);
+}
+.deck .topbar:not(.topbar--past-hero) .lang-switch__btn { color: rgba(0,0,0,0.45); }
+.deck .topbar:not(.topbar--past-hero) .lang-switch__btn.is-active {
+  color: #000;
+  background: rgba(0,0,0,0.10);
+}
+.deck .topbar:not(.topbar--past-hero) .lang-switch__btn:hover:not(.is-active) { color: rgba(0,0,0,0.65); }
+.deck .topbar:not(.topbar--past-hero) .burger { color: rgba(0,0,0,0.85); }
+.deck .topbar:not(.topbar--past-hero) .topbar__tagline { color: rgba(0,0,0,0.55); }
+.deck .topbar:not(.topbar--past-hero) .slide-nav__btn,
+.deck .topbar:not(.topbar--past-hero) .lang-switch,
+.deck .topbar:not(.topbar--past-hero) .lang-switch__btn,
+.deck .topbar:not(.topbar--past-hero) .burger,
+.deck .topbar:not(.topbar--past-hero) .topbar__tagline {
+  transition: color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out), border-color var(--dur-3) var(--ease-out);
+}
 .topbar__logo {
   display: inline-flex; align-items: center;
   gap: clamp(8px, 1.2vw, 16px);
