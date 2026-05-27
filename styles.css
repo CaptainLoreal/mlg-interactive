@@ -4397,12 +4397,13 @@ p, li { font-size: inherit; }
 }
 .approach-ordinal { display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; }
 .approach-ordinal__num {
-  font-family: var(--font-display);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Roboto Mono", monospace;
   font-size: clamp(56px, 7vw, 96px);
   font-weight: 600;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   line-height: 1;
   color: var(--mlg-red);
+  font-variant-numeric: tabular-nums;
 }
 .approach-ordinal__text {
   font-size: clamp(20px, 2.4vw, 32px);
