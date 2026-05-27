@@ -2157,13 +2157,15 @@ button { font-family: inherit; cursor: pointer; }
   text-align: center;
   margin-bottom: 4px;
 }
-/* Black-to-transparent gradient at the BOTTOM of the challenges image — same
-   shape as the hero main bottom fade. */
+/* Black gradients at TOP and BOTTOM of the challenges image — both fade
+   into the surrounding black sections. */
 .approach-cards-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%);
+  background:
+    linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 18%),
+    linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%);
   z-index: 1;
   pointer-events: none;
 }
