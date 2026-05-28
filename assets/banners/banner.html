@@ -51,14 +51,16 @@
       background: #000;
     }
 
-    /* Full-bleed hero photo */
+    /* Full-bleed hero photo. object-position is overridden per-photo
+       via the inline style on the <img> so the face always lands in
+       a flattering spot for a 17:40 vertical crop. */
     .banner__photo {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
+      object-position: center 30%;
       z-index: 0;
     }
 
@@ -86,17 +88,35 @@
       display: block;
     }
 
-    /* Bottom block — eyebrow, headline, sub, bullets */
+    /* Bottom block — eyebrow, headline, sub, bullets
+       (lifted higher to make room for the contact footer below). */
     .banner__bottom {
       position: absolute;
       left: 60px;
       right: 60px;
-      bottom: 220px;
+      bottom: 360px;
       z-index: 2;
       display: flex;
       flex-direction: column;
       gap: 0;
     }
+
+    /* Contact footer — bottom-left, same vertical level as the mark */
+    .banner__footer {
+      position: absolute;
+      left: 60px;
+      bottom: 70px;
+      z-index: 2;
+      color: rgba(255,255,255,0.94);
+      font-family: var(--font-sans);
+      font-size: 22px;
+      font-weight: 450;
+      line-height: 1.45;
+      max-width: 520px;
+    }
+    .banner__footer p { margin: 0; }
+    .banner__footer__gap { height: 14px; }
+    .banner__footer a { color: inherit; text-decoration: none; }
 
     .eyebrow {
       display: inline-block;
@@ -195,6 +215,16 @@
         <li>Audits &amp; Assessments</li>
         <li>Cultural Transformation</li>
       </ul>
+    </div>
+
+    <!-- Bottom-left: contact info -->
+    <div class="banner__footer">
+      <p>Munich Leadership Group GmbH &amp; Co. KG</p>
+      <p>Theresienhoehe 13 A</p>
+      <p>D-80339 Munich</p>
+      <div class="banner__footer__gap"></div>
+      <p>+49 89 413191-0</p>
+      <p><a href="mailto:info@munichleadership.com">info@munichleadership.com</a></p>
     </div>
 
     <!-- Bottom-right: 3-step triangle mark, all RED -->
