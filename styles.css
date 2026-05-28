@@ -4404,10 +4404,13 @@ button { font-family: inherit; cursor: pointer; }
   }
 
   .approach-hero__copy {
-    /* Equal 16px margin from all four edges of the hero image */
-    inset: 16px;
+    /* Bottom-anchored card with generous breathing room around it so the
+       hero photo shows above + on the sides. Height auto = fits content,
+       no huge empty area below the text. */
+    inset: auto 24px 32px 24px !important;
+    height: auto !important;
     justify-content: flex-start;
-    padding: 20px;
+    padding: 22px 20px !important;
     gap: 12px;
     background: rgba(14,15,16,0.55);
     backdrop-filter: blur(14px);
