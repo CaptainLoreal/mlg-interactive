@@ -6,7 +6,9 @@
   <meta name="theme-color" content="#000" />
   <title>MLG — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=342" />
+  <!-- Preload hero image so it lands in the first paint (LCP) -->
+  <link rel="preload" as="image" href="assets/photos/red-10.webp" fetchpriority="high" />
+  <link rel="stylesheet" href="styles.css?v=343" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -125,7 +127,7 @@
       <!-- 1 — Welcome -->
       <article class="slide" data-slide="0" data-anim="kenburns" data-title="Welcome">
         <div class="slide__media">
-          <img decoding="async" src="assets/photos/red-10.webp" alt="" loading="eager" />
+          <img decoding="async" src="assets/photos/red-10.webp" alt="" loading="eager" fetchpriority="high" />
         </div>
         <div class="slide__scrim"></div>
         <div class="slide__copy" style="display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(32px, 5vw, 80px); max-width: none; right: var(--pad-x);">
@@ -834,7 +836,7 @@
 
   </main>
 
-  <script src="app.js?v=197" defer></script>
+  <script src="app.js?v=198" defer></script>
   <script>
     (function () {
       var topbar = document.querySelector('.topbar');

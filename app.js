@@ -408,6 +408,8 @@
   function syncHeight() {
     // Set body height = slides content height so the native scrollbar is real
     document.body.style.height = slidesEl.scrollHeight + 'px';
+    // Slide offsets shift when the content height changes — refresh cache
+    if (typeof recomputeSlideOffsets === 'function') recomputeSlideOffsets();
   }
 
   window.addEventListener('scroll', () => {
@@ -644,14 +646,27 @@
     btns.forEach((btn) => btn.classList.toggle('is-active', btn === bestBtn));
   }
 
+  /* Cache slide offsets so we don't force a layout on every frame.
+     Recompute on resize / images-loaded / when slidesEl height changes. */
+  let slideOffsets = [];
+  function recomputeSlideOffsets() {
+    slideOffsets = slides.map((s) => ({
+      top: s.offsetTop,
+      bot: s.offsetTop + s.offsetHeight,
+    }));
+  }
+  // Initial + on resize
+  recomputeSlideOffsets();
+  window.addEventListener('resize', recomputeSlideOffsets, { passive: true });
+
   function updateInView() {
     const viewTop    = scrollCurrent - 80;
     const viewBottom = scrollCurrent + window.innerHeight + 80;
-    slides.forEach((slide) => {
+    slides.forEach((slide, i) => {
       if (slide.classList.contains('is-in-view')) return;
-      const top = slide.offsetTop;
-      const bot = top + slide.offsetHeight;
-      if (bot > viewTop && top < viewBottom) slide.classList.add('is-in-view');
+      const o = slideOffsets[i];
+      if (!o) return;
+      if (o.bot > viewTop && o.top < viewBottom) slide.classList.add('is-in-view');
     });
   }
 

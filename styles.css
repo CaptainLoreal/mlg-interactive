@@ -4121,22 +4121,28 @@ button { font-family: inherit; cursor: pointer; }
     text-align: left;
     margin-top: 0;
   }
-  /* Glass card on mobile — sits BELOW the headline group, full width,
-     visible (was hidden previously). */
+  /* Glass card on mobile — sits BELOW the headline group, tight gap,
+     left-aligned to match the header. Text INSIDE the card centered. */
   .slide[data-title="Welcome"] .slide__copy > div:last-child {
     display: block !important;
     width: 100% !important;
-    margin-top: 16px;
-    padding: 18px 20px !important;
+    margin-top: 4px !important;          /* tighter gap below the header */
+    padding: 16px 18px !important;
     border-radius: 10px;
+    text-align: center !important;        /* card body centered */
   }
   .slide[data-title="Welcome"] .slide__copy > div:last-child p {
-    font-size: 14px !important;
-    line-height: 1.45 !important;
-    margin: 0 0 10px !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    margin: 0 0 8px !important;
+    text-align: center !important;
   }
   .slide[data-title="Welcome"] .slide__copy > div:last-child p:last-child {
     margin-bottom: 0 !important;
+  }
+  /* Tighten the gap inside the slide__copy column between header and card */
+  .slide[data-title="Welcome"] .slide__copy {
+    gap: 4px !important;
   }
 
   /* "Read our book" eyebrow centered on mobile */
@@ -4176,17 +4182,32 @@ button { font-family: inherit; cursor: pointer; }
     align-self: center !important;
   }
 
-  /* Current Leadership Challenges — narrow the cards and give the
-     background photo room to breathe above and below the card stack. */
+  /* Current Leadership Challenges — card hugs its content, background
+     photo extends well above + below it for breathing room. */
   .slide--approach-main .approach-cards-bg .approach-centered__cards {
-    padding-top: clamp(96px, 16vh, 180px) !important;
-    padding-bottom: clamp(96px, 16vh, 180px) !important;
+    padding-top: clamp(140px, 22vh, 260px) !important;
+    padding-bottom: clamp(140px, 22vh, 260px) !important;
+    gap: clamp(20px, 3vh, 32px) !important;   /* tighter gap between cards */
   }
   .slide--approach-main .approach-cards-bg .challenge-box {
     max-width: 320px !important;
     width: 100% !important;
     margin-left: auto !important;
     margin-right: auto !important;
+    padding: 20px 18px !important;            /* fit to content (was 28×24) */
+  }
+  .slide--approach-main .approach-cards-bg .challenge-box__title {
+    font-size: 16px !important;
+    margin: 0 0 8px !important;
+  }
+  .slide--approach-main .approach-cards-bg .challenge-box__body {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    margin: 0 0 6px !important;
+  }
+  .slide--approach-main .approach-cards-bg .challenge-box__conclusion {
+    font-size: 12px !important;
+    margin: 0 !important;
   }
   .slide--approach-main .challenges-carousel {
     padding: 0 24px !important;
@@ -5194,21 +5215,27 @@ p, li { font-size: inherit; }
   content-visibility: auto;
   contain-intrinsic-size: 100vh;
 }
-/* Mobile: cheaper backdrop blurs (heavy on GPUs in compositor passes) */
-@media (max-width: 480px) {
+/* Mobile: drop backdrop-filter entirely on cards (saves GPU compositor passes,
+   which are the single biggest mobile perf killer on this page). Use a
+   slightly more opaque background to compensate for the lost blur. */
+@media (max-width: 640px) {
   .card-item,
   .challenge-box,
   .testimonial,
   .news-card,
   .ld-offering,
-  .topbar,
   .slide-nav__dropdown,
-  .tf__choice {
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+  .tf__choice,
+  .globe-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
-  /* Skip backdrop-filter on the team/news wraps where it's redundant
-     (they sit on solid #000 already) */
+  /* Keep topbar blur subtle (it's on top of varied content) */
+  .topbar.topbar--past-hero,
+  .standalone .topbar {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
   .team-wrap,
   .news-wrap {
     backdrop-filter: none !important;
