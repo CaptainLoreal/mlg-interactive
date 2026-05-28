@@ -1064,7 +1064,7 @@
       if (buffer === target && !cooldown) {
         cooldown = true;
         triggerMlgEgg();
-        setTimeout(() => { cooldown = false; }, 1800);
+        setTimeout(() => { cooldown = false; }, 2400);
       }
     });
 
@@ -1074,7 +1074,7 @@
         mark.classList.remove('mlg-egg-flash');
         void mark.offsetWidth; // restart animation
         mark.classList.add('mlg-egg-flash');
-        setTimeout(() => mark.classList.remove('mlg-egg-flash'), 1600);
+        setTimeout(() => mark.classList.remove('mlg-egg-flash'), 2200);
       }
       spawnConfetti(mark);
       playChime();
@@ -1088,17 +1088,21 @@
         originX = r.left + r.width / 2;
         originY = r.top + r.height / 2;
       }
-      const count = 36;
+      const count = 40;
       const colors = ['#ffffff', '#ffffff', '#B50034']; // 2 white, 1 red — matches the mark
+      // Direction biased toward UPPER-LEFT (following the mark's flight)
+      const targetX = -originX * 0.85;   // travel almost the full width to the left
+      const targetY = -originY * 0.80;   // travel most of the height upward
       for (let i = 0; i < count; i++) {
         const piece = document.createElement('span');
         piece.className = 'mlg-confetti';
-        const angle = (Math.random() * Math.PI) - Math.PI; // upper hemisphere
-        const speed = 8 + Math.random() * 10;
-        const dx = Math.cos(angle) * speed * 18 + (Math.random() - 0.5) * 80;
-        const dy = Math.sin(angle) * speed * 18 - 100 - Math.random() * 200;
-        const rot = (Math.random() * 720 - 360) + 'deg';
-        const dur = 1100 + Math.random() * 800;
+        // Scatter around the upper-left target direction
+        const scatterX = (Math.random() - 0.5) * 240;
+        const scatterY = (Math.random() - 0.5) * 240;
+        const dx = targetX + scatterX;
+        const dy = targetY + scatterY;
+        const rot = (Math.random() * 1080 - 540) + 'deg';
+        const dur = 1400 + Math.random() * 800;
         const size = 8 + Math.random() * 10;
         const color = colors[i % colors.length];
         piece.style.cssText =

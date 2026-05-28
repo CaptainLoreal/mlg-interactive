@@ -1069,14 +1069,22 @@ button { font-family: inherit; cursor: pointer; }
 
 /* ── Easter egg #3 — type "mlg" trigger ──────────────────────────── */
 .corner-mark.mlg-egg-flash {
-  animation: mlgMarkPulse 1500ms var(--ease-out) both;
-  filter: drop-shadow(0 0 18px rgba(181,0,52,0.85)) drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+  animation: mlgMarkFly 2200ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  filter: drop-shadow(0 0 22px rgba(181,0,52,0.85)) drop-shadow(0 6px 18px rgba(0,0,0,0.5));
+  z-index: 9999;
 }
-@keyframes mlgMarkPulse {
-  0%   { transform: scale(1)    rotate(0deg); }
-  25%  { transform: scale(1.25) rotate(-6deg); }
-  55%  { transform: scale(1.10) rotate(4deg); }
-  100% { transform: scale(1)    rotate(0deg); }
+@keyframes mlgMarkFly {
+  /* Wind-up (compress + tilt) */
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
+  10%  { transform: translate(0, 0) rotate(-18deg) scale(1.25); opacity: 1; }
+  /* Launch toward upper-left, spinning twice */
+  62%  { transform: translate(-85vw, -82vh) rotate(720deg) scale(1.35); opacity: 1; }
+  /* Hold briefly, then fade out at upper-left */
+  78%  { transform: translate(-85vw, -82vh) rotate(720deg) scale(1.35); opacity: 0; }
+  /* Snap back to origin while invisible */
+  79%  { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 0; }
+  /* Fade back in at original position */
+  100% { transform: translate(0, 0) rotate(0deg) scale(1); opacity: 1; }
 }
 .mlg-confetti {
   position: fixed;
@@ -1091,9 +1099,9 @@ button { font-family: inherit; cursor: pointer; }
 }
 @keyframes mlgConfettiFly {
   0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-  80%  { opacity: 1; }
+  85%  { opacity: 1; }
   100% {
-    transform: translate(var(--dx, 0), calc(var(--dy, 0) + 600px)) rotate(var(--rot, 360deg));
+    transform: translate(var(--dx, 0), var(--dy, 0)) rotate(var(--rot, 360deg));
     opacity: 0;
   }
 }
@@ -1650,6 +1658,10 @@ button { font-family: inherit; cursor: pointer; }
   background:
     linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 18%),
     linear-gradient(to top,    #000 0%, rgba(0,0,0,0) 18%);
+}
+/* Mobile: no darkness overlay on the Services image */
+@media (max-width: 640px) {
+  .services-split__scrim { display: none !important; }
 }
 /* Left column — headline + eyebrow */
 .services-split__copy {
@@ -2805,10 +2817,14 @@ button { font-family: inherit; cursor: pointer; }
 
 /* Clickable core-team card */
 .member--link {
+  color: inherit;       /* prevent blue link colour from leaking onto alt text / loading state */
   text-decoration: none;
   cursor: pointer;
   transition: transform 220ms ease, opacity 220ms ease;
   position: relative;
+}
+.member--link .member__photo img {
+  color: transparent;   /* hides the alt text in the loading state */
 }
 .member--link:hover {
   transform: translateY(-4px);
