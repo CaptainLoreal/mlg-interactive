@@ -1138,6 +1138,77 @@
     }
   })();
 
+  /* ───────────────────────────────────────────────────────────────
+     Easter egg #5 — triple-click the client globe → barrel roll
+     ─────────────────────────────────────────────────────────────── */
+  (function () {
+    const stage = document.getElementById('globeStage');
+    if (!stage) return;
+    let clicks = 0;
+    let lastClickTs = 0;
+    let rolling = false;
+    stage.addEventListener('click', () => {
+      const now = performance.now();
+      if (now - lastClickTs > 600) clicks = 0;  // reset if too slow
+      lastClickTs = now;
+      clicks += 1;
+      if (clicks >= 3 && !rolling) {
+        clicks = 0;
+        rolling = true;
+        stage.classList.add('globe-egg-roll');
+        setTimeout(() => {
+          stage.classList.remove('globe-egg-roll');
+          rolling = false;
+        }, 1400);
+      }
+    });
+  })();
+
+  /* ───────────────────────────────────────────────────────────────
+     Easter egg #2 — click corner mark 3× → three triangles burst out
+     ─────────────────────────────────────────────────────────────── */
+  (function () {
+    const mark = document.getElementById('cornerMark');
+    if (!mark) return;
+    const paths = mark.querySelectorAll('.mark__path');
+    if (paths.length !== 3) return;
+    let clicks = 0;
+    let lastClickTs = 0;
+    let busy = false;
+    mark.addEventListener('click', (e) => {
+      const now = performance.now();
+      if (now - lastClickTs > 700) clicks = 0;
+      lastClickTs = now;
+      clicks += 1;
+      if (clicks >= 3 && !busy) {
+        e.preventDefault();
+        clicks = 0;
+        busy = true;
+        burstMark();
+        setTimeout(() => { busy = false; }, 2200);
+      }
+    });
+    function burstMark() {
+      // Each triangle gets its own random burst direction + rotation
+      paths.forEach((p, i) => {
+        const dirs = [
+          { x: -180 + (Math.random() * -120), y: -100 + (Math.random() * -100) }, // small one — left/up
+          { x: 100 + Math.random() * 140,    y: -160 + (Math.random() * -80)  },  // medium — right/up
+          { x: -40 + (Math.random() * 80),   y: 140 + Math.random() * 80      },  // big red — straight down
+        ];
+        const d = dirs[i];
+        const rot = (Math.random() * 720 - 360) + 'deg';
+        p.style.setProperty('--burst-x', d.x + 'px');
+        p.style.setProperty('--burst-y', d.y + 'px');
+        p.style.setProperty('--burst-rot', rot);
+        p.classList.remove('mark-burst');
+        void p.offsetWidth;
+        p.classList.add('mark-burst');
+        setTimeout(() => p.classList.remove('mark-burst'), 2100);
+      });
+    }
+  })();
+
   // Team slide — tab switching
   const regionFilter = document.querySelector('.region-filter');
 
