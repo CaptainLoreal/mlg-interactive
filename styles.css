@@ -4337,13 +4337,7 @@ button { font-family: inherit; cursor: pointer; }
     height: 100%;
     z-index: 0;
   }
-  .services-split__photo::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.45) 100%);
-    pointer-events: none;
-  }
+  .services-split__photo::after { display: none !important; }
   /* Cards row — solid black background */
   .slide--services-split .services-wrap {
     grid-row: 2;
@@ -4354,22 +4348,25 @@ button { font-family: inherit; cursor: pointer; }
     padding: clamp(40px, 7vh, 80px) var(--pad-x) clamp(48px, 8vh, 80px);
   }
 
-  /* Services cards — horizontal scroll carousel */
+  /* Services cards — stacked vertically, part of the page flow
+     (no separate horizontal scroll container). */
   .slide--services-split .services-grid {
-    display: flex;
-    flex-direction: row;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 10px;
-    padding: 4px 16px 16px;
-    scrollbar-width: none;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: visible !important;
+    scroll-snap-type: none !important;
+    gap: 12px !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 420px;
+    margin: 0 auto;
   }
   .slide--services-split .services-grid::-webkit-scrollbar { display: none; }
   .slide--services-split .card-item {
-    flex: 0 0 82vw;
-    scroll-snap-align: start;
-    max-width: none;
+    flex: 0 0 auto !important;
+    scroll-snap-align: none !important;
+    width: 100% !important;
+    max-width: none !important;
     padding: 28px 24px 32px;
     align-items: center;
     text-align: center;
@@ -5181,6 +5178,27 @@ p, li { font-size: inherit; }
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+  /* Top + bottom dark gradients on the sticky background images so
+     they fade into the surrounding black sections (mobile USP / Why MLG
+     and Challenges). */
+  .section-sticky::before,
+  .section-sticky::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 22%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .section-sticky::before {
+    top: 0;
+    background: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 100%);
+  }
+  .section-sticky::after {
+    bottom: 0;
+    background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 100%);
   }
   /* Hide the in-slide images — the sticky handles the background */
   .approach-cards-bg__img { display: none !important; }
