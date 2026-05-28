@@ -1001,34 +1001,136 @@
       return useDot ? s.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : s;
     }
 
+    /* Animate one number element. If `overshoot` is true, use an ease
+       that goes past the target and settles back (Easter-egg click). */
+    function animateOne(el, duration, overshoot) {
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const useDot = el.dataset.format === 'dot';
+      const easeQuad = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      const easeBack = (t) => { const s = 1.7; return 1 + (--t) * t * ((s + 1) * t + s); };
+      const ease  = overshoot ? easeBack : easeQuad;
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const value = Math.round(ease(progress) * target);
+        el.textContent = formatNum(value, useDot) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = formatNum(target, useDot) + suffix; // ensure final
+      }
+      requestAnimationFrame(tick);
+    }
+
     function runCounters() {
       if (fired) return;
       fired = true;
-      const duration = 1800;
-      const ease = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-      const start = performance.now();
-
-      counters.forEach((el) => {
-        const target  = parseInt(el.dataset.count, 10);
-        const suffix  = el.dataset.suffix || '';
-        const useDot  = el.dataset.format === 'dot';
-
-        function tick(now) {
-          const elapsed = now - start;
-          const progress = Math.min(elapsed / duration, 1);
-          const value = Math.round(ease(progress) * target);
-          el.textContent = formatNum(value, useDot) + suffix;
-          if (progress < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      });
+      counters.forEach((el) => animateOne(el, 1800, false));
     }
+
+    /* Easter egg #7 — click a stat number to re-run with overshoot. */
+    counters.forEach((el) => {
+      el.style.cursor = 'pointer';
+      el.title = 'Click me';
+      el.addEventListener('click', () => animateOne(el, 1200, true));
+    });
 
     const statsSlide = document.querySelector('.stats-strip');
     if (statsSlide && 'IntersectionObserver' in window) {
       new IntersectionObserver((entries, obs) => {
         if (entries[0].isIntersecting) { runCounters(); obs.disconnect(); }
       }, { threshold: 0.3 }).observe(statsSlide);
+    }
+  })();
+
+  /* ───────────────────────────────────────────────────────────────
+     Easter egg #3 — type "mlg" anywhere on the keyboard:
+       • the corner mark flashes (3-step rise + red glow)
+       • a confetti burst of small triangles erupts from the mark
+       • a soft chime plays via Web Audio
+     ─────────────────────────────────────────────────────────────── */
+  (function () {
+    const target = 'mlg';
+    let buffer = '';
+    let cooldown = false;
+
+    document.addEventListener('keydown', (e) => {
+      // Ignore when typing into a field
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const k = e.key.toLowerCase();
+      if (k.length !== 1) { buffer = ''; return; }
+      buffer = (buffer + k).slice(-target.length);
+      if (buffer === target && !cooldown) {
+        cooldown = true;
+        triggerMlgEgg();
+        setTimeout(() => { cooldown = false; }, 1800);
+      }
+    });
+
+    function triggerMlgEgg() {
+      const mark = document.getElementById('cornerMark');
+      if (mark) {
+        mark.classList.remove('mlg-egg-flash');
+        void mark.offsetWidth; // restart animation
+        mark.classList.add('mlg-egg-flash');
+        setTimeout(() => mark.classList.remove('mlg-egg-flash'), 1600);
+      }
+      spawnConfetti(mark);
+      playChime();
+    }
+
+    function spawnConfetti(originEl) {
+      let originX = window.innerWidth - 60;
+      let originY = window.innerHeight - 60;
+      if (originEl) {
+        const r = originEl.getBoundingClientRect();
+        originX = r.left + r.width / 2;
+        originY = r.top + r.height / 2;
+      }
+      const count = 36;
+      const colors = ['#ffffff', '#ffffff', '#B50034']; // 2 white, 1 red — matches the mark
+      for (let i = 0; i < count; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'mlg-confetti';
+        const angle = (Math.random() * Math.PI) - Math.PI; // upper hemisphere
+        const speed = 8 + Math.random() * 10;
+        const dx = Math.cos(angle) * speed * 18 + (Math.random() - 0.5) * 80;
+        const dy = Math.sin(angle) * speed * 18 - 100 - Math.random() * 200;
+        const rot = (Math.random() * 720 - 360) + 'deg';
+        const dur = 1100 + Math.random() * 800;
+        const size = 8 + Math.random() * 10;
+        const color = colors[i % colors.length];
+        piece.style.cssText =
+          `left:${originX}px;top:${originY}px;` +
+          `width:${size}px;height:${size}px;` +
+          `--dx:${dx}px;--dy:${dy}px;--rot:${rot};--dur:${dur}ms;` +
+          `background:${color};`;
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), dur + 100);
+      }
+    }
+
+    function playChime() {
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        const ctx = new Ctx();
+        const notes = [880, 1108.73, 1318.51]; // A5, C#6, E6 — soft A-major chord
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0, ctx.currentTime + i * 0.06);
+          gain.gain.linearRampToValueAtTime(0.08, ctx.currentTime + i * 0.06 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i * 0.06 + 0.9);
+          osc.connect(gain).connect(ctx.destination);
+          osc.start(ctx.currentTime + i * 0.06);
+          osc.stop(ctx.currentTime + i * 0.06 + 0.95);
+        });
+        setTimeout(() => ctx.close(), 1500);
+      } catch (e) { /* silent fail */ }
     }
   })();
 

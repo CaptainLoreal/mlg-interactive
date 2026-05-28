@@ -1067,6 +1067,41 @@ button { font-family: inherit; cursor: pointer; }
   overflow: visible;
 }
 
+/* ── Easter egg #3 — type "mlg" trigger ──────────────────────────── */
+.corner-mark.mlg-egg-flash {
+  animation: mlgMarkPulse 1500ms var(--ease-out) both;
+  filter: drop-shadow(0 0 18px rgba(181,0,52,0.85)) drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+}
+@keyframes mlgMarkPulse {
+  0%   { transform: scale(1)    rotate(0deg); }
+  25%  { transform: scale(1.25) rotate(-6deg); }
+  55%  { transform: scale(1.10) rotate(4deg); }
+  100% { transform: scale(1)    rotate(0deg); }
+}
+.mlg-confetti {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  border-radius: 1px;
+  /* Triangular silhouette using clip-path — matches the MLG mark vibe */
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  opacity: 1;
+  will-change: transform, opacity;
+  animation: mlgConfettiFly var(--dur, 1500ms) cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+@keyframes mlgConfettiFly {
+  0%   { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  80%  { opacity: 1; }
+  100% {
+    transform: translate(var(--dx, 0), calc(var(--dy, 0) + 600px)) rotate(var(--rot, 360deg));
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .corner-mark.mlg-egg-flash { animation: none; }
+  .mlg-confetti { display: none; }
+}
+
 /* Website CTA bubble — shown on the bubbles/excuses screen only */
 .website-cta {
   appearance: none;
