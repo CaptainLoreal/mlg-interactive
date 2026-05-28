@@ -4005,9 +4005,76 @@ button { font-family: inherit; cursor: pointer; }
     text-align: left;
     margin-top: 0;
   }
-  /* Hide the long glass card on mobile (lives in desktop layout only) */
+  /* Glass card on mobile — sits BELOW the headline group, full width,
+     visible (was hidden previously). */
   .slide[data-title="Welcome"] .slide__copy > div:last-child {
-    display: none !important;
+    display: block !important;
+    width: 100% !important;
+    margin-top: 16px;
+    padding: 18px 20px !important;
+    border-radius: 10px;
+  }
+  .slide[data-title="Welcome"] .slide__copy > div:last-child p {
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+    margin: 0 0 10px !important;
+  }
+  .slide[data-title="Welcome"] .slide__copy > div:last-child p:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* "Read our book" eyebrow centered on mobile */
+  .news-card .eyebrow {
+    align-self: center !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Partner logos a bit smaller */
+  .network-logo,
+  .network-logo img { height: 56px !important; }
+
+  /* Facts & Figures — stack stats one below the other */
+  .stats-cols {
+    grid-template-columns: 1fr !important;
+    gap: clamp(20px, 4vh, 32px) !important;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .stat-item__number { font-size: clamp(32px, 9vw, 48px) !important; }
+  .stat-item__label { font-size: 11px !important; }
+  .stat-item__body { font-size: 14px; }
+
+  /* Vision (approach-future) — image more vertical, copy centered */
+  .approach-future__media {
+    aspect-ratio: 3 / 4 !important;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .approach-future__copy {
+    text-align: center !important;
+    align-items: center !important;
+  }
+  .approach-future__copy .eyebrow,
+  .approach-future__cta {
+    align-self: center !important;
+  }
+
+  /* Current Leadership Challenges — let the card hug its text and add
+     vertical room around it so the background photo can show above and
+     below the card area. */
+  .approach-cards-bg {
+    padding-top: clamp(48px, 8vh, 96px) !important;
+    padding-bottom: clamp(48px, 8vh, 96px) !important;
+  }
+  .approach-cards-bg .challenge-box {
+    max-width: 360px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .challenges-carousel {
+    padding: 0 24px !important;
+    align-items: center;
   }
 
   /* Services — ensure cards carousel sits close below photo headline */
