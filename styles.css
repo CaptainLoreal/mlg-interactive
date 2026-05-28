@@ -5269,3 +5269,55 @@ p, li { font-size: inherit; }
     -webkit-backdrop-filter: none !important;
   }
 }
+
+/* ============================================================
+   END-OF-FILE OVERRIDE — Current Leadership Challenges card on
+   mobile. Source-order wins to defeat any earlier rule that's
+   stretching the cards to full width or adding excessive padding.
+   ============================================================ */
+@media (max-width: 640px) {
+  .slide--approach-main .approach-cards-bg {
+    /* Ensure the bg image surface is generous so the photo shows
+       above AND below the card stack. */
+    min-height: 110vh !important;
+  }
+  .slide--approach-main .approach-cards-bg .approach-centered__cards {
+    padding: clamp(180px, 26vh, 320px) 20px clamp(180px, 26vh, 320px) !important;
+    gap: clamp(18px, 2.5vh, 28px) !important;
+    align-items: center !important;
+  }
+  .slide--approach-main .challenges-carousel,
+  .slide--approach-main .approach-cards-bg .challenges-carousel {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    max-width: 340px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    gap: clamp(14px, 2vh, 22px) !important;
+  }
+  .slide--approach-main .approach-cards-bg .challenge-box {
+    max-width: 320px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 18px 18px !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .slide--approach-main .approach-cards-bg .challenge-box__title {
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+    margin: 0 0 8px !important;
+  }
+  .slide--approach-main .approach-cards-bg .challenge-box__body {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    margin: 0 0 6px !important;
+  }
+  .slide--approach-main .approach-cards-bg .challenge-box__conclusion {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+  }
+}
