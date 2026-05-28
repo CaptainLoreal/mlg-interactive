@@ -1606,7 +1606,15 @@ button { font-family: inherit; cursor: pointer; }
   display: block;
 }
 .services-split__scrim {
-  display: none;
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Black gradient at TOP and BOTTOM of the Services photo */
+  background:
+    linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 18%),
+    linear-gradient(to top,    #000 0%, rgba(0,0,0,0) 18%);
 }
 /* Left column — headline + eyebrow */
 .services-split__copy {
@@ -2532,8 +2540,10 @@ button { font-family: inherit; cursor: pointer; }
   position: absolute;
   inset: 0;
   z-index: 1;
-  /* Black-to-transparent fade at the bottom — matches hero / approach / challenges */
-  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%) !important;
+  /* Black-to-transparent fade at TOP and BOTTOM */
+  background:
+    linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 18%),
+    linear-gradient(to top,    #000 0%, rgba(0,0,0,0) 18%) !important;
 }
 .why-mlg__head {
   text-align: center;
