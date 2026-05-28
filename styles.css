@@ -4325,8 +4325,17 @@ button { font-family: inherit; cursor: pointer; }
     text-align: center !important;
     background: transparent !important;
   }
+  /* Kill the desktop dark-bloom behind the headline on mobile — was
+     darkening the photo. Use a sharper text-shadow for legibility instead. */
+  .services-split__copy::before { display: none !important; }
   .services-split__copy .eyebrow { margin: 0 auto 12px !important; display: inline-block; }
-  .services-split__copy .display { margin: 0 auto !important; color: #fff; }
+  .services-split__copy .display {
+    margin: 0 auto !important;
+    color: #fff;
+    text-shadow:
+      0 2px 12px rgba(0,0,0,0.75),
+      0 0 24px rgba(0,0,0,0.55);
+  }
   /* Image positioned to fill only the header row, with a subtle dark scrim */
   .services-split__photo {
     grid-row: 1;
