@@ -91,13 +91,10 @@
       margin: 28px 0;
     }
 
-    /* Standalone quote between Step 1 and Step 2 — same visual language
-       as the .approach-closing pull-quote on the main page so all
-       "quote sections" across the site read the same. */
-    /* Pull quote between Step 1 and Step 2 — matches the .fol-question
-       block on this page: white text, red left border, left-aligned,
-       no italic, no rule, no quotes. */
-    .fol-pull {
+    /* Pull quote between Step 1 and Step 2 — uses the EXACT same
+       selector shape as .fol-question above so they win against the
+       generic `.fol-body p` rule and render at identical size + colour. */
+    .fol-body p.fol-pull {
       font-size: clamp(20px, 2.2vw, 26px);
       line-height: 1.45;
       color: #fff;
@@ -109,8 +106,9 @@
       text-align: left;
       max-width: none;
     }
-    .fol-pull strong { color: #fff; font-weight: 700; }
-    .fol-pull::before, .fol-pull::after { content: none; }
+    .fol-body p.fol-pull strong { color: #fff; font-weight: 700; }
+    .fol-body p.fol-pull::before,
+    .fol-body p.fol-pull::after { content: none; }
 
     /* Step blocks */
     .fol-step {
