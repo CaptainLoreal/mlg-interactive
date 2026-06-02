@@ -747,11 +747,25 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileNav(); });
   }
 
-  // Deep-link: #slide=N skips intro and scrolls to the right section
+  // Deep-link: #slide=N or #<name> skips intro and scrolls to the right section.
+  // Prefer named anchors (e.g. #services) — they don't drift when slides are
+  // reordered. #slide=N is kept for backward-compat with older links.
   function jumpFromHash() {
-    const m = location.hash.match(/^#slide=(\d+)$/);
-    if (!m) return false;
-    const idx = Math.max(0, Math.min(slides.length - 1, parseInt(m[1], 10)));
+    const raw = location.hash;
+    if (!raw) return false;
+    let idx = -1;
+    const m = raw.match(/^#slide=(\d+)$/);
+    if (m) {
+      idx = parseInt(m[1], 10);
+    } else {
+      const name = raw.replace(/^#/, '');
+      const el = name && document.getElementById(name);
+      if (el && el.classList.contains('slide')) {
+        idx = slides.indexOf(el);
+      }
+    }
+    if (idx < 0) return false;
+    idx = Math.max(0, Math.min(slides.length - 1, idx));
     intro.classList.add('is-leaving');
     intro.style.display = 'none';
     if (excuses) excuses.style.display = 'none';
