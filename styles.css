@@ -1802,9 +1802,9 @@ button { font-family: inherit; cursor: pointer; }
 .slide--services-split .card-item__body {
   font-size: 16px;
   line-height: 1.6;
-  color: rgba(255,255,255,0.86);
+  color: var(--mlg-red);
   margin: 0 0 20px;
-  font-weight: 450;
+  font-weight: 500;
 }
 .slide--services-split .card-item .btn--more {
   align-self: center;
