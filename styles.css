@@ -168,6 +168,12 @@ button { font-family: inherit; cursor: pointer; }
   text-align: inherit;
 }
 
+/* <br class="br-mobile"> only breaks on mobile; hidden on desktop. */
+.br-mobile { display: none; }
+@media (max-width: 640px) {
+  .br-mobile { display: inline; }
+}
+
 .display-accent {
   color: var(--mlg-red);
   font-style: italic;
