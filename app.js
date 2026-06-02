@@ -1514,13 +1514,15 @@
   }
 
   /* ── Show a step ── */
-  function showStep(idx) {
+  function showStep(idx, opts) {
     steps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
     current = idx;
     setProgress(idx);
-    // Focus first interactive element
+    // Focus first interactive element. preventScroll keeps the deck from
+    // jumping when we reset the form after routing the visitor elsewhere.
+    if (opts && opts.noFocus) return;
     const el = steps[idx].querySelector('input, textarea, .tf__choice');
-    if (el) setTimeout(() => el.focus(), 60);
+    if (el) setTimeout(() => el.focus({ preventScroll: true }), 60);
   }
 
   /* ── Reset form to its initial state ── */
@@ -1531,7 +1533,9 @@
       s.querySelectorAll('input, textarea').forEach((i) => { i.value = ''; });
       s.classList.remove('is-shake');
     });
-    showStep(0);
+    // No focus on reset — avoids a programmatic scroll into the Tailor
+    // slide right after the user has been routed elsewhere.
+    showStep(0, { noFocus: true });
   }
 
   /* ── Validation ── */
@@ -1582,6 +1586,7 @@
      DOM order: 0 Welcome, 1 Tailor, 2 Clients, 3 Approach, 4 Testimonials,
      5 Services, 6 Why MLG, 7 Tools, 8 Team, 9 Book, 10 Contact. */
   const PROFILE_ROUTES = {
+    'general':          { slide: 2 },                                  // Clients / globe
     'clients':          { slide: 2 },                                  // Clients / globe
     'hr':               { page: 'leadership-development.html' },
     'executive':        { page: 'coaching-sparring.html' },
@@ -1591,13 +1596,19 @@
   };
   function routeProfile(profile, delay) {
     const target = PROFILE_ROUTES[profile] || { slide: 5 }; // Services fallback
-    setTimeout(() => {
+    const fire = () => {
       if (target.page) {
+        // Page navigation — no need to reset, the page is leaving.
         window.location.href = target.page;
       } else if (typeof window.__mlgScrollTo === 'function') {
         window.__mlgScrollTo(target.slide);
+        // Reset AFTER the jump has resolved so the form is fresh on
+        // return, but the reset can't push the deck around mid-jump.
+        setTimeout(resetForm, 80);
       }
-    }, delay);
+    };
+    if (delay > 0) setTimeout(fire, delay);
+    else fire();
   }
 
   /* ── Submit (only reached if the visitor somehow continues past the
@@ -1627,26 +1638,12 @@
          walking through company-size + company-type follow-ups. */
       if (step.dataset.field === 'profile') {
         const value = choice.dataset.value;
-        // "I want to learn about MLG in general" → scroll to Clients/globe
-        if (value === 'general') {
-          const clients = document.querySelector('.slide[data-title="Clients"]');
-          if (clients && typeof window.__mlgScrollTo === 'function') {
-            const allSlides = Array.from(document.querySelectorAll('.slide'));
-            const idx = allSlides.indexOf(clients);
-            setTimeout(() => { window.__mlgScrollTo(idx); resetForm(); }, 280);
-          } else {
-            setTimeout(resetForm, 320);
-          }
-          return;
-        }
-        // Everything else: record + redirect
         answers.profile = value;
         storeAnswers('tailor', answers);
-        routeProfile(value, 280);
-        // Reset form right after navigation so coming back lands on step 0.
-        // For same-page slide routes this matters immediately; for page
-        // navigations the page reload handles it but resetting is harmless.
-        setTimeout(resetForm, 320);
+        // Brief selection pulse, then route. routeProfile handles the
+        // form reset itself (only on same-page slide routes — page
+        // navigations let the new page take over).
+        routeProfile(value, 220);
         return;
       }
       setTimeout(advance, 280);  // brief pause so user sees the selection
