@@ -728,10 +728,13 @@ button { font-family: inherit; cursor: pointer; }
   inset: 0;
   opacity: 0;
 }
-/* Always use the WHITE logo on the index deck — both on hero and
-   past-hero. The dark variant is reserved for light-background pages. */
-.deck .topbar .topbar__logo-img--dark { opacity: 0; }
-.deck .topbar .topbar__logo-img--light { opacity: 1; }
+/* On the index hero: show the big BLACK + RED logo (assets/logo-black-red.svg
+   in the --dark slot). Once scrolled past the hero into the menu, swap to
+   the WHITE logo so it reads against the dark topbar background. */
+.deck .topbar:not(.topbar--past-hero) .topbar__logo-img--dark { opacity: 1; }
+.deck .topbar:not(.topbar--past-hero) .topbar__logo-img--light { opacity: 0; }
+.deck .topbar.topbar--past-hero .topbar__logo-img--dark { opacity: 0; }
+.deck .topbar.topbar--past-hero .topbar__logo-img--light { opacity: 1; }
 
 /* ── Dark text/UI over the hero (only on the deck/index, no past-hero) */
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn { color: #000; }
@@ -1460,6 +1463,47 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 
 @media (min-width: 768px) {
   .slide[data-anchor="top"] .slide__media img { object-position: center 0%; }
+}
+
+/* ===========================================================
+   Sitewide subtle image animations — every hero/content image
+   gets a slow ken-burns drift, varied via a handful of named
+   keyframes. Applied to common image containers throughout the
+   site (subpage heroes, content split images, offering image
+   cards, vision narrow image, etc.).
+   =========================================================== */
+.ld-hero__media img,
+.fol-hero__media img,
+.approach-future__media img,
+.offerings-bg__img {
+  will-change: transform;
+}
+.ld-hero__media img { animation: kbDrift1 22s var(--ease-out) forwards; transform: scale(1.10); }
+.fol-hero__media img { animation: kbDrift2 24s var(--ease-out) forwards; transform: scale(1.12); }
+.approach-future__media img { animation: kbDrift3 20s var(--ease-out) forwards; transform: scale(1.08); }
+.offerings-bg__img { animation: kbDrift4 26s var(--ease-out) forwards; transform: scale(1.12); }
+
+@keyframes kbDrift1 {
+  0%   { transform: scale(1.10) translate(0, 0); }
+  100% { transform: scale(1.18) translate(-1.5%, -1%); }
+}
+@keyframes kbDrift2 {
+  0%   { transform: scale(1.15) translate(1%, 0); }
+  100% { transform: scale(1.06) translate(0, 1%); }
+}
+@keyframes kbDrift3 {
+  0%   { transform: scale(1.08) translate(0, 0); }
+  100% { transform: scale(1.15) translate(2%, -1%); }
+}
+@keyframes kbDrift4 {
+  0%   { transform: scale(1.12) translate(-1%, 0); }
+  100% { transform: scale(1.22) translate(1.5%, -1.5%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ld-hero__media img,
+  .fol-hero__media img,
+  .approach-future__media img,
+  .offerings-bg__img { animation: none !important; transform: none !important; }
 }
 
 /* Approach hero — image lives in .approach-hero__img, outside .slide__media */
@@ -2521,6 +2565,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   border-top: 1px solid rgba(255,255,255,0.12);
   font-style: normal;
 }
+/* Force each conclusion line onto its own row (used for cards where
+   the text would otherwise wrap into 3+ visual lines on narrow boxes). */
+.challenge-box__conclusion-line { display: block; }
 
 /* ── Network strip — dark section below Team ───────────────────── */
 .network-strip {
@@ -4030,6 +4077,23 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .chip[data-client="deutz"] { width: 130px; }
 .chip[data-client="deutz"] .chip__logo { width: 108px; height: 28px; object-fit: contain; }
 
+/* Stretched logos — clients whose logos were too small in the default
+   chip size and now read more legibly. */
+.chip[data-client="siemens-advanta"] { width: 160px; }
+.chip[data-client="siemens-advanta"] .chip__logo { width: 140px; height: 36px; object-fit: contain; }
+.chip[data-client="fraunhofer"] { width: 160px; }
+.chip[data-client="fraunhofer"] .chip__logo { width: 140px; height: 36px; object-fit: contain; }
+.chip[data-client="tuev-rheinland"] { width: 150px; }
+.chip[data-client="tuev-rheinland"] .chip__logo { width: 130px; height: 42px; object-fit: contain; }
+.chip[data-client="dvag"] { width: 160px; }
+.chip[data-client="dvag"] .chip__logo { width: 140px; height: 36px; object-fit: contain; }
+.chip[data-client="natuvion"] { width: 150px; }
+.chip[data-client="natuvion"] .chip__logo { width: 130px; height: 32px; object-fit: contain; }
+.chip[data-client="giesecke-devrient"] { width: 160px; }
+.chip[data-client="giesecke-devrient"] .chip__logo { width: 140px; height: 36px; object-fit: contain; }
+.chip[data-client="aqseptence"] { width: 160px; }
+.chip[data-client="aqseptence"] .chip__logo { width: 140px; height: 32px; object-fit: contain; }
+
 /* Fade chips on the back of the sphere — set via JS opacity per frame */
 
 .globe__hint {
@@ -4121,6 +4185,26 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   margin-top: 14px;
 }
 .globe-card__services[hidden] { display: none; }
+/* Mobile: center the eyebrow, heading, name and service tags on the
+   globe slide — the column is single-width, so center reads better
+   than left-flush. */
+@media (max-width: 768px) {
+  .slide--globe .slide__copy--side,
+  .slide--globe .slide__copy--side .display,
+  .slide--globe .slide__copy--side .display .display__line,
+  .slide--globe .globe-card,
+  .slide--globe .globe-card__name,
+  .slide--globe .globe-card__meta--hint {
+    text-align: center;
+  }
+  .slide--globe .slide__copy--side .eyebrow {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .slide--globe .globe-card__services {
+    justify-content: center;
+  }
+}
 .globe-card__service-tag {
   font-size: 11px;
   font-weight: 600;
