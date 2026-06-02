@@ -2595,17 +2595,22 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 
 .challenge-box__conclusion {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: rgba(255,255,255,0.86);
   margin: 0;
   padding-top: 8px;
   border-top: 1px solid rgba(255,255,255,0.12);
   font-style: normal;
+  letter-spacing: -0.005em;
 }
-/* Force each conclusion line onto its own row (used for cards where
-   the text would otherwise wrap into 3+ visual lines on narrow boxes). */
-.challenge-box__conclusion-line { display: block; }
+/* Force each conclusion line onto its own row + try to keep the
+   whole phrase on a single visual line (e.g. the long Ambidexterity
+   line wraps naturally inside the card otherwise). */
+.challenge-box__conclusion-line {
+  display: block;
+  text-wrap: balance;
+}
 
 /* ── Network strip — dark section below Team ───────────────────── */
 .network-strip {
