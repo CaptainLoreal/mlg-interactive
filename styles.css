@@ -3111,6 +3111,13 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .contact-wrap--tailor .contact-wrap__head {
   text-align: center;
   position: relative;
+  /* Reset offsets inherited from .slide__copy (which uses position:absolute
+     with left/right/bottom). With position:relative those become nudge offsets
+     that pull the heading off-center. */
+  left: auto;
+  right: auto;
+  bottom: auto;
+  max-width: 100%;
   z-index: 2;
   /* Generous padding so the gradient has room to fade to transparent
      well before reaching the element's edges (which sit at the slide
