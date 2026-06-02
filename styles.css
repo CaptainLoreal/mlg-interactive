@@ -2654,10 +2654,12 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 /* Pull quote shown directly under the partner-logos row, above the
    "Learn more" button. Same visual language as the service-page
    .ld-usp testimonial — red-tinted background card, italic quote,
-   role + bold company below. */
+   role + bold company below. Negative top margin cancels most of the
+   parent .network-strip flex gap so it sits tight under the
+   "What our network partners say" sub-label. */
 .network-strip__quote {
   max-width: 820px;
-  margin: clamp(20px, 3vh, 32px) auto 0;
+  margin: calc(-1 * clamp(28px, 4vh, 52px)) auto 0;
   padding: 28px 36px;
   background: rgba(181,0,52,0.10);
   border: 1px solid rgba(181,0,52,0.28);
