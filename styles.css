@@ -703,16 +703,19 @@ button { font-family: inherit; cursor: pointer; }
 .topbar__logo-stack {
   position: relative;
   display: inline-block;
-  /* Default (past-hero or non-index pages) */
+  /* Layout box stays at the regular topbar size on every state — the
+     hero "big logo" effect is a transform: scale so the rest of the
+     menu items don't shift when it grows/shrinks. */
   height: clamp(42px, 6vw, 62px);
   flex-shrink: 0;
-  transition: height var(--dur-5) var(--ease-out);
+  transform-origin: left top;
+  transition: transform var(--dur-5) var(--ease-out);
 }
-/* On the index hero (before scrolling past the welcome slide), the
-   topbar logo blows up to dominate the screen. When the visitor scrolls
-   down past the hero, it smoothly shrinks back into the menu position. */
+/* On the index hero (before scrolling past the welcome slide), scale
+   the logo up visually. Layout dimensions stay the same so other
+   topbar items remain fixed in place. */
 .deck .topbar:not(.topbar--past-hero) .topbar__logo-stack {
-  height: clamp(120px, 18vw, 220px);
+  transform: scale(2.2);
 }
 .topbar__logo-stack .topbar__logo-img {
   height: 100%;
@@ -725,8 +728,10 @@ button { font-family: inherit; cursor: pointer; }
   inset: 0;
   opacity: 0;
 }
-.deck .topbar.topbar--past-hero .topbar__logo-img--dark { opacity: 0; }
-.deck .topbar.topbar--past-hero .topbar__logo-img--light { opacity: 1; }
+/* Always use the WHITE logo on the index deck — both on hero and
+   past-hero. The dark variant is reserved for light-background pages. */
+.deck .topbar .topbar__logo-img--dark { opacity: 0; }
+.deck .topbar .topbar__logo-img--light { opacity: 1; }
 
 /* ── Dark text/UI over the hero (only on the deck/index, no past-hero) */
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn { color: #000; }
