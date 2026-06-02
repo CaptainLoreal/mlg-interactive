@@ -3809,9 +3809,10 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   margin: 0;
   padding: 0;
   max-width: none;
-  text-align: left;
+  text-align: center;
 }
-.slide__copy--side .display { margin: 0; }
+.slide__copy--side .display { margin: 0 auto; }
+.slide__copy--side .eyebrow { margin-left: auto; margin-right: auto; }
 
 .globe-wrap {
   position: relative;
@@ -4250,21 +4251,23 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     text-align: left;
     margin-top: 0;
   }
-  /* Glass card on mobile — sits BELOW the headline group, tight gap,
-     left-aligned to match the header. Text INSIDE the card centered. */
+  /* Glass card on mobile — sits BELOW the headline group, tight gap.
+     Body text matches the rest of the mobile body copy (size + weight). */
   .slide[data-title="Welcome"] .slide__copy > div:last-child {
     display: block !important;
     width: 100% !important;
-    margin-top: 4px !important;          /* tighter gap below the header */
-    padding: 16px 18px !important;
+    margin-top: 8px !important;
+    padding: 18px 20px !important;
     border-radius: 10px;
-    text-align: center !important;        /* card body centered */
+    text-align: left !important;
   }
   .slide[data-title="Welcome"] .slide__copy > div:last-child p {
-    font-size: 13px !important;
-    line-height: 1.4 !important;
-    margin: 0 0 8px !important;
-    text-align: center !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    color: rgba(255,255,255,0.88) !important;
+    margin: 0 0 12px !important;
+    text-align: left !important;
   }
   .slide[data-title="Welcome"] .slide__copy > div:last-child p:last-child {
     margin-bottom: 0 !important;
