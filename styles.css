@@ -16,7 +16,11 @@
   font-display: swap;
 }
 
-/* Site type — Helvetica, Arial fallback. */
+/* Site type — Arial-first for cross-platform consistency. Arial ships
+   on every modern OS (Mac/Win/Linux) and was designed with the same
+   metrics as Helvetica, so the page renders identically everywhere.
+   Helvetica is kept as a hint for systems where it happens to be
+   available, but Arial takes precedence so it's the same on both. */
 
 /* Welcome-slide hero card (right column glass panel). Desktop reads as
    a pull-quote; on mobile it drops to regular body-text size/weight so
@@ -75,7 +79,7 @@
   --paper:   #ffffff;
 
   /* Type — Helvetica throughout (display + body share one family). */
-  --font-sans:    "Helvetica", "Arial Nova", Arial, sans-serif;
+  --font-sans:    Arial, "Arial Nova", "Helvetica", sans-serif;
   --font-display: var(--font-sans);
 
   /* Motion */
