@@ -16,7 +16,7 @@
   font-display: swap;
 }
 
-/* Site type — Helvetica (system + Helvetica Neue), Arial fallback. */
+/* Site type — Helvetica, Arial fallback. */
 
 /* Welcome-slide hero card (right column glass panel). Desktop reads as
    a pull-quote; on mobile it drops to regular body-text size/weight so
@@ -75,7 +75,7 @@
   --paper:   #ffffff;
 
   /* Type — Helvetica throughout (display + body share one family). */
-  --font-sans:    "Helvetica Neue", Helvetica, "Arial Nova", Arial, sans-serif;
+  --font-sans:    "Helvetica", "Arial Nova", Arial, sans-serif;
   --font-display: var(--font-sans);
 
   /* Motion */
