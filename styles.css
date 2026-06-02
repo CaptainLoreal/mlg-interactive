@@ -16,8 +16,45 @@
   font-display: swap;
 }
 
-/* Site type — Helvetica priority, Arial as fallback for OSes that
-   don't ship it (Windows/Linux). */
+/* Self-hosted Helvetica — so every visitor (Mac, Windows, Linux) gets
+   the same exact rendering, not the OS's default sans-serif. */
+@font-face {
+  font-family: "Helvetica";
+  src: url("assets/fonts/Helvetica-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica";
+  src: url("assets/fonts/Helvetica.ttf") format("truetype");
+  font-weight: 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica";
+  src: url("assets/fonts/Helvetica-Oblique.ttf") format("truetype");
+  font-weight: 400 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica";
+  src: url("assets/fonts/Helvetica-Bold.ttf") format("truetype");
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica";
+  src: url("assets/fonts/Helvetica-BoldOblique.ttf") format("truetype");
+  font-weight: 600 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Site type — Helvetica (self-hosted), Arial as final fallback. */
 
 /* Welcome-slide hero card (right column glass panel). Desktop reads as
    a pull-quote; on mobile it drops to regular body-text size/weight so
