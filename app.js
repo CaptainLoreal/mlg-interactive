@@ -1737,7 +1737,7 @@
     collect(step);
     /* Send answers to MLG's backend; mailto only opens with subject + recipient. */
     storeAnswers('contact', answers);
-    openMailto('info@munichleadership.com', 'Interested in MLG Services');
+    openMailto('info@munichleadership.com', 'Interested in MLG services');
     showStep(DONE_IDX);
   }
 
