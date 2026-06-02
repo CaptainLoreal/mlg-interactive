@@ -9,7 +9,14 @@
   <!-- Preload hero image so it lands in the first paint (LCP) -->
   <link rel="preload" as="image" href="assets/photos/red-10.webp" fetchpriority="high" />
   <link rel="stylesheet" href="styles.css?v=377" />
-  <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
+  <script>
+    /* Any in-page hash (#slide=N, #services, #approach, etc.) means the
+       visitor is being deep-linked into the deck — kill the intro flash
+       before paint. The JS in app.js handles the actual slide jump. */
+    if (location.hash && location.hash.length > 1) {
+      document.documentElement.classList.add('skip-intro');
+    }
+  </script>
 </head>
 <body>
 
