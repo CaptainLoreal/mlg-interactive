@@ -23,8 +23,17 @@
     .ld-intro p { font-size: 19px; line-height: 1.75; color: rgba(255,255,255,0.65); margin: 0 0 18px; }
     .ld-intro p strong { color: rgba(255,255,255,0.88); }
     .ld-offering__list { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-direction: column; gap: 10px; }
-    .ld-offering__list li { font-size: 19px; color: rgba(255,255,255,0.65); font-weight: 400; padding-left: 16px; position: relative; line-height: 1.75; }
-    .ld-offering__list li::before { content: '—'; position: absolute; left: 0; color: var(--mlg-red); font-size: 12px; }
+    .ld-offering__list li { font-size: 19px; color: rgba(255,255,255,0.65); font-weight: 400; padding-left: 22px; position: relative; line-height: 1.75; }
+    .ld-offering__list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.78em;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--mlg-red);
+    }
     .ld-cta { text-align: center; padding: clamp(32px, 5vh, 56px) 0; border-top: 1px solid rgba(255,255,255,0.08); max-width: 1200px; margin: 0 auto; }
     .ld-cta p { color: rgba(255,255,255,0.55); font-size: 14px; margin: 0 0 20px; }
     .ld-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--mlg-red); color: #fff; font-family: var(--font-sans); font-size: 15px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 999px; transition: opacity 200ms; }
