@@ -2722,6 +2722,13 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   object-fit: contain;
   display: block;
 }
+/* HULT SVG is portrait with internal whitespace around the mark, so at
+   the shared 88px height the visible art reads much smaller than the
+   landscape logos. Bump it so the visual weight matches the others. */
+.network-logo[data-partner="hult"] img { height: 140px; }
+@media (max-width: 480px) {
+  .network-logo[data-partner="hult"] img { height: 88px !important; }
+}
 
 /* Toggle button — uses standard ghost+more style with a rotating chevron */
 .network-toggle {
