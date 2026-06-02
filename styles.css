@@ -3155,11 +3155,25 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   position: relative;
   text-align: center;
 }
+/* Use flex column on the headline so each .display__line span sizes to
+   its own text and centres independently. text-align: center inside a
+   nowrap block doesn't symmetrically centre overflowing text, so flex
+   is the only way to guarantee both lines line up around the same
+   vertical centre regardless of the parent's padding/width. */
 .contact-wrap--tailor .contact-wrap__head .display {
-  /* Centre the headline + each .display__line span inside it */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
+  text-wrap: wrap;
+}
+.contact-wrap--tailor .contact-wrap__head .display .display__line {
+  display: block;
+  width: max-content;
+  max-width: none;
+  text-align: center;
 }
 .contact-wrap--tailor .contact-wrap__head .eyebrow {
   margin-left: auto;
