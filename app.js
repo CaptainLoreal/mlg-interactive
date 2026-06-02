@@ -1566,39 +1566,37 @@
     else { showStep(current + 1); }
   }
 
-  /* ── Submit ── */
-  function submitForm() {
-    const step = steps[current];
-    collect(step);
-    /* Quick-access form: store the answers and show the thank-you screen.
-       Intentionally does NOT open the mail client — the contact form
-       handles that for the deeper / "talk to us" path. */
-    storeAnswers('tailor', answers);
-    showStep(DONE_IDX);
-
-    /* After the thank-you screen, route the visitor to the slide or
-       dedicated page that best matches their first answer (the "profile"
-       choice from step 1). Falls back to Services if the answer is
-       unrecognized. Slide indices are DOM order:
-         0 Welcome, 1 Tailor, 2 Clients, 3 Approach, 4 Testimonials,
-         5 Services, 6 Why MLG, 7 Tools, 8 Team, 9 Book, 10 Contact. */
-    const routes = {
-      'general':          { slide: 3 },                                  // Approach
-      'clients':          { slide: 2 },                                  // Clients / globe
-      'hr':               { page: 'leadership-development.html' },
-      'executive':        { page: 'coaching-sparring.html' },
-      'curious-culture':  { page: 'cultural-transformation.html' },
-      'ambitious':        { page: 'coaching-sparring.html' },
-      'alumnus':          { slide: 8 },                                  // Team
-    };
-    const target = routes[answers.profile] || { slide: 5 };  // Services fallback
+  /* Quick-access routing — maps step-1 profile answer to the slide or
+     dedicated page that best fits the visitor's intent. Slide indices are
+     DOM order: 0 Welcome, 1 Tailor, 2 Clients, 3 Approach, 4 Testimonials,
+     5 Services, 6 Why MLG, 7 Tools, 8 Team, 9 Book, 10 Contact. */
+  const PROFILE_ROUTES = {
+    'clients':          { slide: 2 },                                  // Clients / globe
+    'hr':               { page: 'leadership-development.html' },
+    'executive':        { page: 'coaching-sparring.html' },
+    'curious-culture':  { page: 'cultural-transformation.html' },
+    'ambitious':        { page: 'coaching-sparring.html' },
+    'alumnus':          { slide: 8 },                                  // Team
+  };
+  function routeProfile(profile, delay) {
+    const target = PROFILE_ROUTES[profile] || { slide: 5 }; // Services fallback
     setTimeout(() => {
       if (target.page) {
         window.location.href = target.page;
       } else if (typeof window.__mlgScrollTo === 'function') {
         window.__mlgScrollTo(target.slide);
       }
-    }, 1800);
+    }, delay);
+  }
+
+  /* ── Submit (only reached if the visitor somehow continues past the
+       direct step-1 routing — kept as a safety net) ── */
+  function submitForm() {
+    const step = steps[current];
+    collect(step);
+    storeAnswers('tailor', answers);
+    showStep(DONE_IDX);
+    routeProfile(answers.profile, 1200);
   }
 
   /* ── Event delegation ── */
@@ -1609,16 +1607,28 @@
       const step = choice.closest('.tf__step');
       step.querySelectorAll('.tf__choice').forEach(c => c.classList.remove('is-selected'));
       choice.classList.add('is-selected');
-      /* Special case: "I want to learn about MLG in general" — don't advance
-         the form, scroll the page down to the Clients (globe) slide instead. */
-      if (choice.dataset.value === 'general') {
-        const clients = document.querySelector('.slide[data-title="Clients"]');
-        if (clients) {
-          setTimeout(() => {
-            window.scrollTo({ top: clients.offsetTop, behavior: 'smooth' });
-          }, 280);
+      /* Quick-access UX: when the visitor picks an answer to the very
+         first question (the "Who are you / what do you need" profile),
+         route them directly to the relevant section / page instead of
+         walking through company-size + company-type follow-ups. */
+      if (step.dataset.field === 'profile') {
+        const value = choice.dataset.value;
+        // "I want to learn about MLG in general" → scroll to Clients/globe
+        if (value === 'general') {
+          const clients = document.querySelector('.slide[data-title="Clients"]');
+          if (clients && typeof window.__mlgScrollTo === 'function') {
+            // Find clients' index in the slide list to use the smooth scroller
+            const allSlides = Array.from(document.querySelectorAll('.slide'));
+            const idx = allSlides.indexOf(clients);
+            setTimeout(() => window.__mlgScrollTo(idx), 280);
+          }
           return;
         }
+        // Everything else: record + redirect
+        answers.profile = value;
+        storeAnswers('tailor', answers);
+        routeProfile(value, 280);
+        return;
       }
       setTimeout(advance, 280);  // brief pause so user sees the selection
       return;
