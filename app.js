@@ -1551,10 +1551,10 @@
   function submitForm() {
     const step = steps[current];
     collect(step);
-    /* Send the answers to MLG's backend (configure the endpoint below).
-       The mailto only opens the user's mail client with subject + recipient. */
+    /* Quick-access form: store the answers and show the thank-you screen.
+       Intentionally does NOT open the mail client — the contact form
+       handles that for the deeper / "talk to us" path. */
     storeAnswers('tailor', answers);
-    openMailto('info@munichleadership.com', 'Interested in MLG Services');
     showStep(DONE_IDX);
     // After a moment on the thank-you screen, scroll to Services (slide 5)
     setTimeout(() => {
