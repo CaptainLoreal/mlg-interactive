@@ -1652,7 +1652,19 @@
     const target = PROFILE_ROUTES[profile] || { slide: 5 }; // Services fallback
     const fire = () => {
       if (target.page) {
-        // Page navigation — no need to reset, the page is leaving.
+        // Page navigation — first snap the deck back to Tailor so the
+        // page-unload transition can't briefly reveal whichever slide
+        // the visitor scrolled to during the thank-you wait. Then go.
+        if (typeof window.__mlgScrollTo === 'function') {
+          const slides = Array.from(document.querySelectorAll('.slide'));
+          const tailorIdx = slides.findIndex(s => s.dataset.title === 'Tailor');
+          if (tailorIdx >= 0) window.__mlgScrollTo(tailorIdx);
+        }
+        // Hide the deck while the browser starts loading the next page —
+        // a blank black screen is preferable to a flash of the wrong slide.
+        document.documentElement.style.background = '#000';
+        const deck = document.getElementById('deck');
+        if (deck) deck.style.visibility = 'hidden';
         window.location.href = target.page;
       } else if (typeof window.__mlgScrollTo === 'function') {
         window.__mlgScrollTo(target.slide);
