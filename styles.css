@@ -18,6 +18,42 @@
 
 /* Site type — Helvetica (system + Helvetica Neue), Arial fallback. */
 
+/* Welcome-slide hero card (right column glass panel). Desktop reads as
+   a pull-quote; on mobile it drops to regular body-text size/weight so
+   it doesn't fight the rest of the page. */
+.hero-card {
+  flex-shrink: 0;
+  width: clamp(320px, 40vw, 580px);
+  background: rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 12px;
+  padding: clamp(28px, 3vw, 48px);
+}
+.hero-card__body {
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+  margin: 0 0 18px;
+}
+.hero-card__body:last-child { margin-bottom: 0; }
+@media (max-width: 640px) {
+  .hero-card {
+    width: 100%;
+    padding: 20px 22px;
+    background: rgba(0,0,0,0.32);
+  }
+  .hero-card__body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 12px;
+  }
+}
+
 :root {
   /* Brand */
   --mlg-red:        #b50034;
