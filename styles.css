@@ -2398,6 +2398,30 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   font-weight: 450;
 }
 
+/* Closing line that anchors the approach section after the challenges
+   carousel — bigger than body copy, centered, with a thin red rule
+   above. Same visual language as the .fol-pull pull-quote. */
+.approach-closing {
+  max-width: 820px;
+  margin: clamp(40px, 6vh, 72px) auto clamp(32px, 5vh, 56px);
+  text-align: center;
+  font-size: clamp(20px, 2.4vw, 28px);
+  line-height: 1.45;
+  color: rgba(255,255,255,0.92);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 0 24px;
+}
+.approach-closing strong { color: #fff; font-weight: 700; }
+.approach-closing::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: var(--mlg-red);
+  margin: 0 auto 24px;
+}
+
 .approach-intro__label {
   font-size: 12px;
   font-weight: 700;
