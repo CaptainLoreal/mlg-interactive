@@ -1218,6 +1218,11 @@
       }
     });
     function burstMark() {
+      // The single-click flyMark uses Web Animations API with fill:'both',
+      // so its final transform stays applied and would override our CSS
+      // burst. Cancel any in-flight WAAPI animations on the mark first.
+      mark.getAnimations({ subtree: true }).forEach((a) => a.cancel());
+      delete mark.dataset.flying;
       // Each triangle gets its own random burst direction + rotation
       paths.forEach((p, i) => {
         const dirs = [
