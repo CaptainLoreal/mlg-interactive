@@ -4166,6 +4166,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .chip[data-client="giesecke-devrient"] .chip__logo { width: 140px; height: 36px; object-fit: contain; }
 .chip[data-client="aqseptence"] { width: 160px; }
 .chip[data-client="aqseptence"] .chip__logo { width: 140px; height: 32px; object-fit: contain; }
+.chip[data-client="weidmueller"] { width: 160px; }
+.chip[data-client="weidmueller"] .chip__logo { width: 140px; height: 36px; object-fit: contain; }
 
 /* Fade chips on the back of the sphere — set via JS opacity per frame */
 
