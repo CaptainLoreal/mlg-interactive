@@ -926,6 +926,17 @@ button { font-family: inherit; cursor: pointer; }
   opacity: 1;
   transform: rotate(0deg) scale(1);
 }
+/* When the mobile nav is open, the dark backdrop sits underneath the
+   topbar. Force the burger (and any other topbar text/icons) to white
+   so the close-X stays visible — otherwise on the intro/dark-hero
+   state where topbar colour is black, the icons disappear against
+   the near-black overlay. */
+.burger.is-open { color: rgba(255,255,255,0.92) !important; }
+body.has-mobile-nav-open .topbar .slide-nav__btn,
+body.has-mobile-nav-open .topbar .lang-switch__btn,
+body.has-mobile-nav-open .topbar .topbar__tagline {
+  color: rgba(255,255,255,0.92) !important;
+}
 
 /* Mobile nav drawer */
 .mobile-nav {

@@ -731,6 +731,7 @@
       burgerBtn.setAttribute('aria-expanded', 'true');
       mobileNav.classList.add('is-open');
       mobileNav.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('has-mobile-nav-open');
       document.body.style.overflow = 'hidden';
     }
     function closeMobileNav() {
@@ -738,6 +739,7 @@
       burgerBtn.setAttribute('aria-expanded', 'false');
       mobileNav.classList.remove('is-open');
       mobileNav.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('has-mobile-nav-open');
       document.body.style.overflow = '';
     }
     burgerBtn.addEventListener('click', () => {
