@@ -3852,16 +3852,18 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding: 0;
   max-width: none;
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 .slide__copy--side .display {
-  margin: 0 auto;
+  margin: 0;
   width: 100%;
-  text-align: center;
-  /* Each .display__line span is on its own line and centered. */
+  text-align: left;
 }
-.slide__copy--side .display .display__line { text-align: center; }
-.slide__copy--side .eyebrow { margin-left: auto; margin-right: auto; }
+.slide__copy--side .display .display__line { text-align: left; }
+.slide__copy--side .eyebrow {
+  margin-left: 0;
+  margin-right: auto;
+}
 
 .globe-wrap {
   position: relative;
