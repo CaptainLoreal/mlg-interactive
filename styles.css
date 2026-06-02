@@ -4543,7 +4543,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
        no huge empty area below the text. */
     inset: auto 24px 32px 24px !important;
     height: auto !important;
-    align-items: center;
+    align-items: stretch;       /* children fill the card width */
     justify-content: flex-start;
     padding: 22px 20px !important;
     gap: 12px;
@@ -4559,7 +4559,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   /* Centre the pill */
   .approach-hero__copy > .eyebrow { align-self: center; }
   .approach-hero__copy .display,
-  .approach-hero__copy .approach-intro__body { text-align: center !important; }
+  .approach-hero__copy .approach-intro__body {
+    text-align: center !important;
+    width: 100%;
+    max-width: 100%;
+  }
   .excuses__hint {
     font-size: clamp(13px, 3.6vw, 18px);
   }
