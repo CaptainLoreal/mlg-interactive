@@ -872,63 +872,63 @@
      Globe of clients
      ===================================================== */
   const CLIENTS = [
-    { name: 'Microsoft',       logo: 'microsoft.png',      meta: 'If you are looking for ambitious, future-oriented leadership experts who understand your market, your culture and your leaders, contact MLG. We can highly recommend MLG as a partner of choice!' },
-    { name: 'BMW Group',       logo: 'bmw.png',            meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Munich Re',       logo: 'munich-re.png',      meta: 'We collaborate with the MLG on different leadership projects and cultural initiatives. They deliver excellent work! MLG enjoys a great reputation at Munich RE.' },
-    { name: 'Bayer',           logo: 'bayer.png',          meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Hannover Re',     logo: 'hannover-re.png',    meta: 'For our Top Leadership Program, MLG is our partner of choice. The collaboration with the experts from MLG is amazing — they definitely go the extra mile!' },
-    { name: 'Strabag',         logo: 'strabag.png',        meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'BCG',             logo: 'bcg.png',            meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Knorr-Bremse',   logo: 'knorr-bremse.png',   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'KUKA',            logo: 'kuka.png',           meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'ADAC',            logo: 'adac.png',           meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Montblanc',       logo: 'montblanc.png',      meta: 'MLG supported our ExCo to discover and align on the most relevant future leadership topics. Together with MLG, we fostered discussions on these topics on all leadership levels within Montblanc. We co-designed and deployed a process that ignited curiosity and movement within Montblanc. I can highly recommend working with MLG.' },
-    { name: 'FC Bayern',       logo: 'fc-bayern.png',      meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Isar Aerospace',  logo: 'isar-aerospace.png', meta: 'We are a fast growing company in a very dynamic, future-oriented market environment. We need speed, innovative ideas and directly applicable leadership concepts — MLG is our partner of choice.' },
-    { name: 'Rohde & Schwarz', logo: 'rohde-schwarz.png',  meta: 'MLG trains our talents in Singapore and Germany to become ready for new leadership roles as soon as possible. While the participants celebrate the facilitators and the great learning atmosphere, the performance improvements are remarkable.' },
-    { name: 'Osram',           logo: 'osram.png',          meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Walt Disney',     logo: 'walt-disney.png',    meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Villeroy & Boch', logo: 'villeroy-boch.png',  meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Wella',           logo: 'wella.png',          meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Bilfinger',       logo: 'bilfinger.png',      meta: 'We are collaborating on top level with the MLG coaches — where the individual sessions are labelled as "sparring" rather than coaching. Our top executives love this approach. The sparring process situationally includes technical experts from the vast MLG network. The feedback is excellent.' },
-    { name: 'TÜV Rheinland',   logo: 'tuev-rheinland.png', meta: 'Together with MLG, we designed and delivered an innovative Learning Journey over two years for our more than 100 global Top Executives. This journey is a true game changer for our culture and adds significantly to our overall performance.' },
-    { name: 'Deutsche Bahn',   logo: 'deutsche-bahn.png',  meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Schaeffler',      logo: 'schaeffler.png',     meta: 'Continuous change is one of our most challenging topics. MLG helps us to translate our mutual ideas into practical programmes which are really "hands-on" and create value for the global leaders and their teams in our factories.' },
-    { name: 'Thyssenkrupp',    logo: 'thyssenkrupp.png',   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Nestlé',          logo: 'nestle.png',         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'UniCredit',       logo: 'unicredit.png',      meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Freudenberg',     logo: 'freudenberg.png',    meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Kion Group',      logo: 'kion.png',           meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Körber',          logo: 'koerber.png',        meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Siemens Advanta', logo: 'siemens-advanta.png',meta: 'MLG is flexible, creative, and highly customer oriented. They have extensive leadership knowledge and experience, and they know how to apply this in a pragmatic, creative and memorable setting for participants. The personal collaboration is not only successful, but also fun!' },
-    { name: 'Harman',          logo: 'harman.png',         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Fraunhofer',      logo: 'fraunhofer.png',     meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'DIHK',            logo: 'dihk.png',           meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'DVAG',            logo: 'dvag.png',           meta: 'We are in a complex, vibrant business. I can highly recommend working with MLG in all facets of leadership development and transformation. The MLG experts understand our culture and the business we are in — and based on this, they customize successful measures for fostering our leadership performance.' },
-    { name: 'HDI',             logo: 'hdi.png',            meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Hexagon',         logo: 'hexagon.png',        meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Exyte',           logo: 'exyte.png',          meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'BCG Platinion',   logo: 'bcg-platinion.png',  meta: 'Team development on top level is a skill that characterizes the work of the MLG experts. With a unique sense for individual strengths, they are helping to orchestrate the collaboration of leadership teams in a most successful way. Giving candid eye-opening feedback, speaking the truth — MLG works efficiently and straightforward.' },
-    { name: 'Sauber',          logo: 'sauber.png',         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'BayWa',           logo: 'baywa.png',          meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Knauf',           logo: 'knauf.png',          meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Deutz',           logo: 'deutz.png',          meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Vivawest',        logo: 'vivawest.svg',       meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Weidmüller',      logo: 'weidmueller.png',    meta: 'MLG helped us to focus and further develop the professional collaboration on top level. The toolset, the customization and the expertise of the MLG professionals let us remarkably grow our self-awareness.' },
-    { name: 'Züblin',          logo: 'zueblin.png',        meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Ingenics',        logo: 'ingenics.png',       meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Giesecke+Devrient', logo: 'giesecke-devrient.png', meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Aqseptence',      logo: 'aqseptence.png',     meta: 'The experts of the Munich Leadership Group have been supporting us for years in the consistent further development of our corporate culture. Trainings and workshops are optimally addressed to the respective target group, whether at the factory or at any management level. We have very much benefited from working with the MLG.' },
-    { name: 'Eagle Burgmann',  logo: 'eagle-burgmann.png', meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Reply',           logo: 'reply.png',          meta: 'The Munich Leadership Group supports us with a tailor-made leadership program that is in place since many years now and is continuously adapted to the new challenges in our vibrant environment. We can highly recommend working with the MLG experts.' },
-    { name: 'RSM',             logo: 'rsm.png',            meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Golding Capital', logo: 'golding-capital.png',meta: 'MLG helped us gain deep insights into the strengths and particular characteristics of our leadership team. The combination of psychometric tools, the technical expertise of the MLG experts and their facilitation of team workshops is unique and creates great value.' },
-    { name: 'Natuvion',        logo: 'natuvion.png',       meta: 'The Munich Leadership Group supports us with a tailor-made leadership program and, above all, contributes to transformation and cultural development through conceptual strength, innovative approaches and top facilitators.' },
-    { name: 'Trivium',         logo: 'trivium.png',        meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'TÜV Süd',        logo: 'tuev-sued.png',      meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Käfer',           logo: 'kaefer.png',         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'Hülskens',        logo: 'huelskens.png',      meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'SSG',             logo: 'ssg.png',            meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Microsoft',        logo: 'microsoft.png',           services: ['Leadership Development', 'Team Development', 'Coaching'],                                          meta: 'If you are looking for ambitious, future-oriented leadership experts who understand your market, your culture and your leaders, contact MLG. We can highly recommend MLG as a partner of choice!' },
+    { name: 'BMW Group',        logo: 'bmw.png',                 services: ['Leadership Development', 'Coaching', 'Team Development', 'Key Notes'],                           meta: 'We collaborate with the MLG on different leadership projects and cultural initiatives. They deliver excellent work! MLG enjoys a great reputation at Munich RE.' },
+    { name: 'Munich Re',        logo: 'munich-re.png',           services: ['Team Development', 'Team Workshops on Diagnostics'],                                             meta: 'We collaborate with the MLG on different leadership projects and cultural initiatives. They deliver excellent work! MLG enjoys a great reputation at Munich RE.' },
+    { name: 'Bayer',            logo: 'bayer.png',               services: ['Leadership Development', 'Management Days', 'Coaching', 'Team Development', 'Key Notes'],        meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Hannover Re',      logo: 'hannover-re.png',         services: ['Leadership Development', 'Coaching'],                                                             meta: 'For our Top Leadership Program, MLG is our partner of choice. The collaboration with the experts from MLG is amazing — they definitely go the extra mile!' },
+    { name: 'Strabag',          logo: 'strabag.png',             services: ['Leadership Development', 'Team Development', 'Coaching'],                                         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'BCG',              logo: 'bcg.png',                 services: ['Leadership Development', 'Coaching'],                                                             meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Knorr-Bremse',    logo: 'knorr-bremse.png',        services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'KUKA',             logo: 'kuka.png',                services: ['Leadership Development', 'Team Development', 'Coaching'],                                         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'ADAC',             logo: 'adac.png',                services: ['Workshops', 'Leadership Development'],                                                            meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Montblanc',        logo: 'montblanc.png',           services: ['Cultural Transformation', 'Leadership Development', 'Team Development', 'Coaching'],             meta: 'MLG supported our ExCo to discover and align on the most relevant future leadership topics. Together with MLG, we fostered discussions on these topics on all leadership levels within Montblanc. We co-designed and deployed a process that ignited curiosity and movement within Montblanc. I can highly recommend working with MLG.' },
+    { name: 'FC Bayern',        logo: 'fc-bayern.png',           services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Isar Aerospace',   logo: 'isar-aerospace.png',      services: ['Team Development', 'Coaching'],                                                                   meta: 'We are a fast growing company in a very dynamic, future-oriented market environment. We need speed, innovative ideas and directly applicable leadership concepts — MLG is our partner of choice.' },
+    { name: 'Rohde & Schwarz',  logo: 'rohde-schwarz.png',       services: ['Leadership Development', 'Team Development', 'Coaching'],                                         meta: 'MLG trains our talents in Singapore and Germany to become ready for new leadership roles as soon as possible. While the participants celebrate the facilitators and the great learning atmosphere, the performance improvements are remarkable.' },
+    { name: 'Osram',            logo: 'osram.png',               services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Walt Disney',      logo: 'walt-disney.png',         services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Villeroy & Boch',  logo: 'villeroy-boch.png',       services: ['Management Audits', 'Coaching', 'Team Development'],                                             meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Wella',            logo: 'wella.png',               services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Bilfinger',        logo: 'bilfinger.png',           services: ['Leadership Development', 'Coaching', 'Team Development', 'Management Audits'],                   meta: 'We are collaborating on top level with the MLG coaches — where the individual sessions are labelled as "sparring" rather than coaching. Our top executives love this approach. The sparring process situationally includes technical experts from the vast MLG network. The feedback is excellent.' },
+    { name: 'TÜV Rheinland',    logo: 'tuev-rheinland.png',      services: ['Leadership Development', 'Coaching'],                                                             meta: 'Together with MLG, we designed and delivered an innovative Learning Journey over two years for our more than 100 global Top Executives. This journey is a true game changer for our culture and adds significantly to our overall performance.' },
+    { name: 'Deutsche Bahn',    logo: 'deutsche-bahn.png',       services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Schaeffler',       logo: 'schaeffler.png',          services: ['Leadership Development', 'Coaching'],                                                             meta: 'Continuous change is one of our most challenging topics. MLG helps us to translate our mutual ideas into practical programmes which are really "hands-on" and create value for the global leaders and their teams in our factories.' },
+    { name: 'Thyssenkrupp',     logo: 'thyssenkrupp.png',        services: [],                                                                                                 meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Nestlé',           logo: 'nestle.png',              services: ['Key Notes'],                                                                                      meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'UniCredit',        logo: 'unicredit.png',           services: ['Coaching'],                                                                                       meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Freudenberg',      logo: 'freudenberg.png',         services: ['Team Development', 'Coaching', 'Leadership Development'],                                         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Kion Group',       logo: 'kion.png',                services: ['Leadership Development'],                                                                         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Körber',           logo: 'koerber.png',             services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Siemens Advanta',  logo: 'siemens-advanta.png',     services: ['Leadership Development', 'Team Development', 'Coaching'],                                         meta: 'MLG is flexible, creative, and highly customer oriented. They have extensive leadership knowledge and experience, and they know how to apply this in a pragmatic, creative and memorable setting for participants. The personal collaboration is not only successful, but also fun!' },
+    { name: 'Harman',           logo: 'harman.png',              services: ['Key Notes'],                                                                                      meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Fraunhofer',       logo: 'fraunhofer.png',          services: ['Team Development', 'Start-up Booster'],                                                          meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'DIHK',             logo: 'dihk.png',                services: ['Leadership Development'],                                                                         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'DVAG',             logo: 'dvag.png',                services: ['Leadership Development', 'Key Notes'],                                                            meta: 'We are in a complex, vibrant business. I can highly recommend working with MLG in all facets of leadership development and transformation. The MLG experts understand our culture and the business we are in — and based on this, they customize successful measures for fostering our leadership performance.' },
+    { name: 'HDI',              logo: 'hdi.png',                 services: ['Leadership Development', 'Team Development'],                                                     meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Hexagon',          logo: 'hexagon.png',             services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Exyte',            logo: 'exyte.png',               services: ['Key Notes', 'Management Days', 'Leadership Development'],                                        meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'BCG Platinion',    logo: 'bcg-platinion.png',       services: ['Team Development', 'Coaching'],                                                                   meta: 'Team development on top level is a skill that characterizes the work of the MLG experts. With a unique sense for individual strengths, they are helping to orchestrate the collaboration of leadership teams in a most successful way. Giving candid eye-opening feedback, speaking the truth — MLG works efficiently and straightforward.' },
+    { name: 'Sauber',           logo: 'sauber.png',              services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'BayWa',            logo: 'baywa.png',               services: ['Leadership Development'],                                                                         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Knauf',            logo: 'knauf.png',               services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Deutz',            logo: 'deutz.png',               services: ['Key Notes'],                                                                                      meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Vivawest',         logo: 'vivawest.svg',            services: ['Cultural Transformation', 'Leadership Development', 'Team Development', 'Coaching'],             meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Weidmüller',       logo: 'weidmueller.png',         services: ['Management Audits', 'Coaching', 'Team Development'],                                             meta: 'MLG helped us to focus and further develop the professional collaboration on top level. The toolset, the customization and the expertise of the MLG professionals let us remarkably grow our self-awareness.' },
+    { name: 'Züblin',           logo: 'zueblin.png',             services: ['Leadership Development', 'Team Development', 'Coaching'],                                         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Ingenics',         logo: 'ingenics.png',            services: ['Leadership Development', 'Coaching'],                                                             meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Giesecke+Devrient',logo: 'giesecke-devrient.png',  services: ['Coaching'],                                                                                       meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Aqseptence',       logo: 'aqseptence.png',          services: ['Key Notes', 'Leadership Development'],                                                            meta: 'The experts of the Munich Leadership Group have been supporting us for years in the consistent further development of our corporate culture. Trainings and workshops are optimally addressed to the respective target group, whether at the factory or at any management level. We have very much benefited from working with the MLG.' },
+    { name: 'Eagle Burgmann',   logo: 'eagle-burgmann.png',      services: ['Leadership Development', 'Coaching'],                                                             meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Reply',            logo: 'reply.png',               services: ['Leadership Development', 'Team Development', 'Coaching'],                                         meta: 'The Munich Leadership Group supports us with a tailor-made leadership program that is in place since many years now and is continuously adapted to the new challenges in our vibrant environment. We can highly recommend working with the MLG experts.' },
+    { name: 'RSM',              logo: 'rsm.png',                 services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Golding Capital',  logo: 'golding-capital.png',     services: ['Management Audits', 'Team Development', 'Coaching'],                                             meta: 'MLG helped us gain deep insights into the strengths and particular characteristics of our leadership team. The combination of psychometric tools, the technical expertise of the MLG experts and their facilitation of team workshops is unique and creates great value.' },
+    { name: 'Natuvion',         logo: 'natuvion.png',            services: ['Leadership Development', 'Coaching'],                                                             meta: 'The Munich Leadership Group supports us with a tailor-made leadership program and, above all, contributes to transformation and cultural development through conceptual strength, innovative approaches and top facilitators.' },
+    { name: 'Trivium',          logo: 'trivium.png',             services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'TÜV Süd',         logo: 'tuev-sued.png',           services: ['Leadership Development', 'Coaching'],                                                             meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Käfer',            logo: 'kaefer.png',              services: ['Leadership Development', 'Team Development', 'Coaching', 'Management Days'],                     meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'Hülskens',         logo: 'huelskens.png',           services: ['Management Days', 'Management Audits', 'Coaching'],                                              meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { name: 'SSG',              logo: 'ssg.png',                 services: [],                                                                                                 meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
   ];
 
   const globeEl    = $('#globe');
@@ -991,11 +991,27 @@
     const card = document.getElementById('globeCard');
     cardName.textContent = c.name;
     cardMeta.textContent = c.meta;
+    // Service tags
+    const svcEl = document.getElementById('globeCardServices');
+    if (svcEl) {
+      svcEl.innerHTML = '';
+      const svcs = c.services || [];
+      if (svcs.length) {
+        svcs.forEach((s) => {
+          const tag = document.createElement('span');
+          tag.className = 'globe-card__service-tag';
+          tag.textContent = s;
+          svcEl.appendChild(tag);
+        });
+        svcEl.hidden = false;
+      } else {
+        svcEl.hidden = true;
+      }
+    }
     const more = document.getElementById('globeCardMore');
     if (more) more.hidden = false;
     if (card) {
       card.classList.remove('is-updating');
-      // Force reflow so the animation re-triggers on every selection
       void card.offsetWidth;
       card.classList.add('is-updating');
     }
@@ -1248,39 +1264,28 @@
       }
     });
     function burstMark() {
-      // Cancel any in-flight WAAPI animations from the single-click
-      // flyMark — its fill:'both' would otherwise pin the paths back to
-      // origin and mask the burst.
+      // Cancel any in-flight WAAPI animations (e.g. from flyMark with
+      // fill:'both') so they don't fight the CSS burst animation below.
       mark.getAnimations({ subtree: true }).forEach((a) => a.cancel());
       delete mark.dataset.flying;
-      // Drive the burst with WAAPI too — same API as flyMark, so the
-      // two can never fight, and the final keyframe restores the paths
-      // cleanly without leaving fill effects behind (fill: 'forwards'
-      // is fine because the last keyframe IS the original state).
-      const DUR = 2100;
-      const dirsTable = [
-        // small one — left/up
+      // CSS class approach is more reliable on SVG elements across browsers.
+      // Set per-path burst directions as CSS custom properties, then toggle
+      // the .mark-burst class to restart the @keyframes markBurst animation.
+      const dirs = [
         { x: -180 + (Math.random() * -120), y: -100 + (Math.random() * -100) },
-        // medium — right/up
-        { x: 100 + Math.random() * 140,     y: -160 + (Math.random() * -80)  },
-        // big red — straight down
-        { x: -40 + (Math.random() * 80),    y: 140 + Math.random() * 80      },
+        { x:  100 + Math.random() * 140,    y: -160 + (Math.random() * -80)  },
+        { x:  -40 + (Math.random() * 80),   y:  140 + Math.random() * 80     },
       ];
       paths.forEach((p, i) => {
-        const d = dirsTable[i] || dirsTable[0];
-        const rot = (Math.random() * 720 - 360);
-        const flyT = `translate(${d.x}px, ${d.y}px) rotate(${rot}deg) scale(1.1)`;
-        p.animate(
-          [
-            { transform: 'translate(0, 0) rotate(0deg) scale(1)',   opacity: 1, offset: 0    },
-            { transform: 'translate(0, 0) rotate(-15deg) scale(1.2)', opacity: 1, offset: 0.10 },
-            { transform: flyT, opacity: 1, offset: 0.55 },
-            { transform: flyT, opacity: 0, offset: 0.72 },
-            { transform: 'translate(0, 0) rotate(0deg) scale(1)',   opacity: 0, offset: 0.73 },
-            { transform: 'translate(0, 0) rotate(0deg) scale(1)',   opacity: 1, offset: 1    },
-          ],
-          { duration: DUR, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }
-        );
+        const d = dirs[i] || dirs[0];
+        const rot = (Math.random() * 720 - 360) + 'deg';
+        p.style.setProperty('--burst-x', d.x + 'px');
+        p.style.setProperty('--burst-y', d.y + 'px');
+        p.style.setProperty('--burst-rot', rot);
+        p.classList.remove('mark-burst');
+        void p.offsetWidth;  // force reflow so animation restarts
+        p.classList.add('mark-burst');
+        setTimeout(() => p.classList.remove('mark-burst'), 2200);
       });
     }
   })();
@@ -1667,6 +1672,7 @@
   }
 
   /* ── Event delegation ── */
+  let _advanceTimer = null;
   form.addEventListener('click', (e) => {
     // Choice button
     const choice = e.target.closest('.tf__choice');
@@ -1674,7 +1680,10 @@
       const step = choice.closest('.tf__step');
       step.querySelectorAll('.tf__choice').forEach(c => c.classList.remove('is-selected'));
       choice.classList.add('is-selected');
-      setTimeout(advance, 280);  // brief pause so user sees the selection
+      // Debounce: cancel any pending advance so rapid clicks on different
+      // steps can't queue multiple advances and skip over steps.
+      clearTimeout(_advanceTimer);
+      _advanceTimer = setTimeout(() => { _advanceTimer = null; advance(); }, 300);
       return;
     }
     // Action buttons

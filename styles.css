@@ -4067,6 +4067,27 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding-left: 12px;
 }
 
+/* Service tags — shown inside the globe card when a client is selected */
+.globe-card__services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+}
+.globe-card__services[hidden] { display: none; }
+.globe-card__service-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.90);
+  background: rgba(181,0,52,0.22);
+  border: 1px solid rgba(181,0,52,0.45);
+  border-radius: 999px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+
 .globe-card__more {
   display: inline-flex;
   align-items: center;
@@ -4236,18 +4257,17 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   .globe-wrap { overflow: visible !important; }
 
   /* Hero slide — fits in one viewport so the header leaves together with
-     the Tailor form on the next slide. Layout: headline at the bottom of
-     the hero image, glass card hidden on mobile (text moved into the
-     header group instead via desktop card content). */
+     the Tailor form on the next slide. Layout: headline + card sit at the
+     bottom of the hero image on mobile. */
   .slide[data-title="Welcome"] .slide__copy {
     position: absolute !important;
     inset: 0 !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    justify-content: center !important;
+    justify-content: flex-end !important;
     max-width: none !important;
     width: 100% !important;
-    padding: clamp(72px, 10vh, 110px) var(--pad-x) clamp(32px, 6vh, 64px) !important;
+    padding: clamp(56px, 8vh, 90px) var(--pad-x) clamp(40px, 7vh, 72px) !important;
     gap: 14px !important;
   }
   /* Headline group: left-aligned, pill at natural width */
@@ -4935,9 +4955,9 @@ p, li { font-size: inherit; }
   padding: 0;
   margin: 0 0 clamp(28px, 4vh, 48px) 0;
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--mlg-red);
   text-align: left;

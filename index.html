@@ -8,7 +8,7 @@
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
   <!-- Preload hero image so it lands in the first paint (LCP) -->
   <link rel="preload" as="image" href="assets/photos/red-10.webp" fetchpriority="high" />
-  <link rel="stylesheet" href="styles.css?v=370" />
+  <link rel="stylesheet" href="styles.css?v=371" />
   <script>if(/#slide=/.test(location.hash)){document.documentElement.classList.add('skip-intro');}</script>
 </head>
 <body>
@@ -253,6 +253,7 @@
             <div class="globe-card" id="globeCard" aria-live="polite">
               <h3 class="globe-card__name" id="globeCardName">—</h3>
               <p class="globe-card__meta" id="globeCardMeta">Spin the globe and tap a logo.</p>
+              <div class="globe-card__services" id="globeCardServices" hidden></div>
             </div>
 
           </div>
@@ -363,7 +364,7 @@
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"Together with MLG, we designed and delivered an innovative Learning Journey over 2 years for our more than 100 global Top Executives, including Board Members. All aspects — the modules, the coachings, the Learning Partnerships, the venues on different continents — all customized by MLG. The results exceeded our expectations. A true game changer for our culture."</blockquote>
-                <footer class="testimonial__footer">CHRO — <strong>TÜV Rheinland</strong></footer>
+                <footer class="testimonial__footer"><strong>TÜV Rheinland</strong></footer>
               </div>
 
               <div class="testimonial">
@@ -383,7 +384,7 @@
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"MLG helped us to focus and further develop the professional collaboration within our Board. Based on an individual one-day audit of each of us, using advanced psychometrics and neuroscience, we learned about our individual and collective strengths. With the support of the MLG experts, we entered a new level of professionalism."</blockquote>
-                <footer class="testimonial__footer">CSO — <strong>Weidmüller</strong></footer>
+                <footer class="testimonial__footer"><strong>Weidmüller</strong></footer>
               </div>
 
               <div class="testimonial">
@@ -393,7 +394,7 @@
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"MLG trains our talents in Singapore and Germany to become ready for new leadership roles as soon as possible. While the participants celebrate the facilitators and the great learning atmosphere, the performance improvements are remarkable."</blockquote>
-                <footer class="testimonial__footer">MD Asia — <strong>Rohde &amp; Schwarz</strong></footer>
+                <footer class="testimonial__footer"><strong>Rohde &amp; Schwarz</strong></footer>
               </div>
 
               <div class="testimonial">
@@ -403,7 +404,7 @@
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"MLG supported our ExCo to discover and align on the most relevant future leadership topics. Together with MLG, we fostered discussions on communication, collaboration and customer obsession on all leadership levels within Montblanc. We co-designed a process that ignited curiosity and movement. I can highly recommend working with MLG."</blockquote>
-                <footer class="testimonial__footer">CHRO — <strong>Montblanc</strong></footer>
+                <footer class="testimonial__footer"><strong>Montblanc</strong></footer>
               </div>
 
               <div class="testimonial">
@@ -413,12 +414,12 @@
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"The experts of the Munich Leadership Group have been supporting us for years in the consistent further development of our corporate culture. I have been impressed by their ability to immerse themselves in the given culture first, to understand it, and only then to develop the appropriate measures together with us."</blockquote>
-                <footer class="testimonial__footer">CEO — <strong>Aqseptance</strong></footer>
+                <footer class="testimonial__footer"><strong>Aqseptance</strong></footer>
               </div>
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"The Munich Leadership Group is a highly skilled and boutique international consultancy firm operating with an outstanding professional network. In highly dynamic environments, MLG experts help to develop and engage winning teams — and enable them to perform at their very best."</blockquote>
-                <footer class="testimonial__footer">CEO — <strong>SwissSteel</strong></footer>
+                <footer class="testimonial__footer"><strong>SwissSteel</strong></footer>
               </div>
 
               <div class="testimonial">
@@ -433,12 +434,12 @@
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"We are in a complex, vibrant business. I can highly recommend working with MLG in all facets of leadership development and transformation. The MLG experts fully understand our culture and the business we are in — and based on this, they customize all successful measures for fostering our leadership performance."</blockquote>
-                <footer class="testimonial__footer">HR — <strong>DVAG</strong></footer>
+                <footer class="testimonial__footer"><strong>DVAG</strong></footer>
               </div>
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"MLG helped us to gain deep insights into the strengths and particular characteristics of our leadership team. The combination of psychometric tools, the technical expertise of the MLG experts and their facilitation of team workshops is unique and creates great value."</blockquote>
-                <footer class="testimonial__footer">CEO — <strong>Golding Capital</strong></footer>
+                <footer class="testimonial__footer"><strong>Golding Capital</strong></footer>
               </div>
 
               <div class="testimonial">
@@ -448,7 +449,7 @@
 
               <div class="testimonial">
                 <blockquote class="testimonial__quote">"The Munich Leadership Group is one of the very few global consultancies to combine deep leadership knowledge and experience with fresh and pragmatic approaches to innovation — particularly in Silicon Valley, where they are part of one of the world's innovation hotspots. Our collaboration with MLG is fruitful and inspiring."</blockquote>
-                <footer class="testimonial__footer">Director — <strong>Max-Planck-Institute for Innovation and Competition</strong></footer>
+                <footer class="testimonial__footer"><strong>Max-Planck-Institute for Innovation and Competition</strong></footer>
               </div>
 
           </div><!-- /.testimonials-carousel -->
@@ -814,8 +815,7 @@
           </div>
 
           <div class="contact-block__phone-row contact-block__phone-row--standalone">
-            <p class="contact-block__label">Or contact us directly</p>
-            <a class="contact-block__phone" href="mailto:info@munichleadership.com">info@munichleadership.com</a>
+            <p class="contact-block__label">Or call us directly</p>
             <a class="contact-block__phone" href="tel:+49894131910">+49 89 413 191 0</a>
           </div>
           </div><!-- /.contact-body -->
@@ -837,7 +837,7 @@
 
   </main>
 
-  <script src="app.js?v=213" defer></script>
+  <script src="app.js?v=214" defer></script>
   <script>
     (function () {
       var topbar = document.querySelector('.topbar');
