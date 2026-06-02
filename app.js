@@ -1662,6 +1662,7 @@
         }
         // Hide the deck while the browser starts loading the next page —
         // a blank black screen is preferable to a flash of the wrong slide.
+        // pageshow handler below restores both when the visitor comes back.
         document.documentElement.style.background = '#000';
         const deck = document.getElementById('deck');
         if (deck) deck.style.visibility = 'hidden';
@@ -1676,6 +1677,16 @@
     if (delay > 0) setTimeout(fire, delay);
     else fire();
   }
+  // bfcache restore: when the visitor uses the browser back button to
+  // return from a service page, the page is restored from cache with
+  // inline styles intact — including the visibility:hidden we set on
+  // the deck right before navigation. Clear them every pageshow so the
+  // hero image is visible again.
+  window.addEventListener('pageshow', () => {
+    document.documentElement.style.background = '';
+    const deck = document.getElementById('deck');
+    if (deck) deck.style.visibility = '';
+  });
 
   /* ── Submit ── At the end of the quick-access form, store answers,
      show the thank-you screen briefly, then route the visitor to the
