@@ -1218,27 +1218,39 @@
       }
     });
     function burstMark() {
-      // The single-click flyMark uses Web Animations API with fill:'both',
-      // so its final transform stays applied and would override our CSS
-      // burst. Cancel any in-flight WAAPI animations on the mark first.
+      // Cancel any in-flight WAAPI animations from the single-click
+      // flyMark — its fill:'both' would otherwise pin the paths back to
+      // origin and mask the burst.
       mark.getAnimations({ subtree: true }).forEach((a) => a.cancel());
       delete mark.dataset.flying;
-      // Each triangle gets its own random burst direction + rotation
+      // Drive the burst with WAAPI too — same API as flyMark, so the
+      // two can never fight, and the final keyframe restores the paths
+      // cleanly without leaving fill effects behind (fill: 'forwards'
+      // is fine because the last keyframe IS the original state).
+      const DUR = 2100;
+      const dirsTable = [
+        // small one — left/up
+        { x: -180 + (Math.random() * -120), y: -100 + (Math.random() * -100) },
+        // medium — right/up
+        { x: 100 + Math.random() * 140,     y: -160 + (Math.random() * -80)  },
+        // big red — straight down
+        { x: -40 + (Math.random() * 80),    y: 140 + Math.random() * 80      },
+      ];
       paths.forEach((p, i) => {
-        const dirs = [
-          { x: -180 + (Math.random() * -120), y: -100 + (Math.random() * -100) }, // small one — left/up
-          { x: 100 + Math.random() * 140,    y: -160 + (Math.random() * -80)  },  // medium — right/up
-          { x: -40 + (Math.random() * 80),   y: 140 + Math.random() * 80      },  // big red — straight down
-        ];
-        const d = dirs[i];
-        const rot = (Math.random() * 720 - 360) + 'deg';
-        p.style.setProperty('--burst-x', d.x + 'px');
-        p.style.setProperty('--burst-y', d.y + 'px');
-        p.style.setProperty('--burst-rot', rot);
-        p.classList.remove('mark-burst');
-        void p.offsetWidth;
-        p.classList.add('mark-burst');
-        setTimeout(() => p.classList.remove('mark-burst'), 2100);
+        const d = dirsTable[i] || dirsTable[0];
+        const rot = (Math.random() * 720 - 360);
+        const flyT = `translate(${d.x}px, ${d.y}px) rotate(${rot}deg) scale(1.1)`;
+        p.animate(
+          [
+            { transform: 'translate(0, 0) rotate(0deg) scale(1)',   opacity: 1, offset: 0    },
+            { transform: 'translate(0, 0) rotate(-15deg) scale(1.2)', opacity: 1, offset: 0.10 },
+            { transform: flyT, opacity: 1, offset: 0.55 },
+            { transform: flyT, opacity: 0, offset: 0.72 },
+            { transform: 'translate(0, 0) rotate(0deg) scale(1)',   opacity: 0, offset: 0.73 },
+            { transform: 'translate(0, 0) rotate(0deg) scale(1)',   opacity: 1, offset: 1    },
+          ],
+          { duration: DUR, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' }
+        );
       });
     }
   })();
