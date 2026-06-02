@@ -4086,8 +4086,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   display: none;
 }
 /* Before any selection: plain body-style hint text — no quote chrome,
-   no dim grey — reads like regular body copy. */
-.globe-card__meta--hint {
+   no dim grey — reads like regular body copy. Only shown when the
+   card is in its idle (no-client-selected) state. */
+.globe-card--idle .globe-card__meta--hint {
   display: block;
   font-family: var(--font-sans);
   font-size: 17px;
