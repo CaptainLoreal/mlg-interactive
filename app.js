@@ -635,7 +635,12 @@
   function scrollToSlide(idx) {
     if (idx < 0 || idx >= slides.length) return;
     const y = slides[idx].offsetTop;
-    scrollTarget = y;
+    // Snap both targets so the smooth-scroll lerp doesn't animate the
+    // deck through every intermediate slide. The transform is updated
+    // on the next tick using these values, and 'instant' on window.scrollTo
+    // keeps the native scroll position in sync without a smooth scroll.
+    scrollTarget  = y;
+    scrollCurrent = y;
     window.scrollTo({ top: y, behavior: 'instant' });
   }
   // Expose globally so other IIFEs (tailor form, etc.) can navigate slides
