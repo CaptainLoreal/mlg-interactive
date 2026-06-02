@@ -1074,7 +1074,16 @@
     function runCounters() {
       if (fired) return;
       fired = true;
-      counters.forEach((el) => animateOne(el, 1800, false));
+      /* On mobile the three numbers stack vertically, so firing them
+         simultaneously means the lower two count up off-screen. Stagger
+         their start so each comes in one after the other as the visitor
+         scrolls down. Desktop fires them together as before. */
+      const isMobile = window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
+      const stagger  = isMobile ? 900  : 0;
+      const duration = isMobile ? 1300 : 1800;
+      counters.forEach((el, i) => {
+        setTimeout(() => animateOne(el, duration, false), i * stagger);
+      });
     }
 
     /* Easter egg #7 — click a stat number to re-run with overshoot. */
