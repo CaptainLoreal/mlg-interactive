@@ -256,15 +256,23 @@
     "We give each other candid feedback",
   ];
   /* On phones the field is too small to fit all 12 chips comfortably —
-     drop the longest / lowest-priority ones so the rest can breathe. */
+     drop the longest / lowest-priority ones so the rest can breathe,
+     and shorten a couple more so they wrap better. */
   const EXCUSES_MOBILE_HIDE = new Set([
     "I am working in the best of all teams",
     "We are leaders and role models",
     "I am an authentic leader with natural authority",
     "We give each other candid feedback",
   ]);
-  const EXCUSES = (window.matchMedia && window.matchMedia('(max-width: 640px)').matches)
-    ? EXCUSES_ALL.filter((t) => !EXCUSES_MOBILE_HIDE.has(t))
+  const EXCUSES_MOBILE_REWRITE = {
+    "We are a winning team, curious and innovative": "We are a winning team",
+    "Our company culture fosters best performance": "Our culture fosters best performance",
+  };
+  const isMobileExcuse = window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
+  const EXCUSES = isMobileExcuse
+    ? EXCUSES_ALL
+        .filter((t) => !EXCUSES_MOBILE_HIDE.has(t))
+        .map((t) => EXCUSES_MOBILE_REWRITE[t] || t)
     : EXCUSES_ALL;
 
   let chipsState = [];
