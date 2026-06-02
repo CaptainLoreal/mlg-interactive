@@ -1699,13 +1699,14 @@
       const step = choice.closest('.tf__step');
       step.querySelectorAll('.tf__choice').forEach(c => c.classList.remove('is-selected'));
       choice.classList.add('is-selected');
-      // Short-circuit answers that don't need the company-size / company-type
-      // follow-ups (a former participant just wants to see the team). Record
-      // the profile and route immediately.
+      // Quick access = one click. As soon as the visitor picks an answer
+      // on the profile step (step 1), record it and route them straight
+      // to the matching slide / page. We deliberately skip the company-
+      // size and company-type follow-ups for this form — the destination
+      // doesn't depend on them.
       const value = choice.dataset.value;
       const isProfileStep = step.dataset.field === 'profile';
-      const SHORT_CIRCUIT = new Set(['alumnus']);
-      if (isProfileStep && SHORT_CIRCUIT.has(value)) {
+      if (isProfileStep) {
         clearTimeout(_advanceTimer);
         answers.profile = value;
         storeAnswers('tailor', answers);
