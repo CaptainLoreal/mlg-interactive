@@ -5458,3 +5458,30 @@ p, li { font-size: inherit; }
     margin: 0 !important;
   }
 }
+
+/* ── Mobile body-text size unification ──────────────────────────────
+   Match the Vision-page body size (17px) across every body-text block
+   on the main page so paragraphs read at a consistent rhythm on
+   phones. Pull-quotes (.approach-closing, .fol-pull) keep their
+   larger feature sizes. */
+@media (max-width: 640px) {
+  .approach-intro__body,
+  .approach-future__body,
+  .hero-card__body,
+  .card-item__body,
+  .network-strip__body,
+  .news-card__body,
+  .testimonials-wrap .testimonial__quote,
+  .ld-hero__lead,
+  .ld-intro p,
+  .ld-offering__body,
+  .slide[data-title="Welcome"] .slide__copy > div:last-child p,
+  .slide--approach-main .approach-cards-bg .challenge-box__body {
+    font-size: 17px !important;
+    line-height: 1.6 !important;
+  }
+  .slide--approach-main .approach-cards-bg .challenge-box__conclusion {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+  }
+}
