@@ -1523,6 +1523,17 @@
     if (el) setTimeout(() => el.focus(), 60);
   }
 
+  /* ── Reset form to its initial state ── */
+  function resetForm() {
+    Object.keys(answers).forEach((k) => delete answers[k]);
+    steps.forEach((s) => {
+      s.querySelectorAll('.tf__choice.is-selected').forEach((c) => c.classList.remove('is-selected'));
+      s.querySelectorAll('input, textarea').forEach((i) => { i.value = ''; });
+      s.classList.remove('is-shake');
+    });
+    showStep(0);
+  }
+
   /* ── Validation ── */
   function validate(step) {
     if (!step.dataset.required) return true;
@@ -1596,7 +1607,10 @@
     collect(step);
     storeAnswers('tailor', answers);
     showStep(DONE_IDX);
-    routeProfile(answers.profile, 1200);
+    const profile = answers.profile;
+    routeProfile(profile, 1200);
+    // Reset so a return visit shows step 0 (after the route fires).
+    setTimeout(resetForm, 1400);
   }
 
   /* ── Event delegation ── */
@@ -1617,10 +1631,11 @@
         if (value === 'general') {
           const clients = document.querySelector('.slide[data-title="Clients"]');
           if (clients && typeof window.__mlgScrollTo === 'function') {
-            // Find clients' index in the slide list to use the smooth scroller
             const allSlides = Array.from(document.querySelectorAll('.slide'));
             const idx = allSlides.indexOf(clients);
-            setTimeout(() => window.__mlgScrollTo(idx), 280);
+            setTimeout(() => { window.__mlgScrollTo(idx); resetForm(); }, 280);
+          } else {
+            setTimeout(resetForm, 320);
           }
           return;
         }
@@ -1628,6 +1643,10 @@
         answers.profile = value;
         storeAnswers('tailor', answers);
         routeProfile(value, 280);
+        // Reset form right after navigation so coming back lands on step 0.
+        // For same-page slide routes this matters immediately; for page
+        // navigations the page reload handles it but resetting is harmless.
+        setTimeout(resetForm, 320);
         return;
       }
       setTimeout(advance, 280);  // brief pause so user sees the selection
