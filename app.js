@@ -1699,6 +1699,21 @@
       const step = choice.closest('.tf__step');
       step.querySelectorAll('.tf__choice').forEach(c => c.classList.remove('is-selected'));
       choice.classList.add('is-selected');
+      // Short-circuit answers that don't need the company-size / company-type
+      // follow-ups (a former participant just wants to see the team). Record
+      // the profile and route immediately.
+      const value = choice.dataset.value;
+      const isProfileStep = step.dataset.field === 'profile';
+      const SHORT_CIRCUIT = new Set(['alumnus']);
+      if (isProfileStep && SHORT_CIRCUIT.has(value)) {
+        clearTimeout(_advanceTimer);
+        answers.profile = value;
+        storeAnswers('tailor', answers);
+        showStep(DONE_IDX);
+        routeProfile(value, 900);
+        setTimeout(resetForm, 1100);
+        return;
+      }
       // Debounce: cancel any pending advance so rapid clicks on different
       // steps can't queue multiple advances and skip over steps.
       clearTimeout(_advanceTimer);
