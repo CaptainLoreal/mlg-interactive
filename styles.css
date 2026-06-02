@@ -235,6 +235,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .intro.is-leaving {
   opacity: 0;
+  transform: scale(1.06);
   pointer-events: none;
 }
 
@@ -247,22 +248,12 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .intro__logo {
-  /* Larger than the slide-to-start track — the logo IS the moment. */
-  width: clamp(320px, 86vw, 520px);
+  /* Match the slide-to-start slider width */
+  width: clamp(260px, 78vw, 340px);
   height: auto;
   display: block;
   position: relative;
   z-index: 1;
-  transform-origin: 50% 50%;
-  transition: transform var(--dur-5) var(--ease-out);
-}
-
-/* When the visitor crosses into the deck, shrink the intro logo and
-   slide it toward the top-left corner where the topbar logo lives —
-   so it visually "goes small into the menu" instead of just fading
-   in place. */
-.intro.is-leaving .intro__logo {
-  transform: translate(calc(-50vw + clamp(20px, 6vw, 64px) + 60px), calc(-1 * (clamp(48px, 10vh, 120px) - 28px))) scale(0.18);
 }
 
 .intro__prompt {
