@@ -1699,24 +1699,10 @@
       const step = choice.closest('.tf__step');
       step.querySelectorAll('.tf__choice').forEach(c => c.classList.remove('is-selected'));
       choice.classList.add('is-selected');
-      // Quick access = one click. As soon as the visitor picks an answer
-      // on the profile step (step 1), record it and route them straight
-      // to the matching slide / page. We deliberately skip the company-
-      // size and company-type follow-ups for this form — the destination
-      // doesn't depend on them.
-      const value = choice.dataset.value;
-      const isProfileStep = step.dataset.field === 'profile';
-      if (isProfileStep) {
-        clearTimeout(_advanceTimer);
-        answers.profile = value;
-        storeAnswers('tailor', answers);
-        showStep(DONE_IDX);
-        routeProfile(value, 900);
-        setTimeout(resetForm, 1100);
-        return;
-      }
       // Debounce: cancel any pending advance so rapid clicks on different
       // steps can't queue multiple advances and skip over steps.
+      // The visitor walks through every question (profile → company size
+      // → company type) before submitForm fires the route.
       clearTimeout(_advanceTimer);
       _advanceTimer = setTimeout(() => { _advanceTimer = null; advance(); }, 300);
       return;
