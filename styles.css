@@ -3323,6 +3323,18 @@ button { font-family: inherit; cursor: pointer; }
 
 .tf__step--done .tf__num::before { color: var(--mlg-red); }
 
+/* Center the done-step content (heading, sub, num) so the thank-you
+   screen sits in the middle of the form column instead of hugging the
+   form's natural left edge. */
+.tf__step--done { text-align: center; }
+.tf__step--done .tf__num,
+.tf__step--done .tf__q,
+.tf__step--done .tf__sub {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 42ch;
+}
+
 /* Shake on validation failure */
 @keyframes tfShake {
   0%, 100% { transform: translateX(0); }
