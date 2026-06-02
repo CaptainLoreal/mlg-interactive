@@ -16,6 +16,37 @@
   font-display: swap;
 }
 
+/* Aptos Narrow — used site-wide for display + body. Self-hosted so we
+   don't fall back to system-ui on visitors' machines. */
+@font-face {
+  font-family: "Aptos Narrow";
+  src: url("assets/fonts/Aptos-Narrow.ttf") format("truetype");
+  font-weight: 100 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aptos Narrow";
+  src: url("assets/fonts/Aptos-Narrow-Italic.ttf") format("truetype");
+  font-weight: 100 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aptos Narrow";
+  src: url("assets/fonts/Aptos-Narrow-Bold.ttf") format("truetype");
+  font-weight: 600 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aptos Narrow";
+  src: url("assets/fonts/Aptos-Narrow-Bold-Italic.ttf") format("truetype");
+  font-weight: 600 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   /* Brand */
   --mlg-red:        #b50034;
