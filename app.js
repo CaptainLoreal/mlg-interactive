@@ -1037,7 +1037,7 @@
       const next     = !expanded;
       toggle.setAttribute('aria-expanded', String(next));
       details.hidden = !next;
-      if (label) label.textContent = next ? 'Show less' : 'Learn more';
+      if (label) label.textContent = next ? 'show less' : 'learn more';
     });
   })();
 
