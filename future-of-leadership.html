@@ -98,21 +98,35 @@
       max-width: 820px;
       margin: clamp(40px, 6vh, 72px) auto clamp(32px, 5vh, 56px);
       text-align: center;
-      font-size: clamp(20px, 2.4vw, 28px);
-      line-height: 1.45;
-      color: rgba(255,255,255,0.92);
+      font-size: clamp(22px, 2.6vw, 32px);
+      line-height: 1.4;
+      color: #fff;
       font-weight: 500;
+      font-style: italic;
       letter-spacing: -0.005em;
       padding: 0 24px;
+      quotes: "\201C" "\201D";
     }
     .fol-pull strong { color: #fff; font-weight: 700; }
     .fol-pull::before {
-      content: '';
-      display: block;
-      width: 48px;
-      height: 2px;
-      background: var(--mlg-red);
-      margin: 0 auto 24px;
+      content: open-quote;
+      display: inline;
+      color: var(--mlg-red);
+      font-size: 1.4em;
+      font-weight: 700;
+      line-height: 0;
+      margin-right: 4px;
+      vertical-align: -0.15em;
+    }
+    .fol-pull::after {
+      content: close-quote;
+      display: inline;
+      color: var(--mlg-red);
+      font-size: 1.4em;
+      font-weight: 700;
+      line-height: 0;
+      margin-left: 4px;
+      vertical-align: -0.15em;
     }
 
     /* Step blocks */
@@ -235,7 +249,7 @@
 
         <div class="fol-step">
           <p class="fol-step__label">Step two</p>
-          <p>In the new AI world, we will need leaders with an entirely new mindset and skillset. Can you imagine only 100 people running a company of that size? These chosen few will operate in a universe of unprecedented challenges. Performing under intense public scrutiny. Carrying extreme responsibility. Visionary by nature. Orchestrating hierarchy-free collaboration with razor-sharp decision-making. Armed with outstanding networking skills and a vast intellectual horizon. They will need to master the interdependence of business, politics, and society like no generation before them.</p>
+          <p>In the new AI world, we will need leaders with an entirely new mindset and skillset. Can you imagine only 100 people running a company like BMW? These chosen few will operate in a universe of unprecedented challenges. Performing under intense public scrutiny. Carrying extreme responsibility. Visionary by nature. Orchestrating hierarchy-free collaboration with razor-sharp decision-making. Armed with outstanding networking skills and a vast intellectual horizon. They will need to master the interdependence of business, politics, and society like no generation before them.</p>
         </div>
 
         <p class="fol-question">How many of the people in your company may have such qualification? When the number of people you entrust with power shrinks dramatically, selecting and developing the right ones becomes mission-critical.</p>

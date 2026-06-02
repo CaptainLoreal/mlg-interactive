@@ -235,6 +235,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .intro.is-leaving {
   opacity: 0;
+  transform: scale(1.06);
   pointer-events: none;
 }
 
@@ -247,34 +248,12 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .intro__logo {
-  /* Big hero logo — commands the start screen. */
-  width: clamp(320px, 88vw, 560px);
+  /* Match the slide-to-start slider width */
+  width: clamp(260px, 78vw, 340px);
   height: auto;
   display: block;
   position: relative;
   z-index: 1;
-  /* Transition fires when .intro.is-leaving is added */
-  transition: transform var(--dur-5) var(--ease-out);
-  transform-origin: 50% 50%;
-}
-
-/* When the visitor crosses into the deck, fly the logo to the topbar.
-   It translates from its centered position toward the top-left where the
-   topbar logo lives, and scales down to match the topbar logo's size.
-
-   Topbar logo:  height clamp(42–62px), left at --pad-x = clamp(20–64px).
-   Intro logo center Y ≈ padding-top + logo-height/2.
-   logo-height = logo-width × (118/303) ≈ logo-width × 0.39.
-   At 560px wide: 218px tall → center Y from top ≈ padding-top + 109px.
-   Target center Y (topbar): 12px + 62px/2 = 43px.
-   Scale: 62/218 ≈ 0.28 (topbar logo height / intro logo height). */
-.intro.is-leaving .intro__logo {
-  transform:
-    translate(
-      calc(-50vw + clamp(20px, 6vw, 64px) + 78px),
-      calc(-1 * (clamp(48px, 10vh, 120px) + 55px))
-    )
-    scale(0.28);
 }
 
 .intro__prompt {
@@ -724,8 +703,16 @@ button { font-family: inherit; cursor: pointer; }
 .topbar__logo-stack {
   position: relative;
   display: inline-block;
+  /* Default (past-hero or non-index pages) */
   height: clamp(42px, 6vw, 62px);
   flex-shrink: 0;
+  transition: height var(--dur-5) var(--ease-out);
+}
+/* On the index hero (before scrolling past the welcome slide), the
+   topbar logo blows up to dominate the screen. When the visitor scrolls
+   down past the hero, it smoothly shrinks back into the menu position. */
+.deck .topbar:not(.topbar--past-hero) .topbar__logo-stack {
+  height: clamp(120px, 18vw, 220px);
 }
 .topbar__logo-stack .topbar__logo-img {
   height: 100%;
@@ -4071,17 +4058,22 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   line-height: 1.1;
   margin: 0 0 20px;
 }
+/* Hide the empty name placeholder while no client is selected */
+.globe-card--idle .globe-card__name:empty { display: none; }
 .globe-card__meta {
   /* Hidden once a client is selected — only service tags show */
   display: none;
 }
-/* Before any selection: plain hint text, no quote chrome */
+/* Before any selection: plain body-style hint text — no quote chrome,
+   no dim grey — reads like regular body copy. */
 .globe-card__meta--hint {
   display: block;
-  font-size: 15px;
-  line-height: 1.5;
-  color: rgba(255,255,255,0.50);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.88);
   font-style: normal;
+  font-weight: 450;
   margin: 0;
   padding: 0;
   border: none;
