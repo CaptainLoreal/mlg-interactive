@@ -241,7 +241,7 @@
   /* =====================================================
      Excuses interstitial — drifting chips, pop to burst
      ===================================================== */
-  const EXCUSES = [
+  const EXCUSES_ALL = [
     "I am working in the best of all teams",
     "Our decisions are safe, sound, and fast",
     "We are attracting the smartest talents",
@@ -255,6 +255,17 @@
     "I am an authentic leader with natural authority",
     "We give each other candid feedback",
   ];
+  /* On phones the field is too small to fit all 12 chips comfortably —
+     drop the longest / lowest-priority ones so the rest can breathe. */
+  const EXCUSES_MOBILE_HIDE = new Set([
+    "I am working in the best of all teams",
+    "We are leaders and role models",
+    "I am an authentic leader with natural authority",
+    "We give each other candid feedback",
+  ]);
+  const EXCUSES = (window.matchMedia && window.matchMedia('(max-width: 640px)').matches)
+    ? EXCUSES_ALL.filter((t) => !EXCUSES_MOBILE_HIDE.has(t))
+    : EXCUSES_ALL;
 
   let chipsState = [];
   let chipsRAF = null;
