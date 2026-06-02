@@ -4031,31 +4031,22 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   margin: 0 0 20px;
 }
 .globe-card__meta {
-  position: relative;
-  font-size: 19px;
-  line-height: 1.6;
-  color: #fff;
-  font-style: italic;
-  margin: 0 0 14px;
-  max-width: none;
-  border-left: 2px solid var(--mlg-red);
-  padding: 2px 12px 2px 16px;
-  quotes: "\201C" "\201D";
+  /* Hidden once a client is selected — only service tags show */
+  display: none;
 }
-.globe-card__meta::before {
-  content: open-quote;
-  margin-right: 2px;
-  color: var(--mlg-red);
-  font-size: 1.1em;
-  font-weight: 600;
+/* Before any selection: plain hint text, no quote chrome */
+.globe-card__meta--hint {
+  display: block;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.50);
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  border: none;
 }
-.globe-card__meta::after {
-  content: close-quote;
-  margin-left: 2px;
-  color: var(--mlg-red);
-  font-size: 1.1em;
-  font-weight: 600;
-}
+.globe-card__meta--hint::before,
+.globe-card__meta--hint::after { content: none; }
 
 .globe-card__quote {
   font-size: 14px;

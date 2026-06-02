@@ -990,7 +990,8 @@
     const c = CLIENTS[i];
     const card = document.getElementById('globeCard');
     cardName.textContent = c.name;
-    cardMeta.textContent = c.meta;
+    // Hide the hint/meta text once a client is selected
+    if (cardMeta) cardMeta.hidden = true;
     // Service tags
     const svcEl = document.getElementById('globeCardServices');
     if (svcEl) {
