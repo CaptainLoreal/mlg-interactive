@@ -1625,15 +1625,15 @@
     else fire();
   }
 
-  /* ── Submit (only reached if the visitor somehow continues past the
-       direct step-1 routing — kept as a safety net) ── */
+  /* ── Submit ── At the end of the quick-access form, store answers,
+     show the thank-you screen briefly, then route the visitor to the
+     section/page that matches the step-1 ("profile") choice. */
   function submitForm() {
     const step = steps[current];
     collect(step);
     storeAnswers('tailor', answers);
     showStep(DONE_IDX);
-    const profile = answers.profile;
-    routeProfile(profile, 1200);
+    routeProfile(answers.profile, 1200);
     // Reset so a return visit shows step 0 (after the route fires).
     setTimeout(resetForm, 1400);
   }
@@ -1646,20 +1646,6 @@
       const step = choice.closest('.tf__step');
       step.querySelectorAll('.tf__choice').forEach(c => c.classList.remove('is-selected'));
       choice.classList.add('is-selected');
-      /* Quick-access UX: when the visitor picks an answer to the very
-         first question (the "Who are you / what do you need" profile),
-         route them directly to the relevant section / page instead of
-         walking through company-size + company-type follow-ups. */
-      if (step.dataset.field === 'profile') {
-        const value = choice.dataset.value;
-        answers.profile = value;
-        storeAnswers('tailor', answers);
-        // Brief selection pulse, then route. routeProfile handles the
-        // form reset itself (only on same-page slide routes — page
-        // navigations let the new page take over).
-        routeProfile(value, 220);
-        return;
-      }
       setTimeout(advance, 280);  // brief pause so user sees the selection
       return;
     }
