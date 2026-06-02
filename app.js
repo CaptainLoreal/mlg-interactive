@@ -1556,9 +1556,29 @@
        handles that for the deeper / "talk to us" path. */
     storeAnswers('tailor', answers);
     showStep(DONE_IDX);
-    // After a moment on the thank-you screen, scroll to Services (slide 5)
+
+    /* After the thank-you screen, route the visitor to the slide or
+       dedicated page that best matches their first answer (the "profile"
+       choice from step 1). Falls back to Services if the answer is
+       unrecognized. Slide indices are DOM order:
+         0 Welcome, 1 Tailor, 2 Clients, 3 Approach, 4 Testimonials,
+         5 Services, 6 Why MLG, 7 Tools, 8 Team, 9 Book, 10 Contact. */
+    const routes = {
+      'general':          { slide: 3 },                                  // Approach
+      'clients':          { slide: 2 },                                  // Clients / globe
+      'hr':               { page: 'leadership-development.html' },
+      'executive':        { page: 'coaching-sparring.html' },
+      'curious-culture':  { page: 'cultural-transformation.html' },
+      'ambitious':        { page: 'coaching-sparring.html' },
+      'alumnus':          { slide: 8 },                                  // Team
+    };
+    const target = routes[answers.profile] || { slide: 5 };  // Services fallback
     setTimeout(() => {
-      if (typeof window.__mlgScrollTo === 'function') window.__mlgScrollTo(5);
+      if (target.page) {
+        window.location.href = target.page;
+      } else if (typeof window.__mlgScrollTo === 'function') {
+        window.__mlgScrollTo(target.slide);
+      }
     }, 1800);
   }
 
