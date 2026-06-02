@@ -3148,6 +3148,31 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   margin-bottom: 0;
 }
 
+/* Mobile: the Tailor slide's form (1 big choice + 6 normals) overflows
+   100dvh on small phones. Let the slide grow naturally and give the
+   form proper bottom breathing room. */
+@media (max-width: 640px) {
+  .slide--tailor { min-height: 100dvh; height: auto; overflow: visible; }
+  .contact-wrap--tailor {
+    min-height: 100dvh;
+    padding-top: clamp(64px, 8vh, 96px);
+    padding-bottom: clamp(56px, 8vh, 96px);
+    /* Reset bottom-skim from desktop default */
+    gap: clamp(20px, 3vh, 36px);
+  }
+  .contact-wrap--tailor .contact-wrap__head {
+    /* Tighter halo on mobile so the form has room below */
+    padding: clamp(20px, 4vh, 36px) clamp(16px, 4vw, 32px);
+  }
+  /* Each choice gets a touch less vertical padding on mobile */
+  .contact-wrap--tailor .tf__choice { padding: 10px 12px; font-size: 15px; }
+  .contact-wrap--tailor .tf__choice[data-value="general"] {
+    font-size: 18px;
+    padding: 18px 18px;
+    margin-bottom: 14px;
+  }
+}
+
 /* Blur glass effect on sub-page offering cards — styled to match .card-item */
 .ld-offering {
   backdrop-filter: blur(10px);
