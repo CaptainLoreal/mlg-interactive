@@ -16,36 +16,7 @@
   font-display: swap;
 }
 
-/* Aptos Narrow — used site-wide for display + body. Self-hosted so we
-   don't fall back to system-ui on visitors' machines. */
-@font-face {
-  font-family: "Aptos Narrow";
-  src: url("assets/fonts/Aptos-Narrow.ttf") format("truetype");
-  font-weight: 100 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Aptos Narrow";
-  src: url("assets/fonts/Aptos-Narrow-Italic.ttf") format("truetype");
-  font-weight: 100 500;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Aptos Narrow";
-  src: url("assets/fonts/Aptos-Narrow-Bold.ttf") format("truetype");
-  font-weight: 600 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Aptos Narrow";
-  src: url("assets/fonts/Aptos-Narrow-Bold-Italic.ttf") format("truetype");
-  font-weight: 600 900;
-  font-style: italic;
-  font-display: swap;
-}
+/* Site type — Helvetica (system + Helvetica Neue), Arial fallback. */
 
 :root {
   /* Brand */
@@ -67,8 +38,8 @@
   --ink-050: #f8f8f7;
   --paper:   #ffffff;
 
-  /* Type — Aptos Narrow throughout (display + body share one family). */
-  --font-sans:    "Aptos Narrow", "Aptos", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  /* Type — Helvetica throughout (display + body share one family). */
+  --font-sans:    "Helvetica Neue", Helvetica, "Arial Nova", Arial, sans-serif;
   --font-display: var(--font-sans);
 
   /* Motion */
