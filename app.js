@@ -1732,10 +1732,32 @@
     showStep(current + 1);
   }
 
+  /* Finalize the form WITHOUT opening the mail client: store the answers
+     and show the thank-you screen. Used by the Enter-key fallback so a
+     stray <Enter> on the email step never accidentally pops the user's
+     mail app. */
+  function finalizeForm() {
+    const step = steps[current];
+    if (!validate(step)) {
+      step.classList.add('is-shake');
+      setTimeout(() => step.classList.remove('is-shake'), 500);
+      return;
+    }
+    collect(step);
+    storeAnswers('contact', answers);
+    showStep(DONE_IDX);
+  }
+
+  /* Full submit — finalize + open the user's mail client. ONLY invoked
+     by an explicit click on the Send button (data-action="submit"). */
   function submitForm() {
     const step = steps[current];
+    if (!validate(step)) {
+      step.classList.add('is-shake');
+      setTimeout(() => step.classList.remove('is-shake'), 500);
+      return;
+    }
     collect(step);
-    /* Send answers to MLG's backend; mailto only opens with subject + recipient. */
     storeAnswers('contact', answers);
     openMailto('info@munichleadership.com', 'Interested in MLG services');
     showStep(DONE_IDX);
@@ -1755,13 +1777,15 @@
     const action = btn.dataset.action;
     if (action === 'next')   advance();
     if (action === 'back')   showStep(Math.max(0, current - 1));
-    if (action === 'submit') submitForm();
+    if (action === 'submit') submitForm();   // ← only path that opens mailto
   });
 
   form.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter') return;
     const step = steps[current];
-    if (step.querySelector('[data-action="submit"]')) { e.preventDefault(); submitForm(); }
+    // Enter on the final step finalizes (stores + shows done) but does
+    // NOT open the mail client. User must click Send for that.
+    if (step.querySelector('[data-action="submit"]')) { e.preventDefault(); finalizeForm(); }
     else if (!step.querySelector('.tf__choices'))     { e.preventDefault(); advance(); }
   });
 
