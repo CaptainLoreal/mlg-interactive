@@ -766,16 +766,20 @@ button { font-family: inherit; cursor: pointer; }
   inset: 0;
   opacity: 0;
 }
-/* On the index deck the logo is always WHITE — big on the hero (lifted off
-   the photo by a dark radial halo, same treatment as the headers), then it
-   scales down into the dark glass menu where white also reads cleanly. */
-.deck .topbar .topbar__logo-img--dark { opacity: 0; }
-.deck .topbar .topbar__logo-img--light { opacity: 1; }
+/* Hero: big BLACK + RED (bold) logo lifted off the photo by the dark
+   radial halo on .topbar__logo-stack::before below. Once the visitor
+   scrolls past the hero, the logo settles into the menu and swaps to
+   the WHITE wordmark so it reads against the dark glass topbar. */
+.deck .topbar:not(.topbar--past-hero) .topbar__logo-img--dark { opacity: 1; }
+.deck .topbar:not(.topbar--past-hero) .topbar__logo-img--light { opacity: 0; }
+.deck .topbar.topbar--past-hero .topbar__logo-img--dark { opacity: 0; }
+.deck .topbar.topbar--past-hero .topbar__logo-img--light { opacity: 1; }
 
-/* Dark radial halo behind the big hero logo — mirrors the header halo so
-   the white wordmark stays legible over busy/bright parts of the photo.
-   Lives on the scaled stack so it scales with the logo; fades out once the
-   visitor scrolls past the hero and the logo settles into the menu. */
+/* Light radial halo behind the big hero logo — the wordmark is BLACK
+   on hero, so we use a SOFT WHITE wash (not the dark headline halo) to
+   lift it off any dark/busy parts of the photo. Lives on the scaled
+   stack via ::before so it scales with the logo and fades out as the
+   logo shrinks into the dark menu. */
 .topbar__logo-stack::before {
   content: "";
   position: absolute;
@@ -785,7 +789,7 @@ button { font-family: inherit; cursor: pointer; }
   height: 320%;
   transform: translate(-50%, -50%);
   background: radial-gradient(ellipse at center,
-    rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.34) 40%, rgba(0,0,0,0) 72%);
+    rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.34) 38%, rgba(255,255,255,0) 72%);
   z-index: -1;
   opacity: 0;
   pointer-events: none;
@@ -4434,7 +4438,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     row-gap: clamp(10px, 2vh, 22px);
     justify-content: center;
     align-items: center;
-    padding: clamp(140px, 14vh, 200px) var(--pad-x) clamp(110px, 14vh, 160px) clamp(80px, 10vw, 160px);
+    /* Symmetric horizontal padding so the centered grid (globe + side card)
+       sits with equal empty space on both edges of the slide. */
+    padding: clamp(140px, 14vh, 200px) var(--pad-x) clamp(110px, 14vh, 160px);
   }
   .globe-stage {
     grid-column: 1; grid-row: 1;
