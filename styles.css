@@ -4227,11 +4227,20 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 .globe-card.is-updating .globe-card__name,
 .globe-card.is-updating .globe-card__meta,
-.globe-card.is-updating .globe-card__quote {
+.globe-card.is-updating .globe-card__quote,
+.globe-card.is-updating .globe-card__service-tag {
   animation: globeCardFadeIn 360ms var(--ease-out) both;
 }
 .globe-card.is-updating .globe-card__meta { animation-delay: 60ms; }
 .globe-card.is-updating .globe-card__quote { animation-delay: 120ms; }
+/* Service tags fade in just after the company name and stagger so they
+   read as a quick cascade rather than a single block. */
+.globe-card.is-updating .globe-card__service-tag:nth-child(1) { animation-delay: 100ms; }
+.globe-card.is-updating .globe-card__service-tag:nth-child(2) { animation-delay: 150ms; }
+.globe-card.is-updating .globe-card__service-tag:nth-child(3) { animation-delay: 200ms; }
+.globe-card.is-updating .globe-card__service-tag:nth-child(4) { animation-delay: 250ms; }
+.globe-card.is-updating .globe-card__service-tag:nth-child(5) { animation-delay: 300ms; }
+.globe-card.is-updating .globe-card__service-tag:nth-child(n+6) { animation-delay: 340ms; }
 @keyframes globeCardFadeIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0);  }
