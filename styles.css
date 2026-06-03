@@ -2745,14 +2745,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   object-fit: contain;
   display: block;
 }
-/* HULT logo is portrait (640x737) with internal whitespace around the
-   mark, so at the shared 88px height the visible art reads much smaller
-   than the landscape logos. Bump it so the visual weight matches. */
-.network-logo[data-partner="hult"] { height: auto; }
-.network-logo[data-partner="hult"] img { height: 220px; }
-@media (max-width: 480px) {
-  .network-logo[data-partner="hult"] img { height: 120px !important; }
-}
+/* HULT landscape SVG renders at the shared .network-logo img height
+   (88px), like the other partner logos. */
 
 /* Toggle button — uses standard ghost+more style with a rotating chevron */
 .network-toggle {
