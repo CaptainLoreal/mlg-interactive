@@ -1,3 +1,10 @@
 .DS_Store
 *.log
 node_modules/
+
+# Banners are local print artifacts only — heavy PNGs, no need on GitHub.
+# Keep banner.html (the template) but skip every generated preview/print
+# and the source images folder.
+assets/banners/mlg-banner-*-preview.png
+assets/banners/mlg-banner-*-print-*.png
+assets/banners/images/
