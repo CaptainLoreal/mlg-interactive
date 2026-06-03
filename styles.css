@@ -766,13 +766,32 @@ button { font-family: inherit; cursor: pointer; }
   inset: 0;
   opacity: 0;
 }
-/* On the index hero: show the big BLACK + RED logo (assets/logo-black-red.svg
-   in the --dark slot). Once scrolled past the hero into the menu, swap to
-   the WHITE logo so it reads against the dark topbar background. */
-.deck .topbar:not(.topbar--past-hero) .topbar__logo-img--dark { opacity: 1; }
-.deck .topbar:not(.topbar--past-hero) .topbar__logo-img--light { opacity: 0; }
-.deck .topbar.topbar--past-hero .topbar__logo-img--dark { opacity: 0; }
-.deck .topbar.topbar--past-hero .topbar__logo-img--light { opacity: 1; }
+/* On the index deck the logo is always WHITE — big on the hero (lifted off
+   the photo by a dark radial halo, same treatment as the headers), then it
+   scales down into the dark glass menu where white also reads cleanly. */
+.deck .topbar .topbar__logo-img--dark { opacity: 0; }
+.deck .topbar .topbar__logo-img--light { opacity: 1; }
+
+/* Dark radial halo behind the big hero logo — mirrors the header halo so
+   the white wordmark stays legible over busy/bright parts of the photo.
+   Lives on the scaled stack so it scales with the logo; fades out once the
+   visitor scrolls past the hero and the logo settles into the menu. */
+.topbar__logo-stack::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 230%;
+  height: 320%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center,
+    rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.34) 40%, rgba(0,0,0,0) 72%);
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-3) var(--ease-out);
+}
+.deck .topbar:not(.topbar--past-hero) .topbar__logo-stack::before { opacity: 1; }
 
 /* ── Dark text/UI over the hero (only on the deck/index, no past-hero) */
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn { color: #000; }
