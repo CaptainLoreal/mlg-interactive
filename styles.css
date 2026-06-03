@@ -747,13 +747,15 @@ button { font-family: inherit; cursor: pointer; }
   height: clamp(42px, 6vw, 62px);
   flex-shrink: 0;
   transform-origin: left top;
-  transition: transform var(--dur-5) var(--ease-out);
+  /* Scale is driven by JS scroll position (--hero-logo-scale) so the
+     logo shrinks continuously as the user scrolls through the hero.
+     The will-change hint keeps the compositor layer warm. */
+  transform: scale(var(--hero-logo-scale, 1));
+  will-change: transform;
 }
-/* On the index hero (before scrolling past the welcome slide), scale
-   the logo up visually. Layout dimensions stay the same so other
-   topbar items remain fixed in place. */
+/* Fallback for non-deck / no-JS: keep the logo at menu size. */
 .deck .topbar:not(.topbar--past-hero) .topbar__logo-stack {
-  transform: scale(2.2);
+  /* intentionally empty — scale is set by JS via --hero-logo-scale */
 }
 .topbar__logo-stack .topbar__logo-img {
   height: 100%;

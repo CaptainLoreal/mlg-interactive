@@ -476,6 +476,10 @@
   }
 
   const heroSticky = document.getElementById('heroSticky');
+  const heroLogoStack = document.querySelector('.topbar__logo-stack');
+  const topbarEl = document.querySelector('.topbar');
+  // Initialise to big scale immediately so the first paint matches scroll=0
+  if (heroLogoStack) document.documentElement.style.setProperty('--hero-logo-scale', '2.8');
 
   /* Section-sticky helpers — each <div class="section-sticky"> has a
      data-section selector that points at the in-slide section it tracks.
@@ -549,6 +553,20 @@
       }
       heroSticky.style.transform = `translateY(${translate}px)`;
       heroSticky.style.opacity = opacity;
+    }
+
+    /* Scroll-driven hero logo: shrinks from 2.8× to 1× as the user
+       scrolls through the first 35 % of slide 0 — logo is fully
+       settled into the menu before the headline text reaches it.
+       past-hero is toggled at 50 % (same threshold as the inline
+       checkHero script) so the colour swap and glass background
+       follow the same smoothed scroll. */
+    {
+      const vh = window.innerHeight;
+      const heroProgress = Math.min(1, Math.max(0, scrollCurrent / (vh * 0.35)));
+      const logoScale = 2.8 - 1.8 * heroProgress;
+      document.documentElement.style.setProperty('--hero-logo-scale', logoScale.toFixed(3));
+      if (topbarEl) topbarEl.classList.toggle('topbar--past-hero', scrollCurrent >= vh * 0.5);
     }
 
     // Rail progress
