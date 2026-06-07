@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000" />
+  <title>Issue 08 · Q1 2025 — The HOW imperative · Leadership Quarterly</title>
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css?v=396" />
+  <style>
+    body { overflow: visible; background: #000; }
+    .standalone { overflow: visible; min-height: 100dvh; }
+    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(80px,12vh,140px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
+    .issue-back { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: clamp(32px,5vh,48px); transition: color 200ms; }
+    .issue-back:hover { color: var(--mlg-red); }
+    .issue-masthead { border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); padding: clamp(28px,4vh,40px) 0; margin-bottom: clamp(48px,7vh,72px); display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: baseline; }
+    .issue-masthead__brand { font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--mlg-red); }
+    .issue-masthead__meta { font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); display: flex; flex-wrap: wrap; gap: 12px 24px; }
+    .issue-masthead__meta span:not(:last-child)::after { content: " · "; color: rgba(255,255,255,0.30); padding-left: 12px; }
+    .issue-title { font-family: var(--font-sans); font-size: clamp(40px,6.4vw,80px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.02; color: #fff; margin: 0 0 clamp(24px,4vh,36px); text-transform: uppercase; }
+    .issue-dek { font-size: clamp(18px,2vw,22px); line-height: 1.55; color: rgba(255,255,255,0.72); max-width: 760px; margin: 0 0 clamp(48px,7vh,72px); }
+    .issue-divider { display: flex; align-items: center; gap: 16px; margin: clamp(48px,7vh,72px) 0 clamp(40px,6vh,56px); }
+    .issue-divider__line { flex: 1; height: 1px; background: rgba(255,255,255,0.10); }
+    .issue-divider__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--mlg-red); }
+    .issue-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 clamp(14px,2vh,18px); }
+    .article-title { font-family: var(--font-sans); font-size: clamp(28px,3.6vw,40px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.1; color: #fff; margin: 0 0 clamp(20px,3vh,28px); }
+    .article-byline { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin: -8px 0 clamp(24px,4vh,36px); }
+    .article-body p { font-size: 17px; line-height: 1.78; color: rgba(255,255,255,0.78); margin: 0 0 22px; }
+    .article-body p strong { color: #fff; font-weight: 600; }
+    .article-body p:first-of-type::first-letter { font-size: 3.4em; font-weight: 700; float: left; line-height: 0.92; padding: 4px 12px 0 0; color: var(--mlg-red); }
+    .pull-quote { margin: clamp(36px,5vh,52px) 0; padding: clamp(28px,4vh,40px) clamp(28px,4vw,40px); background: rgba(181,0,52,0.08); border-left: 3px solid var(--mlg-red); border-radius: 0 8px 8px 0; }
+    .pull-quote p { font-family: var(--font-sans); font-size: clamp(20px,2.4vw,26px); font-weight: 500; font-style: italic; letter-spacing: -0.01em; line-height: 1.4; color: #fff; margin: 0; }
+    .pull-quote cite { display: block; font-style: normal; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 18px; }
+    .issue-end { margin-top: clamp(56px,8vh,80px); padding-top: clamp(32px,5vh,48px); border-top: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; gap: 16px; }
+    .issue-end__mark { width: 28px; height: auto; opacity: 0.8; }
+    .issue-end__text { font-size: 13px; color: rgba(255,255,255,0.55); margin: 0; }
+    .issue-nav { margin-top: clamp(56px,8vh,80px); padding-top: clamp(40px,6vh,56px); border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+    .issue-nav__library { display: inline-flex; align-items: center; gap: 10px; background: var(--mlg-red); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 26px; border-radius: 999px; transition: opacity 200ms; }
+    .issue-nav__library:hover { opacity: 0.88; }
+    .issue-nav__next { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+    .issue-nav__next strong { color: #fff; font-weight: 500; }
+    .issue-nav__next:hover strong { color: var(--mlg-red); }
+</style>
+</head>
+<body>
+
+  <main class="standalone">
+    <div class="topbar">
+      <a class="topbar__logo" href="../index.html#slide=0" aria-label="Munich Leadership Group — back to home">
+        <img decoding="async" loading="lazy" src="../assets/logo-white.svg" alt="Munich Leadership Group" />
+      </a>
+    </div>
+    <span class="corner-mark" aria-hidden="true">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
+
+    <div class="issue-shell">
+      <a class="issue-back" href="index.html">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to library
+      </a>
+
+      <header class="issue-masthead">
+        <span class="issue-masthead__brand">Leadership Quarterly</span>
+        <span class="issue-masthead__meta">
+          <span>Issue 08</span><span>Q1 2025</span><span>11 min read</span>
+        </span>
+      </header>
+
+      <h1 class="issue-title">The HOW imperative.</h1>
+      <p class="issue-dek">Two articles on the part of leadership that is hardest to teach and easiest to neglect: the way decisions are made, communicated, and lived inside an organisation.</p>
+
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">Editor's letter</p>
+      <h2 class="article-title">Strategy without process is theatre.</h2>
+      <p class="article-byline">Dr. Hans W. Hagemann · Founder &amp; Managing Partner</p>
+      <div class="article-body">
+        <p>Over the past year I have sat in too many strategy meetings where the slides were beautiful and the work behind them was hollow. Not because the leaders were unserious. Because their <strong>process</strong> for arriving at the strategy was unserious.</p>
+        <p>We have spent decades training executives to choose <em>what</em> to do. We have spent far less effort training them on <em>how</em> to do it well — how to disagree productively, how to commit fully once a decision is made, how to hold each other to account without drama. The result is organisations that look strategic and act haphazard.</p>
+        <p>This issue is a small protest against that pattern. We argue that the HOW is not the soft part of leadership. It is the part that decides whether the WHAT ever gets done. Read on for a closer look at what we mean — and how a handful of teams we work with are getting it right.</p>
+      </div>
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">Feature · Decision quality</p>
+      <h2 class="article-title">The five-minute habit that doubled one team's follow-through.</h2>
+      <p class="article-byline">Notes from the MLG coaching practice</p>
+      <div class="article-body">
+        <p>A senior team at a mid-cap industrial client had a problem. Decisions were made cleanly in the room. Outside the room, the same decisions quietly unmade themselves. Project owners drifted. Deadlines slid. By the next quarterly, the team would rediscover the same issues and re-decide them — to the same outcome.</p>
+        <p>Our diagnosis was unromantic. They had a <strong>commitment problem</strong>, not a strategy problem. So we introduced a tool we have used dozens of times: the <strong>five-minute close</strong>. At the end of every meeting in which a decision is made, the chair stops the conversation and asks four questions, in this order:</p>
+        <p><strong>1. What did we just decide, in one sentence?</strong> Half the time, the room has heard four different sentences.</p>
+        <p><strong>2. Who owns it?</strong> Not a team. A name.</p>
+        <p><strong>3. When is the first checkpoint?</strong> Not when it's done — when we will first know if it is on track.</p>
+        <p><strong>4. Who in this room disagrees and is committing anyway?</strong> The single most useful question we know.</p>
+        <div class="pull-quote">
+          <p>"We are not bad at thinking. We are bad at the last five minutes of meetings."</p>
+          <cite>— MLG coaching team</cite>
+        </div>
+        <p>Six months in, this team's follow-through on stated decisions rose from roughly 40% to over 80%. They did not get smarter. They got slightly more honest, slightly more often.</p>
+      </div>
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">Field note · Communication</p>
+      <h2 class="article-title">The CEO who stopped explaining and started repeating.</h2>
+      <p class="article-byline">From the field</p>
+      <div class="article-body">
+        <p>A CEO we coach made one small change to her quarterly all-hands. She used to share <strong>new</strong> strategic context each time. She replaced that with something her team initially found insulting: she repeated the same three priorities, in the same order, with slightly different examples, four quarters in a row.</p>
+        <p>The first quarter, her team rolled their eyes. By the third quarter, those three priorities were showing up unprompted in middle-management conversations across three regions. By the fourth, they were how the business described itself.</p>
+        <p>Most leaders mistake repetition for failure of imagination. In organisations of any scale, it is the opposite. <strong>The message is not the message you sent. It is the message that arrived.</strong> If you have to choose between novelty and arrival, choose arrival.</p>
+      </div>
+
+      <div class="issue-end">
+        <svg class="issue-end__mark" viewBox="236 0 67 65" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="#b50034"/>
+          <path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="#b50034"/>
+          <path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/>
+        </svg>
+        <p class="issue-end__text">End of Issue 08 · Q1 2025 — thank you for reading.</p>
+      </div>
+
+      <div class="issue-nav">
+        <a class="issue-nav__library" href="index.html">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          All issues
+        </a>
+        <a class="issue-nav__next" href="2024-q4.html">
+          Previous issue — <strong>Q4 2024 · Reflection &amp; renewal</strong>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <footer class="imprint" style="margin-top: clamp(48px,7vh,80px);">
+        <p class="imprint__links">
+          <a href="../disclaimer.html">Disclaimer</a>
+          <span aria-hidden="true">·</span>
+          <span class="imprint__copy">© 2026 Munich Leadership Group</span>
+        </p>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

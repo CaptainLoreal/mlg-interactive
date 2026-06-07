@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000" />
+  <title>Issue 09 · Q2 2025 — Leading through uncertainty · Leadership Quarterly</title>
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css?v=396" />
+  <style>
+    /* ── Issue page (shared template, repeated inline per issue) ───────── */
+    body { overflow: visible; background: #000; }
+    .standalone { overflow: visible; min-height: 100dvh; }
+
+    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(80px,12vh,140px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
+
+    .issue-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      margin-bottom: clamp(32px,5vh,48px);
+      transition: color 200ms;
+    }
+    .issue-back:hover { color: var(--mlg-red); }
+
+    .issue-masthead {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding: clamp(28px,4vh,40px) 0;
+      margin-bottom: clamp(48px,7vh,72px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 32px;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .issue-masthead__brand {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--mlg-red);
+    }
+    .issue-masthead__meta {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      display: flex; flex-wrap: wrap; gap: 12px 24px;
+    }
+    .issue-masthead__meta span:not(:last-child)::after {
+      content: " · ";
+      color: rgba(255,255,255,0.30);
+      padding-left: 12px;
+    }
+
+    .issue-title {
+      font-family: var(--font-sans);
+      font-size: clamp(40px,6.4vw,80px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      color: #fff;
+      margin: 0 0 clamp(24px,4vh,36px);
+      text-transform: uppercase;
+    }
+    .issue-dek {
+      font-size: clamp(18px,2vw,22px);
+      line-height: 1.55;
+      color: rgba(255,255,255,0.72);
+      max-width: 760px;
+      margin: 0 0 clamp(48px,7vh,72px);
+    }
+
+    .issue-divider {
+      display: flex; align-items: center; gap: 16px;
+      margin: clamp(48px,7vh,72px) 0 clamp(40px,6vh,56px);
+    }
+    .issue-divider__line { flex: 1; height: 1px; background: rgba(255,255,255,0.10); }
+    .issue-divider__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--mlg-red); }
+
+    .issue-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mlg-red);
+      margin: 0 0 clamp(14px,2vh,18px);
+    }
+    .article-title {
+      font-family: var(--font-sans);
+      font-size: clamp(28px,3.6vw,40px);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.1;
+      color: #fff;
+      margin: 0 0 clamp(20px,3vh,28px);
+    }
+    .article-byline {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin: -8px 0 clamp(24px,4vh,36px);
+    }
+
+    .article-body p {
+      font-size: 17px;
+      line-height: 1.78;
+      color: rgba(255,255,255,0.78);
+      margin: 0 0 22px;
+    }
+    .article-body p strong { color: #fff; font-weight: 600; }
+    .article-body p:first-of-type::first-letter {
+      font-size: 3.4em;
+      font-weight: 700;
+      float: left;
+      line-height: 0.92;
+      padding: 4px 12px 0 0;
+      color: var(--mlg-red);
+    }
+
+    .pull-quote {
+      margin: clamp(36px,5vh,52px) 0;
+      padding: clamp(28px,4vh,40px) clamp(28px,4vw,40px);
+      background: rgba(181,0,52,0.08);
+      border-left: 3px solid var(--mlg-red);
+      border-radius: 0 8px 8px 0;
+    }
+    .pull-quote p {
+      font-family: var(--font-sans);
+      font-size: clamp(20px,2.4vw,26px);
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+      color: #fff;
+      margin: 0;
+    }
+    .pull-quote cite {
+      display: block;
+      font-style: normal;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-top: 18px;
+    }
+
+    .issue-end {
+      margin-top: clamp(56px,8vh,80px);
+      padding-top: clamp(32px,5vh,48px);
+      border-top: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; gap: 16px;
+    }
+    .issue-end__mark { width: 28px; height: auto; opacity: 0.8; }
+    .issue-end__text { font-size: 13px; color: rgba(255,255,255,0.55); margin: 0; }
+
+    .issue-nav {
+      margin-top: clamp(56px,8vh,80px);
+      padding-top: clamp(40px,6vh,56px);
+      border-top: 1px solid rgba(255,255,255,0.10);
+      display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center;
+    }
+    .issue-nav__library {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--mlg-red); color: #fff;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; padding: 13px 26px; border-radius: 999px;
+      transition: opacity 200ms;
+    }
+    .issue-nav__library:hover { opacity: 0.88; }
+    .issue-nav__next {
+      font-size: 13px; color: rgba(255,255,255,0.55);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .issue-nav__next strong { color: #fff; font-weight: 500; }
+    .issue-nav__next:hover strong { color: var(--mlg-red); }
+  </style>
+</head>
+<body>
+  <main class="standalone">
+    <div class="topbar">
+      <a class="topbar__logo" href="../index.html#slide=0" aria-label="Munich Leadership Group — back to home">
+        <img decoding="async" loading="lazy" src="../assets/logo-white.svg" alt="Munich Leadership Group" />
+      </a>
+    </div>
+    <span class="corner-mark" aria-hidden="true">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
+
+    <div class="issue-shell">
+      <a class="issue-back" href="index.html">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to library
+      </a>
+
+      <header class="issue-masthead">
+        <span class="issue-masthead__brand">Leadership Quarterly</span>
+        <span class="issue-masthead__meta">
+          <span>Issue 09</span><span>Q2 2025</span><span>14 min read</span>
+        </span>
+      </header>
+
+      <h1 class="issue-title">Leading through uncertainty.</h1>
+      <p class="issue-dek">
+        Three articles on the work of leading when the map runs out: how the
+        best operators we know stop chasing certainty, design for ambiguity,
+        and use it as fuel rather than as friction.
+      </p>
+
+      <!-- Editor's letter -->
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">Editor's letter</p>
+      <h2 class="article-title">The map is no longer the territory.</h2>
+      <p class="article-byline">Dr. Hans W. Hagemann · Founder &amp; Managing Partner</p>
+      <div class="article-body">
+        <p>
+          A senior client recently told me his board had asked him for a
+          five-year plan. He produced one. Then, walking out of the meeting,
+          he said: <strong>"Hans, I made that document up. I have no idea
+          what the next five years look like."</strong> He was not being
+          cynical — he was being honest. And the more honest leaders I work
+          with, the more I hear the same admission, quietly, in private.
+        </p>
+        <p>
+          The work of leadership has shifted. For thirty years our profession
+          taught us to <em>reduce</em> uncertainty: better forecasts, sharper
+          plans, tighter execution. That muscle still matters. But it is no
+          longer enough. The job now is to <strong>operate well inside
+          uncertainty</strong> — to make ground when there is no map, to keep
+          a team believing while you are still writing the strategy in pencil.
+        </p>
+        <p>
+          This issue is about that work. We open with the neuroscience of
+          ambiguity — why even experienced executives quietly freeze, and what
+          to do about it. We then look at three of our clients who chose to
+          slow their planning down on purpose, and what that earned them. We
+          close with a short field note from our coaching practice: the four
+          questions we have started asking every leader who walks in claiming
+          they have a clarity problem.
+        </p>
+        <p>
+          You will not find a five-year plan in here. You will find tools we
+          actually use. Read what serves you, and ignore the rest.
+        </p>
+      </div>
+
+      <!-- Article 1 -->
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">Feature · Neuroscience</p>
+      <h2 class="article-title">Why your brain treats uncertainty as a threat.</h2>
+      <p class="article-byline">From the MLG Science Desk</p>
+      <div class="article-body">
+        <p>
+          The amygdala does not distinguish between a sabre-toothed tiger and
+          a quarterly forecast that does not add up. To the part of your brain
+          that flagged danger 200,000 years ago, both register as
+          <strong>"unsafe input"</strong> — and the response is the same:
+          tunnel vision, reduced working memory, a strong urge to act on
+          incomplete information just to make the discomfort go away.
+        </p>
+        <p>
+          Recent work from Wendy Mendes' lab at UCSF, alongside the
+          decision-neuroscience programme at Caltech, has put numbers on
+          something coaches have known intuitively for years.
+          <strong>Executives under ambiguity make on average 23% more
+          impulsive decisions</strong> than the same executives operating
+          under stress with clear stakes. The mechanism is now well mapped:
+          ambiguity activates the anterior insula, which in turn dampens the
+          dorsolateral prefrontal cortex — the part of you that weighs trade-offs.
+        </p>
+        <div class="pull-quote">
+          <p>"Ambiguity is the only condition under which intelligent people
+          reliably make less intelligent decisions. That is not a character
+          flaw. It is a brain feature."</p>
+          <cite>— Dr. Lisa Feldman Barrett</cite>
+        </div>
+        <p>
+          The practical implication is uncomfortable: the moment a leader
+          most wants to act decisively is exactly the moment her brain is least
+          equipped to do so well. The leaders we work with who navigate this
+          best have built two habits. <strong>First, they name the
+          ambiguity out loud</strong> — to themselves, to their teams. The
+          act of labelling reduces the threat signal by about a third in lab
+          studies. <strong>Second, they delay binary decisions by 24 hours
+          whenever possible</strong>, even when it feels weak. The dorsolateral
+          PFC reasserts itself once the insula calms down. You make a measurably
+          better call.
+        </p>
+        <p>
+          None of this is about being slow. It is about not letting your
+          ancient hardware run your modern boardroom.
+        </p>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">Field report · Strategy</p>
+      <h2 class="article-title">Three companies that planned less, on purpose.</h2>
+      <p class="article-byline">Notes from the MLG client portfolio</p>
+      <div class="article-body">
+        <p>
+          Across the last 18 months, three of our clients — a European
+          industrial group, a global insurer, and a mid-cap healthcare
+          business — independently arrived at the same conclusion: their
+          planning cycles had become a defence mechanism. We share what they
+          did instead, with permission and details lightly disguised.
+        </p>
+        <p>
+          <strong>The industrial group</strong> cut their three-year plan
+          down to a single, sharply written page. The rest moved into what
+          their CFO calls a "live document" — a 90-day rolling view, updated
+          monthly, with named owners for each assumption. The board pushed
+          back. The CEO did not yield. Eighteen months in: same revenue
+          growth, half the planning overhead, and a measurable lift in
+          middle-management engagement scores.
+        </p>
+        <div class="pull-quote">
+          <p>"We were not planning. We were performing planning. Once we
+          could admit that, we could do something better."</p>
+          <cite>— Chief Strategy Officer, European Industrials</cite>
+        </div>
+        <p>
+          <strong>The insurer</strong> kept the long plan but added a parallel
+          process: monthly "kill-the-plan" sessions where a rotating team of
+          five senior leaders is paid to argue the strategy is wrong.
+          Decisions that survive three rounds get accelerated. Decisions that
+          lose get archived without drama. The CEO calls it "the cheapest
+          insurance we buy."
+        </p>
+        <p>
+          <strong>The healthcare business</strong> did something different
+          again. They replaced their annual offsite with a quarterly cadence —
+          shorter, sharper, more honest. Each meeting begins with a single
+          question: <em>what changed since we last met that we are not yet
+          acting on?</em> Their executive team now answers that question with
+          unusual candour. The number of strategic surprises hitting the board
+          has fallen sharply.
+        </p>
+        <p>
+          The pattern is consistent: less plan, more cadence; less
+          performance, more honesty. None of these moves are radical. All of
+          them are difficult to make first.
+        </p>
+      </div>
+
+      <!-- Article 3 — practice tool -->
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">From the coaching room</p>
+      <h2 class="article-title">Four questions for a leader who is convinced they have a clarity problem.</h2>
+      <p class="article-byline">A short tool</p>
+      <div class="article-body">
+        <p>
+          Every coach at MLG has been on the receiving end of this sentence
+          this year: "I just need clarity." It is almost never true. Below
+          are the four questions we have started asking instead. Take fifteen
+          minutes, somewhere quiet, and answer them in writing.
+        </p>
+        <p>
+          <strong>1. What would I do today if no more information arrived for
+          a month?</strong> Most leaders already know. The answer is rarely
+          "wait."
+        </p>
+        <p>
+          <strong>2. Where am I confusing "I do not know" with "I do not
+          want to choose"?</strong> The two feel identical from the inside.
+          They are not the same problem.
+        </p>
+        <p>
+          <strong>3. Whose certainty am I borrowing, and at what cost?</strong>
+          Boards, advisors, headlines, peers — borrowed confidence is faster
+          than your own but tends to be wrong about your specific situation.
+        </p>
+        <p>
+          <strong>4. If this ambiguity were the gift, not the obstacle, what
+          would I do with it?</strong> Asked seriously, this is the question
+          that changes most coaching conversations.
+        </p>
+        <p>
+          We do not promise these will fix anything. We promise they reframe
+          what needs fixing.
+        </p>
+      </div>
+
+      <!-- End -->
+      <div class="issue-end">
+        <svg class="issue-end__mark" viewBox="236 0 67 65" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="#b50034"/>
+          <path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="#b50034"/>
+          <path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/>
+        </svg>
+        <p class="issue-end__text">End of Issue 09 · Q2 2025 — thank you for reading.</p>
+      </div>
+
+      <div class="issue-nav">
+        <a class="issue-nav__library" href="index.html">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          All issues
+        </a>
+        <a class="issue-nav__next" href="2025-q1.html">
+          Previous issue — <strong>Q1 2025 · The HOW imperative</strong>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <footer class="imprint" style="margin-top: clamp(48px,7vh,80px);">
+        <p class="imprint__links">
+          <a href="../disclaimer.html">Disclaimer</a>
+          <span aria-hidden="true">·</span>
+          <span class="imprint__copy">© 2026 Munich Leadership Group</span>
+        </p>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>

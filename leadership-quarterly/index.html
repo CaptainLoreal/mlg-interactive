@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000" />
+  <title>Leadership Quarterly — Munich Leadership Group</title>
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css?v=396" />
+  <style>
+    /* ── Quarterly library hub ─────────────────────────────────────────── */
+    body { overflow: visible; background: #000; }
+    .standalone { overflow: visible; min-height: 100dvh; }
+
+    .quarterly-shell { max-width: 1240px; margin: 0 auto; padding: clamp(72px,11vh,128px) clamp(24px,5vw,72px) clamp(64px,9vh,96px); }
+
+    .quarterly-eyebrow {
+      display: inline-block;
+      background: var(--mlg-red);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 999px;
+      margin-bottom: clamp(24px,4vh,40px);
+    }
+
+    .quarterly-hero__title {
+      font-family: var(--font-sans);
+      font-size: clamp(48px,7.5vw,96px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      color: #fff;
+      margin: 0 0 clamp(20px,3vh,28px);
+      text-transform: uppercase;
+    }
+    .quarterly-hero__lede {
+      font-size: clamp(17px,1.9vw,21px);
+      line-height: 1.55;
+      color: rgba(255,255,255,0.68);
+      margin: 0;
+      max-width: 720px;
+    }
+    .quarterly-hero__lede strong { color: rgba(255,255,255,0.92); font-weight: 500; }
+
+    .quarterly-rule {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: clamp(56px,8vh,96px) 0 clamp(40px,6vh,64px);
+      border: 0;
+    }
+
+    .quarterly-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mlg-red);
+      margin: 0 0 clamp(20px,3vh,28px);
+    }
+
+    /* Featured (current) issue */
+    .quarterly-current {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: clamp(32px,5vw,72px);
+      align-items: stretch;
+      margin-bottom: clamp(72px,10vh,128px);
+    }
+    .quarterly-current__cover {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(140deg, #1a0710 0%, #2a0f1a 50%, #000 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(28px,3.4vw,44px);
+      color: #fff;
+      text-decoration: none;
+      transition: transform 320ms ease, border-color 320ms;
+    }
+    .quarterly-current__cover * { text-decoration: none; }
+    .quarterly-current__cover::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 78% 22%, rgba(181,0,52,0.22) 0%, transparent 55%),
+                  radial-gradient(circle at 12% 90%, rgba(181,0,52,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .quarterly-current__cover > * { position: relative; z-index: 1; }
+    .quarterly-current__cover:hover { transform: translateY(-2px); border-color: rgba(181,0,52,0.45); }
+    .quarterly-current__issue {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+    .quarterly-current__theme {
+      font-family: var(--font-sans);
+      font-size: clamp(28px,3.6vw,44px);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      line-height: 1.08;
+      margin: clamp(24px,4vh,36px) 0 0;
+      color: #fff;
+    }
+    .quarterly-current__mark {
+      width: 64px; height: auto;
+      display: block;
+      margin-top: clamp(16px,2.4vw,22px);
+      opacity: 0.85;
+    }
+    .quarterly-current__body { display: flex; flex-direction: column; justify-content: center; }
+    .quarterly-current__kicker {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mlg-red);
+      margin: 0 0 14px;
+    }
+    .quarterly-current__title {
+      font-family: var(--font-sans);
+      font-size: clamp(28px,3.4vw,42px);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.1;
+      color: #fff;
+      margin: 0 0 clamp(20px,3vh,28px);
+    }
+    .quarterly-current__summary {
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.68);
+      margin: 0 0 clamp(28px,4vh,40px);
+    }
+    .quarterly-current__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 26px;
+      margin: 0 0 clamp(28px,4vh,40px);
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+    }
+    .quarterly-current__meta-item { display: inline-flex; align-items: center; gap: 8px; }
+    .quarterly-current__meta-item::before {
+      content: "";
+      width: 4px; height: 4px;
+      border-radius: 999px;
+      background: var(--mlg-red);
+    }
+    .quarterly-current__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      align-self: flex-start;
+      background: var(--mlg-red);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 999px;
+      transition: opacity 200ms, transform 200ms;
+    }
+    .quarterly-current__cta:hover { opacity: 0.88; transform: translateX(2px); }
+
+    /* Library grid */
+    .quarterly-library {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: clamp(20px,2.6vw,32px);
+    }
+    .quarterly-card {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: clamp(24px,2.8vw,32px);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 280ms ease, border-color 280ms, background 280ms;
+    }
+    .quarterly-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(181,0,52,0.45);
+      background: rgba(181,0,52,0.04);
+    }
+    .quarterly-card__issue {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mlg-red);
+      margin: 0 0 16px;
+    }
+    .quarterly-card__title {
+      font-family: var(--font-sans);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: #fff;
+      margin: 0 0 14px;
+    }
+    .quarterly-card__summary {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.55);
+      margin: 0 0 24px;
+      flex: 1;
+    }
+    .quarterly-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+    }
+    .quarterly-card__cta svg {
+      transition: transform 200ms;
+    }
+    .quarterly-card:hover .quarterly-card__cta { color: #fff; }
+    .quarterly-card:hover .quarterly-card__cta svg { transform: translateX(4px); }
+
+    .quarterly-foot {
+      margin-top: clamp(64px,9vh,96px);
+      padding-top: clamp(40px,6vh,56px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+      align-items: center;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+    }
+    .quarterly-foot__note { max-width: 520px; line-height: 1.55; margin: 0; }
+    .quarterly-foot a { color: rgba(255,255,255,0.78); }
+
+    @media (max-width: 880px) {
+      .quarterly-current { grid-template-columns: 1fr; }
+      .quarterly-current__cover { aspect-ratio: 16 / 10; }
+    }
+  </style>
+</head>
+<body>
+  <main class="standalone">
+    <div class="topbar">
+      <a class="topbar__logo" href="../index.html#slide=0" aria-label="Munich Leadership Group — back to home">
+        <img decoding="async" loading="lazy" src="../assets/logo-white.svg" alt="Munich Leadership Group" />
+      </a>
+    </div>
+    <span class="corner-mark" aria-hidden="true">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
+
+    <div class="quarterly-shell">
+      <span class="quarterly-eyebrow">Leadership Quarterly</span>
+      <h1 class="quarterly-hero__title">A field report<br>for serious leaders.</h1>
+      <p class="quarterly-hero__lede">
+        Four times a year we publish the <strong>Leadership Quarterly</strong> —
+        short, opinionated dispatches on the work of leading well. Drawn from
+        our coaching rooms, leadership labs, and the latest in neuroscience and
+        organisational research.
+      </p>
+
+      <hr class="quarterly-rule" />
+
+      <p class="quarterly-section-label">Current issue</p>
+      <div class="quarterly-current">
+        <a class="quarterly-current__cover" href="2025-q2.html" aria-hidden="true" tabindex="-1">
+          <span class="quarterly-current__issue">Issue 09 · Q2 2025</span>
+          <span class="quarterly-current__theme">Leading<br>through<br>uncertainty.</span>
+          <svg class="quarterly-current__mark" viewBox="236 0 67 65" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="#b50034"/>
+            <path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="#b50034"/>
+            <path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/>
+          </svg>
+        </a>
+        <div class="quarterly-current__body">
+          <p class="quarterly-current__kicker">In this issue</p>
+          <h2 class="quarterly-current__title">When the map runs out, leaders make the ground.</h2>
+          <p class="quarterly-current__summary">
+            Volatility used to be the exception. It is now the operating
+            system. Q2 2025 looks at how the best leaders we work with stop
+            chasing certainty and start designing for ambiguity — drawing on
+            recent work in decision neuroscience, three case studies from our
+            client portfolio, and a candid editor's letter from Hans W.&nbsp;Hagemann.
+          </p>
+          <div class="quarterly-current__meta">
+            <span class="quarterly-current__meta-item">3 articles</span>
+            <span class="quarterly-current__meta-item">~14 min read</span>
+            <span class="quarterly-current__meta-item">June 2025</span>
+          </div>
+          <a class="quarterly-current__cta" href="2025-q2.html">
+            Read the issue
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <p class="quarterly-section-label">Library</p>
+      <div class="quarterly-library">
+        <a class="quarterly-card" href="2025-q1.html">
+          <p class="quarterly-card__issue">Issue 08 · Q1 2025</p>
+          <h3 class="quarterly-card__title">The HOW imperative.</h3>
+          <p class="quarterly-card__summary">
+            What separates leaders who get results from leaders who can keep
+            getting results. A close look at process discipline, feedback
+            cadence, and why the way a decision lands matters more than the
+            decision itself.
+          </p>
+          <span class="quarterly-card__cta">
+            Read issue
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a class="quarterly-card" href="2024-q4.html">
+          <p class="quarterly-card__issue">Issue 07 · Q4 2024</p>
+          <h3 class="quarterly-card__title">Reflection &amp; renewal.</h3>
+          <p class="quarterly-card__summary">
+            Our year-end issue. What 2024 taught us about teams under pressure,
+            why high-performing organisations slowed down on purpose, and a
+            playbook for the kind of strategic rest most leaders never give
+            themselves.
+          </p>
+          <span class="quarterly-card__cta">
+            Read issue
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a class="quarterly-card" href="2024-q3.html">
+          <p class="quarterly-card__issue">Issue 06 · Q3 2024</p>
+          <h3 class="quarterly-card__title">Culture as strategy.</h3>
+          <p class="quarterly-card__summary">
+            Culture is not the soft stuff. We go inside two cultural
+            transformations — one bank, one mid-cap manufacturer — and trace
+            the line from belief to behaviour to balance sheet. With notes on
+            what NOT to do.
+          </p>
+          <span class="quarterly-card__cta">
+            Read issue
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <div class="quarterly-foot">
+        <p class="quarterly-foot__note">
+          The Leadership Quarterly is shared by invitation. If you've reached this
+          page, you have the link — feel free to forward it to colleagues who
+          take leadership work seriously.
+        </p>
+        <a href="../index.html#slide=0">← Back to munichleadership.com</a>
+      </div>
+
+      <footer class="imprint" style="margin-top: clamp(40px,5vh,64px);">
+        <p class="imprint__links">
+          <a href="../disclaimer.html">Disclaimer</a>
+          <span aria-hidden="true">·</span>
+          <span class="imprint__copy">© 2026 Munich Leadership Group</span>
+        </p>
+      </footer>
+    </div>
+  </main>
+</body>
+</html>
