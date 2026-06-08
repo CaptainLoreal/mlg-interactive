@@ -61,19 +61,15 @@
    it doesn't fight the rest of the page. */
 .hero-card {
   flex-shrink: 1;
-  /* Card width scales with the viewport via clamp + caps at 540 px on
-     desktop. min(40vw, 90vw - var(--pad-x)) so the card never grows
-     larger than the remaining space and can shrink in step with the
-     hero column on smaller widths. */
-  width: clamp(280px, 38vw, 540px);
+  /* Card width — broader than before, scales with viewport, caps at
+     680 px on desktop. */
+  width: clamp(320px, 44vw, 680px);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 12px;
-  /* Generous, responsive padding so the text breathes off the card
-     border on all four sides. */
-  padding: clamp(28px, 3vw, 48px);
+  padding: clamp(32px, 3.2vw, 52px);
 }
 .hero-card__body {
   font-size: 26px;
