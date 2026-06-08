@@ -1695,22 +1695,24 @@
   };
   function routeProfile(profile, delay) {
     const target = PROFILE_ROUTES[profile] || { slide: 5 }; // Services fallback
+    // For PAGE routes: skip the thank-you delay. The 1200 ms wait used
+    // to invite a flash of slide 2 (Approach) if the visitor scrolled
+    // even slightly during the dwell. The destination page IS the
+    // experience — go straight there.
+    const effectiveDelay = target.page ? 0 : delay;
     const fire = () => {
       if (target.page) {
-        // Page navigation — first snap the deck back to Tailor so the
-        // page-unload transition can't briefly reveal whichever slide
-        // the visitor scrolled to during the thank-you wait. Then go.
+        // Hide the deck FIRST so no intermediate slide can paint after
+        // this point. Then snap back to Tailor (so the bfcache restore
+        // lands on the right slide), then trigger navigation.
+        document.documentElement.style.background = '#000';
+        const deck = document.getElementById('deck');
+        if (deck) deck.style.visibility = 'hidden';
         if (typeof window.__mlgScrollTo === 'function') {
           const slides = Array.from(document.querySelectorAll('.slide'));
           const tailorIdx = slides.findIndex(s => s.dataset.title === 'Tailor');
           if (tailorIdx >= 0) window.__mlgScrollTo(tailorIdx);
         }
-        // Hide the deck while the browser starts loading the next page —
-        // a blank black screen is preferable to a flash of the wrong slide.
-        // pageshow handler below restores both when the visitor comes back.
-        document.documentElement.style.background = '#000';
-        const deck = document.getElementById('deck');
-        if (deck) deck.style.visibility = 'hidden';
         window.location.href = target.page;
       } else if (typeof window.__mlgScrollTo === 'function') {
         window.__mlgScrollTo(target.slide);
@@ -1719,7 +1721,7 @@
         setTimeout(resetForm, 80);
       }
     };
-    if (delay > 0) setTimeout(fire, delay);
+    if (effectiveDelay > 0) setTimeout(fire, effectiveDelay);
     else fire();
   }
   // bfcache restore: when the visitor uses the browser back button to
