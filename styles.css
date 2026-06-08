@@ -3041,15 +3041,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   line-height: 1.15;
   text-transform: uppercase;
   color: #fff;
-  /* Symmetric vertical margin so the title sits visually centered
+  /* Symmetric vertical margin so the title sits visually centred
      between card top and the body paragraph below. */
   margin: 0 0 18px;
   text-align: center;
   width: 100%;
-  /* Balance line breaks so all lines have similar length and centre
-     uniformly. Without this, the trailing whitespace on broken lines
-     could shift each line's midpoint by a few pixels. */
-  text-wrap: balance;
 }
 .why-mlg__cards .challenge-box__body {
   font-size: 16px;
