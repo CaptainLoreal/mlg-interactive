@@ -2391,10 +2391,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 5vh, 56px);
   background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 52%);
 }
-/* Dark / red halo behind the OUR APPROACH eyebrow + headline. Sits
-   ABOVE the bottom-gradient overlay but BELOW the actual text. A soft
-   radial wash anchored to the bottom-left where the copy sits, so the
-   headline reads off the photo with atmospheric depth. */
+/* Dark halo behind the OUR APPROACH eyebrow + headline — pure black
+   (no red tint), matching the other behind-header halos. Sits ABOVE
+   the bottom-gradient overlay but BELOW the actual text via z-index. */
 .approach-hero__copy::before {
   content: '';
   position: absolute;
@@ -2403,8 +2402,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   width: 75%;
   height: 75%;
   background: radial-gradient(ellipse at center,
-    rgba(181,0,52,0.35) 0%,
-    rgba(0,0,0,0.55) 32%,
+    rgba(0,0,0,0.70) 0%,
+    rgba(0,0,0,0.45) 38%,
     rgba(0,0,0,0) 72%);
   filter: blur(8px);
   z-index: 0;
