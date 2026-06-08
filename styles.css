@@ -97,6 +97,14 @@
     gap: clamp(20px, 3vh, 32px) !important;
     max-width: none !important;
   }
+  /* Both column children explicitly pinned at the slide__copy LEFT
+     edge with no internal offset, so the headline pill and the card
+     BORDER share the same vertical line. */
+  .slide[data-title="Welcome"] .slide__copy > div {
+    align-self: flex-start !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
   /* Smaller headline on tablet so headline + card fit comfortably */
   .slide[data-title="Welcome"] .slide__copy .display {
     font-size: clamp(40px, 7vw, 64px);
@@ -218,7 +226,12 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  padding: 4px 12px;
+  /* line-height: 1 + symmetric vertical padding so the space between
+     text and pill edge is the SAME above and below. Without line-height,
+     the inherited value adds invisible padding to the top and the pill
+     reads top-heavy. */
+  line-height: 1;
+  padding: 6px 12px;
 }
 
 /* Allow mixed-case in an eyebrow without losing the red colour or weight. */
@@ -807,20 +820,22 @@ button { font-family: inherit; cursor: pointer; }
   transform: scale(min(var(--hero-logo-scale, 1), var(--hero-logo-cap)));
   will-change: transform;
 }
-/* Per-viewport cap on the hero-logo scale.
-   Small phone:  1.55×
-   Large phone:  1.85×
-   Tablet port:  2.30×
-   Tablet land:  2.60×
-   Desktop:      2.80× (default above) */
+/* Per-viewport cap on the hero-logo scale. Tuned smaller at tablet
+   sizes so the scaled logo + the inline menu (CLIENTS APPROACH …
+   lang-switch burger) can co-exist without overlap.
+     Small phone (≤419):       1.55×
+     Large phone (≤599):       1.80×
+     Tablet portrait (≤899):   2.00×
+     Tablet landscape (≤1199): 2.20×
+     Desktop (≥1200):          2.80× (default above) */
 @media (max-width: 1199px) {
-  .topbar__logo-stack { --hero-logo-cap: 2.60; }
+  .topbar__logo-stack { --hero-logo-cap: 2.20; }
 }
 @media (max-width: 899px) {
-  .topbar__logo-stack { --hero-logo-cap: 2.30; }
+  .topbar__logo-stack { --hero-logo-cap: 2.00; }
 }
 @media (max-width: 599px) {
-  .topbar__logo-stack { --hero-logo-cap: 1.85; }
+  .topbar__logo-stack { --hero-logo-cap: 1.80; }
 }
 @media (max-width: 419px) {
   .topbar__logo-stack { --hero-logo-cap: 1.55; }
@@ -1046,11 +1061,10 @@ button { font-family: inherit; cursor: pointer; }
   .slide-nav { gap: 8px; }
   .slide-nav__btn { font-size: 10px; letter-spacing: 0.08em; }
 }
-/* Hide the inline slide-nav at viewports where the scaled hero logo
-   would visually overlap the menu items. At ≤1279 the 2.6×–2.8×
-   logo right-edge crashes into the slide-nav row. The burger button
-   stays visible at all sizes and opens the same navigation. */
-@media (max-width: 1279px) {
+/* Hide slide-nav only on mobile — at tablet/desktop it stays visible,
+   and the hero logo's per-viewport scale cap is tuned so the scaled
+   logo doesn't reach the menu items. */
+@media (max-width: 640px) {
   .slide-nav { display: none; }
 }
 
