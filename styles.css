@@ -811,8 +811,9 @@ button { font-family: inherit; cursor: pointer; }
   width: 230%;
   height: 320%;
   transform: translate(-50%, -50%);
+  /* Strength dialled down 30 % per request — 0.62 → 0.434, 0.34 → 0.238 */
   background: radial-gradient(ellipse at center,
-    rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.34) 38%, rgba(255,255,255,0) 72%);
+    rgba(255,255,255,0.434) 0%, rgba(255,255,255,0.238) 38%, rgba(255,255,255,0) 72%);
   z-index: -1;
   opacity: 0;
   pointer-events: none;
