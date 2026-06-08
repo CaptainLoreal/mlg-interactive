@@ -4527,6 +4527,23 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   .globe-card { width: 100%; }
 }
 
+/* Tablet range (768–1199 px): the desktop globe+side grid (520 px +
+   380 px + 80 px gap = ~980 px) overruns the available width and
+   pushes the "Trusted by leading organizations" header off the right
+   edge. Shrink globe + side + gap so the row sits comfortably. */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .globe-wrap {
+    grid-template-columns: min(46vw, 560px) min(28vw, 340px);
+    column-gap: clamp(32px, 4vw, 64px);
+  }
+  .globe-stage {
+    width: min(46vw, 560px);
+  }
+  .globe-side {
+    width: min(28vw, 340px);
+  }
+}
+
 @media (min-width: 1100px) {
   .topbar { font-size: 13px; }
   .slide__copy { max-width: 760px; }
