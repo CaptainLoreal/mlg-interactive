@@ -245,14 +245,16 @@ button { font-family: inherit; cursor: pointer; }
   text-align: inherit;
 }
 /* A display__line that's allowed to break with a soft hyphen when its
-   container gets narrow. Use on long single words (e.g. "organi&shy;zations")
-   that need to wrap as "organi-/zations" rather than overflow. */
-.display__line--break {
-  white-space: normal;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  overflow-wrap: break-word;
-  word-break: normal;
+   container gets narrow. Only enabled on tablet / smaller viewports —
+   desktop has plenty of room and the word should render whole. */
+@media (max-width: 1199px) {
+  .display__line--break {
+    white-space: normal;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
 }
 
 /* <br class="br-mobile"> only breaks on mobile; hidden on desktop. */
