@@ -747,11 +747,32 @@ button { font-family: inherit; cursor: pointer; }
   height: clamp(42px, 6vw, 62px);
   flex-shrink: 0;
   transform-origin: left top;
-  /* Scale is driven by JS scroll position (--hero-logo-scale) so the
-     logo shrinks continuously as the user scrolls through the hero.
-     The will-change hint keeps the compositor layer warm. */
-  transform: scale(var(--hero-logo-scale, 1));
+  /* Scale is driven by JS (--hero-logo-scale, 1× = menu, larger = hero).
+     CSS wraps it in min() so the maximum is hard-capped per viewport —
+     belt-and-suspenders for the case where JS hasn't computed the cap
+     yet (deferred script timing) or fails to load. The --hero-logo-cap
+     custom property is bumped by media queries below. */
+  --hero-logo-cap: 2.8;
+  transform: scale(min(var(--hero-logo-scale, 1), var(--hero-logo-cap)));
   will-change: transform;
+}
+/* Per-viewport cap on the hero-logo scale.
+   Small phone:  1.55×
+   Large phone:  1.85×
+   Tablet port:  2.30×
+   Tablet land:  2.60×
+   Desktop:      2.80× (default above) */
+@media (max-width: 1199px) {
+  .topbar__logo-stack { --hero-logo-cap: 2.60; }
+}
+@media (max-width: 899px) {
+  .topbar__logo-stack { --hero-logo-cap: 2.30; }
+}
+@media (max-width: 599px) {
+  .topbar__logo-stack { --hero-logo-cap: 1.85; }
+}
+@media (max-width: 419px) {
+  .topbar__logo-stack { --hero-logo-cap: 1.55; }
 }
 /* Fallback for non-deck / no-JS: keep the logo at menu size. */
 .deck .topbar:not(.topbar--past-hero) .topbar__logo-stack {

@@ -478,8 +478,34 @@
   const heroSticky = document.getElementById('heroSticky');
   const heroLogoStack = document.querySelector('.topbar__logo-stack');
   const topbarEl = document.querySelector('.topbar');
-  // Initialise to big scale immediately so the first paint matches scroll=0
-  if (heroLogoStack) document.documentElement.style.setProperty('--hero-logo-scale', '2.8');
+
+  /* Viewport-aware hero scale. The 2.8× was originally hardcoded — fine
+     on a desktop but oversized on a phone where it collided with the
+     "What is your dream?" headline. Keep the menu/settled state at 1×
+     and pick a hero-end scale that fits the viewport. Re-evaluated on
+     resize so an orientation change or window resize lands cleanly. */
+  function getHeroMaxScale() {
+    const w = window.innerWidth;
+    if (w < 420)  return 1.55;   // small phone
+    if (w < 600)  return 1.85;   // large phone
+    if (w < 900)  return 2.30;   // tablet portrait
+    if (w < 1200) return 2.60;   // tablet landscape / small laptop
+    return 2.80;                 // desktop
+  }
+  let heroMaxScale = getHeroMaxScale();
+  // Initialise to the right scale immediately so first paint matches scroll=0
+  if (heroLogoStack) document.documentElement.style.setProperty('--hero-logo-scale', heroMaxScale.toFixed(3));
+  /* Resize listener — debounced via rAF — recomputes the cap and lets
+     the next tickSmooth re-apply the smooth scroll-driven scale. */
+  let resizeRaf = 0;
+  window.addEventListener('resize', () => {
+    if (resizeRaf) return;
+    resizeRaf = requestAnimationFrame(() => {
+      heroMaxScale = getHeroMaxScale();
+      lastTickScroll = -1;          // force tickSmooth to recompute
+      resizeRaf = 0;
+    });
+  });
 
   /* Section-sticky helpers — each <div class="section-sticky"> has a
      data-section selector that points at the in-slide section it tracks.
@@ -564,7 +590,8 @@
     {
       const vh = window.innerHeight;
       const heroProgress = Math.min(1, Math.max(0, scrollCurrent / (vh * 0.35)));
-      const logoScale = 2.8 - 1.8 * heroProgress;
+      // Lerp from the viewport-tuned max down to 1× at full hero progress.
+      const logoScale = heroMaxScale - (heroMaxScale - 1) * heroProgress;
       document.documentElement.style.setProperty('--hero-logo-scale', logoScale.toFixed(3));
       if (topbarEl) topbarEl.classList.toggle('topbar--past-hero', scrollCurrent >= vh * 0.5);
     }
