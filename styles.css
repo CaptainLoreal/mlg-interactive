@@ -821,6 +821,25 @@ button { font-family: inherit; cursor: pointer; }
 }
 .deck .topbar:not(.topbar--past-hero) .topbar__logo-stack::before { opacity: 1; }
 
+/* ── Hide menu items at hero so the SCALED logo never overlaps them.
+   The scaled logo (up to 2.8× on desktop) visually extends across the
+   topbar and would collide with .slide-nav / .lang-switch / .burger.
+   Fade them out at hero, fade them back in when the topbar settles
+   into its past-hero (menu) state. */
+.deck .topbar:not(.topbar--past-hero) .slide-nav,
+.deck .topbar:not(.topbar--past-hero) .lang-switch,
+.deck .topbar:not(.topbar--past-hero) .burger {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-3) var(--ease-out);
+}
+.deck .topbar.topbar--past-hero .slide-nav,
+.deck .topbar.topbar--past-hero .lang-switch,
+.deck .topbar.topbar--past-hero .burger {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* ── Dark text/UI over the hero (only on the deck/index, no past-hero) */
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn { color: #000; }
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn:hover,
