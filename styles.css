@@ -228,12 +228,14 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  /* line-height: 1 + symmetric vertical padding so the space between
-     text and pill edge is the SAME above and below. Without line-height,
-     the inherited value adds invisible padding to the top and the pill
-     reads top-heavy. */
+  /* line-height: 1 keeps the text box tight to the font-size. Padding
+     is asymmetric (more top than bottom) to compensate for the font's
+     descent area below the baseline — for all-caps text there's no
+     descender content, so equal CSS padding makes the pill read
+     bottom-heavy. 8 px top + 4 px bottom gives visually equal space
+     above and below the visible cap-strokes. */
   line-height: 1;
-  padding: 6px 12px;
+  padding: 8px 12px 4px;
 }
 
 /* Allow mixed-case in an eyebrow without losing the red colour or weight. */
@@ -866,28 +868,8 @@ button { font-family: inherit; cursor: pointer; }
 .deck .topbar.topbar--past-hero .topbar__logo-img--dark { opacity: 0; }
 .deck .topbar.topbar--past-hero .topbar__logo-img--light { opacity: 1; }
 
-/* Light radial halo behind the big hero logo — the wordmark is BLACK
-   on hero, so we use a SOFT WHITE wash (not the dark headline halo) to
-   lift it off any dark/busy parts of the photo. Lives on the scaled
-   stack via ::before so it scales with the logo and fades out as the
-   logo shrinks into the dark menu. */
-.topbar__logo-stack::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 230%;
-  height: 320%;
-  transform: translate(-50%, -50%);
-  /* Strength dialled down 30 % per request — 0.62 → 0.434, 0.34 → 0.238 */
-  background: radial-gradient(ellipse at center,
-    rgba(255,255,255,0.434) 0%, rgba(255,255,255,0.238) 38%, rgba(255,255,255,0) 72%);
-  z-index: -1;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--dur-3) var(--ease-out);
-}
-.deck .topbar:not(.topbar--past-hero) .topbar__logo-stack::before { opacity: 1; }
+/* Halo behind the big hero logo — removed per request. The big logo
+   sits cleanly on the photo without any radial wash behind it. */
 
 /* ── Dark text/UI over the hero (only on the deck/index, no past-hero) */
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn { color: #000; }
@@ -895,7 +877,7 @@ button { font-family: inherit; cursor: pointer; }
 .deck .topbar:not(.topbar--past-hero) .slide-nav__btn.is-active { color: #000; }
 .deck .topbar:not(.topbar--past-hero) .lang-switch {
   background: rgba(0,0,0,0.05);
-  border-color: rgba(0,0,0,0.18);
+  border-color: rgba(0,0,0,0.28);
 }
 .deck .topbar:not(.topbar--past-hero) .lang-switch__btn { color: rgba(0,0,0,0.55); }
 .deck .topbar:not(.topbar--past-hero) .lang-switch__btn.is-active {
@@ -1230,7 +1212,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding: 3px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(0,0,0,0.30);
+  background: rgba(0,0,0,0.28);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   pointer-events: auto;
@@ -1471,7 +1453,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   width: 44px; height: 44px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.35);
-  background: rgba(0,0,0,0.18);
+  background: rgba(0,0,0,0.28);
   color: #fff;
   display: grid; place-items: center;
   backdrop-filter: blur(8px);
@@ -1903,7 +1885,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .offerings-bg__scrim {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.30);
+  background: rgba(0,0,0,0.28);
   z-index: 1;
 }
 /* Cards grid sits on top of the image */
@@ -1999,7 +1981,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   transform: translate(-50%, -50%);
   width: 140%;
   height: 220%;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.30) 35%, rgba(0,0,0,0) 70%);
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0) 70%);
   z-index: -1;
   pointer-events: none;
   filter: blur(8px);
@@ -2349,7 +2331,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   background: rgba(0,0,0,0.82);
 }
 .slide--approach-main .slide__scrim {
-  background: rgba(0,0,0,0.30);
+  background: rgba(0,0,0,0.28);
 }
 /* Main Approach slide — dark base, image via .approach-hero inside the scroll wrap */
 .slide--approach-main { background: #000; }
@@ -3120,7 +3102,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   border: 1px solid rgba(255,255,255,0.18);
   border-radius: 999px;
   padding: 4px;
-  background: rgba(0,0,0,0.18);
+  background: rgba(0,0,0,0.28);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -3390,7 +3372,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 /* Tailor slide background scrim — lighter so the continuous hero image
    reads through behind the form panel */
 .slide--tailor .slide__scrim {
-  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.30) 60%, rgba(0,0,0,0.20) 100%) !important;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.28) 60%, rgba(0,0,0,0.20) 100%) !important;
 }
 /* Reusable halo for headers that sit over photography */
 .has-halo {
@@ -3717,7 +3699,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 .tf__hint kbd {
   font-family: inherit;
-  background: rgba(0,0,0,0.30);
+  background: rgba(0,0,0,0.28);
   border: 1px solid rgba(255,255,255,0.18);
   border-radius: 2px;
   padding: 0 4px;
@@ -3937,7 +3919,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   width: 44px; height: 44px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.30);
-  background: rgba(0,0,0,0.18);
+  background: rgba(0,0,0,0.28);
   color: #fff;
   display: grid; place-items: center;
   cursor: pointer;
