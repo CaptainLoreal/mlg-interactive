@@ -67,7 +67,9 @@
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 12px;
-  padding: clamp(28px, 3vw, 48px);
+  /* More generous padding — 40 → 60 px room so the text breathes off
+     the card border on all four sides. Was clamp(28,3vw,48). */
+  padding: clamp(40px, 3.6vw, 60px);
 }
 .hero-card__body {
   font-size: 26px;
@@ -115,7 +117,7 @@
   .slide[data-title="Welcome"] .hero-card {
     width: 100%;
     max-width: 620px;
-    padding: clamp(18px, 2.2vw, 28px);
+    padding: clamp(28px, 3vw, 40px);
   }
   .slide[data-title="Welcome"] .hero-card__body {
     font-size: clamp(14px, 1.6vw, 17px);
@@ -127,7 +129,7 @@
 @media (max-width: 640px) {
   .hero-card {
     width: 100%;
-    padding: 20px 22px;
+    padding: 26px 24px;
     background: rgba(0,0,0,0.32);
   }
   .hero-card__body {
