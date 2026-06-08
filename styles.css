@@ -3440,18 +3440,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   margin-right: auto;
 }
 
-/* Halo behind the hero headline group (eyebrow + display + sub) */
-.slide[data-title="Welcome"] .slide__copy > div:first-child {
-  position: relative;
-  padding: clamp(48px, 8vh, 96px) clamp(40px, 6vw, 80px);
-  margin: clamp(-32px, -5vh, -16px) clamp(-24px, -4vw, -16px);
-  background: radial-gradient(
-    ellipse 65% 60% at center,
-    rgba(0,0,0,0.40) 0%,
-    rgba(0,0,0,0.22) 32%,
-    rgba(0,0,0,0)    58%
-  );
-}
+/* Hero headline halo — removed. Was adding clamp(40,6vw,80) of LEFT
+   padding to the headline group which pushed the eyebrow + H1 ~56 px
+   right of --pad-x and misaligned them with the topbar logo. The
+   visible text now sits at exactly --pad-x, lined up with the menu
+   logo's container left edge. */
 .contact-wrap--tailor .contact-block {
   width: 100%;
   max-width: 560px;
