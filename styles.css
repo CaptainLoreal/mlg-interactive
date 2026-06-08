@@ -77,6 +77,45 @@
   margin: 0 0 18px;
 }
 .hero-card__body:last-child { margin-bottom: 0; }
+
+/* Tablet / small-desktop range (641 – 1199 px): the desktop layout
+   tries to keep the headline + card on the same horizontal row, but
+   below ~1200 px the row can't hold both — the card collides with
+   "EMPOWERING LEADERSHIP". Drop the slide__copy to a column-wise
+   stack here, with the card sitting under the headline at a sensible
+   max-width so the page still reads desktop-class. */
+@media (min-width: 641px) and (max-width: 1199px) {
+  .slide[data-title="Welcome"] .slide__copy {
+    /* Anchor top AND bottom so the flex container has real height —
+       without an explicit top, justify-content:flex-end is a no-op and
+       the stack drifts up. */
+    top: clamp(96px, 12vh, 140px) !important;
+    bottom: clamp(80px, 10vh, 120px) !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-end !important;
+    gap: clamp(20px, 3vh, 32px) !important;
+    max-width: none !important;
+  }
+  /* Smaller headline on tablet so headline + card fit comfortably */
+  .slide[data-title="Welcome"] .slide__copy .display {
+    font-size: clamp(40px, 7vw, 64px);
+  }
+  .slide[data-title="Welcome"] .slide__copy .display--sub {
+    font-size: clamp(16px, 2.2vw, 24px) !important;
+  }
+  .slide[data-title="Welcome"] .hero-card {
+    width: 100%;
+    max-width: 620px;
+    padding: clamp(18px, 2.2vw, 28px);
+  }
+  .slide[data-title="Welcome"] .hero-card__body {
+    font-size: clamp(14px, 1.6vw, 17px);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+}
+
 @media (max-width: 640px) {
   .hero-card {
     width: 100%;
