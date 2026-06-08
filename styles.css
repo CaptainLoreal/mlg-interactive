@@ -244,6 +244,16 @@ button { font-family: inherit; cursor: pointer; }
   white-space: nowrap;
   text-align: inherit;
 }
+/* A display__line that's allowed to break with a soft hyphen when its
+   container gets narrow. Use on long single words (e.g. "organi&shy;zations")
+   that need to wrap as "organi-/zations" rather than overflow. */
+.display__line--break {
+  white-space: normal;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
 
 /* <br class="br-mobile"> only breaks on mobile; hidden on desktop. */
 .br-mobile { display: none; }
