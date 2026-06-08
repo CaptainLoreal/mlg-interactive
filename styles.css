@@ -1044,7 +1044,11 @@ button { font-family: inherit; cursor: pointer; }
   .slide-nav { gap: 8px; }
   .slide-nav__btn { font-size: 10px; letter-spacing: 0.08em; }
 }
-@media (max-width: 640px) {
+/* Hide the inline slide-nav at viewports where the scaled hero logo
+   would visually overlap the menu items. At ≤1279 the 2.6×–2.8×
+   logo right-edge crashes into the slide-nav row. The burger button
+   stays visible at all sizes and opens the same navigation. */
+@media (max-width: 1279px) {
   .slide-nav { display: none; }
 }
 
