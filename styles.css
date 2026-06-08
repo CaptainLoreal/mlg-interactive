@@ -60,16 +60,20 @@
    a pull-quote; on mobile it drops to regular body-text size/weight so
    it doesn't fight the rest of the page. */
 .hero-card {
-  flex-shrink: 0;
-  width: clamp(320px, 40vw, 580px);
+  flex-shrink: 1;
+  /* Card width scales with the viewport via clamp + caps at 540 px on
+     desktop. min(40vw, 90vw - var(--pad-x)) so the card never grows
+     larger than the remaining space and can shrink in step with the
+     hero column on smaller widths. */
+  width: clamp(280px, 38vw, 540px);
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 12px;
-  /* More generous padding — 40 → 60 px room so the text breathes off
-     the card border on all four sides. Was clamp(28,3vw,48). */
-  padding: clamp(40px, 3.6vw, 60px);
+  /* Generous, responsive padding so the text breathes off the card
+     border on all four sides. */
+  padding: clamp(28px, 3vw, 48px);
 }
 .hero-card__body {
   font-size: 26px;
@@ -2391,9 +2395,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 5vh, 56px);
   background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 52%);
 }
-/* Dark halo behind the OUR APPROACH eyebrow + headline — pure black
-   (no red tint), matching the other behind-header halos. Sits ABOVE
-   the bottom-gradient overlay but BELOW the actual text via z-index. */
+/* Dark halo behind the OUR APPROACH eyebrow + headline — pure black,
+   stronger than the other behind-header halos so the headline pops
+   clearly off the photo. */
 .approach-hero__copy::before {
   content: '';
   position: absolute;
@@ -2402,8 +2406,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   width: 75%;
   height: 75%;
   background: radial-gradient(ellipse at center,
-    rgba(0,0,0,0.70) 0%,
-    rgba(0,0,0,0.45) 38%,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,0,0,0.65) 38%,
     rgba(0,0,0,0) 72%);
   filter: blur(8px);
   z-index: 0;
