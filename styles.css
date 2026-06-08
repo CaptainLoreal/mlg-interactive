@@ -1397,7 +1397,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .rail {
   position: fixed;
   top: 50%;
-  right: clamp(14px, 2.4vw, 28px);
+  /* Sit close to the right edge — was clamp(14, 2.4vw, 28). */
+  right: clamp(4px, 0.8vw, 10px);
   transform: translateY(-50%);
   z-index: 6;
   display: flex;
