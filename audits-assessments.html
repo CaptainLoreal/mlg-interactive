@@ -27,9 +27,21 @@
     .ld-offering { width: 100%; max-width: 680px; }
     .ld-offering { background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 32px 28px 36px; display: flex; flex-direction: column; align-items: center; text-align: center; }
     .ld-offering__title { font-size: clamp(26px, 3vw, 38px); font-weight: 700; font-family: var(--font-sans); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.1; color: #fff; margin: 0 0 20px; }
-    .ld-offering__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
-    .ld-offering__list li { font-size: 19px; color: rgba(255,255,255,0.65); font-weight: 450; padding-left: 16px; position: relative; line-height: 1.5; }
-    .ld-offering__list li::before { content: '—'; position: absolute; left: 0; color: var(--mlg-red); font-size: 12px; }
+    /* Bullet style copied verbatim from psychometrics.html — red 8px
+       circular dot marker (instead of em-dash) for visual consistency
+       across audit / assessment subpages. */
+    .ld-offering__list { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-direction: column; gap: 10px; }
+    .ld-offering__list li { font-size: 19px; color: rgba(255,255,255,0.65); font-weight: 400; padding-left: 22px; position: relative; line-height: 1.75; }
+    .ld-offering__list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.78em;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--mlg-red);
+    }
     .ld-usp { max-width: 820px; margin: 0 auto clamp(48px, 7vh, 80px); padding: 36px 40px; background: rgba(181,0,52,0.10); border: 1px solid rgba(181,0,52,0.28); border-radius: 8px; }
     .ld-usp__label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 14px; }
     .ld-usp__text { font-size: clamp(15px, 1.8vw, 18px); line-height: 1.7; color: rgba(255,255,255,0.80); margin: 0; font-style: italic; }
