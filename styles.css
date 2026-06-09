@@ -121,17 +121,15 @@
   .slide[data-title="Welcome"] .slide__copy .display--sub {
     font-size: clamp(16px, 2.2vw, 24px) !important;
   }
-  /* Card: tighter left padding so the body text sits closer to the
-     card's left border (and therefore closer to the headline's left
-     line above). Right padding stays comfortable. */
+  /* Card: uniform padding on all four sides — the previous asymmetric
+     pad (less on the left) read as "broken" because the text hugged
+     the card's left border while the other three sides had comfortable
+     buffer. Matching all sides at the same clamp() keeps the body
+     text optically centred inside the rounded frame. */
   .slide[data-title="Welcome"] .hero-card {
     width: 100%;
     max-width: 620px;
-    padding:
-      clamp(22px, 2.4vw, 30px)
-      clamp(28px, 3vw, 40px)
-      clamp(22px, 2.4vw, 30px)
-      clamp(16px, 1.6vw, 22px);
+    padding: clamp(24px, 2.8vw, 36px);
   }
   .slide[data-title="Welcome"] .hero-card__body {
     font-size: clamp(14px, 1.6vw, 17px);
