@@ -216,21 +216,36 @@
     }
   });
 
-  /* Fly animation for the stepped-pyramid mark. */
+  /* Click-fly animation for the stepped-pyramid corner mark.
+     Each of the 3 paths scatters in its OWN direction (so visually
+     you see all three triangles fly out, hold for a beat at their
+     far point, then swing back to origin), with a rotation and a
+     mild scale-down at the peak. No teleport mid-flight — the
+     previous keyframes shrank-and-teleported-and-swooped which
+     read as broken even when it worked. The bounce easing on the
+     return adds a satisfying settle. */
   function flyMark(markEl) {
     if (!markEl || markEl.dataset.flying === '1') return;
     markEl.dataset.flying = '1';
     const paths = markEl.querySelectorAll('.mark__path');
-    const DUR = 1400, STAGGER = 110;
+    const DUR = 1100, STAGGER = 90;
+    // Per-path scatter vectors — top-left, top-right, down. Big enough
+    // to clearly clear the mark's footprint.
+    const VECTORS = [
+      { x: -220, y: -180, rot:  -28 },
+      { x:  240, y: -210, rot:   42 },
+      { x:   30, y:  220, rot: -360 },
+    ];
     paths.forEach((p, i) => {
+      const v = VECTORS[i] || VECTORS[0];
       p.animate(
         [
-          { transform: 'translate(0,0) rotate(0deg) scale(1)',                opacity: 1, offset: 0    },
-          { transform: 'translate(220px,-260px) rotate(35deg) scale(0.35)',   opacity: 0, offset: 0.38 },
-          { transform: 'translate(-220px,260px) rotate(-25deg) scale(0.35)',  opacity: 0, offset: 0.42 },
-          { transform: 'translate(0,0) rotate(0deg) scale(1)',                opacity: 1, offset: 1    },
+          { transform: 'translate(0,0) rotate(0deg) scale(1)',                                  offset: 0    },
+          { transform: `translate(${v.x}px, ${v.y}px) rotate(${v.rot}deg) scale(0.7)`,           offset: 0.5  },
+          { transform: `translate(${v.x * 0.95}px, ${v.y * 0.95}px) rotate(${v.rot}deg) scale(0.72)`, offset: 0.6  },
+          { transform: 'translate(0,0) rotate(0deg) scale(1)',                                  offset: 1    },
         ],
-        { duration: DUR, delay: i * STAGGER, easing: 'cubic-bezier(0.55, 0.05, 0.25, 1)', fill: 'both' }
+        { duration: DUR, delay: i * STAGGER, easing: 'cubic-bezier(0.34, 1.56, 0.64, 1)', fill: 'both' }
       );
     });
     setTimeout(() => { delete markEl.dataset.flying; }, DUR + (paths.length - 1) * STAGGER + 50);
