@@ -2429,14 +2429,19 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
      • .hero-head            — slide-0 welcome headline (eyebrow + H1 + sub)
      • .approach-hero__head  — approach hero eyebrow + H2
      • .approach-hero__body  — approach hero body paragraphs
-   Explicit layering: wrapper forms a stacking context (z-index: 1),
-   halo at z-index: 0 sits inside that context, text children promoted
-   to z-index: 1 so they paint EXACTLY one layer above the halo. */
+
+   IMPORTANT: position: relative WITHOUT z-index — we do NOT want a
+   new stacking context here. If __head and __body each formed their
+   own context, the sibling __body's whole context (halo included)
+   would paint above __head's text in DOM order — that's why the
+   halo previously looked like it was on top of the text. By staying
+   inside the parent's stacking context (.approach-hero__copy z:2),
+   all halos sit at z:0 and all text at z:1 in the SAME context,
+   so text reliably wins. */
 .hero-head,
 .approach-hero__head,
 .approach-hero__body {
   position: relative;
-  z-index: 1;
 }
 .hero-head > *,
 .approach-hero__head > *,
@@ -2444,9 +2449,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   position: relative;
   z-index: 1;
 }
-/* Halo: one layer below the text and header. Geometry/stops mirror
-   .services-split__copy::before exactly — same radial gradient,
-   same 140%×220% bounds, same 8 px blur. */
+/* Halo: one layer below the text. Geometry/stops mirror
+   .services-split__copy::before exactly. */
 .hero-head::before,
 .approach-hero__head::before,
 .approach-hero__body::before {
