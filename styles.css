@@ -224,20 +224,20 @@ button { font-family: inherit; cursor: pointer; }
   text-transform: uppercase;
   color: #fff;
   margin: 0 0 14px;
-  /* inline-flex + align-items:center centres the text glyph at the
-     geometric centre of the pill, regardless of font metrics. The
-     previous asymmetric-padding fix was over-correcting and making
-     the top read heavy. Padding controls only horizontal whitespace
-     now; vertical is the explicit height + flex centring. */
+  /* inline-flex centres the glyph vertically; min-height (not fixed
+     height) lets the pill grow when the text wraps or when context-
+     specific rules bump the font-size. Small symmetric vertical
+     padding gives a buffer so cap-strokes don't kiss the pill edge
+     even at non-default line-heights. */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 22px;
-  line-height: 1;
+  min-height: 22px;
+  line-height: 1.25;
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  padding: 0 12px;
+  padding: 3px 12px;
 }
 
 /* Allow mixed-case in an eyebrow without losing the red colour or weight. */
