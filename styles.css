@@ -140,24 +140,6 @@
   }
 }
 
-/* ── Slide-0 slogan ("EMPOWERING / LEADERSHIP") reveals on scroll ──
-   Starts collapsed and invisible; --hero-slogan-opacity (set by JS in
-   the tickSmooth handler, 0 → 1 as scrollCurrent crosses 0–15 % of
-   vh) drives opacity AND max-height AND margin AND a small upward
-   translate so the slogan fades + slides + expands into the layout.
-   No CSS transition — JS already lerps the custom property each frame
-   via the existing smooth-scroll easing, so a transition would fight
-   it. The 280 px max-height ceiling is comfortably above the largest
-   2-line slogan at clamp(40,7vw,64). Applies on every viewport so
-   the effect is consistent. */
-.slide[data-title="Welcome"] h1.display {
-  opacity: var(--hero-slogan-opacity, 0);
-  max-height: calc(var(--hero-slogan-opacity, 0) * 280px);
-  margin-bottom: calc(var(--hero-slogan-opacity, 0) * 18px);
-  overflow: hidden;
-  transform: translateY(calc((1 - var(--hero-slogan-opacity, 0)) * -10px));
-  will-change: opacity, max-height, transform;
-}
 
 @media (max-width: 640px) {
   .hero-card {
@@ -952,11 +934,14 @@ button { font-family: inherit; cursor: pointer; }
   text-transform: uppercase;
   color: rgba(255,255,255,0.50);
   white-space: nowrap;
-  opacity: 0;
-  transition: opacity 400ms ease;
-}
-.topbar--past-hero .topbar__tagline {
-  opacity: 1;
+  /* Opacity is scroll-driven via --menu-tagline-opacity (set by the
+     tickSmooth handler in app.js, 0 → 1 across the first 15 % of vh
+     scroll past the hero). At rest the tagline is invisible; the
+     viewer reveals it by scrolling. No CSS transition — JS lerps the
+     property every rAF frame via the existing smooth-scroll easing
+     so a transition would fight it. */
+  opacity: var(--menu-tagline-opacity, 0);
+  will-change: opacity;
 }
 @media (max-width: 640px) {
   .topbar__tagline { display: none; }

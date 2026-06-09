@@ -587,16 +587,17 @@
       }
     }
 
-    /* Slide-0 slogan reveal. The H1 "EMPOWERING LEADERSHIP" starts
-       collapsed (opacity 0, max-height 0) — see the consuming CSS
-       rule on .slide[data-title="Welcome"] h1.display. As the user
-       scrolls through the first 15 % of slide 0, this custom property
-       ramps 0 → 1, fading and expanding the slogan into the layout.
-       Past 15 %: fully revealed. */
+    /* Menu-bar tagline reveal. The "… Empowering Leadership" line
+       lives in .topbar__tagline next to the wordmark; its opacity
+       reads --menu-tagline-opacity from this property. We ramp 0 → 1
+       across the first 15 % of vh scroll past the hero — so on first
+       paint the tagline is invisible (clean menu next to the logo)
+       and starts to appear as soon as the visitor scrolls. Past 15 %:
+       fully visible. Scrolling back up makes it fade out again. */
     {
       const vh = window.innerHeight;
-      const sloganProgress = Math.min(1, Math.max(0, scrollCurrent / (vh * 0.15)));
-      document.documentElement.style.setProperty('--hero-slogan-opacity', sloganProgress.toFixed(3));
+      const taglineProgress = Math.min(1, Math.max(0, scrollCurrent / (vh * 0.15)));
+      document.documentElement.style.setProperty('--menu-tagline-opacity', taglineProgress.toFixed(3));
     }
 
     // Rail progress
