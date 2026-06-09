@@ -11,7 +11,7 @@
   <!-- Preload Helvetica weights used above the fold -->
   <link rel="preload" as="font" type="font/ttf" href="assets/fonts/Helvetica.ttf" crossorigin />
   <link rel="preload" as="font" type="font/ttf" href="assets/fonts/Helvetica-Bold.ttf" crossorigin />
-  <link rel="stylesheet" href="styles.css?v=426" />
+  <link rel="stylesheet" href="styles.css?v=427" />
   <script>
     /* Any in-page hash (#slide=N, #services, #approach, etc.) means the
        visitor is being deep-linked into the deck — kill the intro flash
@@ -69,8 +69,10 @@
       <div class="rail__bar"><span class="rail__fill" id="railFill"></span></div>
     </nav>
 
-    <!-- Top corner brand + slide nav + audience toggle -->
-    <div class="topbar">
+    <!-- Top corner brand + slide nav + audience toggle.
+         past-hero class is permanent now — big hero logo retired,
+         topbar always wears the blurry-glass + light wordmark look. -->
+    <div class="topbar topbar--past-hero">
       <a class="topbar__logo" href="#" data-jump="0" aria-label="Munich Leadership Group">
         <span class="topbar__logo-stack">
           <img class="topbar__logo-img topbar__logo-img--dark" decoding="async" src="assets/logo-black-red-bold.svg" alt="Munich Leadership Group" />
@@ -857,19 +859,16 @@
 
   </main>
 
-  <script src="app.js?v=228" defer></script>
+  <script src="app.js?v=229" defer></script>
   <script>
+    /* Topbar wears the past-hero look (blurry glass + light wordmark
+       + light menu items) at every scroll position now that the big
+       hero logo has been retired. Add the class once on load — no
+       scroll listener needed. */
     (function () {
       var topbar = document.querySelector('.topbar');
       if (!topbar) return;
-      function checkHero() {
-        var hero = document.querySelector('.slide[data-slide="0"]');
-        if (!hero) return;
-        var past = window.scrollY > hero.offsetHeight * 0.5;
-        topbar.classList.toggle('topbar--past-hero', past);
-      }
-      window.addEventListener('scroll', checkHero, { passive: true });
-      checkHero();
+      topbar.classList.add('topbar--past-hero');
     })();
   </script>
   <script>
