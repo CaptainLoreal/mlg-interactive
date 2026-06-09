@@ -1655,8 +1655,15 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   100% { transform: scale(1.06) translate(0, 1%); }
 }
 @keyframes kbDrift3 {
+  /* Used by .approach-future__media img (the narrow vision photo).
+     Previous endpoint translate(2%, -1%) drifted the image RIGHT —
+     since the container is overflow:hidden and the image cover-scales,
+     a rightward drift crops more of the image's RIGHT side as the
+     animation plays. The new vision-4-narrow has content on the
+     right we want to keep visible, so the drift now goes LEFT — the
+     right edge stays in frame, and the parallax motion is preserved. */
   0%   { transform: scale(1.08) translate(0, 0); }
-  100% { transform: scale(1.15) translate(2%, -1%); }
+  100% { transform: scale(1.15) translate(-1.5%, -1%); }
 }
 @keyframes kbDrift4 {
   0%   { transform: scale(1.12) translate(-1%, 0); }
