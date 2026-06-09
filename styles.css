@@ -2399,12 +2399,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   z-index: 1;
   pointer-events: none;
 }
-/* Bottom edge: a much softer wash now — the previous full-black
-   linear gradient made the bottom 18 % completely opaque, which
-   meant the radial halo on .approach-hero__copy::before was painted
-   on top of solid black and contributed zero visible effect. New
-   ceiling 0.35 alpha keeps the photo readable behind the text and
-   lets the halo show as a distinct soft bloom on top. */
+/* Black gradient at the BOTTOM — softer wash for body-text legibility
+   below the headline. Kept at 0.35 alpha so the halo behind the H2
+   is the dominant darkening effect (not this linear gradient). */
 .approach-hero::after {
   content: '';
   position: absolute;
@@ -2414,10 +2411,6 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   pointer-events: none;
 }
 .approach-hero__copy { z-index: 2; }
-/* Subtle bottom gradient on the copy container — also dialled down
-   from 0.52 → 0.22 alpha, for the same reason: don't crowd out the
-   halo's contribution. The halo (::before below) is the dominant
-   legibility mechanism now. */
 .approach-hero__copy {
   position: absolute;
   inset: 0;
@@ -2426,33 +2419,32 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   align-items: flex-start;
   justify-content: flex-end;
   padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 5vh, 56px);
-  background: linear-gradient(to top, rgba(0,0,0,0.22) 0%, transparent 52%);
 }
-/* Soft black bloom behind the OUR APPROACH header. Same gradient
-   stops as .services-split__copy::before, just positioned to match
-   the bottom-aligned approach copy: bottom: -10 % (extends below
-   the hero so the bloom feels grounded) + height: 60% → vertical
-   centre at 20 % from the slide bottom, right behind the eyebrow +
-   H2. Intensity raised from 0.55/0.28 → 0.70/0.40 since the two
-   linear-gradient layers underneath were dialled WAY down so the
-   halo no longer disappears against opaque black. */
-.approach-hero__copy::before {
+
+/* Halo wrapper around the eyebrow + H2 — relative-positioned so the
+   ::before halo can centre on it the same way .services-split__copy
+   centres its halo on the (eyebrow + H2) text block. The body copy
+   sits OUTSIDE this wrapper so the halo doesn't try to span the
+   whole bottom of the hero. */
+.approach-hero__head {
+  position: relative;
+  z-index: 2;
+}
+/* Literal copy of .services-split__copy::before — same stops, same
+   geometry, same blur, same z-index. */
+.approach-hero__head::before {
   content: '';
   position: absolute;
+  top: 50%;
   left: 50%;
-  bottom: -10%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   width: 140%;
-  height: 60%;
-  background: radial-gradient(ellipse at center,
-    rgba(0,0,0,0.70) 0%,
-    rgba(0,0,0,0.40) 35%,
-    rgba(0,0,0,0) 70%);
-  z-index: 0;
+  height: 220%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0) 70%);
+  z-index: -1;
   pointer-events: none;
   filter: blur(8px);
 }
-.approach-hero__copy > * { position: relative; z-index: 1; }
 .approach-hero__copy .eyebrow {
   width: fit-content;
 }
