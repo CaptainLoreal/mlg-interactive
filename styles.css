@@ -101,17 +101,20 @@
     gap: clamp(14px, 2vh, 24px) !important;
     max-width: none !important;
   }
-  /* Both column children explicitly pinned at the slide__copy LEFT
-     edge with no internal offset, so the headline pill and the card
-     BORDER share the same vertical line. */
+  /* Both column children pinned at the slide__copy LEFT edge so the
+     headline pill and the card BORDER share the same vertical line.
+     Only margin-left is forced here — padding-left was clobbering the
+     card's internal padding-left and making body text hug the border. */
   .slide[data-title="Welcome"] .slide__copy > div {
     align-self: flex-start !important;
     margin-left: 0 !important;
-    padding-left: 0 !important;
   }
-  /* Headline-block sits at the TOP of the column — strip its bottom
-     padding so the headline rises tight to the menu line. */
+  /* Headline-block (first child) sits at the TOP of the column with no
+     internal left/bottom padding — strip both so the headline rises
+     tight to the menu line and the pill aligns with the slide__copy
+     left edge. NOT applied to the card (which needs its own padding). */
   .slide[data-title="Welcome"] .slide__copy > div:first-child {
+    padding-left: 0 !important;
     padding-bottom: 0 !important;
   }
   /* Smaller headline on tablet so headline + card fit comfortably */
