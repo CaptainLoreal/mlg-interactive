@@ -2393,23 +2393,26 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 5vh, 56px);
   background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 52%);
 }
-/* Dark halo behind the OUR APPROACH eyebrow + headline — pure black,
-   stronger than the other behind-header halos so the headline pops
-   clearly off the photo. */
+/* Faint black bloom behind the OUR APPROACH header for legibility —
+   identical treatment to .services-split__copy::before (same gradient
+   stops, same 8 px blur, same z-index). Position is anchored to the
+   bottom-left of the photo area where the eyebrow + headline sit,
+   not center, since the approach hero copy is bottom-aligned. */
 .approach-hero__copy::before {
   content: '';
   position: absolute;
-  left: -10%;
-  bottom: -8%;
-  width: 75%;
-  height: 75%;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+  width: 140%;
+  height: 60%;
   background: radial-gradient(ellipse at center,
-    rgba(0,0,0,0.92) 0%,
-    rgba(0,0,0,0.65) 38%,
-    rgba(0,0,0,0) 72%);
-  filter: blur(8px);
+    rgba(0,0,0,0.55) 0%,
+    rgba(0,0,0,0.28) 35%,
+    rgba(0,0,0,0) 70%);
   z-index: 0;
   pointer-events: none;
+  filter: blur(8px);
 }
 .approach-hero__copy > * { position: relative; z-index: 1; }
 .approach-hero__copy .eyebrow {
