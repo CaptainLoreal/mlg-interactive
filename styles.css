@@ -238,11 +238,15 @@ button { font-family: inherit; cursor: pointer; }
   text-transform: uppercase;
   color: #fff;
   margin: 0 0 14px;
-  /* inline-flex centres the glyph vertically; min-height (not fixed
+  /* inline-flex centres the line-box vertically; min-height (not fixed
      height) lets the pill grow when the text wraps or when context-
-     specific rules bump the font-size. Small symmetric vertical
-     padding gives a buffer so cap-strokes don't kiss the pill edge
-     even at non-default line-heights. */
+     specific rules bump the font-size.
+       Padding is INTENTIONALLY asymmetric (5 top / 1 bottom). Reason:
+     uppercase glyphs have no descenders, so the visual cluster sits
+     ~2 px above the line-box centre — geometric symmetry looks
+     bottom-heavy ("more space on the bottom"). Adding 4 px to the top
+     and removing 2 px from the bottom shifts the glyphs down so the
+     pill reads OPTICALLY centred. */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -251,7 +255,7 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  padding: 3px 12px;
+  padding: 5px 12px 1px;
 }
 
 /* Allow mixed-case in an eyebrow without losing the red colour or weight. */
