@@ -2432,14 +2432,19 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 /* Faint black bloom behind the OUR APPROACH header for legibility —
    identical treatment to .services-split__copy::before (same gradient
-   stops, same 8 px blur, same z-index). Position is anchored to the
-   bottom-left of the photo area where the eyebrow + headline sit,
-   not center, since the approach hero copy is bottom-aligned. */
+   stops, same 8 px blur, same z-index). Position has to be ANCHORED
+   AT THE BOTTOM of the photo area, because the approach hero copy is
+   bottom-aligned (flex-end + padding-bottom 32-56). The previous
+   bottom: 18% / height: 60% put the halo centre at 48 % from the
+   bottom — above the headline, so it did nothing for legibility.
+   New geometry: bottom: -10 % (extends slightly below the hero so
+   the bloom feels grounded) + height: 60% → vertical centre lands
+   at 20 % from the slide bottom, right behind the eyebrow + H2. */
 .approach-hero__copy::before {
   content: '';
   position: absolute;
   left: 50%;
-  bottom: 18%;
+  bottom: -10%;
   transform: translateX(-50%);
   width: 140%;
   height: 60%;
