@@ -224,18 +224,20 @@ button { font-family: inherit; cursor: pointer; }
   text-transform: uppercase;
   color: #fff;
   margin: 0 0 14px;
-  display: inline-block;
+  /* inline-flex + align-items:center centres the text glyph at the
+     geometric centre of the pill, regardless of font metrics. The
+     previous asymmetric-padding fix was over-correcting and making
+     the top read heavy. Padding controls only horizontal whitespace
+     now; vertical is the explicit height + flex centring. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  line-height: 1;
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  /* line-height: 1 keeps the text box tight to the font-size. Padding
-     is asymmetric (more top than bottom) to compensate for the font's
-     descent area below the baseline — for all-caps text there's no
-     descender content, so equal CSS padding makes the pill read
-     bottom-heavy. 8 px top + 4 px bottom gives visually equal space
-     above and below the visible cap-strokes. */
-  line-height: 1;
-  padding: 8px 12px 4px;
+  padding: 0 12px;
 }
 
 /* Allow mixed-case in an eyebrow without losing the red colour or weight. */
