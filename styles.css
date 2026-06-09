@@ -2426,16 +2426,23 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 
 /* Halo wrappers around the eyebrow + H2 AND around the body
    paragraphs — both relative-positioned so the ::before halo can
-   centre on each block the same way .services-split__copy centres
-   its halo on its (eyebrow + H2) text block. */
+   centre on each block. Explicit layering: wrapper forms a stacking
+   context (z-index: 1 to sit above slide media), halo at z-index: 0
+   sits inside that context, text children promoted to z-index: 1 so
+   they paint EXACTLY one layer above the halo. */
 .approach-hero__head,
 .approach-hero__body {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
-/* Literal copy of .services-split__copy::before — same stops, same
-   geometry, same blur, same z-index. Applied to BOTH blocks so the
-   headline AND the body copy each get their own soft black bloom. */
+.approach-hero__head > *,
+.approach-hero__body > * {
+  position: relative;
+  z-index: 1;
+}
+/* Halo: one layer below the text and header. Geometry/stops mirror
+   .services-split__copy::before exactly — same radial gradient,
+   same 140%×220% bounds, same 8 px blur. */
 .approach-hero__head::before,
 .approach-hero__body::before {
   content: '';
@@ -2446,7 +2453,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   width: 140%;
   height: 220%;
   background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0) 70%);
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   filter: blur(8px);
 }
