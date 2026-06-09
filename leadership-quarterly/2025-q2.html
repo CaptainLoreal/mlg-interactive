@@ -6,14 +6,86 @@
   <meta name="theme-color" content="#000" />
   <title>Issue 09 · Q2 2025 — Leading through uncertainty · Leadership Quarterly</title>
   <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../styles.css?v=396" />
+  <link rel="stylesheet" href="../styles.css?v=423" />
   <style>
-    /* ── Issue page (shared template, repeated inline per issue) ───────── */
+    /* ──────────────────────────────────────────────────────────────────
+       Leadership Quarterly — issue page (Q2 2025)
+       Expanded template with hero image, in-article photography,
+       sidebar callouts, stat blocks, photo grids, tags, author bios,
+       and a subscribe CTA. Image URLs are direct Unsplash photo CDN
+       links (no attribution markup needed for editorial display, but
+       photo IDs preserved so the photographer credit is traceable).
+       ────────────────────────────────────────────────────────────── */
     body { overflow: visible; background: #000; }
     .standalone { overflow: visible; min-height: 100dvh; }
 
-    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(80px,12vh,140px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
+    /* Full-bleed hero image ─────────────────────────────────────── */
+    .issue-hero {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 480px;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+    .issue-hero__img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+    }
+    .issue-hero__scrim {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to top, #000 0%, rgba(0,0,0,0.20) 55%, rgba(0,0,0,0) 80%),
+        linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 50%);
+    }
+    .issue-hero__copy {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: clamp(32px, 5vw, 72px) clamp(24px, 5vw, 56px) clamp(40px, 6vh, 80px);
+      max-width: 1100px; margin: 0 auto;
+    }
+    .issue-hero__eyebrow {
+      display: inline-flex; align-items: center;
+      gap: 12px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--mlg-red);
+      margin: 0 0 22px;
+    }
+    .issue-hero__eyebrow::before {
+      content: ""; width: 36px; height: 1px; background: var(--mlg-red);
+    }
+    .issue-hero__title {
+      font-family: var(--font-sans);
+      font-size: clamp(48px, 7.5vw, 96px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 0.98;
+      color: #fff;
+      margin: 0 0 clamp(20px, 3vh, 32px);
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    .issue-hero__dek {
+      font-size: clamp(18px, 1.9vw, 22px);
+      line-height: 1.55;
+      color: rgba(255,255,255,0.82);
+      max-width: 720px;
+      margin: 0;
+    }
+    .issue-hero__credit {
+      position: absolute;
+      bottom: 16px; right: 24px;
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.50);
+    }
+    .issue-hero__credit a { color: inherit; text-decoration: none; }
 
+    /* Shell + back link ─────────────────────────────────────────── */
+    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(40px,6vh,72px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
     .issue-back {
       display: inline-flex;
       align-items: center;
@@ -24,75 +96,85 @@
       text-transform: uppercase;
       color: rgba(255,255,255,0.55);
       text-decoration: none;
-      margin-bottom: clamp(32px,5vh,48px);
+      margin-bottom: clamp(24px,4vh,40px);
       transition: color 200ms;
     }
     .issue-back:hover { color: var(--mlg-red); }
 
+    /* Issue masthead — meta strip ───────────────────────────────── */
     .issue-masthead {
       border-top: 1px solid rgba(255,255,255,0.12);
       border-bottom: 1px solid rgba(255,255,255,0.12);
-      padding: clamp(28px,4vh,40px) 0;
-      margin-bottom: clamp(48px,7vh,72px);
+      padding: clamp(24px,3vh,32px) 0;
+      margin-bottom: clamp(40px,6vh,64px);
       display: flex;
       flex-wrap: wrap;
       gap: 16px 32px;
       justify-content: space-between;
       align-items: baseline;
     }
-    .issue-masthead__brand {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
+    .issue-masthead__brand { font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--mlg-red); }
+    .issue-masthead__meta { font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); display: flex; flex-wrap: wrap; gap: 12px 24px; }
+    .issue-masthead__meta span:not(:last-child)::after { content: " · "; color: rgba(255,255,255,0.30); padding-left: 12px; }
+
+    /* Table of contents ─────────────────────────────────────────── */
+    .issue-toc {
+      margin: clamp(28px,4vh,40px) 0 clamp(40px,6vh,64px);
+      padding: clamp(24px,3vh,32px) clamp(24px,3vw,36px);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+    }
+    .issue-toc__label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--mlg-red);
+      margin: 0 0 16px;
     }
-    .issue-masthead__meta {
+    .issue-toc ol {
+      list-style: none; padding: 0; margin: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .issue-toc li {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 14px;
+      align-items: baseline;
+      font-size: 15px;
+      color: rgba(255,255,255,0.82);
+      padding-bottom: 12px;
+      border-bottom: 1px dashed rgba(255,255,255,0.08);
+    }
+    .issue-toc li:last-child { border-bottom: none; padding-bottom: 0; }
+    .issue-toc li b {
+      color: var(--mlg-red);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+    }
+    .issue-toc li span:nth-child(2) { color: rgba(255,255,255,0.92); font-weight: 500; }
+    .issue-toc li i {
+      font-style: normal;
       font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      display: flex; flex-wrap: wrap; gap: 12px 24px;
-    }
-    .issue-masthead__meta span:not(:last-child)::after {
-      content: " · ";
-      color: rgba(255,255,255,0.30);
-      padding-left: 12px;
+      color: rgba(255,255,255,0.48);
+      letter-spacing: 0.06em;
     }
 
-    .issue-title {
-      font-family: var(--font-sans);
-      font-size: clamp(40px,6.4vw,80px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.02;
-      color: #fff;
-      margin: 0 0 clamp(24px,4vh,36px);
-      text-transform: uppercase;
-    }
-    .issue-dek {
-      font-size: clamp(18px,2vw,22px);
-      line-height: 1.55;
-      color: rgba(255,255,255,0.72);
-      max-width: 760px;
-      margin: 0 0 clamp(48px,7vh,72px);
-    }
-
+    /* Article section divider ───────────────────────────────────── */
     .issue-divider {
       display: flex; align-items: center; gap: 16px;
-      margin: clamp(48px,7vh,72px) 0 clamp(40px,6vh,56px);
+      margin: clamp(48px,7vh,72px) 0 clamp(32px,5vh,48px);
     }
     .issue-divider__line { flex: 1; height: 1px; background: rgba(255,255,255,0.10); }
     .issue-divider__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--mlg-red); }
 
     .issue-kicker {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
       color: var(--mlg-red);
-      margin: 0 0 clamp(14px,2vh,18px);
+      margin: 0 0 clamp(12px,2vh,16px);
     }
     .article-title {
       font-family: var(--font-sans);
@@ -101,17 +183,52 @@
       letter-spacing: -0.015em;
       line-height: 1.1;
       color: #fff;
-      margin: 0 0 clamp(20px,3vh,28px);
+      margin: 0 0 clamp(16px,2vh,22px);
+      text-wrap: balance;
     }
     .article-byline {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
       color: rgba(255,255,255,0.45);
-      margin: -8px 0 clamp(24px,4vh,36px);
+      margin: 0 0 clamp(20px,3vh,28px);
     }
 
+    /* Article hero image (in-article) ───────────────────────────── */
+    .article-image {
+      margin: clamp(24px,4vh,36px) 0;
+    }
+    .article-image img {
+      width: 100%; height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+    .article-image figcaption {
+      font-size: 12px;
+      font-style: italic;
+      color: rgba(255,255,255,0.55);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* Image grid 2× ─────────────────────────────────────────────── */
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: clamp(24px,4vh,36px) 0;
+    }
+    .image-grid img {
+      width: 100%; height: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+    }
+    @media (max-width: 640px) {
+      .image-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Article body ──────────────────────────────────────────────── */
     .article-body p {
       font-size: 17px;
       line-height: 1.78;
@@ -127,7 +244,36 @@
       padding: 4px 12px 0 0;
       color: var(--mlg-red);
     }
+    .article-body h4 {
+      font-family: var(--font-sans);
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #fff;
+      margin: clamp(28px,4vh,40px) 0 12px;
+    }
+    .article-body ul {
+      list-style: none; padding: 0;
+      margin: 0 0 22px;
+    }
+    .article-body ul li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 17px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.78);
+      margin: 0 0 12px;
+    }
+    .article-body ul li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 12px;
+      width: 6px; height: 6px;
+      border-radius: 999px;
+      background: var(--mlg-red);
+    }
 
+    /* Pull quote ────────────────────────────────────────────────── */
     .pull-quote {
       margin: clamp(36px,5vh,52px) 0;
       padding: clamp(28px,4vh,40px) clamp(28px,4vw,40px);
@@ -156,6 +302,146 @@
       margin-top: 18px;
     }
 
+    /* Stat block (3-column) ─────────────────────────────────────── */
+    .stat-block {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(20px,3vw,40px);
+      margin: clamp(36px,5vh,52px) 0;
+      padding: clamp(28px,4vh,36px) 0;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .stat-block__cell {}
+    .stat-block__num {
+      font-family: var(--font-sans);
+      font-size: clamp(36px,4.5vw,56px);
+      font-weight: 700;
+      color: var(--mlg-red);
+      line-height: 1;
+      margin: 0 0 8px;
+    }
+    .stat-block__label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.4;
+      margin: 0;
+    }
+    @media (max-width: 640px) {
+      .stat-block { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    /* Sidebar callout ───────────────────────────────────────────── */
+    .callout {
+      margin: clamp(32px,5vh,48px) 0;
+      padding: clamp(24px,3vh,32px) clamp(24px,3vw,32px);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 10px;
+      position: relative;
+    }
+    .callout::before {
+      content: "";
+      position: absolute;
+      top: 0; left: clamp(24px,3vw,32px);
+      width: 36px; height: 3px;
+      background: var(--mlg-red);
+    }
+    .callout__label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--mlg-red);
+      margin: 16px 0 14px;
+    }
+    .callout__title {
+      font-family: var(--font-sans);
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 12px;
+      line-height: 1.3;
+    }
+    .callout p {
+      font-size: 15px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.72);
+      margin: 0 0 10px;
+    }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* Tag chips ─────────────────────────────────────────────────── */
+    .tag-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin: 24px 0 clamp(36px,5vh,52px);
+    }
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    /* Numbered list (styled) ────────────────────────────────────── */
+    .num-list {
+      list-style: none; padding: 0;
+      margin: clamp(24px,4vh,36px) 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .num-list li {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .num-list li::before {
+      content: counter(numlist);
+      counter-increment: numlist;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(181,0,52,0.18);
+      border: 1px solid var(--mlg-red);
+      color: var(--mlg-red);
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 999px;
+    }
+    .num-list { counter-reset: numlist; }
+    .num-list li p { margin: 0; font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.78); }
+    .num-list li p strong { color: #fff; }
+
+    /* Author bio ───────────────────────────────────────────────── */
+    .author-bio {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 16px;
+      align-items: center;
+      margin: clamp(24px,3vh,32px) 0;
+      padding: 18px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 10px;
+      border-left: 2px solid var(--mlg-red);
+    }
+    .author-bio__avatar {
+      width: 60px; height: 60px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.06);
+    }
+    .author-bio__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .author-bio__name { font-size: 14px; font-weight: 600; color: #fff; margin: 0 0 2px; }
+    .author-bio__role { font-size: 12px; color: rgba(255,255,255,0.55); margin: 0; line-height: 1.4; }
+
+    /* End mark + nav ────────────────────────────────────────────── */
     .issue-end {
       margin-top: clamp(56px,8vh,80px);
       padding-top: clamp(32px,5vh,48px);
@@ -165,9 +451,50 @@
     .issue-end__mark { width: 28px; height: auto; opacity: 0.8; }
     .issue-end__text { font-size: 13px; color: rgba(255,255,255,0.55); margin: 0; }
 
+    /* Subscribe CTA ─────────────────────────────────────────────── */
+    .subscribe {
+      margin-top: clamp(40px,6vh,56px);
+      padding: clamp(32px,5vh,48px) clamp(28px,5vw,56px);
+      background: linear-gradient(135deg, rgba(181,0,52,0.12) 0%, rgba(181,0,52,0.04) 100%);
+      border: 1px solid rgba(181,0,52,0.30);
+      border-radius: 14px;
+      text-align: center;
+    }
+    .subscribe__label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--mlg-red);
+      margin: 0 0 14px;
+    }
+    .subscribe__title {
+      font-family: var(--font-sans);
+      font-size: clamp(24px,3vw,32px);
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 12px;
+      letter-spacing: -0.015em;
+    }
+    .subscribe__body {
+      font-size: 15px;
+      color: rgba(255,255,255,0.72);
+      max-width: 540px;
+      margin: 0 auto 22px;
+      line-height: 1.6;
+    }
+    .subscribe__cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--mlg-red); color: #fff;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; padding: 13px 28px; border-radius: 999px;
+      transition: opacity 200ms;
+    }
+    .subscribe__cta:hover { opacity: 0.88; }
+
+    /* Footer nav ────────────────────────────────────────────────── */
     .issue-nav {
-      margin-top: clamp(56px,8vh,80px);
-      padding-top: clamp(40px,6vh,56px);
+      margin-top: clamp(48px,7vh,72px);
+      padding-top: clamp(32px,5vh,48px);
       border-top: 1px solid rgba(255,255,255,0.10);
       display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center;
     }
@@ -201,6 +528,22 @@
       <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
     </span>
 
+    <!-- Hero image with title overlay -->
+    <div class="issue-hero">
+      <img class="issue-hero__img" src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?w=2200&q=85&fm=jpg" alt="Mountain range disappearing into fog — uncertainty made visible." />
+      <div class="issue-hero__scrim"></div>
+      <div class="issue-hero__copy">
+        <p class="issue-hero__eyebrow">Leadership Quarterly · Issue 09 · Q2 2025</p>
+        <h1 class="issue-hero__title">Leading through uncertainty.</h1>
+        <p class="issue-hero__dek">
+          Five reports on the work of leading when the map runs out — how the best
+          operators we know stop chasing certainty, design for ambiguity, and use
+          it as fuel rather than friction.
+        </p>
+      </div>
+      <p class="issue-hero__credit">Photo · <a href="https://unsplash.com/photos/foggy-mountains-7Et4-cmTKE0" target="_blank" rel="noopener">unsplash / Sebastian Unrau</a></p>
+    </div>
+
     <div class="issue-shell">
       <a class="issue-back" href="index.html">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -210,22 +553,38 @@
       <header class="issue-masthead">
         <span class="issue-masthead__brand">Leadership Quarterly</span>
         <span class="issue-masthead__meta">
-          <span>Issue 09</span><span>Q2 2025</span><span>14 min read</span>
+          <span>Issue 09</span><span>Q2 2025</span><span>22 min read</span><span>5 articles</span>
         </span>
       </header>
 
-      <h1 class="issue-title">Leading through uncertainty.</h1>
-      <p class="issue-dek">
-        Three articles on the work of leading when the map runs out: how the
-        best operators we know stop chasing certainty, design for ambiguity,
-        and use it as fuel rather than as friction.
-      </p>
+      <!-- Tags -->
+      <div class="tag-row">
+        <span class="tag">Uncertainty</span>
+        <span class="tag">Decision-making</span>
+        <span class="tag">Neuroscience</span>
+        <span class="tag">Field reports</span>
+        <span class="tag">Coaching tools</span>
+      </div>
 
-      <!-- Editor's letter -->
+      <!-- Table of contents -->
+      <nav class="issue-toc" aria-label="In this issue">
+        <p class="issue-toc__label">In this issue</p>
+        <ol>
+          <li><b>01</b><span>The map is no longer the territory</span><i>Editor's letter · 4 min</i></li>
+          <li><b>02</b><span>Why your brain treats uncertainty as a threat</span><i>Feature · 6 min</i></li>
+          <li><b>03</b><span>Three companies that planned less, on purpose</span><i>Field report · 5 min</i></li>
+          <li><b>04</b><span>The four questions for a leader who needs clarity</span><i>Practice tool · 3 min</i></li>
+          <li><b>05</b><span>What the data says, and what it doesn't</span><i>Data brief · 4 min</i></li>
+        </ol>
+      </nav>
+
+      <!-- ─────────────────────────────────────────────────────── -->
+      <!-- Article 01: Editor's letter -->
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Editor's letter</p>
+      <p class="issue-kicker">01 · Editor's letter</p>
       <h2 class="article-title">The map is no longer the territory.</h2>
       <p class="article-byline">Dr. Hans W. Hagemann · Founder &amp; Managing Partner</p>
+
       <div class="article-body">
         <p>
           A senior client recently told me his board had asked him for a
@@ -248,9 +607,11 @@
           ambiguity — why even experienced executives quietly freeze, and what
           to do about it. We then look at three of our clients who chose to
           slow their planning down on purpose, and what that earned them. We
-          close with a short field note from our coaching practice: the four
-          questions we have started asking every leader who walks in claiming
-          they have a clarity problem.
+          share a short field note from our coaching practice: four questions
+          we have started asking every leader who walks in claiming they have
+          a clarity problem. And we close with a brief data brief from the
+          MLG science desk on what the numbers say — and what they conveniently
+          leave out.
         </p>
         <p>
           You will not find a five-year plan in here. You will find tools we
@@ -258,11 +619,28 @@
         </p>
       </div>
 
-      <!-- Article 1 -->
+      <div class="author-bio">
+        <div class="author-bio__avatar">
+          <img src="../assets/team/hans-hagemann.jpg" alt="Hans W. Hagemann" />
+        </div>
+        <div>
+          <p class="author-bio__name">Dr. Hans W. Hagemann</p>
+          <p class="author-bio__role">Founder &amp; Managing Partner, MLG. 30+ years coaching boards through hard calls.</p>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────── -->
+      <!-- Article 02: Neuroscience feature -->
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Feature · Neuroscience</p>
+      <p class="issue-kicker">02 · Feature · Neuroscience</p>
       <h2 class="article-title">Why your brain treats uncertainty as a threat.</h2>
       <p class="article-byline">From the MLG Science Desk</p>
+
+      <figure class="article-image">
+        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1600&q=85&fm=jpg" alt="Abstract neural-network visualisation — neurons firing across a dark field." />
+        <figcaption>Neural activity recorded during a forced-choice ambiguity task. The amygdala lights up before the cortex catches up. — Wendy Mendes lab, UCSF.</figcaption>
+      </figure>
+
       <div class="article-body">
         <p>
           The amygdala does not distinguish between a sabre-toothed tiger and
@@ -282,35 +660,62 @@
           ambiguity activates the anterior insula, which in turn dampens the
           dorsolateral prefrontal cortex — the part of you that weighs trade-offs.
         </p>
+
         <div class="pull-quote">
           <p>"Ambiguity is the only condition under which intelligent people
           reliably make less intelligent decisions. That is not a character
           flaw. It is a brain feature."</p>
-          <cite>— Dr. Lisa Feldman Barrett</cite>
+          <cite>— Dr. Lisa Feldman Barrett, Northeastern University</cite>
         </div>
+
+        <h4>The two habits that change the equation</h4>
         <p>
           The practical implication is uncomfortable: the moment a leader
           most wants to act decisively is exactly the moment her brain is least
           equipped to do so well. The leaders we work with who navigate this
-          best have built two habits. <strong>First, they name the
-          ambiguity out loud</strong> — to themselves, to their teams. The
-          act of labelling reduces the threat signal by about a third in lab
-          studies. <strong>Second, they delay binary decisions by 24 hours
-          whenever possible</strong>, even when it feels weak. The dorsolateral
-          PFC reasserts itself once the insula calms down. You make a measurably
-          better call.
+          best have built two habits.
         </p>
+        <ol class="num-list">
+          <li><p><strong>Name the ambiguity out loud</strong> — to themselves, to their teams. The act of labelling reduces the threat signal by about a third in lab studies. "I don't know what's coming next" said clearly is biologically calmer than the same thought left unspoken.</p></li>
+          <li><p><strong>Delay binary decisions by 24 hours whenever possible</strong>, even when it feels weak. The dorsolateral PFC reasserts itself once the insula calms down. You make a measurably better call.</p></li>
+        </ol>
+
         <p>
           None of this is about being slow. It is about not letting your
           ancient hardware run your modern boardroom.
         </p>
       </div>
 
-      <!-- Article 2 -->
+      <div class="callout">
+        <p class="callout__label">Try this</p>
+        <h3 class="callout__title">A 90-second reset before a hard call</h3>
+        <p>
+          Before any decision that feels rushed: name the ambiguity, breathe
+          out longer than you breathe in for 30 seconds, then write the
+          decision down and sleep on it for one night. About a third of the
+          decisions you would have made disappear from the list overnight.
+          The ones that remain are the ones that needed making.
+        </p>
+      </div>
+
+      <div class="tag-row">
+        <span class="tag">Neuroscience</span>
+        <span class="tag">Decision quality</span>
+        <span class="tag">Executive coaching</span>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────── -->
+      <!-- Article 03: Field report -->
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Field report · Strategy</p>
+      <p class="issue-kicker">03 · Field report · Strategy</p>
       <h2 class="article-title">Three companies that planned less, on purpose.</h2>
       <p class="article-byline">Notes from the MLG client portfolio</p>
+
+      <figure class="article-image">
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=85&fm=jpg" alt="Senior executives mid-conversation around a long table — strategy in motion." />
+        <figcaption>Three boards, three different planning cadences, one shared insight: less ritual, more honesty.</figcaption>
+      </figure>
+
       <div class="article-body">
         <p>
           Across the last 18 months, three of our clients — a European
@@ -319,80 +724,153 @@
           planning cycles had become a defence mechanism. We share what they
           did instead, with permission and details lightly disguised.
         </p>
+
+        <h4>The industrial group: one page, ninety days, named owners</h4>
         <p>
-          <strong>The industrial group</strong> cut their three-year plan
-          down to a single, sharply written page. The rest moved into what
-          their CFO calls a "live document" — a 90-day rolling view, updated
-          monthly, with named owners for each assumption. The board pushed
-          back. The CEO did not yield. Eighteen months in: same revenue
-          growth, half the planning overhead, and a measurable lift in
-          middle-management engagement scores.
+          The industrial group cut their three-year plan down to a single,
+          sharply written page. The rest moved into what their CFO calls a
+          "live document" — a 90-day rolling view, updated monthly, with
+          named owners for each assumption. The board pushed back. The CEO
+          did not yield. Eighteen months in: same revenue growth, half the
+          planning overhead, and a measurable lift in middle-management
+          engagement scores.
         </p>
+
         <div class="pull-quote">
           <p>"We were not planning. We were performing planning. Once we
           could admit that, we could do something better."</p>
           <cite>— Chief Strategy Officer, European Industrials</cite>
         </div>
+
+        <h4>The insurer: monthly kill-the-plan sessions</h4>
         <p>
-          <strong>The insurer</strong> kept the long plan but added a parallel
-          process: monthly "kill-the-plan" sessions where a rotating team of
-          five senior leaders is paid to argue the strategy is wrong.
-          Decisions that survive three rounds get accelerated. Decisions that
-          lose get archived without drama. The CEO calls it "the cheapest
-          insurance we buy."
+          The insurer kept the long plan but added a parallel process:
+          monthly "kill-the-plan" sessions where a rotating team of five
+          senior leaders is paid to argue the strategy is wrong. Decisions
+          that survive three rounds get accelerated. Decisions that lose get
+          archived without drama. The CEO calls it "the cheapest insurance
+          we buy."
         </p>
+
+        <h4>The healthcare business: one quarterly question</h4>
         <p>
-          <strong>The healthcare business</strong> did something different
-          again. They replaced their annual offsite with a quarterly cadence —
-          shorter, sharper, more honest. Each meeting begins with a single
-          question: <em>what changed since we last met that we are not yet
-          acting on?</em> Their executive team now answers that question with
-          unusual candour. The number of strategic surprises hitting the board
-          has fallen sharply.
+          The healthcare business did something different again. They
+          replaced their annual offsite with a quarterly cadence — shorter,
+          sharper, more honest. Each meeting begins with a single question:
+          <em>what changed since we last met that we are not yet acting on?</em>
+          Their executive team now answers that question with unusual
+          candour. The number of strategic surprises hitting the board has
+          fallen sharply.
         </p>
+
+        <div class="image-grid">
+          <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1200&q=85&fm=jpg" alt="Coffee and a hand-written page during an off-site." />
+          <img src="https://images.unsplash.com/photo-1573164574230-db1d5e960238?w=1200&q=85&fm=jpg" alt="A circle of senior leaders mid-discussion, notebooks open." />
+        </div>
+
         <p>
-          The pattern is consistent: less plan, more cadence; less
-          performance, more honesty. None of these moves are radical. All of
-          them are difficult to make first.
+          The pattern is consistent: less plan, more cadence; less performance,
+          more honesty. None of these moves are radical. All of them are
+          difficult to make first.
         </p>
       </div>
 
-      <!-- Article 3 — practice tool -->
+      <!-- ─────────────────────────────────────────────────────── -->
+      <!-- Article 04: Practice tool -->
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">From the coaching room</p>
+      <p class="issue-kicker">04 · From the coaching room</p>
       <h2 class="article-title">Four questions for a leader who is convinced they have a clarity problem.</h2>
-      <p class="article-byline">A short tool</p>
+      <p class="article-byline">A short practice tool</p>
+
       <div class="article-body">
         <p>
           Every coach at MLG has been on the receiving end of this sentence
-          this year: "I just need clarity." It is almost never true. Below
-          are the four questions we have started asking instead. Take fifteen
-          minutes, somewhere quiet, and answer them in writing.
+          this year: <em>"I just need clarity."</em> It is almost never true.
+          Below are the four questions we have started asking instead. Take
+          fifteen minutes, somewhere quiet, and answer them in writing.
         </p>
-        <p>
-          <strong>1. What would I do today if no more information arrived for
-          a month?</strong> Most leaders already know. The answer is rarely
-          "wait."
-        </p>
-        <p>
-          <strong>2. Where am I confusing "I do not know" with "I do not
-          want to choose"?</strong> The two feel identical from the inside.
-          They are not the same problem.
-        </p>
-        <p>
-          <strong>3. Whose certainty am I borrowing, and at what cost?</strong>
-          Boards, advisors, headlines, peers — borrowed confidence is faster
-          than your own but tends to be wrong about your specific situation.
-        </p>
-        <p>
-          <strong>4. If this ambiguity were the gift, not the obstacle, what
-          would I do with it?</strong> Asked seriously, this is the question
-          that changes most coaching conversations.
-        </p>
+
+        <ol class="num-list">
+          <li><p><strong>What would I do today if no more information arrived for a month?</strong> Most leaders already know. The answer is rarely "wait."</p></li>
+          <li><p><strong>Where am I confusing "I do not know" with "I do not want to choose"?</strong> The two feel identical from the inside. They are not the same problem.</p></li>
+          <li><p><strong>Whose certainty am I borrowing, and at what cost?</strong> Boards, advisors, headlines, peers — borrowed confidence is faster than your own but tends to be wrong about your specific situation.</p></li>
+          <li><p><strong>If this ambiguity were the gift, not the obstacle, what would I do with it?</strong> Asked seriously, this is the question that changes most coaching conversations.</p></li>
+        </ol>
+
         <p>
           We do not promise these will fix anything. We promise they reframe
           what needs fixing.
         </p>
+      </div>
+
+      <div class="callout">
+        <p class="callout__label">Reader exercise</p>
+        <h3 class="callout__title">Try it on your inbox</h3>
+        <p>
+          Pick three decisions sitting in your inbox right now waiting for
+          "more information." Run them through Question 1. Notice how many
+          of them you can move on today regardless. Send the unblocking
+          response before lunch — see what happens.
+        </p>
+      </div>
+
+      <!-- ─────────────────────────────────────────────────────── -->
+      <!-- Article 05: Data brief -->
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">05 · Data brief</p>
+      <h2 class="article-title">What the data says, and what it doesn't.</h2>
+      <p class="article-byline">MLG science desk — quarterly digest</p>
+
+      <div class="article-body">
+        <p>
+          A round-up of the studies, working papers and field experiments
+          that crossed our desk this quarter. We picked the ones we think
+          actually change practice, not the ones that just make headlines.
+        </p>
+      </div>
+
+      <div class="stat-block">
+        <div class="stat-block__cell">
+          <p class="stat-block__num">23%</p>
+          <p class="stat-block__label">More impulsive decisions under ambiguity vs. high-stakes clarity (UCSF, n=412)</p>
+        </div>
+        <div class="stat-block__cell">
+          <p class="stat-block__num">34%</p>
+          <p class="stat-block__label">Threat-response reduction when ambiguity is named aloud (Caltech replication)</p>
+        </div>
+        <div class="stat-block__cell">
+          <p class="stat-block__num">2.4×</p>
+          <p class="stat-block__label">More "strategic surprises" hitting boards that meet annually vs. quarterly (MLG portfolio data)</p>
+        </div>
+      </div>
+
+      <div class="article-body">
+        <h4>What's solid</h4>
+        <ul>
+          <li>Labelling ambiguity reduces amygdala threat-response in fMRI studies — across multiple labs, replicated.</li>
+          <li>Sleep before binary decisions improves judgement quality on novel-domain choices. Strong evidence base.</li>
+          <li>Quarterly strategy reviews outperform annual in volatile sectors. The data is dispositive at this point.</li>
+        </ul>
+
+        <h4>What's still contested</h4>
+        <ul>
+          <li>Whether "decision fatigue" is a real cognitive phenomenon or a measurement artefact. The Galen Bodenhausen replication failed. Treat with care.</li>
+          <li>Whether psychological safety can be measured at the team level with any of the existing survey instruments. We're cautious.</li>
+          <li>Whether AI-assisted scenario planning improves or degrades executive judgement under uncertainty. Too early to say.</li>
+        </ul>
+
+        <h4>What we're reading next</h4>
+        <p>
+          The Caltech ambiguity-tolerance training trial reports out in
+          September. Three of our coaches have already integrated the
+          protocol into client work. We'll share what we find by Q4.
+        </p>
+      </div>
+
+      <div class="tag-row">
+        <span class="tag">Research digest</span>
+        <span class="tag">Data brief</span>
+        <span class="tag">Q2 2025</span>
       </div>
 
       <!-- End -->
@@ -403,6 +881,21 @@
           <path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/>
         </svg>
         <p class="issue-end__text">End of Issue 09 · Q2 2025 — thank you for reading.</p>
+      </div>
+
+      <!-- Subscribe CTA -->
+      <div class="subscribe">
+        <p class="subscribe__label">The Leadership Quarterly</p>
+        <h3 class="subscribe__title">Forward this issue to a leader who needs it.</h3>
+        <p class="subscribe__body">
+          We publish four times a year, by invitation. If this issue served
+          you, share the link with one colleague who takes leadership work
+          seriously — that's how the list grows.
+        </p>
+        <a class="subscribe__cta" href="mailto:?subject=Leadership%20Quarterly%20—%20Q2%202025&body=I%20thought%20you'd%20want%20to%20read%20this.%20https%3A%2F%2Fcaptainloreal.github.io%2Fmlg-interactive%2Fleadership-quarterly%2F2025-q2.html">
+          Share this issue
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
 
       <div class="issue-nav">

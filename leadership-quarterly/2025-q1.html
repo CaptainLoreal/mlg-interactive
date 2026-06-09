@@ -6,44 +6,87 @@
   <meta name="theme-color" content="#000" />
   <title>Issue 08 · Q1 2025 — The HOW imperative · Leadership Quarterly</title>
   <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../styles.css?v=396" />
+  <link rel="stylesheet" href="../styles.css?v=423" />
   <style>
     body { overflow: visible; background: #000; }
     .standalone { overflow: visible; min-height: 100dvh; }
-    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(80px,12vh,140px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
-    .issue-back { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: clamp(32px,5vh,48px); transition: color 200ms; }
+    .issue-hero { position: relative; width: 100%; height: 70vh; min-height: 480px; overflow: hidden; }
+    .issue-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+    .issue-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.20) 55%, rgba(0,0,0,0) 80%), linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 50%); }
+    .issue-hero__copy { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(32px,5vw,72px) clamp(24px,5vw,56px) clamp(40px,6vh,80px); max-width: 1100px; margin: 0 auto; }
+    .issue-hero__eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 22px; }
+    .issue-hero__eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--mlg-red); }
+    .issue-hero__title { font-family: var(--font-sans); font-size: clamp(48px,7.5vw,96px); font-weight: 700; letter-spacing: -0.02em; line-height: 0.98; color: #fff; margin: 0 0 clamp(20px,3vh,32px); text-transform: uppercase; text-wrap: balance; }
+    .issue-hero__dek { font-size: clamp(18px,1.9vw,22px); line-height: 1.55; color: rgba(255,255,255,0.82); max-width: 720px; margin: 0; }
+    .issue-hero__credit { position: absolute; bottom: 16px; right: 24px; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.50); }
+    .issue-hero__credit a { color: inherit; text-decoration: none; }
+    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(40px,6vh,72px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
+    .issue-back { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: clamp(24px,4vh,40px); transition: color 200ms; }
     .issue-back:hover { color: var(--mlg-red); }
-    .issue-masthead { border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); padding: clamp(28px,4vh,40px) 0; margin-bottom: clamp(48px,7vh,72px); display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: baseline; }
+    .issue-masthead { border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); padding: clamp(24px,3vh,32px) 0; margin-bottom: clamp(40px,6vh,64px); display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: baseline; }
     .issue-masthead__brand { font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--mlg-red); }
     .issue-masthead__meta { font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); display: flex; flex-wrap: wrap; gap: 12px 24px; }
     .issue-masthead__meta span:not(:last-child)::after { content: " · "; color: rgba(255,255,255,0.30); padding-left: 12px; }
-    .issue-title { font-family: var(--font-sans); font-size: clamp(40px,6.4vw,80px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.02; color: #fff; margin: 0 0 clamp(24px,4vh,36px); text-transform: uppercase; }
-    .issue-dek { font-size: clamp(18px,2vw,22px); line-height: 1.55; color: rgba(255,255,255,0.72); max-width: 760px; margin: 0 0 clamp(48px,7vh,72px); }
-    .issue-divider { display: flex; align-items: center; gap: 16px; margin: clamp(48px,7vh,72px) 0 clamp(40px,6vh,56px); }
+    .issue-toc { margin: clamp(28px,4vh,40px) 0 clamp(40px,6vh,64px); padding: clamp(24px,3vh,32px) clamp(24px,3vw,36px); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; }
+    .issue-toc__label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 16px; }
+    .issue-toc ol { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .issue-toc li { display: grid; grid-template-columns: 28px 1fr auto; gap: 14px; align-items: baseline; font-size: 15px; color: rgba(255,255,255,0.82); padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+    .issue-toc li:last-child { border-bottom: none; padding-bottom: 0; }
+    .issue-toc li b { color: var(--mlg-red); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; }
+    .issue-toc li span:nth-child(2) { color: rgba(255,255,255,0.92); font-weight: 500; }
+    .issue-toc li i { font-style: normal; font-size: 12px; color: rgba(255,255,255,0.48); letter-spacing: 0.06em; }
+    .issue-divider { display: flex; align-items: center; gap: 16px; margin: clamp(48px,7vh,72px) 0 clamp(32px,5vh,48px); }
     .issue-divider__line { flex: 1; height: 1px; background: rgba(255,255,255,0.10); }
     .issue-divider__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--mlg-red); }
-    .issue-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 clamp(14px,2vh,18px); }
-    .article-title { font-family: var(--font-sans); font-size: clamp(28px,3.6vw,40px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.1; color: #fff; margin: 0 0 clamp(20px,3vh,28px); }
-    .article-byline { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin: -8px 0 clamp(24px,4vh,36px); }
+    .issue-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 clamp(12px,2vh,16px); }
+    .article-title { font-family: var(--font-sans); font-size: clamp(28px,3.6vw,40px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.1; color: #fff; margin: 0 0 clamp(16px,2vh,22px); text-wrap: balance; }
+    .article-byline { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin: 0 0 clamp(20px,3vh,28px); }
+    .article-image { margin: clamp(24px,4vh,36px) 0; }
+    .article-image img { width: 100%; height: auto; display: block; border-radius: 10px; }
+    .article-image figcaption { font-size: 12px; font-style: italic; color: rgba(255,255,255,0.55); margin-top: 10px; line-height: 1.5; }
     .article-body p { font-size: 17px; line-height: 1.78; color: rgba(255,255,255,0.78); margin: 0 0 22px; }
     .article-body p strong { color: #fff; font-weight: 600; }
     .article-body p:first-of-type::first-letter { font-size: 3.4em; font-weight: 700; float: left; line-height: 0.92; padding: 4px 12px 0 0; color: var(--mlg-red); }
+    .article-body h4 { font-family: var(--font-sans); font-size: 22px; font-weight: 600; line-height: 1.3; color: #fff; margin: clamp(28px,4vh,40px) 0 12px; }
     .pull-quote { margin: clamp(36px,5vh,52px) 0; padding: clamp(28px,4vh,40px) clamp(28px,4vw,40px); background: rgba(181,0,52,0.08); border-left: 3px solid var(--mlg-red); border-radius: 0 8px 8px 0; }
     .pull-quote p { font-family: var(--font-sans); font-size: clamp(20px,2.4vw,26px); font-weight: 500; font-style: italic; letter-spacing: -0.01em; line-height: 1.4; color: #fff; margin: 0; }
     .pull-quote cite { display: block; font-style: normal; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 18px; }
+    .callout { margin: clamp(32px,5vh,48px) 0; padding: clamp(24px,3vh,32px) clamp(24px,3vw,32px); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; position: relative; }
+    .callout::before { content: ""; position: absolute; top: 0; left: clamp(24px,3vw,32px); width: 36px; height: 3px; background: var(--mlg-red); }
+    .callout__label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 16px 0 14px; }
+    .callout__title { font-family: var(--font-sans); font-size: 20px; font-weight: 600; color: #fff; margin: 0 0 12px; line-height: 1.3; }
+    .callout p { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.72); margin: 0 0 10px; }
+    .callout p:last-child { margin-bottom: 0; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 clamp(36px,5vh,52px); }
+    .tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(255,255,255,0.72); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); padding: 6px 12px; border-radius: 999px; }
+    .num-list { list-style: none; padding: 0; margin: clamp(24px,4vh,36px) 0; display: grid; grid-template-columns: 1fr; gap: 18px; counter-reset: numlist; }
+    .num-list li { display: grid; grid-template-columns: 44px 1fr; gap: 18px; align-items: start; }
+    .num-list li::before { content: counter(numlist); counter-increment: numlist; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: rgba(181,0,52,0.18); border: 1px solid var(--mlg-red); color: var(--mlg-red); font-weight: 700; font-size: 14px; border-radius: 999px; }
+    .num-list li p { margin: 0; font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.78); }
+    .num-list li p strong { color: #fff; }
+    .author-bio { display: grid; grid-template-columns: 60px 1fr; gap: 16px; align-items: center; margin: clamp(24px,3vh,32px) 0; padding: 18px; background: rgba(255,255,255,0.02); border-radius: 10px; border-left: 2px solid var(--mlg-red); }
+    .author-bio__avatar { width: 60px; height: 60px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,0.06); }
+    .author-bio__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .author-bio__name { font-size: 14px; font-weight: 600; color: #fff; margin: 0 0 2px; }
+    .author-bio__role { font-size: 12px; color: rgba(255,255,255,0.55); margin: 0; line-height: 1.4; }
     .issue-end { margin-top: clamp(56px,8vh,80px); padding-top: clamp(32px,5vh,48px); border-top: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; gap: 16px; }
     .issue-end__mark { width: 28px; height: auto; opacity: 0.8; }
     .issue-end__text { font-size: 13px; color: rgba(255,255,255,0.55); margin: 0; }
-    .issue-nav { margin-top: clamp(56px,8vh,80px); padding-top: clamp(40px,6vh,56px); border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+    .subscribe { margin-top: clamp(40px,6vh,56px); padding: clamp(32px,5vh,48px) clamp(28px,5vw,56px); background: linear-gradient(135deg, rgba(181,0,52,0.12) 0%, rgba(181,0,52,0.04) 100%); border: 1px solid rgba(181,0,52,0.30); border-radius: 14px; text-align: center; }
+    .subscribe__label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 14px; }
+    .subscribe__title { font-family: var(--font-sans); font-size: clamp(24px,3vw,32px); font-weight: 600; color: #fff; margin: 0 0 12px; letter-spacing: -0.015em; }
+    .subscribe__body { font-size: 15px; color: rgba(255,255,255,0.72); max-width: 540px; margin: 0 auto 22px; line-height: 1.6; }
+    .subscribe__cta { display: inline-flex; align-items: center; gap: 10px; background: var(--mlg-red); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 28px; border-radius: 999px; transition: opacity 200ms; }
+    .subscribe__cta:hover { opacity: 0.88; }
+    .issue-nav { margin-top: clamp(48px,7vh,72px); padding-top: clamp(32px,5vh,48px); border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
     .issue-nav__library { display: inline-flex; align-items: center; gap: 10px; background: var(--mlg-red); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 26px; border-radius: 999px; transition: opacity 200ms; }
     .issue-nav__library:hover { opacity: 0.88; }
     .issue-nav__next { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
     .issue-nav__next strong { color: #fff; font-weight: 500; }
     .issue-nav__next:hover strong { color: var(--mlg-red); }
-</style>
+  </style>
 </head>
 <body>
-
   <main class="standalone">
     <div class="topbar">
       <a class="topbar__logo" href="../index.html#slide=0" aria-label="Munich Leadership Group — back to home">
@@ -56,6 +99,21 @@
       <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
     </span>
 
+    <div class="issue-hero">
+      <img class="issue-hero__img" src="https://images.unsplash.com/photo-1542406775-ade58c52d2e4?w=2200&q=85&fm=jpg" alt="A worn compass on an old map — the HOW of finding direction." />
+      <div class="issue-hero__scrim"></div>
+      <div class="issue-hero__copy">
+        <p class="issue-hero__eyebrow">Leadership Quarterly · Issue 08 · Q1 2025</p>
+        <h1 class="issue-hero__title">The HOW imperative.</h1>
+        <p class="issue-hero__dek">
+          Strategy without process is theatre. Five reports on the part of
+          leadership that is hardest to teach and easiest to neglect — the
+          way decisions are made, communicated, and lived.
+        </p>
+      </div>
+      <p class="issue-hero__credit">Photo · <a href="https://unsplash.com" target="_blank" rel="noopener">unsplash / AbsolutVision</a></p>
+    </div>
+
     <div class="issue-shell">
       <a class="issue-back" href="index.html">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -65,47 +123,132 @@
       <header class="issue-masthead">
         <span class="issue-masthead__brand">Leadership Quarterly</span>
         <span class="issue-masthead__meta">
-          <span>Issue 08</span><span>Q1 2025</span><span>11 min read</span>
+          <span>Issue 08</span><span>Q1 2025</span><span>18 min read</span><span>5 articles</span>
         </span>
       </header>
 
-      <h1 class="issue-title">The HOW imperative.</h1>
-      <p class="issue-dek">Two articles on the part of leadership that is hardest to teach and easiest to neglect: the way decisions are made, communicated, and lived inside an organisation.</p>
+      <div class="tag-row">
+        <span class="tag">Process</span>
+        <span class="tag">Decision-making</span>
+        <span class="tag">Communication</span>
+        <span class="tag">Field reports</span>
+      </div>
+
+      <nav class="issue-toc" aria-label="In this issue">
+        <p class="issue-toc__label">In this issue</p>
+        <ol>
+          <li><b>01</b><span>Strategy without process is theatre</span><i>Editor's letter · 3 min</i></li>
+          <li><b>02</b><span>The five-minute habit that doubled follow-through</span><i>Feature · 5 min</i></li>
+          <li><b>03</b><span>The CEO who stopped explaining and started repeating</span><i>Field note · 4 min</i></li>
+          <li><b>04</b><span>How the best teams disagree</span><i>Practice · 4 min</i></li>
+          <li><b>05</b><span>From decisions to behaviours</span><i>Long read · 6 min</i></li>
+        </ol>
+      </nav>
 
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Editor's letter</p>
+      <p class="issue-kicker">01 · Editor's letter</p>
       <h2 class="article-title">Strategy without process is theatre.</h2>
       <p class="article-byline">Dr. Hans W. Hagemann · Founder &amp; Managing Partner</p>
       <div class="article-body">
         <p>Over the past year I have sat in too many strategy meetings where the slides were beautiful and the work behind them was hollow. Not because the leaders were unserious. Because their <strong>process</strong> for arriving at the strategy was unserious.</p>
         <p>We have spent decades training executives to choose <em>what</em> to do. We have spent far less effort training them on <em>how</em> to do it well — how to disagree productively, how to commit fully once a decision is made, how to hold each other to account without drama. The result is organisations that look strategic and act haphazard.</p>
-        <p>This issue is a small protest against that pattern. We argue that the HOW is not the soft part of leadership. It is the part that decides whether the WHAT ever gets done. Read on for a closer look at what we mean — and how a handful of teams we work with are getting it right.</p>
+        <p>This issue is a small protest against that pattern. We argue that the HOW is not the soft part of leadership. It is the part that decides whether the WHAT ever gets done.</p>
       </div>
+      <div class="author-bio">
+        <div class="author-bio__avatar"><img src="../assets/team/hans-hagemann.jpg" alt="Hans W. Hagemann" /></div>
+        <div><p class="author-bio__name">Dr. Hans W. Hagemann</p><p class="author-bio__role">Founder &amp; Managing Partner, MLG.</p></div>
+      </div>
+
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Feature · Decision quality</p>
+      <p class="issue-kicker">02 · Feature · Decision quality</p>
       <h2 class="article-title">The five-minute habit that doubled one team's follow-through.</h2>
       <p class="article-byline">Notes from the MLG coaching practice</p>
+      <figure class="article-image">
+        <img src="https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=1600&q=85&fm=jpg" alt="A hand writing in a notebook beside a coffee cup — the end of a meeting." />
+        <figcaption>The last five minutes of a meeting decide whether the work that follows ever happens.</figcaption>
+      </figure>
       <div class="article-body">
         <p>A senior team at a mid-cap industrial client had a problem. Decisions were made cleanly in the room. Outside the room, the same decisions quietly unmade themselves. Project owners drifted. Deadlines slid. By the next quarterly, the team would rediscover the same issues and re-decide them — to the same outcome.</p>
         <p>Our diagnosis was unromantic. They had a <strong>commitment problem</strong>, not a strategy problem. So we introduced a tool we have used dozens of times: the <strong>five-minute close</strong>. At the end of every meeting in which a decision is made, the chair stops the conversation and asks four questions, in this order:</p>
-        <p><strong>1. What did we just decide, in one sentence?</strong> Half the time, the room has heard four different sentences.</p>
-        <p><strong>2. Who owns it?</strong> Not a team. A name.</p>
-        <p><strong>3. When is the first checkpoint?</strong> Not when it's done — when we will first know if it is on track.</p>
-        <p><strong>4. Who in this room disagrees and is committing anyway?</strong> The single most useful question we know.</p>
+        <ol class="num-list">
+          <li><p><strong>What did we just decide, in one sentence?</strong> Half the time, the room has heard four different sentences.</p></li>
+          <li><p><strong>Who owns it?</strong> Not a team. A name.</p></li>
+          <li><p><strong>When is the first checkpoint?</strong> Not when it's done — when we will first know if it is on track.</p></li>
+          <li><p><strong>Who in this room disagrees and is committing anyway?</strong> The single most useful question we know.</p></li>
+        </ol>
         <div class="pull-quote">
           <p>"We are not bad at thinking. We are bad at the last five minutes of meetings."</p>
           <cite>— MLG coaching team</cite>
         </div>
         <p>Six months in, this team's follow-through on stated decisions rose from roughly 40% to over 80%. They did not get smarter. They got slightly more honest, slightly more often.</p>
       </div>
+      <div class="callout">
+        <p class="callout__label">Try this</p>
+        <h3 class="callout__title">Add the four questions to your next meeting</h3>
+        <p>You don't need to announce it. Just bring them with you. At the point where the room is wrapping up, hold for five minutes and ask. The answer to Question 4 is the one that changes a culture.</p>
+      </div>
+
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Field note · Communication</p>
+      <p class="issue-kicker">03 · Field note · Communication</p>
       <h2 class="article-title">The CEO who stopped explaining and started repeating.</h2>
       <p class="article-byline">From the field</p>
       <div class="article-body">
         <p>A CEO we coach made one small change to her quarterly all-hands. She used to share <strong>new</strong> strategic context each time. She replaced that with something her team initially found insulting: she repeated the same three priorities, in the same order, with slightly different examples, four quarters in a row.</p>
         <p>The first quarter, her team rolled their eyes. By the third quarter, those three priorities were showing up unprompted in middle-management conversations across three regions. By the fourth, they were how the business described itself.</p>
         <p>Most leaders mistake repetition for failure of imagination. In organisations of any scale, it is the opposite. <strong>The message is not the message you sent. It is the message that arrived.</strong> If you have to choose between novelty and arrival, choose arrival.</p>
+      </div>
+
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">04 · Practice · Team dynamics</p>
+      <h2 class="article-title">How the best teams disagree.</h2>
+      <p class="article-byline">From the MLG team-coaching desk</p>
+      <figure class="article-image">
+        <img src="https://images.unsplash.com/photo-1573164574230-db1d5e960238?w=1600&q=85&fm=jpg" alt="Three colleagues in a candid working discussion, notes spread on the table." />
+        <figcaption>Productive disagreement looks ordinary from the outside. That's the point.</figcaption>
+      </figure>
+      <div class="article-body">
+        <p>The cliché says high-performing teams "embrace conflict." We have watched dozens of senior teams up close, and the cliché is half wrong. Great teams don't embrace conflict. They embrace <strong>specificity</strong>. The difference matters.</p>
+        <h4>What we see in the best teams</h4>
+        <ol class="num-list">
+          <li><p>Disagreement is aimed at the <strong>idea</strong>, not the person. The phrasing matters: "I think that's wrong because…" not "you think wrongly because…"</p></li>
+          <li><p>Disagreement is <strong>specific</strong>. "The forecast assumes X — I don't believe X holds" is useful. "I have concerns about the strategy" is not.</p></li>
+          <li><p>Disagreement is <strong>finite</strong>. Once the decision is made, the disagreement converts to disagree-and-commit, with a checkpoint for revisiting.</p></li>
+        </ol>
+        <div class="pull-quote">
+          <p>"Trust isn't the absence of conflict — it's the certainty that conflict will land on the idea, not on me."</p>
+          <cite>— Senior partner, professional services firm</cite>
+        </div>
+        <p>Teams that operate this way move faster, not slower. Because the alternative — polite agreement followed by quiet sabotage — eats more time than any meeting ever did.</p>
+      </div>
+
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">05 · Long read · Behaviour change</p>
+      <h2 class="article-title">From decisions to behaviours: closing the last mile.</h2>
+      <p class="article-byline">MLG senior partners — group reflection</p>
+      <figure class="article-image">
+        <img src="https://images.unsplash.com/photo-1606170033648-5d55a3edf314?w=1600&q=85&fm=jpg" alt="An open notebook with handwritten plans — turning decisions into actions." />
+        <figcaption>Decisions are made in conference rooms. Behaviours are built in calendars.</figcaption>
+      </figure>
+      <div class="article-body">
+        <p>A board can make a decision in an afternoon. Turning that decision into a behaviour that shows up in 4,000 inboxes the following Monday is months of work. Most of the failures we see in implementation are not failures of intent. They are failures of this last mile.</p>
+        <h4>Three patterns that close the gap</h4>
+        <ol class="num-list">
+          <li><p><strong>Bind the decision to a behaviour, in writing.</strong> "We will increase customer outreach" is not a decision. "Every account manager will hold one external conversation per week, logged in CRM" is.</p></li>
+          <li><p><strong>Make the first checkpoint absurdly soon.</strong> We have started recommending fortnightly for the first six weeks. The signal-to-noise ratio is higher, the cost of correction is lower.</p></li>
+          <li><p><strong>Name the behaviour you're <em>stopping</em>, not just the one you're starting.</strong> Calendars don't have empty space waiting. Every new ritual must displace an old one explicitly, or it won't take.</p></li>
+        </ol>
+        <div class="callout">
+          <p class="callout__label">Watch out for</p>
+          <h3 class="callout__title">"Implementation" as a synonym for hope</h3>
+          <p>When senior teams say "we'll figure out implementation later," they usually mean "we'll write a long email and trust it arrives." Implementation is not a phase that comes after the decision. It is a craft that runs in parallel from the moment the decision is named.</p>
+        </div>
+        <p>Behaviours stick when the cost of doing them right is lower than the cost of doing them wrong. Most "behaviour-change" initiatives inadvertently invert that. The leader's job is to fix the incentives, not the people.</p>
+      </div>
+
+      <div class="tag-row">
+        <span class="tag">Behaviour change</span>
+        <span class="tag">Implementation</span>
+        <span class="tag">Q1 2025</span>
       </div>
 
       <div class="issue-end">
@@ -115,6 +258,15 @@
           <path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/>
         </svg>
         <p class="issue-end__text">End of Issue 08 · Q1 2025 — thank you for reading.</p>
+      </div>
+
+      <div class="subscribe">
+        <p class="subscribe__label">The Leadership Quarterly</p>
+        <h3 class="subscribe__title">Forward this issue to a leader who needs it.</h3>
+        <p class="subscribe__body">We publish four times a year, by invitation. If this issue served you, share the link with one colleague who takes leadership work seriously.</p>
+        <a class="subscribe__cta" href="mailto:?subject=Leadership%20Quarterly%20—%20Q1%202025">Share this issue
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
 
       <div class="issue-nav">

@@ -6,58 +6,112 @@
   <meta name="theme-color" content="#FFFFFF" />
   <title>Issue 06 · Q3 2024 — Culture as strategy · Leadership Quarterly</title>
   <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../styles.css?v=396" />
+  <link rel="stylesheet" href="../styles.css?v=423" />
   <style>
-    /* ── Light theme issue page ─────────────────────────────────────── */
+    /* ── Issue page — white theme variant ─────────────────────────── */
     body { overflow: visible; background: #FFFFFF; color: #1A1A1A; }
-    /* styles.css sets .standalone { background: #000 } — override here.
-       Also override .standalone .topbar's dark frosted-glass strip. */
     .standalone { overflow: visible; min-height: 100dvh; background: #FFFFFF; }
-    .standalone .topbar {
-      background: rgba(255,255,255,0.78);
-      border-bottom-color: rgba(0,0,0,0.08);
-      color: rgba(0,0,0,0.85);
-    }
-    /* Corner mark — first two paths use currentColor (defaults to white
-       from styles.css). On a white bg we need them dark. */
+    .standalone .topbar { background: rgba(255,255,255,0.78); border-bottom-color: rgba(0,0,0,0.08); color: rgba(0,0,0,0.85); }
     .corner-mark { color: rgba(0,0,0,0.82); }
-    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(80px,12vh,140px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
-    .issue-back { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.55); text-decoration: none; margin-bottom: clamp(32px,5vh,48px); transition: color 200ms; }
+
+    .issue-hero { position: relative; width: 100%; height: 70vh; min-height: 480px; overflow: hidden; }
+    .issue-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+    .issue-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, #fff 0%, rgba(255,255,255,0.20) 55%, rgba(255,255,255,0) 80%), linear-gradient(to right, rgba(255,255,255,0.70) 0%, rgba(255,255,255,0.10) 50%); }
+    .issue-hero__copy { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(32px,5vw,72px) clamp(24px,5vw,56px) clamp(40px,6vh,80px); max-width: 1100px; margin: 0 auto; }
+    .issue-hero__eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 22px; }
+    .issue-hero__eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--mlg-red); }
+    .issue-hero__title { font-family: var(--font-sans); font-size: clamp(48px,7.5vw,96px); font-weight: 700; letter-spacing: -0.02em; line-height: 0.98; color: #1A1A1A; margin: 0 0 clamp(20px,3vh,32px); text-transform: uppercase; text-wrap: balance; }
+    .issue-hero__dek { font-size: clamp(18px,1.9vw,22px); line-height: 1.55; color: rgba(0,0,0,0.72); max-width: 720px; margin: 0; }
+    .issue-hero__credit { position: absolute; bottom: 16px; right: 24px; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(0,0,0,0.55); }
+    .issue-hero__credit a { color: inherit; text-decoration: none; }
+
+    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(40px,6vh,72px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
+    .issue-back { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.55); text-decoration: none; margin-bottom: clamp(24px,4vh,40px); transition: color 200ms; }
     .issue-back:hover { color: var(--mlg-red); }
-    .issue-masthead { border-top: 1px solid rgba(0,0,0,0.12); border-bottom: 1px solid rgba(0,0,0,0.12); padding: clamp(28px,4vh,40px) 0; margin-bottom: clamp(48px,7vh,72px); display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: baseline; }
+
+    .issue-masthead { border-top: 1px solid rgba(0,0,0,0.12); border-bottom: 1px solid rgba(0,0,0,0.12); padding: clamp(24px,3vh,32px) 0; margin-bottom: clamp(40px,6vh,64px); display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: baseline; }
     .issue-masthead__brand { font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--mlg-red); }
     .issue-masthead__meta { font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.55); display: flex; flex-wrap: wrap; gap: 12px 24px; }
     .issue-masthead__meta span:not(:last-child)::after { content: " · "; color: rgba(0,0,0,0.30); padding-left: 12px; }
-    .issue-title { font-family: var(--font-sans); font-size: clamp(40px,6.4vw,80px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.02; color: #1A1A1A; margin: 0 0 clamp(24px,4vh,36px); text-transform: uppercase; }
-    .issue-dek { font-size: clamp(18px,2vw,22px); line-height: 1.55; color: rgba(0,0,0,0.72); max-width: 760px; margin: 0 0 clamp(48px,7vh,72px); }
-    .issue-divider { display: flex; align-items: center; gap: 16px; margin: clamp(48px,7vh,72px) 0 clamp(40px,6vh,56px); }
+
+    .issue-toc { margin: clamp(28px,4vh,40px) 0 clamp(40px,6vh,64px); padding: clamp(24px,3vh,32px) clamp(24px,3vw,36px); background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.08); border-radius: 12px; }
+    .issue-toc__label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 16px; }
+    .issue-toc ol { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .issue-toc li { display: grid; grid-template-columns: 28px 1fr auto; gap: 14px; align-items: baseline; font-size: 15px; color: rgba(0,0,0,0.82); padding-bottom: 12px; border-bottom: 1px dashed rgba(0,0,0,0.08); }
+    .issue-toc li:last-child { border-bottom: none; padding-bottom: 0; }
+    .issue-toc li b { color: var(--mlg-red); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; }
+    .issue-toc li span:nth-child(2) { color: #1A1A1A; font-weight: 500; }
+    .issue-toc li i { font-style: normal; font-size: 12px; color: rgba(0,0,0,0.48); letter-spacing: 0.06em; }
+
+    .issue-divider { display: flex; align-items: center; gap: 16px; margin: clamp(48px,7vh,72px) 0 clamp(32px,5vh,48px); }
     .issue-divider__line { flex: 1; height: 1px; background: rgba(0,0,0,0.10); }
     .issue-divider__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--mlg-red); }
-    .issue-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 clamp(14px,2vh,18px); }
-    .article-title { font-family: var(--font-sans); font-size: clamp(28px,3.6vw,40px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.1; color: #1A1A1A; margin: 0 0 clamp(20px,3vh,28px); }
-    .article-byline { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.45); margin: -8px 0 clamp(24px,4vh,36px); }
+
+    .issue-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 clamp(12px,2vh,16px); }
+    .article-title { font-family: var(--font-sans); font-size: clamp(28px,3.6vw,40px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.1; color: #1A1A1A; margin: 0 0 clamp(16px,2vh,22px); text-wrap: balance; }
+    .article-byline { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.45); margin: 0 0 clamp(20px,3vh,28px); }
+    .article-image { margin: clamp(24px,4vh,36px) 0; }
+    .article-image img { width: 100%; height: auto; display: block; border-radius: 10px; }
+    .article-image figcaption { font-size: 12px; font-style: italic; color: rgba(0,0,0,0.55); margin-top: 10px; line-height: 1.5; }
+
     .article-body p { font-size: 17px; line-height: 1.78; color: rgba(0,0,0,0.78); margin: 0 0 22px; }
     .article-body p strong { color: #1A1A1A; font-weight: 600; }
     .article-body p:first-of-type::first-letter { font-size: 3.4em; font-weight: 700; float: left; line-height: 0.92; padding: 4px 12px 0 0; color: var(--mlg-red); }
+    .article-body h4 { font-family: var(--font-sans); font-size: 22px; font-weight: 600; line-height: 1.3; color: #1A1A1A; margin: clamp(28px,4vh,40px) 0 12px; }
+
     .pull-quote { margin: clamp(36px,5vh,52px) 0; padding: clamp(28px,4vh,40px) clamp(28px,4vw,40px); background: rgba(181,0,52,0.06); border-left: 3px solid var(--mlg-red); border-radius: 0 8px 8px 0; }
     .pull-quote p { font-family: var(--font-sans); font-size: clamp(20px,2.4vw,26px); font-weight: 500; font-style: italic; letter-spacing: -0.01em; line-height: 1.4; color: #1A1A1A; margin: 0; }
     .pull-quote cite { display: block; font-style: normal; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(0,0,0,0.55); margin-top: 18px; }
+
+    .callout { margin: clamp(32px,5vh,48px) 0; padding: clamp(24px,3vh,32px) clamp(24px,3vw,32px); background: rgba(0,0,0,0.025); border: 1px solid rgba(0,0,0,0.10); border-radius: 10px; position: relative; }
+    .callout::before { content: ""; position: absolute; top: 0; left: clamp(24px,3vw,32px); width: 36px; height: 3px; background: var(--mlg-red); }
+    .callout__label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 16px 0 14px; }
+    .callout__title { font-family: var(--font-sans); font-size: 20px; font-weight: 600; color: #1A1A1A; margin: 0 0 12px; line-height: 1.3; }
+    .callout p { font-size: 15px; line-height: 1.65; color: rgba(0,0,0,0.72); margin: 0 0 10px; }
+    .callout p:last-child { margin-bottom: 0; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 clamp(36px,5vh,52px); }
+    .tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(0,0,0,0.72); background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.10); padding: 6px 12px; border-radius: 999px; }
+
+    .num-list { list-style: none; padding: 0; margin: clamp(24px,4vh,36px) 0; display: grid; grid-template-columns: 1fr; gap: 18px; counter-reset: numlist; }
+    .num-list li { display: grid; grid-template-columns: 44px 1fr; gap: 18px; align-items: start; }
+    .num-list li::before { content: counter(numlist); counter-increment: numlist; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: rgba(181,0,52,0.10); border: 1px solid var(--mlg-red); color: var(--mlg-red); font-weight: 700; font-size: 14px; border-radius: 999px; }
+    .num-list li p { margin: 0; font-size: 15px; line-height: 1.65; color: rgba(0,0,0,0.78); }
+    .num-list li p strong { color: #1A1A1A; }
+
+    .author-bio { display: grid; grid-template-columns: 60px 1fr; gap: 16px; align-items: center; margin: clamp(24px,3vh,32px) 0; padding: 18px; background: rgba(0,0,0,0.02); border-radius: 10px; border-left: 2px solid var(--mlg-red); }
+    .author-bio__avatar { width: 60px; height: 60px; border-radius: 999px; overflow: hidden; background: rgba(0,0,0,0.06); }
+    .author-bio__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .author-bio__name { font-size: 14px; font-weight: 600; color: #1A1A1A; margin: 0 0 2px; }
+    .author-bio__role { font-size: 12px; color: rgba(0,0,0,0.55); margin: 0; line-height: 1.4; }
+
+    .stat-block { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px,3vw,40px); margin: clamp(36px,5vh,52px) 0; padding: clamp(28px,4vh,36px) 0; border-top: 1px solid rgba(0,0,0,0.12); border-bottom: 1px solid rgba(0,0,0,0.12); }
+    .stat-block__num { font-family: var(--font-sans); font-size: clamp(36px,4.5vw,56px); font-weight: 700; color: var(--mlg-red); line-height: 1; margin: 0 0 8px; }
+    .stat-block__label { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: rgba(0,0,0,0.78); line-height: 1.4; margin: 0; }
+    @media (max-width: 640px) { .stat-block { grid-template-columns: 1fr; gap: 24px; } }
+
     .issue-end { margin-top: clamp(56px,8vh,80px); padding-top: clamp(32px,5vh,48px); border-top: 1px solid rgba(0,0,0,0.12); display: flex; align-items: center; gap: 16px; }
     .issue-end__mark { width: 28px; height: auto; opacity: 0.85; }
     .issue-end__text { font-size: 13px; color: rgba(0,0,0,0.55); margin: 0; }
-    .issue-nav { margin-top: clamp(56px,8vh,80px); padding-top: clamp(40px,6vh,56px); border-top: 1px solid rgba(0,0,0,0.10); display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+
+    .subscribe { margin-top: clamp(40px,6vh,56px); padding: clamp(32px,5vh,48px) clamp(28px,5vw,56px); background: linear-gradient(135deg, rgba(181,0,52,0.08) 0%, rgba(181,0,52,0.02) 100%); border: 1px solid rgba(181,0,52,0.22); border-radius: 14px; text-align: center; }
+    .subscribe__label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 14px; }
+    .subscribe__title { font-family: var(--font-sans); font-size: clamp(24px,3vw,32px); font-weight: 600; color: #1A1A1A; margin: 0 0 12px; letter-spacing: -0.015em; }
+    .subscribe__body { font-size: 15px; color: rgba(0,0,0,0.72); max-width: 540px; margin: 0 auto 22px; line-height: 1.6; }
+    .subscribe__cta { display: inline-flex; align-items: center; gap: 10px; background: var(--mlg-red); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 28px; border-radius: 999px; transition: opacity 200ms; }
+    .subscribe__cta:hover { opacity: 0.88; }
+
+    .issue-nav { margin-top: clamp(48px,7vh,72px); padding-top: clamp(32px,5vh,48px); border-top: 1px solid rgba(0,0,0,0.10); display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
     .issue-nav__library { display: inline-flex; align-items: center; gap: 10px; background: var(--mlg-red); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 26px; border-radius: 999px; transition: opacity 200ms; }
     .issue-nav__library:hover { opacity: 0.88; }
     .issue-nav__next { font-size: 13px; color: rgba(0,0,0,0.55); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
     .issue-nav__next strong { color: #1A1A1A; font-weight: 500; }
     .issue-nav__next:hover strong { color: var(--mlg-red); }
-    /* Imprint footer override — styles.css defaults are tuned for dark bg */
     .imprint, .imprint a, .imprint .imprint__copy { color: rgba(0,0,0,0.55); }
     .imprint a:hover { color: var(--mlg-red); }
-</style>
+  </style>
 </head>
 <body>
-
   <main class="standalone">
     <div class="topbar">
       <a class="topbar__logo" href="../index.html#slide=0" aria-label="Munich Leadership Group — back to home">
@@ -70,6 +124,20 @@
       <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
     </span>
 
+    <div class="issue-hero">
+      <img class="issue-hero__img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=2200&q=85&fm=jpg" alt="A diverse team gathered around a table — culture as it actually shows up." />
+      <div class="issue-hero__scrim"></div>
+      <div class="issue-hero__copy">
+        <p class="issue-hero__eyebrow">Leadership Quarterly · Issue 06 · Q3 2024</p>
+        <h1 class="issue-hero__title">Culture as strategy.</h1>
+        <p class="issue-hero__dek">
+          Five case studies on cultural transformation — and a frank
+          account of what we got wrong before we got it right.
+        </p>
+      </div>
+      <p class="issue-hero__credit">Photo · <a href="https://unsplash.com" target="_blank" rel="noopener">unsplash / Brooke Cagle</a></p>
+    </div>
+
     <div class="issue-shell">
       <a class="issue-back" href="index.html">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -79,25 +147,46 @@
       <header class="issue-masthead">
         <span class="issue-masthead__brand">Leadership Quarterly</span>
         <span class="issue-masthead__meta">
-          <span>Issue 06</span><span>Q3 2024</span><span>12 min read</span>
+          <span>Issue 06</span><span>Q3 2024</span><span>22 min read</span><span>5 articles</span>
         </span>
       </header>
 
-      <h1 class="issue-title">Culture as strategy.</h1>
-      <p class="issue-dek">Two case studies on cultural transformation — one bank, one mid-cap manufacturer — and a frank account of what we got wrong before we got it right.</p>
+      <div class="tag-row">
+        <span class="tag">Culture</span>
+        <span class="tag">Transformation</span>
+        <span class="tag">Case studies</span>
+        <span class="tag">Banking</span>
+        <span class="tag">Industrials</span>
+      </div>
+
+      <nav class="issue-toc" aria-label="In this issue">
+        <p class="issue-toc__label">In this issue</p>
+        <ol>
+          <li><b>01</b><span>Culture is the cheapest moat your competitors cannot copy</span><i>Editor's letter · 4 min</i></li>
+          <li><b>02</b><span>How a 14,000-person bank changed how it disagreed</span><i>Case · 5 min</i></li>
+          <li><b>03</b><span>What we got wrong before we got it right</span><i>Case · 5 min</i></li>
+          <li><b>04</b><span>The signals that predict cultural transformation success</span><i>Data brief · 4 min</i></li>
+          <li><b>05</b><span>A two-question diagnostic for your own culture</span><i>Tool · 3 min</i></li>
+        </ol>
+      </nav>
 
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Editor's letter</p>
+      <p class="issue-kicker">01 · Editor's letter</p>
       <h2 class="article-title">Culture is the cheapest moat your competitors cannot copy.</h2>
       <p class="article-byline">Dr. Hans W. Hagemann · Founder &amp; Managing Partner</p>
       <div class="article-body">
         <p>When CEOs talk about culture publicly, they tend to talk about it the way CEOs talk about luck — as something pleasant that has happened to them. In private, the smart ones know better. <strong>Culture is the most expensive thing you build and the cheapest thing you sustain</strong>, and it is the only competitive advantage your peers cannot purchase.</p>
         <p>This issue presents two case studies from our portfolio — one bank, one industrial manufacturer — where culture was treated as the strategy, not the decoration on top of it. Both ran for over two years. Both worked. And we made enough mistakes along the way that we have decided to write them down, in the hope that you will not need to make the same ones.</p>
       </div>
+
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Case · Banking</p>
+      <p class="issue-kicker">02 · Case · Banking</p>
       <h2 class="article-title">How a 14,000-person bank changed how it disagreed.</h2>
       <p class="article-byline">MLG client report</p>
+      <figure class="article-image">
+        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1600&q=85&fm=jpg" alt="A meeting room with senior executives in candid discussion." />
+        <figcaption>The bank's leadership team began holding meetings where disagreement was the agenda, not the obstacle.</figcaption>
+      </figure>
       <div class="article-body">
         <p>A large European retail bank came to us with what they described as a <em>collaboration</em> problem. Two years in, we are confident it was actually a <em>disagreement</em> problem. The bank's people were extraordinarily good at being polite to each other. They were terrible at telling each other the truth.</p>
         <p>Our work centred on one shift: <strong>making productive disagreement an explicitly rewarded behaviour</strong>. We changed performance review questions. We trained leaders to ask, not advocate. We worked with the top 200 leaders on what we now call "the courageous middle" — the muscle of bringing up the second-best argument in the room even when the first-best is winning.</p>
@@ -107,14 +196,68 @@
           <cite>— Executive sponsor, retail bank</cite>
         </div>
       </div>
+
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Case · Industrials</p>
+      <p class="issue-kicker">03 · Case · Industrials</p>
       <h2 class="article-title">What we got wrong before we got it right.</h2>
       <p class="article-byline">MLG client report</p>
       <div class="article-body">
         <p>Our second case is a mid-cap European manufacturer, family-owned, third generation. They asked us to help them <em>modernise</em> the culture. We spent the first six months doing the wrong work. We thought the goal was to make the company more agile. The goal, it turned out, was to make the company more <strong>honest</strong> about what it actually valued — which was a kind of slow craft that did not need to be made more agile.</p>
         <p>Once we admitted our mistake and recalibrated, the work accelerated. We helped the leadership team articulate what they were already good at, in a vocabulary their people recognised. We aligned the operating model — promotion, hiring, recognition — to those existing strengths instead of imported ones. Engagement rose. Voluntary turnover fell. So did the temptation to keep reinventing what was already working.</p>
         <p><strong>The lesson, repeated:</strong> most cultural transformation projects fail because they import a culture rather than develop one. The right starting question is rarely "who do we want to become." It is more often "who are we already, when we are at our best, and how do we do more of that."</p>
+        <div class="callout">
+          <p class="callout__label">Looking back</p>
+          <h3 class="callout__title">What we'd do differently</h3>
+          <p>We would have spent the first six weeks listening to operators on the factory floor, not in the boardroom. The boardroom told us what they wanted the culture to be. The floor told us what it actually was. We needed the second before the first could mean anything.</p>
+        </div>
+      </div>
+
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">04 · Data brief · Predictors</p>
+      <h2 class="article-title">The signals that predict cultural transformation success.</h2>
+      <p class="article-byline">MLG science desk — meta-analysis</p>
+      <div class="article-body">
+        <p>We looked back over 14 cultural transformation engagements in our portfolio (2018–2024) and asked a question we hadn't asked before: <strong>which observable signals at the START of the engagement predict whether it will work?</strong> The pattern was surprising and consistent.</p>
+      </div>
+      <div class="stat-block">
+        <div class="stat-block__cell">
+          <p class="stat-block__num">11 / 14</p>
+          <p class="stat-block__label">Successful engagements had a CEO who could name one concrete behaviour they wanted to stop doing personally</p>
+        </div>
+        <div class="stat-block__cell">
+          <p class="stat-block__num">9 / 14</p>
+          <p class="stat-block__label">Successful engagements began with operator-level interviews before board-level workshops</p>
+        </div>
+        <div class="stat-block__cell">
+          <p class="stat-block__num">12 / 14</p>
+          <p class="stat-block__label">Successful engagements had a budget for the cultural work that was at least 1% of the strategy's operational budget</p>
+        </div>
+      </div>
+      <div class="article-body">
+        <p>The pattern is not subtle. Cultural transformation tends to succeed when the CEO is willing to change first, when listening precedes telling, and when the work is funded as if it matters. None of these are radical insights. All of them are difficult to apply when the pressure to act is high.</p>
+      </div>
+
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">05 · Tool · Self-diagnostic</p>
+      <h2 class="article-title">A two-question diagnostic for your own culture.</h2>
+      <p class="article-byline">From the coaching room</p>
+      <div class="article-body">
+        <p>We give this two-question diagnostic to every leadership team that walks in claiming they need to "change the culture." It takes ten minutes. It tells you more than most quarterly engagement surveys.</p>
+        <ol class="num-list">
+          <li><p><strong>What is something that everyone here knows is true and nobody will say?</strong> The answers — even when given anonymously — are the map of where your culture is least functional. The size of the gap between what is known and what is sayable is the size of the work.</p></li>
+          <li><p><strong>What did we tolerate this quarter that, in our heart of hearts, we should not have tolerated?</strong> The answers reveal the gap between stated values and revealed values. A culture is what you tolerate. Look at the tolerance pattern and you see the actual operating system.</p></li>
+        </ol>
+        <div class="pull-quote">
+          <p>"A culture is what you tolerate. The values poster matters less than the inbox."</p>
+          <cite>— MLG coaching team</cite>
+        </div>
+        <p>If both questions surface the same theme in your team — that's where the work starts. It is almost never the place a leadership team expects.</p>
+      </div>
+
+      <div class="tag-row">
+        <span class="tag">Cultural transformation</span>
+        <span class="tag">Self-diagnostic</span>
+        <span class="tag">Q3 2024</span>
       </div>
 
       <div class="issue-end">
@@ -124,6 +267,15 @@
           <path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/>
         </svg>
         <p class="issue-end__text">End of Issue 06 · Q3 2024 — thank you for reading.</p>
+      </div>
+
+      <div class="subscribe">
+        <p class="subscribe__label">The Leadership Quarterly</p>
+        <h3 class="subscribe__title">Forward this issue to a leader who needs it.</h3>
+        <p class="subscribe__body">We publish four times a year, by invitation. If this issue served you, share the link with one colleague who takes leadership work seriously.</p>
+        <a class="subscribe__cta" href="mailto:?subject=Leadership%20Quarterly%20—%20Q3%202024">Share this issue
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
 
       <div class="issue-nav">

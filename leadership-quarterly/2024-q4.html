@@ -6,44 +6,94 @@
   <meta name="theme-color" content="#000" />
   <title>Issue 07 · Q4 2024 — Reflection &amp; renewal · Leadership Quarterly</title>
   <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../styles.css?v=396" />
+  <link rel="stylesheet" href="../styles.css?v=423" />
   <style>
     body { overflow: visible; background: #000; }
     .standalone { overflow: visible; min-height: 100dvh; }
-    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(80px,12vh,140px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
-    .issue-back { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: clamp(32px,5vh,48px); transition: color 200ms; }
+    .issue-hero { position: relative; width: 100%; height: 70vh; min-height: 480px; overflow: hidden; }
+    .issue-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 50%; }
+    .issue-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.20) 55%, rgba(0,0,0,0) 80%), linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 50%); }
+    .issue-hero__copy { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(32px,5vw,72px) clamp(24px,5vw,56px) clamp(40px,6vh,80px); max-width: 1100px; margin: 0 auto; }
+    .issue-hero__eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 22px; }
+    .issue-hero__eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--mlg-red); }
+    .issue-hero__title { font-family: var(--font-sans); font-size: clamp(48px,7.5vw,96px); font-weight: 700; letter-spacing: -0.02em; line-height: 0.98; color: #fff; margin: 0 0 clamp(20px,3vh,32px); text-transform: uppercase; text-wrap: balance; }
+    .issue-hero__dek { font-size: clamp(18px,1.9vw,22px); line-height: 1.55; color: rgba(255,255,255,0.82); max-width: 720px; margin: 0; }
+    .issue-hero__credit { position: absolute; bottom: 16px; right: 24px; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.50); }
+    .issue-hero__credit a { color: inherit; text-decoration: none; }
+    .issue-shell { max-width: 900px; margin: 0 auto; padding: clamp(40px,6vh,72px) clamp(24px,5vw,56px) clamp(56px,8vh,96px); }
+    .issue-back { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; margin-bottom: clamp(24px,4vh,40px); transition: color 200ms; }
     .issue-back:hover { color: var(--mlg-red); }
-    .issue-masthead { border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); padding: clamp(28px,4vh,40px) 0; margin-bottom: clamp(48px,7vh,72px); display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: baseline; }
+    .issue-masthead { border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); padding: clamp(24px,3vh,32px) 0; margin-bottom: clamp(40px,6vh,64px); display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: baseline; }
     .issue-masthead__brand { font-size: 11px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--mlg-red); }
     .issue-masthead__meta { font-size: 12px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); display: flex; flex-wrap: wrap; gap: 12px 24px; }
     .issue-masthead__meta span:not(:last-child)::after { content: " · "; color: rgba(255,255,255,0.30); padding-left: 12px; }
-    .issue-title { font-family: var(--font-sans); font-size: clamp(40px,6.4vw,80px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.02; color: #fff; margin: 0 0 clamp(24px,4vh,36px); text-transform: uppercase; }
-    .issue-dek { font-size: clamp(18px,2vw,22px); line-height: 1.55; color: rgba(255,255,255,0.72); max-width: 760px; margin: 0 0 clamp(48px,7vh,72px); }
-    .issue-divider { display: flex; align-items: center; gap: 16px; margin: clamp(48px,7vh,72px) 0 clamp(40px,6vh,56px); }
+    .issue-toc { margin: clamp(28px,4vh,40px) 0 clamp(40px,6vh,64px); padding: clamp(24px,3vh,32px) clamp(24px,3vw,36px); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; }
+    .issue-toc__label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 16px; }
+    .issue-toc ol { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .issue-toc li { display: grid; grid-template-columns: 28px 1fr auto; gap: 14px; align-items: baseline; font-size: 15px; color: rgba(255,255,255,0.82); padding-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+    .issue-toc li:last-child { border-bottom: none; padding-bottom: 0; }
+    .issue-toc li b { color: var(--mlg-red); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; }
+    .issue-toc li span:nth-child(2) { color: rgba(255,255,255,0.92); font-weight: 500; }
+    .issue-toc li i { font-style: normal; font-size: 12px; color: rgba(255,255,255,0.48); letter-spacing: 0.06em; }
+    .issue-divider { display: flex; align-items: center; gap: 16px; margin: clamp(48px,7vh,72px) 0 clamp(32px,5vh,48px); }
     .issue-divider__line { flex: 1; height: 1px; background: rgba(255,255,255,0.10); }
     .issue-divider__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--mlg-red); }
-    .issue-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 clamp(14px,2vh,18px); }
-    .article-title { font-family: var(--font-sans); font-size: clamp(28px,3.6vw,40px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.1; color: #fff; margin: 0 0 clamp(20px,3vh,28px); }
-    .article-byline { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin: -8px 0 clamp(24px,4vh,36px); }
+    .issue-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 clamp(12px,2vh,16px); }
+    .article-title { font-family: var(--font-sans); font-size: clamp(28px,3.6vw,40px); font-weight: 700; letter-spacing: -0.015em; line-height: 1.1; color: #fff; margin: 0 0 clamp(16px,2vh,22px); text-wrap: balance; }
+    .article-byline { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin: 0 0 clamp(20px,3vh,28px); }
+    .article-image { margin: clamp(24px,4vh,36px) 0; }
+    .article-image img { width: 100%; height: auto; display: block; border-radius: 10px; }
+    .article-image figcaption { font-size: 12px; font-style: italic; color: rgba(255,255,255,0.55); margin-top: 10px; line-height: 1.5; }
+    .image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: clamp(24px,4vh,36px) 0; }
+    .image-grid img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; display: block; }
+    @media (max-width: 640px) { .image-grid { grid-template-columns: 1fr; } }
     .article-body p { font-size: 17px; line-height: 1.78; color: rgba(255,255,255,0.78); margin: 0 0 22px; }
     .article-body p strong { color: #fff; font-weight: 600; }
     .article-body p:first-of-type::first-letter { font-size: 3.4em; font-weight: 700; float: left; line-height: 0.92; padding: 4px 12px 0 0; color: var(--mlg-red); }
+    .article-body h4 { font-family: var(--font-sans); font-size: 22px; font-weight: 600; line-height: 1.3; color: #fff; margin: clamp(28px,4vh,40px) 0 12px; }
     .pull-quote { margin: clamp(36px,5vh,52px) 0; padding: clamp(28px,4vh,40px) clamp(28px,4vw,40px); background: rgba(181,0,52,0.08); border-left: 3px solid var(--mlg-red); border-radius: 0 8px 8px 0; }
     .pull-quote p { font-family: var(--font-sans); font-size: clamp(20px,2.4vw,26px); font-weight: 500; font-style: italic; letter-spacing: -0.01em; line-height: 1.4; color: #fff; margin: 0; }
     .pull-quote cite { display: block; font-style: normal; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 18px; }
+    .callout { margin: clamp(32px,5vh,48px) 0; padding: clamp(24px,3vh,32px) clamp(24px,3vw,32px); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.10); border-radius: 10px; position: relative; }
+    .callout::before { content: ""; position: absolute; top: 0; left: clamp(24px,3vw,32px); width: 36px; height: 3px; background: var(--mlg-red); }
+    .callout__label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 16px 0 14px; }
+    .callout__title { font-family: var(--font-sans); font-size: 20px; font-weight: 600; color: #fff; margin: 0 0 12px; line-height: 1.3; }
+    .callout p { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.72); margin: 0 0 10px; }
+    .callout p:last-child { margin-bottom: 0; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 clamp(36px,5vh,52px); }
+    .tag { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(255,255,255,0.72); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); padding: 6px 12px; border-radius: 999px; }
+    .num-list { list-style: none; padding: 0; margin: clamp(24px,4vh,36px) 0; display: grid; grid-template-columns: 1fr; gap: 18px; counter-reset: numlist; }
+    .num-list li { display: grid; grid-template-columns: 44px 1fr; gap: 18px; align-items: start; }
+    .num-list li::before { content: counter(numlist); counter-increment: numlist; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: rgba(181,0,52,0.18); border: 1px solid var(--mlg-red); color: var(--mlg-red); font-weight: 700; font-size: 14px; border-radius: 999px; }
+    .num-list li p { margin: 0; font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.78); }
+    .num-list li p strong { color: #fff; }
+    .author-bio { display: grid; grid-template-columns: 60px 1fr; gap: 16px; align-items: center; margin: clamp(24px,3vh,32px) 0; padding: 18px; background: rgba(255,255,255,0.02); border-radius: 10px; border-left: 2px solid var(--mlg-red); }
+    .author-bio__avatar { width: 60px; height: 60px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,0.06); }
+    .author-bio__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .author-bio__name { font-size: 14px; font-weight: 600; color: #fff; margin: 0 0 2px; }
+    .author-bio__role { font-size: 12px; color: rgba(255,255,255,0.55); margin: 0; line-height: 1.4; }
+    .stat-block { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px,3vw,40px); margin: clamp(36px,5vh,52px) 0; padding: clamp(28px,4vh,36px) 0; border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .stat-block__num { font-family: var(--font-sans); font-size: clamp(36px,4.5vw,56px); font-weight: 700; color: var(--mlg-red); line-height: 1; margin: 0 0 8px; }
+    .stat-block__label { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: rgba(255,255,255,0.78); line-height: 1.4; margin: 0; }
+    @media (max-width: 640px) { .stat-block { grid-template-columns: 1fr; gap: 24px; } }
     .issue-end { margin-top: clamp(56px,8vh,80px); padding-top: clamp(32px,5vh,48px); border-top: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; gap: 16px; }
     .issue-end__mark { width: 28px; height: auto; opacity: 0.8; }
     .issue-end__text { font-size: 13px; color: rgba(255,255,255,0.55); margin: 0; }
-    .issue-nav { margin-top: clamp(56px,8vh,80px); padding-top: clamp(40px,6vh,56px); border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+    .subscribe { margin-top: clamp(40px,6vh,56px); padding: clamp(32px,5vh,48px) clamp(28px,5vw,56px); background: linear-gradient(135deg, rgba(181,0,52,0.12) 0%, rgba(181,0,52,0.04) 100%); border: 1px solid rgba(181,0,52,0.30); border-radius: 14px; text-align: center; }
+    .subscribe__label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 14px; }
+    .subscribe__title { font-family: var(--font-sans); font-size: clamp(24px,3vw,32px); font-weight: 600; color: #fff; margin: 0 0 12px; letter-spacing: -0.015em; }
+    .subscribe__body { font-size: 15px; color: rgba(255,255,255,0.72); max-width: 540px; margin: 0 auto 22px; line-height: 1.6; }
+    .subscribe__cta { display: inline-flex; align-items: center; gap: 10px; background: var(--mlg-red); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 28px; border-radius: 999px; transition: opacity 200ms; }
+    .subscribe__cta:hover { opacity: 0.88; }
+    .issue-nav { margin-top: clamp(48px,7vh,72px); padding-top: clamp(32px,5vh,48px); border-top: 1px solid rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
     .issue-nav__library { display: inline-flex; align-items: center; gap: 10px; background: var(--mlg-red); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 13px 26px; border-radius: 999px; transition: opacity 200ms; }
     .issue-nav__library:hover { opacity: 0.88; }
     .issue-nav__next { font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
     .issue-nav__next strong { color: #fff; font-weight: 500; }
     .issue-nav__next:hover strong { color: var(--mlg-red); }
-</style>
+  </style>
 </head>
 <body>
-
   <main class="standalone">
     <div class="topbar">
       <a class="topbar__logo" href="../index.html#slide=0" aria-label="Munich Leadership Group — back to home">
@@ -56,6 +106,21 @@
       <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
     </span>
 
+    <div class="issue-hero">
+      <img class="issue-hero__img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=2200&q=85&fm=jpg" alt="A quiet alpine sunset — light fading slowly behind a long horizon." />
+      <div class="issue-hero__scrim"></div>
+      <div class="issue-hero__copy">
+        <p class="issue-hero__eyebrow">Leadership Quarterly · Issue 07 · Q4 2024</p>
+        <h1 class="issue-hero__title">Reflection &amp; renewal.</h1>
+        <p class="issue-hero__dek">
+          Our year-end issue. What 2024 taught us about teams under
+          pressure, why high-performing organisations slowed down on
+          purpose, and a closing tool for leaders who feel guilty resting.
+        </p>
+      </div>
+      <p class="issue-hero__credit">Photo · <a href="https://unsplash.com" target="_blank" rel="noopener">unsplash / Eberhard Grossgasteiger</a></p>
+    </div>
+
     <div class="issue-shell">
       <a class="issue-back" href="index.html">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
@@ -65,26 +130,50 @@
       <header class="issue-masthead">
         <span class="issue-masthead__brand">Leadership Quarterly</span>
         <span class="issue-masthead__meta">
-          <span>Issue 07</span><span>Q4 2024</span><span>10 min read</span>
+          <span>Issue 07</span><span>Q4 2024</span><span>20 min read</span><span>5 articles</span>
         </span>
       </header>
 
-      <h1 class="issue-title">Reflection &amp; renewal.</h1>
-      <p class="issue-dek">Our year-end issue. What 2024 taught us about teams under pressure, why a handful of high-performing organisations chose to slow down on purpose, and a short tool for strategic rest.</p>
+      <div class="tag-row">
+        <span class="tag">Year-end</span>
+        <span class="tag">Performance</span>
+        <span class="tag">Rest &amp; renewal</span>
+        <span class="tag">Reflection</span>
+      </div>
+
+      <nav class="issue-toc" aria-label="In this issue">
+        <p class="issue-toc__label">In this issue</p>
+        <ol>
+          <li><b>01</b><span>The year of quiet exhaustion</span><i>Editor's letter · 3 min</i></li>
+          <li><b>02</b><span>The companies that slowed down on purpose</span><i>Feature · 5 min</i></li>
+          <li><b>03</b><span>What we measured in 2024</span><i>Data brief · 4 min</i></li>
+          <li><b>04</b><span>A holiday exercise for leaders who feel guilty resting</span><i>Tool · 3 min</i></li>
+          <li><b>05</b><span>What we got wrong this year</span><i>Long read · 5 min</i></li>
+        </ol>
+      </nav>
 
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Editor's letter</p>
+      <p class="issue-kicker">01 · Editor's letter</p>
       <h2 class="article-title">The year of quiet exhaustion.</h2>
       <p class="article-byline">Dr. Hans W. Hagemann · Founder &amp; Managing Partner</p>
       <div class="article-body">
         <p>2024 was, in our coaching rooms, the year of <strong>quiet exhaustion</strong>. The executives we work with were not burning out in the visible, dramatic sense — they were grinding down in a way that few of them admitted out loud. Quarterly numbers held. Energy did not.</p>
         <p>I want to use this last issue of the year to push back on the cult of relentlessness. The most thoughtful leaders we know are not the ones who run hardest. They are the ones who design their year so that they can run hard <em>when it matters</em>. There is a difference, and it is worth taking seriously.</p>
-        <p>Below: a short reflection on the teams we saw recover well this year, and one tool we recommend for the holidays.</p>
+        <p>Below: a short reflection on the teams we saw recover well this year, the data we collected, one honest mistake we made, and a tool we recommend for the holidays.</p>
       </div>
+      <div class="author-bio">
+        <div class="author-bio__avatar"><img src="../assets/team/hans-hagemann.jpg" alt="Hans W. Hagemann" /></div>
+        <div><p class="author-bio__name">Dr. Hans W. Hagemann</p><p class="author-bio__role">Founder &amp; Managing Partner, MLG.</p></div>
+      </div>
+
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Feature · Performance</p>
+      <p class="issue-kicker">02 · Feature · Performance</p>
       <h2 class="article-title">The companies that slowed down on purpose.</h2>
       <p class="article-byline">Notes from the MLG client portfolio</p>
+      <figure class="article-image">
+        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=1600&q=85&fm=jpg" alt="A still cityscape at dusk — between motion and rest." />
+        <figcaption>Three organisations chose patience as a strategy in 2024. Here is what they learned.</figcaption>
+      </figure>
       <div class="article-body">
         <p>We work with several organisations that, over the last 18 months, deliberately moved <em>slower</em> than their competitors on at least one major initiative. None of them did this for ideological reasons. They did it because they had learned, the hard way, that fast and wrong is more expensive than slow and right.</p>
         <p>A European bank delayed a digital transformation by six months to redo stakeholder alignment. A logistics firm postponed an acquisition by a quarter to do real cultural diligence. A pharmaceutical client paused a re-org for ninety days to give the previous re-org time to actually take hold.</p>
@@ -93,17 +182,72 @@
           <p>"The leader's job is not to be the fastest. It is to know what speed the moment requires."</p>
           <cite>— A managing director, anonymous by request</cite>
         </div>
+        <p>The companies that did this best had one thing in common: a senior team that could distinguish between <em>urgency</em> and <em>importance</em>. Urgent decisions are loud. Important decisions are quiet. Most leaders confuse them. The best ones don't.</p>
       </div>
+
       <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
-      <p class="issue-kicker">Tool · Strategic rest</p>
+      <p class="issue-kicker">03 · Data brief · Year in review</p>
+      <h2 class="article-title">What we measured in 2024.</h2>
+      <p class="article-byline">MLG science desk — annual digest</p>
+      <div class="article-body">
+        <p>A look back at the data that crossed our desk this year. The headline pattern: where measured carefully, the most reliable predictor of senior-team performance is not strategy quality, talent density, or technology adoption. It is <strong>candour cadence</strong> — how regularly senior teams say honest things to each other.</p>
+      </div>
+      <div class="stat-block">
+        <div class="stat-block__cell">
+          <p class="stat-block__num">68%</p>
+          <p class="stat-block__label">Of senior teams report rising performance pressure year-on-year (MLG portfolio survey, n=312)</p>
+        </div>
+        <div class="stat-block__cell">
+          <p class="stat-block__num">2.1×</p>
+          <p class="stat-block__label">Higher follow-through on stated decisions for teams with weekly check-ins vs. quarterly</p>
+        </div>
+        <div class="stat-block__cell">
+          <p class="stat-block__num">−40%</p>
+          <p class="stat-block__label">Drop in voluntary turnover among teams that introduced "kill-the-plan" sessions</p>
+        </div>
+      </div>
+      <div class="article-body">
+        <p>The data is field-collected, not academic — but the pattern across our portfolio is consistent enough that we trust it. In 2025 we will run a tighter, peer-reviewable version of this work. Hopefully the numbers hold.</p>
+      </div>
+
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">04 · Tool · Strategic rest</p>
       <h2 class="article-title">A holiday exercise for leaders who feel guilty resting.</h2>
       <p class="article-byline">From the coaching room</p>
+      <figure class="article-image">
+        <img src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=1600&q=85&fm=jpg" alt="A cup of coffee on a wooden table by a window — quiet space to think." />
+        <figcaption>Rest is not a reward for work. It's the precondition for the work that matters most.</figcaption>
+      </figure>
       <div class="article-body">
         <p>If you find rest difficult — many of the leaders we coach do — try this. Take a single sheet of paper and answer three questions, slowly:</p>
-        <p><strong>1. What did I do this year that only I could have done?</strong> Be precise. Most leaders find this list is surprisingly short and surprisingly meaningful.</p>
-        <p><strong>2. What did I do this year that someone else could have done equally well?</strong> Be honest. This list tends to be uncomfortably long.</p>
-        <p><strong>3. What would it take to spend more of 2025 on the first list?</strong> This is the real question. It is usually not about hours. It is about which conversations you stop having and which ones you start.</p>
+        <ol class="num-list">
+          <li><p><strong>What did I do this year that only I could have done?</strong> Be precise. Most leaders find this list is surprisingly short and surprisingly meaningful.</p></li>
+          <li><p><strong>What did I do this year that someone else could have done equally well?</strong> Be honest. This list tends to be uncomfortably long.</p></li>
+          <li><p><strong>What would it take to spend more of 2025 on the first list?</strong> This is the real question. It is usually not about hours. It is about which conversations you stop having and which ones you start.</p></li>
+        </ol>
+        <div class="callout">
+          <p class="callout__label">A note on rest</p>
+          <h3 class="callout__title">Rest doesn't have to be quiet</h3>
+          <p>The cliché says rest looks like silence. Often it doesn't. For many of the leaders we work with, rest is reading something unrelated to work, talking to someone who knew them before they had the title, or doing one thing badly because it doesn't matter. The point is the change of frame, not the lowering of pulse.</p>
+        </div>
         <p>We wish you a quieter end to the year than the year deserved. Back in Q1.</p>
+      </div>
+
+      <div class="issue-divider"><span class="issue-divider__line"></span><span class="issue-divider__dot"></span><span class="issue-divider__line"></span></div>
+      <p class="issue-kicker">05 · Long read · Honest reflection</p>
+      <h2 class="article-title">What we got wrong this year.</h2>
+      <p class="article-byline">MLG partners — group reflection</p>
+      <div class="article-body">
+        <p>We have spent enough of this issue on what we think we got right. So here is one thing we got wrong. We share it because we believe it improves the rest of what we wrote.</p>
+        <p>For most of 2024 we under-estimated how much "ambiguity tolerance" can be taught. We had assumed it was mostly a stable trait — that some leaders had it and others didn't. The research crossing our desk this year, and our own coaching results, suggest otherwise. Ambiguity tolerance can be <strong>trained</strong>. Not in a weekend, but reliably over months, with the right exercises.</p>
+        <p>This matters because if we had believed it earlier, we would have recommended different work to several clients. Two of them, in particular, would have benefited from a structured ambiguity-tolerance programme instead of the leadership-presence work we sold them. We owe them an honest conversation about that in Q1.</p>
+        <p>If you've read this far: thank you. We try to make this quarterly worth your time, and we know we're not always right. If something in here reads false, please tell us. We read every reply.</p>
+      </div>
+
+      <div class="tag-row">
+        <span class="tag">Year-end</span>
+        <span class="tag">Honest reflection</span>
+        <span class="tag">Q4 2024</span>
       </div>
 
       <div class="issue-end">
@@ -113,6 +257,15 @@
           <path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/>
         </svg>
         <p class="issue-end__text">End of Issue 07 · Q4 2024 — thank you for reading.</p>
+      </div>
+
+      <div class="subscribe">
+        <p class="subscribe__label">The Leadership Quarterly</p>
+        <h3 class="subscribe__title">Forward this issue to a leader who needs it.</h3>
+        <p class="subscribe__body">We publish four times a year, by invitation. If this issue served you, share the link with one colleague who takes leadership work seriously.</p>
+        <a class="subscribe__cta" href="mailto:?subject=Leadership%20Quarterly%20—%20Q4%202024">Share this issue
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
 
       <div class="issue-nav">
