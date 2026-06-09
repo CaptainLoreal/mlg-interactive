@@ -88,15 +88,17 @@
    max-width so the page still reads desktop-class. */
 @media (min-width: 641px) and (max-width: 1199px) {
   .slide[data-title="Welcome"] .slide__copy {
-    /* Anchor top AND bottom so the flex container has real height —
-       without an explicit top, justify-content:flex-end is a no-op and
-       the stack drifts up. */
-    top: clamp(96px, 12vh, 140px) !important;
-    bottom: clamp(80px, 10vh, 120px) !important;
+    /* Pin the headline near the top of the slide and the card near the
+       bottom — bottom value matches the corner-mark's anchor (22 px)
+       so the card's lower edge aligns horizontally with the mark's
+       lower edge on the right. justify-content:space-between spreads
+       the two children to the column ends. */
+    top: clamp(56px, 6.5vh, 84px) !important;
+    bottom: 22px !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    justify-content: flex-end !important;
-    gap: clamp(20px, 3vh, 32px) !important;
+    justify-content: space-between !important;
+    gap: clamp(24px, 4vh, 48px) !important;
     max-width: none !important;
   }
   /* Both column children explicitly pinned at the slide__copy LEFT
@@ -107,6 +109,11 @@
     margin-left: 0 !important;
     padding-left: 0 !important;
   }
+  /* Headline-block sits at the TOP of the column — strip its bottom
+     padding so the headline rises tight to the menu line. */
+  .slide[data-title="Welcome"] .slide__copy > div:first-child {
+    padding-bottom: 0 !important;
+  }
   /* Smaller headline on tablet so headline + card fit comfortably */
   .slide[data-title="Welcome"] .slide__copy .display {
     font-size: clamp(40px, 7vw, 64px);
@@ -114,10 +121,17 @@
   .slide[data-title="Welcome"] .slide__copy .display--sub {
     font-size: clamp(16px, 2.2vw, 24px) !important;
   }
+  /* Card: tighter left padding so the body text sits closer to the
+     card's left border (and therefore closer to the headline's left
+     line above). Right padding stays comfortable. */
   .slide[data-title="Welcome"] .hero-card {
     width: 100%;
     max-width: 620px;
-    padding: clamp(28px, 3vw, 40px);
+    padding:
+      clamp(22px, 2.4vw, 30px)
+      clamp(28px, 3vw, 40px)
+      clamp(22px, 2.4vw, 30px)
+      clamp(16px, 1.6vw, 22px);
   }
   .slide[data-title="Welcome"] .hero-card__body {
     font-size: clamp(14px, 1.6vw, 17px);
