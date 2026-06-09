@@ -2401,17 +2401,25 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   z-index: 1;
   pointer-events: none;
 }
-/* Black gradient at the BOTTOM — matches the top, mirrored */
+/* Bottom edge: a much softer wash now — the previous full-black
+   linear gradient made the bottom 18 % completely opaque, which
+   meant the radial halo on .approach-hero__copy::before was painted
+   on top of solid black and contributed zero visible effect. New
+   ceiling 0.35 alpha keeps the photo readable behind the text and
+   lets the halo show as a distinct soft bloom on top. */
 .approach-hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%);
+  background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 18%);
   z-index: 1;
   pointer-events: none;
 }
 .approach-hero__copy { z-index: 2; }
-/* Subtle bottom gradient for text legibility only */
+/* Subtle bottom gradient on the copy container — also dialled down
+   from 0.52 → 0.22 alpha, for the same reason: don't crowd out the
+   halo's contribution. The halo (::before below) is the dominant
+   legibility mechanism now. */
 .approach-hero__copy {
   position: absolute;
   inset: 0;
@@ -2420,18 +2428,16 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   align-items: flex-start;
   justify-content: flex-end;
   padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 5vh, 56px);
-  background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 52%);
+  background: linear-gradient(to top, rgba(0,0,0,0.22) 0%, transparent 52%);
 }
-/* Faint black bloom behind the OUR APPROACH header for legibility —
-   identical treatment to .services-split__copy::before (same gradient
-   stops, same 8 px blur, same z-index). Position has to be ANCHORED
-   AT THE BOTTOM of the photo area, because the approach hero copy is
-   bottom-aligned (flex-end + padding-bottom 32-56). The previous
-   bottom: 18% / height: 60% put the halo centre at 48 % from the
-   bottom — above the headline, so it did nothing for legibility.
-   New geometry: bottom: -10 % (extends slightly below the hero so
-   the bloom feels grounded) + height: 60% → vertical centre lands
-   at 20 % from the slide bottom, right behind the eyebrow + H2. */
+/* Soft black bloom behind the OUR APPROACH header. Same gradient
+   stops as .services-split__copy::before, just positioned to match
+   the bottom-aligned approach copy: bottom: -10 % (extends below
+   the hero so the bloom feels grounded) + height: 60% → vertical
+   centre at 20 % from the slide bottom, right behind the eyebrow +
+   H2. Intensity raised from 0.55/0.28 → 0.70/0.40 since the two
+   linear-gradient layers underneath were dialled WAY down so the
+   halo no longer disappears against opaque black. */
 .approach-hero__copy::before {
   content: '';
   position: absolute;
@@ -2441,8 +2447,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   width: 140%;
   height: 60%;
   background: radial-gradient(ellipse at center,
-    rgba(0,0,0,0.55) 0%,
-    rgba(0,0,0,0.28) 35%,
+    rgba(0,0,0,0.70) 0%,
+    rgba(0,0,0,0.40) 35%,
     rgba(0,0,0,0) 70%);
   z-index: 0;
   pointer-events: none;
