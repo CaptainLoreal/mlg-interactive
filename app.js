@@ -587,6 +587,18 @@
       }
     }
 
+    /* Slide-0 slogan reveal. The H1 "EMPOWERING LEADERSHIP" starts
+       collapsed (opacity 0, max-height 0) — see the consuming CSS
+       rule on .slide[data-title="Welcome"] h1.display. As the user
+       scrolls through the first 15 % of slide 0, this custom property
+       ramps 0 → 1, fading and expanding the slogan into the layout.
+       Past 15 %: fully revealed. */
+    {
+      const vh = window.innerHeight;
+      const sloganProgress = Math.min(1, Math.max(0, scrollCurrent / (vh * 0.15)));
+      document.documentElement.style.setProperty('--hero-slogan-opacity', sloganProgress.toFixed(3));
+    }
+
     // Rail progress
     const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
     if (railFill) {

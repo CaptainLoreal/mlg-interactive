@@ -88,17 +88,17 @@
    max-width so the page still reads desktop-class. */
 @media (min-width: 641px) and (max-width: 1199px) {
   .slide[data-title="Welcome"] .slide__copy {
-    /* Pin the headline near the top of the slide and the card near the
-       bottom — bottom value matches the corner-mark's anchor (22 px)
-       so the card's lower edge aligns horizontally with the mark's
-       lower edge on the right. justify-content:space-between spreads
-       the two children to the column ends. */
+    /* Headline block + card both pile near the bottom (flex-end), with
+       a small gap between them. Card bottom still aligns horizontally
+       with the corner-mark's bottom anchor on the right (22 px).
+       The big empty space sits ABOVE the headline block now — that's
+       where the H1 slogan grows into as the user scrolls. */
     top: clamp(56px, 6.5vh, 84px) !important;
     bottom: 22px !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    justify-content: space-between !important;
-    gap: clamp(24px, 4vh, 48px) !important;
+    justify-content: flex-end !important;
+    gap: clamp(14px, 2vh, 24px) !important;
     max-width: none !important;
   }
   /* Both column children explicitly pinned at the slide__copy LEFT
@@ -138,6 +138,25 @@
     line-height: 1.5;
     margin-bottom: 10px;
   }
+}
+
+/* ── Slide-0 slogan ("EMPOWERING / LEADERSHIP") reveals on scroll ──
+   Starts collapsed and invisible; --hero-slogan-opacity (set by JS in
+   the tickSmooth handler, 0 → 1 as scrollCurrent crosses 0–15 % of
+   vh) drives opacity AND max-height AND margin AND a small upward
+   translate so the slogan fades + slides + expands into the layout.
+   No CSS transition — JS already lerps the custom property each frame
+   via the existing smooth-scroll easing, so a transition would fight
+   it. The 280 px max-height ceiling is comfortably above the largest
+   2-line slogan at clamp(40,7vw,64). Applies on every viewport so
+   the effect is consistent. */
+.slide[data-title="Welcome"] h1.display {
+  opacity: var(--hero-slogan-opacity, 0);
+  max-height: calc(var(--hero-slogan-opacity, 0) * 280px);
+  margin-bottom: calc(var(--hero-slogan-opacity, 0) * 18px);
+  overflow: hidden;
+  transform: translateY(calc((1 - var(--hero-slogan-opacity, 0)) * -10px));
+  will-change: opacity, max-height, transform;
 }
 
 @media (max-width: 640px) {
