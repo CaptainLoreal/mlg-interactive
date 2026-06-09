@@ -2421,18 +2421,20 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 5vh, 56px);
 }
 
-/* Halo wrapper around the eyebrow + H2 — relative-positioned so the
-   ::before halo can centre on it the same way .services-split__copy
-   centres its halo on the (eyebrow + H2) text block. The body copy
-   sits OUTSIDE this wrapper so the halo doesn't try to span the
-   whole bottom of the hero. */
-.approach-hero__head {
+/* Halo wrappers around the eyebrow + H2 AND around the body
+   paragraphs — both relative-positioned so the ::before halo can
+   centre on each block the same way .services-split__copy centres
+   its halo on its (eyebrow + H2) text block. */
+.approach-hero__head,
+.approach-hero__body {
   position: relative;
   z-index: 2;
 }
 /* Literal copy of .services-split__copy::before — same stops, same
-   geometry, same blur, same z-index. */
-.approach-hero__head::before {
+   geometry, same blur, same z-index. Applied to BOTH blocks so the
+   headline AND the body copy each get their own soft black bloom. */
+.approach-hero__head::before,
+.approach-hero__body::before {
   content: '';
   position: absolute;
   top: 50%;
