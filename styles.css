@@ -2410,14 +2410,14 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   z-index: 1;
   pointer-events: none;
 }
-/* Black gradient at the BOTTOM — softer wash for body-text legibility
-   below the headline. Kept at 0.35 alpha so the halo behind the H2
-   is the dominant darkening effect (not this linear gradient). */
+/* Black gradient at the BOTTOM — mirrors the top edge gradient
+   exactly: solid black fading to transparent over the bottom 18 %
+   of the photo. Symmetric darkening at both edges. */
 .approach-hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 18%);
+  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 18%);
   z-index: 1;
   pointer-events: none;
 }
