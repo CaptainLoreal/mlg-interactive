@@ -638,14 +638,32 @@
     { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
   ];
 
+  /* Build the top nav in a FIXED order so it stays consistent regardless
+     of slide reorders, AND matches the subpage menu order in subnav.js.
+     Keep this list in sync with subnav.js. */
+  const NAV_ORDER = [
+    'Clients',
+    'Approach',
+    'Services',
+    'Why MLG',
+    'Team',
+    'Book',
+    'Contact',
+  ];
+
   if (slideNav) {
     slideNav.innerHTML = '';
+    // Build a title → index lookup from the actual slides in the DOM
+    const titleIndex = {};
     slides.forEach((slide, i) => {
-      const title = slide.dataset.title || `${i + 1}`;
-      if (title === 'Tailor') return;
-      if (title === 'Testimonials') return;
-      if (title === 'Welcome') return;
-      if (title === 'Tools') return;
+      const t = slide.dataset.title;
+      if (t && !(t in titleIndex)) titleIndex[t] = i;
+    });
+
+    NAV_ORDER.forEach((title) => {
+      const i = titleIndex[title];
+      if (i === undefined) return;  // slide not present on this page
+
       if (title === 'Services') {
         const wrap = document.createElement('div');
         wrap.className = 'slide-nav__dropdown-wrap';
@@ -773,13 +791,15 @@
   ];
 
   if (burgerBtn && mobileNav) {
-    // Build mobile nav items
+    // Build mobile nav in the SAME fixed order as the desktop nav.
+    const titleIndex = {};
     slides.forEach((slide, i) => {
-      const title = slide.dataset.title || String(i + 1);
-      if (title === 'Tailor') return;
-      if (title === 'Testimonials') return;
-      if (title === 'Welcome') return;
-      if (title === 'Tools') return;
+      const t = slide.dataset.title;
+      if (t && !(t in titleIndex)) titleIndex[t] = i;
+    });
+    NAV_ORDER.forEach((title) => {
+      const i = titleIndex[title];
+      if (i === undefined) return;
       const item = document.createElement('button');
       item.className = 'mobile-nav__item';
       item.textContent = title;

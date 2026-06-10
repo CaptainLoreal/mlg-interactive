@@ -1,18 +1,23 @@
 (function () {
-  // Indices match the live slide NodeList in index.html:
-  // 0=Welcome 1=Tailor 2=Clients 3=Testimonials 4=Approach 5=Services
-  // 6=Why-MLG 7=Tools(hidden) 8=Team 9=Contact
+  // Indices match the live slide NodeList in index.html as of the
+  // 2026-06-09 reorder (Tailor removed, Services moved before Clients,
+  // Book added):
+  //   0=Welcome 1=Services 2=Clients 3=Approach 4=Testimonials
+  //   5=Why-MLG 6=Tools(hidden) 7=Team 8=Book 9=Contact
+  // Items below mirror the desktop slide-nav order in app.js
+  // (Welcome/Testimonials/Tools filtered out).
   var slides = [
     { title: 'Clients',         href: 'index.html#slide=2' },
-    { title: 'Approach',        href: 'index.html#slide=4' },
-    { title: 'Services',        href: 'index.html#slide=5', dropdown: [
+    { title: 'Approach',        href: 'index.html#slide=3' },
+    { title: 'Services',        href: 'index.html#slide=1', dropdown: [
       { label: 'Leadership Development',  href: 'leadership-development.html' },
       { label: 'Coaching & Sparring',     href: 'coaching-sparring.html' },
       { label: 'Audits & Assessments',    href: 'audits-assessments.html' },
       { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
     ]},
-    { title: 'Why MLG',         href: 'index.html#slide=6' },
-    { title: 'Team',            href: 'index.html#slide=8' },
+    { title: 'Why MLG',         href: 'index.html#slide=5' },
+    { title: 'Team',            href: 'index.html#slide=7' },
+    { title: 'Book',            href: 'index.html#slide=8' },
     { title: 'Contact',         href: 'index.html#slide=9' },
   ];
 
