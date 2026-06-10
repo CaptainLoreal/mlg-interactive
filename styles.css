@@ -943,15 +943,15 @@ button { font-family: inherit; cursor: pointer; }
   text-transform: uppercase;
   color: rgba(255,255,255,0.50);
   white-space: nowrap;
-  /* Opacity is scroll-driven via --menu-tagline-opacity (set by the
-     tickSmooth handler in app.js, 0 → 1 across the first 15 % of vh
-     scroll past the hero). At rest the tagline is invisible; the
-     viewer reveals it by scrolling. No CSS transition — JS lerps the
-     property every rAF frame via the existing smooth-scroll easing
-     so a transition would fight it. */
-  opacity: var(--menu-tagline-opacity, 0);
-  will-change: opacity;
+  /* Tagline is bound to the topbar's past-hero state — appears
+     together with the blurry-glass menu (same 50 % vh scroll
+     threshold), fades out together when scrolling back to the hero.
+     CSS transition handles the fade since this is class-toggle
+     driven now (not scroll-driven). */
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-out);
 }
+.topbar--past-hero .topbar__tagline { opacity: 1; }
 @media (max-width: 640px) {
   .topbar__tagline { display: none; }
 }

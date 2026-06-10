@@ -594,18 +594,11 @@
       if (topbarEl) topbarEl.classList.toggle('topbar--past-hero', scrollCurrent >= vh * 0.5);
     }
 
-    /* Menu-bar tagline reveal. The "… Empowering Leadership" line
-       lives in .topbar__tagline next to the wordmark; its opacity
-       reads --menu-tagline-opacity from this property. We ramp 0 → 1
-       across the first 15 % of vh scroll past the hero — so on first
-       paint the tagline is invisible (clean menu next to the logo)
-       and starts to appear as soon as the visitor scrolls. Past 15 %:
-       fully visible. Scrolling back up makes it fade out again. */
-    {
-      const vh = window.innerHeight;
-      const taglineProgress = Math.min(1, Math.max(0, scrollCurrent / (vh * 0.15)));
-      document.documentElement.style.setProperty('--menu-tagline-opacity', taglineProgress.toFixed(3));
-    }
+    /* Menu-bar tagline ("… Empowering Leadership") is no longer
+       scroll-driven — it's now bound to the topbar's past-hero class
+       via a CSS rule in styles.css, so it fades in together with the
+       blurry-glass menu at the 50 % vh scroll threshold (toggled in
+       the block above). */
 
     // Rail progress
     const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
