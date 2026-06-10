@@ -69,10 +69,11 @@
       <div class="rail__bar"><span class="rail__fill" id="railFill"></span></div>
     </nav>
 
-    <!-- Top corner brand + slide nav + audience toggle.
-         past-hero class is permanent now — big hero logo retired,
-         topbar always wears the blurry-glass + light wordmark look. -->
-    <div class="topbar topbar--past-hero">
+    <!-- Top corner brand + slide nav + audience toggle. The big-hero
+         logo starts large (scaled via --hero-logo-scale by app.js) and
+         shrinks into the menu on scroll. past-hero gets added by JS
+         once the visitor scrolls ~50 % of the way through slide 0. -->
+    <div class="topbar">
       <a class="topbar__logo" href="#" data-jump="0" aria-label="Munich Leadership Group">
         <span class="topbar__logo-stack">
           <img class="topbar__logo-img topbar__logo-img--dark" decoding="async" src="assets/logo-black-red-bold.svg" alt="Munich Leadership Group" />
@@ -190,7 +191,7 @@
           </div>
           <div class="services-split__copy">
             <p class="eyebrow">Our Services</p>
-            <h2 class="display"><span class="display__line">Everything for</span><span class="display__line">your success</span></h2>
+            <h2 class="display"><span class="display__line">What are you</span><span class="display__line">looking for?</span></h2>
           </div>
           <div class="services-wrap">
             <div class="services-grid">
@@ -787,16 +788,25 @@
 
   </main>
 
-  <script src="app.js?v=234" defer></script>
+  <script src="app.js?v=235" defer></script>
   <script>
-    /* Topbar wears the past-hero look (blurry glass + light wordmark
-       + light menu items) at every scroll position now that the big
-       hero logo has been retired. Add the class once on load — no
-       scroll listener needed. */
+    /* Inline hero-state toggle. Runs immediately on page load before
+       app.js defers in, so the topbar gets its past-hero class as
+       soon as the viewer is past ~50 % of the hero — eliminates a
+       FOUC where the menu briefly shows hero-state styles on a
+       deep-linked / hash-jumped landing. app.js's tickSmooth then
+       takes over the toggle as the smoothed scroll runs. */
     (function () {
       var topbar = document.querySelector('.topbar');
       if (!topbar) return;
-      topbar.classList.add('topbar--past-hero');
+      function checkHero() {
+        var hero = document.querySelector('.slide[data-slide="0"]');
+        if (!hero) return;
+        var past = window.scrollY > hero.offsetHeight * 0.5;
+        topbar.classList.toggle('topbar--past-hero', past);
+      }
+      window.addEventListener('scroll', checkHero, { passive: true });
+      checkHero();
     })();
   </script>
   <script>

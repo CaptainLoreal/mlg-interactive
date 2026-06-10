@@ -479,12 +479,18 @@
   const heroLogoStack = document.querySelector('.topbar__logo-stack');
   const topbarEl = document.querySelector('.topbar');
 
-  /* Big-hero logo retired. The logo now stays at its menu-bar size at
-     every scroll position — the blurry-glass topbar is the only place
-     the wordmark appears. Keeping the function (returning a constant 1)
-     so the lerp call site below still works without a branch. */
+  /* Viewport-aware hero scale. The 2.8× was originally hardcoded — fine
+     on a desktop but oversized on a phone where it collided with the
+     "What is your dream?" headline. Keep the menu/settled state at 1×
+     and pick a hero-end scale that fits the viewport. Re-evaluated on
+     resize so an orientation change or window resize lands cleanly. */
   function getHeroMaxScale() {
-    return 1;
+    const w = window.innerWidth;
+    if (w < 420)  return 1.55;   // small phone
+    if (w < 600)  return 1.85;   // large phone
+    if (w < 900)  return 2.30;   // tablet portrait
+    if (w < 1200) return 2.60;   // tablet landscape / small laptop
+    return 2.80;                 // desktop
   }
   let heroMaxScale = getHeroMaxScale();
   // Initialise to the right scale immediately so first paint matches scroll=0
@@ -575,16 +581,17 @@
       heroSticky.style.opacity = opacity;
     }
 
-    /* Hero logo retired — wordmark stays at menu size always, and the
-       topbar wears the past-hero look (blurry glass + light wordmark
-       + light menu items) at every scroll position. We still pin the
-       custom property to 1 every tick so any external listener (or a
-       stale stylesheet) sees a known value. */
+    /* Scroll-driven hero logo: shrinks from heroMaxScale → 1× as the
+       user scrolls through the first 35 % of slide 0. past-hero is
+       toggled at 50 % scroll (same threshold as the inline checkHero
+       script) so the colour swap + blurry-glass background follow
+       the same smoothed scroll. */
     {
-      document.documentElement.style.setProperty('--hero-logo-scale', '1');
-      if (topbarEl && !topbarEl.classList.contains('topbar--past-hero')) {
-        topbarEl.classList.add('topbar--past-hero');
-      }
+      const vh = window.innerHeight;
+      const heroProgress = Math.min(1, Math.max(0, scrollCurrent / (vh * 0.35)));
+      const logoScale = heroMaxScale - (heroMaxScale - 1) * heroProgress;
+      document.documentElement.style.setProperty('--hero-logo-scale', logoScale.toFixed(3));
+      if (topbarEl) topbarEl.classList.toggle('topbar--past-hero', scrollCurrent >= vh * 0.5);
     }
 
     /* Menu-bar tagline reveal. The "… Empowering Leadership" line
