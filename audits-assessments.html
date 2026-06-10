@@ -31,16 +31,31 @@
        circular dot marker (instead of em-dash) for visual consistency
        across audit / assessment subpages. */
     .ld-offering__list { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-direction: column; gap: 10px; }
-    .ld-offering__list li { font-size: 19px; color: rgba(255,255,255,0.65); font-weight: 400; padding-left: 22px; position: relative; line-height: 1.75; }
+    /* Use a grid row to vertically centre the dot on the first text
+       line, regardless of font-size or line-height. The dot's grid
+       cell is aligned to the same baseline group as the text, and a
+       small top margin (calc((1em * line-height - dot-h) / 2)) lands
+       it on the line's optical middle. */
+    .ld-offering__list li {
+      font-size: 19px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      font-weight: 400;
+      display: grid;
+      grid-template-columns: 8px 1fr;
+      column-gap: 14px;
+      align-items: start;
+    }
     .ld-offering__list li::before {
       content: '';
-      position: absolute;
-      left: 0;
-      top: 0.78em;
       width: 8px;
       height: 8px;
       border-radius: 999px;
       background: var(--mlg-red);
+      /* Vertical-centre on the first line: half the line height
+         minus half the dot. With 19 px * 1.75 = 33.25 px line and
+         8 px dot → (33.25 − 8) / 2 ≈ 12.6 px from top. */
+      margin-top: calc((1em * 1.75 - 8px) / 2);
     }
     /* Lead bullet group — matches the .ld-intro p strong styling used
        on "Typical situations where we love to help:" exactly:
