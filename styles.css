@@ -5968,22 +5968,18 @@ p, li { font-size: inherit; }
   content-visibility: auto;
   contain-intrinsic-size: 100vh;
 }
-/* Mobile: drop backdrop-filter entirely on cards (saves GPU compositor passes,
-   which are the single biggest mobile perf killer on this page). Use a
-   slightly more opaque background to compensate for the lost blur. */
+/* Mobile: card blur was previously stripped here as a perf optimization,
+   but it left .card-item / .challenge-box / .news-card / .globe-card
+   visually inconsistent with the approach card (which DID keep blur).
+   Now the unified mobile card rule earlier in the file applies blur(14px)
+   to every card class — accept the GPU cost in exchange for visual
+   consistency.
+     - Topbar still gets a milder 8px blur (separate stacking context,
+       cheap and important for legibility).
+     - Non-card scrollable wrappers (.team-wrap, .news-wrap) still skip
+       blur — they're huge surfaces, not glass cards, and a blur there
+       would tank scroll perf without visual benefit. */
 @media (max-width: 640px) {
-  .card-item,
-  .challenge-box,
-  .testimonial,
-  .news-card,
-  .ld-offering,
-  .slide-nav__dropdown,
-  .tf__choice,
-  .globe-card {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-  /* Keep topbar blur subtle (it's on top of varied content) */
   .topbar.topbar--past-hero,
   .standalone .topbar {
     backdrop-filter: blur(8px);
