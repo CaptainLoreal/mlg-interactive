@@ -6,19 +6,25 @@
   //   5=Why-MLG 6=Tools(hidden) 7=Team 8=Book 9=Contact
   // Items below mirror the desktop slide-nav order in app.js
   // (Welcome/Testimonials/Tools filtered out).
+
+  // Path prefix — quarterly pages live in /leadership-quarterly/ so
+  // every href needs '../' to reach the index/services subpages.
+  var inSubdir = location.pathname.indexOf('/leadership-quarterly/') !== -1;
+  var P = inSubdir ? '../' : '';
+
   var slides = [
-    { title: 'Services',        href: 'index.html#slide=1', dropdown: [
-      { label: 'Leadership Development',  href: 'leadership-development.html' },
-      { label: 'Coaching & Sparring',     href: 'coaching-sparring.html' },
-      { label: 'Audits & Assessments',    href: 'audits-assessments.html' },
-      { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
+    { title: 'Services',        href: P + 'index.html#slide=1', dropdown: [
+      { label: 'Leadership Development',  href: P + 'leadership-development.html' },
+      { label: 'Coaching & Sparring',     href: P + 'coaching-sparring.html' },
+      { label: 'Audits & Assessments',    href: P + 'audits-assessments.html' },
+      { label: 'Cultural Transformation', href: P + 'cultural-transformation.html' },
     ]},
-    { title: 'Clients',         href: 'index.html#slide=2' },
-    { title: 'Approach',        href: 'index.html#slide=3' },
-    { title: 'Why MLG',         href: 'index.html#slide=5' },
-    { title: 'Team',            href: 'index.html#slide=7' },
-    { title: 'Book',            href: 'index.html#slide=8' },
-    { title: 'Contact',         href: 'index.html#slide=9' },
+    { title: 'Clients',         href: P + 'index.html#slide=2' },
+    { title: 'Approach',        href: P + 'index.html#slide=3' },
+    { title: 'Why MLG',         href: P + 'index.html#slide=5' },
+    { title: 'Team',            href: P + 'index.html#slide=7' },
+    { title: 'Book',            href: P + 'index.html#slide=8' },
+    { title: 'Contact',         href: P + 'index.html#slide=9' },
   ];
 
   var topbar = document.querySelector('.topbar');
