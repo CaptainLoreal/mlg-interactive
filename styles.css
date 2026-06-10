@@ -1683,14 +1683,16 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 @keyframes kbDrift3 {
   /* Used by .approach-future__media img (the narrow vision photo).
-     Previous endpoint translate(2%, -1%) drifted the image RIGHT —
-     since the container is overflow:hidden and the image cover-scales,
-     a rightward drift crops more of the image's RIGHT side as the
-     animation plays. The new vision-4-narrow has content on the
-     right we want to keep visible, so the drift now goes LEFT — the
-     right edge stays in frame, and the parallax motion is preserved. */
+     Endpoints chosen so the FACES (upper ~20 % of the image) stay
+     visible throughout:
+       • Horizontal: drift LEFT (-1.5 %) so the right edge stays in
+         frame (right side has subject content).
+       • Vertical: drift DOWN (+1 %) so the top of the image is
+         revealed further. Combined with transform-origin: top on
+         the img, the scaling expands downward and the heads never
+         leave the visible area. */
   0%   { transform: scale(1.08) translate(0, 0); }
-  100% { transform: scale(1.15) translate(-1.5%, -1%); }
+  100% { transform: scale(1.15) translate(-1.5%, 1%); }
 }
 @keyframes kbDrift4 {
   0%   { transform: scale(1.12) translate(-1%, 0); }
@@ -2591,6 +2593,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
      ratio the crop is horizontal-only so object-position vertical
      value is a no-op there. */
   object-position: center top;
+  /* Pin the scale/transform origin to the TOP edge too — otherwise
+     the default centre-origin scale(1.08+) shifts the image upward
+     by 4-8 %, slicing the heads off above the container edge during
+     and after the kbDrift3 animation. */
+  transform-origin: center top;
   display: block;
 }
 @media (max-width: 800px) {
