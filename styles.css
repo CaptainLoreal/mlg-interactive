@@ -5096,10 +5096,12 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   }
 
   .approach-hero__copy {
-    /* Bottom-anchored card with generous breathing room around it so the
-       hero photo shows above + on the sides. Height auto = fits content,
-       no huge empty area below the text. */
-    inset: auto 24px 32px 24px !important;
+    /* Bottom-anchored card with the hero photo showing above + on the
+       sides AND extending past the bottom of the card. Card bottom
+       inset bumped from 32 px → 12 % of the hero so a clear strip of
+       the background image is visible below it. Height auto = fits
+       content, no huge empty area below the text. */
+    inset: auto 24px 12% 24px !important;
     height: auto !important;
     align-items: stretch;       /* children fill the card width */
     justify-content: flex-start;
