@@ -172,7 +172,14 @@
        border: 1px solid rgba(255,255,255,0.12)
        border-radius: 12px
      Background image / linear-gradient overrides are forced to none
-     so per-card photo/gradient washes don't bleed through. */
+     so per-card photo/gradient washes don't bleed through.
+       Perf: each card gets its own GPU compositor layer (translateZ
+     + will-change), and `contain: layout paint` so the browser
+     skips layout/paint work outside the card's bounding box. These
+     don't change any visual property — they just stop the blur
+     from being recomputed every scroll frame, which was the actual
+     mobile perf cost the old "strip backdrop-filter" rule was
+     trying to avoid. */
   .hero-card,
   .card-item,
   .challenge-box,
@@ -187,6 +194,9 @@
     border: 1px solid rgba(255,255,255,0.12) !important;
     border-radius: 12px !important;
     box-shadow: none !important;
+    transform: translateZ(0);
+    will-change: transform;
+    contain: layout paint;
   }
 }
 
@@ -2589,6 +2599,12 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   aspect-ratio: 4 / 5;
   border-radius: 8px;
   overflow: hidden;
+  /* isolation creates its own stacking context so the inner img's
+     transform doesn't escape the rounded-corner clip. Without this,
+     the transform: scale() on the img caused the corners to render
+     square (the parent's overflow:hidden + border-radius only clip
+     non-transformed children reliably). */
+  isolation: isolate;
 }
 .approach-future__media img {
   width: 100%;
@@ -5104,17 +5120,18 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   }
 
   .approach-hero__copy {
-    /* Bottom-anchored card with the hero photo showing above + on the
-       sides AND extending past the bottom of the card. Card bottom
-       inset bumped from 32 px → 12 % of the hero so a clear strip of
-       the background image is visible below it. Height auto = fits
-       content, no huge empty area below the text. */
-    inset: auto 24px 12% 24px !important;
+    /* Floating card pinned by BOTH top and bottom insets so the
+       background photo is visible above AND below it (not just
+       below). Top inset clamp(72px, 14vh, 140px) leaves a clear
+       band of image above the card; bottom 12 % leaves a band
+       below. Card sits in the middle band of the hero. */
+    inset: clamp(72px, 14vh, 140px) 24px 12% 24px !important;
     height: auto !important;
-    align-items: stretch;       /* children fill the card width */
-    justify-content: flex-start;
+    align-items: stretch;
+    justify-content: center;
     padding: 22px 20px !important;
     gap: 12px;
+    overflow-y: auto;            /* in case content is taller than space */
     background: rgba(14,15,16,0.55);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
