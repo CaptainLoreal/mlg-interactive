@@ -2594,12 +2594,13 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Anchor crop to the TOP of the image — the faces sit in the
-     upper ~20 % and the default centre-centre crop was slicing them
-     out on the wide mobile aspect ratio (16/10). On the desktop 4/5
-     ratio the crop is horizontal-only so object-position vertical
-     value is a no-op there. */
-  object-position: center top;
+  /* Anchor crop to RIGHT-TOP — the right person's face is the more
+     prominent subject in the new photo, and the default centre-crop
+     was slicing it off both on mobile (wide 16/10 aspect, vertical
+     centre crop pushed faces off the top) and on desktop (4/5
+     aspect, horizontal centre crop trimmed the right-side face).
+     'right top' keeps both axes anchored to the side that matters. */
+  object-position: right top;
   /* Pin the scale/transform origin to the TOP edge too — otherwise
      the default centre-origin scale(1.08+) shifts the image upward
      by 4-8 %, slicing the heads off above the container edge during
