@@ -5117,8 +5117,15 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .slide--testimonials .slide__media,
 .slide--testimonials .slide__scrim { display: none; }
 
-/* Welcome (hero) slide — no scrim, sticky hero handles the gradient */
-.slide[data-title="Welcome"] .slide__scrim { display: none; }
+/* Welcome (hero) slide — show the scrim as a bottom-only black
+   gradient that fades from solid #000 at the bottom edge to fully
+   transparent at ~40 % up. Gives the hero a grounded base and a
+   smooth handoff to the Facts & Figures strip below it. */
+.slide[data-title="Welcome"] .slide__scrim {
+  display: block;
+  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 40%);
+  pointer-events: none;
+}
 
 /* Tailor slide — solid dark, no photo */
 .slide--tailor { background: #000; }
@@ -5132,11 +5139,14 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .testimonials-wrap {
   position: relative;
   z-index: 2;
-  min-height: 100dvh;
+  /* min-height: 100dvh was over-tall and left huge empty bands above
+     and below the carousel. Use auto + tighter vertical padding so
+     the section sits at its natural content height. */
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(96px, 14vh, 160px) 0 clamp(64px, 10vh, 120px);
+  padding: clamp(48px, 6vh, 80px) 0 clamp(40px, 5vh, 64px);
   width: 100%;
 }
 
