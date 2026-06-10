@@ -4782,7 +4782,10 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     justify-content: flex-end !important;
     max-width: none !important;
     width: 100% !important;
-    padding: clamp(56px, 8vh, 90px) var(--pad-x) clamp(40px, 7vh, 72px) !important;
+    /* Bottom padding trimmed from clamp(40, 7vh, 72) → clamp(20, 4vh, 40)
+       so the headline + card stack sits closer to the bottom edge — a
+       request to "move the content down a little" on mobile. */
+    padding: clamp(56px, 8vh, 90px) var(--pad-x) clamp(20px, 4vh, 40px) !important;
     gap: 14px !important;
   }
   /* Headline group: left-aligned, pill at natural width. Override the
