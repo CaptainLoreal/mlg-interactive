@@ -5120,18 +5120,18 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   }
 
   .approach-hero__copy {
-    /* Floating card pinned by BOTH top and bottom insets so the
-       background photo is visible above AND below it (not just
-       below). Top inset clamp(72px, 14vh, 140px) leaves a clear
-       band of image above the card; bottom 12 % leaves a band
-       below. Card sits in the middle band of the hero. */
-    inset: clamp(72px, 14vh, 140px) 24px 12% 24px !important;
+    /* Card auto-sizes to its content — no scrolling, no max-height.
+       Anchored at the bottom (12% gap below = image visible there).
+       The card's TOP edge sits at (hero_height − card_content_height
+       − 12%), so the background photo is naturally visible ABOVE
+       the card too as long as content height < 88% of the hero. */
+    inset: auto 24px 12% 24px !important;
     height: auto !important;
     align-items: stretch;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 22px 20px !important;
     gap: 12px;
-    overflow-y: auto;            /* in case content is taller than space */
+    overflow: visible;            /* no scrollbar, ever */
     background: rgba(14,15,16,0.55);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
