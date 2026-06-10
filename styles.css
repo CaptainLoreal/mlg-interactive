@@ -164,22 +164,29 @@
     margin-bottom: 12px;
   }
 
-  /* Unified mobile card treatment — every card-style block adopts the
-     same dark glass-blur look that the .hero-card / approach card use
-     on mobile. Background, blur, border and radius are forced (with
-     !important) to override the bespoke per-card styles each class
-     ships with on desktop. */
+  /* Unified mobile card treatment — every card-style block adopts
+     the EXACT same look as the .approach-hero__copy card on the
+     approach slide. Values are copied verbatim from that selector:
+       background: rgba(14,15,16,0.55)
+       backdrop-filter: blur(14px) (incl. -webkit- prefix)
+       border: 1px solid rgba(255,255,255,0.12)
+       border-radius: 12px
+     Background image / linear-gradient overrides are forced to none
+     so per-card photo/gradient washes don't bleed through. */
+  .hero-card,
   .card-item,
   .challenge-box,
   .stat-item,
   .network-strip,
   .news-card,
   .globe-card {
-    background: rgba(0,0,0,0.28) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255,255,255,0.10) !important;
+    background: rgba(14,15,16,0.55) !important;
+    background-image: none !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
     border-radius: 12px !important;
+    box-shadow: none !important;
   }
 }
 
