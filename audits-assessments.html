@@ -42,22 +42,16 @@
       border-radius: 999px;
       background: var(--mlg-red);
     }
-    /* Lead bullet group — left-aligned (no centering), larger size and
-       white bold text matching the .ld-intro p strong style used on the
-       "Typical situations where we love to help:" line below. The red
-       dot marker scales up proportionally. */
-    .ld-offering__list--lead { margin: 0 0 32px; }
+    /* Lead bullet group — matches the .ld-intro p strong styling used
+       on "Typical situations where we love to help:" exactly:
+       19 px, line-height 1.75, color rgba(255,255,255,0.88), bold.
+       Same red dot marker as the rest of .ld-offering__list. */
+    .ld-offering__list--lead { margin: 0 0 28px; }
     .ld-offering__list--lead li {
-      font-size: clamp(22px, 2.6vw, 28px);
-      color: rgba(255,255,255,0.92);
-      font-weight: 600;
-      line-height: 1.4;
-      padding-left: 28px;
-    }
-    .ld-offering__list--lead li::before {
-      width: 10px;
-      height: 10px;
-      top: 0.55em;
+      font-size: 19px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.88);
+      font-weight: 700;
     }
     .ld-usp { max-width: 820px; margin: 0 auto clamp(48px, 7vh, 80px); padding: 36px 40px; background: rgba(181,0,52,0.10); border: 1px solid rgba(181,0,52,0.28); border-radius: 8px; }
     .ld-usp__label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 14px; }
