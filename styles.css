@@ -163,6 +163,24 @@
     color: rgba(255,255,255,0.88);
     margin-bottom: 12px;
   }
+
+  /* Unified mobile card treatment — every card-style block adopts the
+     same dark glass-blur look that the .hero-card / approach card use
+     on mobile. Background, blur, border and radius are forced (with
+     !important) to override the bespoke per-card styles each class
+     ships with on desktop. */
+  .card-item,
+  .challenge-box,
+  .stat-item,
+  .network-strip,
+  .news-card,
+  .globe-card {
+    background: rgba(0,0,0,0.28) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255,255,255,0.10) !important;
+    border-radius: 12px !important;
+  }
 }
 
 :root {
@@ -2476,6 +2494,16 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 .approach-hero__copy .eyebrow {
   width: fit-content;
+}
+/* Approach header has two parallel sets of <span class="display__line">
+   children — a desktop pair (--d) and a mobile triplet (--m). Toggle
+   visibility via viewport so the line-breaks read naturally on each.
+     Desktop (default): "A rigorous approach / to Executive Education"
+     Mobile (≤640px):   "A rigorous / approach to / Executive Education" */
+.approach-hero__title--m { display: none; }
+@media (max-width: 640px) {
+  .approach-hero__title--d { display: none; }
+  .approach-hero__title--m { display: block; }
 }
 .approach-hero__copy .display {
   font-size: clamp(34px, 7vw, 80px);
