@@ -645,13 +645,13 @@
     { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
   ];
 
-  /* Build the top nav in a FIXED order so it stays consistent regardless
-     of slide reorders, AND matches the subpage menu order in subnav.js.
-     Keep this list in sync with subnav.js. */
+  /* Build the top nav in a FIXED order that mirrors the actual deck
+     slide order (Welcome → Services → Clients → Approach → … →
+     Contact). Keep in sync with subnav.js. */
   const NAV_ORDER = [
+    'Services',
     'Clients',
     'Approach',
-    'Services',
     'Why MLG',
     'Team',
     'Book',

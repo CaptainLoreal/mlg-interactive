@@ -7,14 +7,14 @@
   // Items below mirror the desktop slide-nav order in app.js
   // (Welcome/Testimonials/Tools filtered out).
   var slides = [
-    { title: 'Clients',         href: 'index.html#slide=2' },
-    { title: 'Approach',        href: 'index.html#slide=3' },
     { title: 'Services',        href: 'index.html#slide=1', dropdown: [
       { label: 'Leadership Development',  href: 'leadership-development.html' },
       { label: 'Coaching & Sparring',     href: 'coaching-sparring.html' },
       { label: 'Audits & Assessments',    href: 'audits-assessments.html' },
       { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
     ]},
+    { title: 'Clients',         href: 'index.html#slide=2' },
+    { title: 'Approach',        href: 'index.html#slide=3' },
     { title: 'Why MLG',         href: 'index.html#slide=5' },
     { title: 'Team',            href: 'index.html#slide=7' },
     { title: 'Book',            href: 'index.html#slide=8' },
