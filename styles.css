@@ -3022,12 +3022,14 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   flex-direction: column;
   background: #000;
 }
-/* Top strip — solid black, headers live here */
+/* Top strip — solid black, headers live here. Top padding trimmed
+   from clamp(96, 14vh, 160) to clamp(48, 7vh, 88) so the section
+   sits closer to the testimonials above it. */
 .why-mlg__header-strip {
   position: relative;
   z-index: 2;
   background: #000;
-  padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(32px, 5vh, 56px);
+  padding: clamp(48px, 7vh, 88px) var(--pad-x) clamp(32px, 5vh, 56px);
   display: flex;
   justify-content: center;
 }
@@ -5116,6 +5118,10 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .slide--testimonials { background: #000; }
 .slide--testimonials .slide__media,
 .slide--testimonials .slide__scrim { display: none; }
+/* Testimonials slide overrides the .slide { min-height: 100dvh }
+   default so it sits at its natural content height — otherwise it
+   leaves a tall empty band before Why MLG starts. */
+.slide--testimonials { min-height: auto; }
 
 /* Welcome (hero) slide — show the scrim as a bottom-only black
    gradient that fades from solid #000 at the bottom edge to fully
