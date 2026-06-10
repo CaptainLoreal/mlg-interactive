@@ -183,7 +183,6 @@
   .hero-card,
   .card-item,
   .challenge-box,
-  .stat-item,
   .network-strip,
   .news-card,
   .globe-card {
@@ -197,6 +196,19 @@
     transform: translateZ(0);
     will-change: transform;
     contain: layout paint;
+  }
+  /* Facts & figures: NO card on mobile — just the existing red
+     divider line above each stat. Strip the card chrome inherited
+     from earlier rules (background, border, blur, radius). */
+  .stat-item {
+    background: transparent !important;
+    background-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
   }
 }
 
@@ -894,14 +906,14 @@ button { font-family: inherit; cursor: pointer; }
    lang-switch burger) can co-exist without overlap.
      Small phone (≤419):       1.55×
      Large phone (≤599):       1.80×
-     Tablet portrait (≤899):   2.00×
-     Tablet landscape (≤1199): 2.20×
+     Tablet portrait (≤899):   1.55× (was 2.00 — collided with SERVICES)
+     Tablet landscape (≤1199): 1.80× (was 2.20 — collided with SERVICES)
      Desktop (≥1200):          2.80× (default above) */
 @media (max-width: 1199px) {
-  .topbar__logo-stack { --hero-logo-cap: 2.20; }
+  .topbar__logo-stack { --hero-logo-cap: 1.80; }
 }
 @media (max-width: 899px) {
-  .topbar__logo-stack { --hero-logo-cap: 2.00; }
+  .topbar__logo-stack { --hero-logo-cap: 1.55; }
 }
 @media (max-width: 599px) {
   .topbar__logo-stack { --hero-logo-cap: 1.80; }
@@ -2599,12 +2611,19 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   aspect-ratio: 4 / 5;
   border-radius: 8px;
   overflow: hidden;
-  /* isolation creates its own stacking context so the inner img's
-     transform doesn't escape the rounded-corner clip. Without this,
-     the transform: scale() on the img caused the corners to render
-     square (the parent's overflow:hidden + border-radius only clip
-     non-transformed children reliably). */
+  /* Belt-and-suspenders rounded-corner clip:
+       isolation: isolate      — new stacking context
+       transform: translateZ(0) — promotes to its own GPU layer, which
+                                  forces the renderer to clip composite
+                                  output to the border-radius (the only
+                                  reliable way across Safari + Chrome
+                                  when an inner transformed child has
+                                  a transform-origin offset).
+       clip-path: inset(0 round 8px) — explicit fallback for engines
+                                       that still ignore the above. */
   isolation: isolate;
+  transform: translateZ(0);
+  clip-path: inset(0 round 8px);
 }
 .approach-future__media img {
   width: 100%;
@@ -5120,24 +5139,39 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   }
 
   .approach-hero__copy {
-    /* Card auto-sizes to its content — no scrolling, no max-height.
-       Anchored at the bottom (12% gap below = image visible there).
-       The card's TOP edge sits at (hero_height − card_content_height
-       − 12%), so the background photo is naturally visible ABOVE
-       the card too as long as content height < 88% of the hero. */
-    inset: auto 24px 12% 24px !important;
+    /* Card auto-sizes to content — no scrolling. Anchored at the
+       BOTTOM only with a small bottom gap, so even on short
+       viewports the card never gets clipped at the top by the
+       parent's overflow:hidden. (Previous top:auto + tall content
+       could push the card's top edge above the hero's top → visual
+       cut.) Content shrinks slightly with media queries below if
+       the hero gets too short.
+         Top boundary now safe: card grows upward from the bottom
+       inset, content determines height. */
+    inset: auto 16px 6% 16px !important;
     height: auto !important;
     align-items: stretch;
     justify-content: flex-start;
-    padding: 22px 20px !important;
-    gap: 12px;
-    overflow: visible;            /* no scrollbar, ever */
+    padding: 18px 18px !important;
+    gap: 10px;
+    overflow: visible;
     background: rgba(14,15,16,0.55);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(255,255,255,0.12);
     border-radius: 12px;
     text-align: center;
+  }
+  /* Tighter typography in the card so it fits on short viewports
+     without the top getting clipped by the hero's overflow:hidden. */
+  .approach-hero__copy .display {
+    font-size: clamp(22px, 5.5vw, 32px) !important;
+    line-height: 1.15 !important;
+  }
+  .approach-hero__copy .approach-intro__body {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
   }
   /* Strip all child margins so gap alone controls spacing */
   .approach-hero__copy > * { margin: 0 !important; }
