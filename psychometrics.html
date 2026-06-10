@@ -23,16 +23,29 @@
     .ld-intro p { font-size: 19px; line-height: 1.75; color: rgba(255,255,255,0.65); margin: 0 0 18px; }
     .ld-intro p strong { color: rgba(255,255,255,0.88); }
     .ld-offering__list { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-direction: column; gap: 10px; }
-    .ld-offering__list li { font-size: 19px; color: rgba(255,255,255,0.65); font-weight: 400; padding-left: 22px; position: relative; line-height: 1.75; }
+    /* Grid layout per <li> centres the red dot on the FIRST line of
+       text (same fix applied to audits-assessments.html). With
+       19 px font / 1.75 line-height the line box is 33.25 px, so
+       margin-top calc((1em × 1.75 − 8px) / 2) ≈ 12.6 px lands the
+       8 px dot on the optical centre. align-items: start anchors
+       the dot to the first line even when text wraps. */
+    .ld-offering__list li {
+      font-size: 19px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      font-weight: 400;
+      display: grid;
+      grid-template-columns: 8px 1fr;
+      column-gap: 14px;
+      align-items: start;
+    }
     .ld-offering__list li::before {
       content: '';
-      position: absolute;
-      left: 0;
-      top: 0.78em;
       width: 8px;
       height: 8px;
       border-radius: 999px;
       background: var(--mlg-red);
+      margin-top: calc((1em * 1.75 - 8px) / 2);
     }
     .ld-cta { text-align: center; padding: clamp(32px, 5vh, 56px) 0; border-top: 1px solid rgba(255,255,255,0.08); max-width: 1200px; margin: 0 auto; }
     .ld-cta p { color: rgba(255,255,255,0.55); font-size: 14px; margin: 0 0 20px; }
