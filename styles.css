@@ -2557,6 +2557,12 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Anchor crop to the TOP of the image — the faces sit in the
+     upper ~20 % and the default centre-centre crop was slicing them
+     out on the wide mobile aspect ratio (16/10). On the desktop 4/5
+     ratio the crop is horizontal-only so object-position vertical
+     value is a no-op there. */
+  object-position: center top;
   display: block;
 }
 @media (max-width: 800px) {
@@ -4744,13 +4750,17 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     padding: clamp(56px, 8vh, 90px) var(--pad-x) clamp(40px, 7vh, 72px) !important;
     gap: 14px !important;
   }
-  /* Headline group: left-aligned, pill at natural width */
+  /* Headline group: left-aligned, pill at natural width. Override the
+     inline padding-bottom (clamp(28, 3vw, 48)) which on mobile stacked
+     on top of the flex gap + card margin-top and gave ~50 px of empty
+     space between headline and card. Now sits flush with the gap. */
   .slide[data-title="Welcome"] .slide__copy > div:first-child {
     width: 100% !important;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
+    padding-bottom: 0 !important;
   }
   .slide[data-title="Welcome"] .slide__copy > div:first-child .eyebrow {
     align-self: flex-start;
