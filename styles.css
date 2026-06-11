@@ -2611,27 +2611,36 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   aspect-ratio: 4 / 5;
   border-radius: 20px;
   overflow: hidden;
-  /* Rounded-corner clip that survives the animated child.
-     The inner <img> has transform: scale(1.08) + a kbDrift3
-     keyframe animation, which historically leaked past plain
-     overflow:hidden in WebKit. The fix that actually holds:
-     a CSS mask in the SAME rounded-rect shape. mask-image
-     forces the painter to clip every pixel — including those
-     produced by transformed/animated children — to the mask
-     bounds, no matter what stacking context the child sits in.
-     Previous attempts (clip-path: inset round, transform:
-     translateZ(0), isolation) were hit-and-miss across
-     browsers; this rule is the source of truth. */
-  -webkit-mask-image: radial-gradient(#fff, #000);
-  -webkit-mask-image: linear-gradient(#fff, #fff);
-          mask-image: linear-gradient(#fff, #fff);
+  /* Rounded-corner clip that survives the animated child <img>.
+     The inner img has transform: scale(1.08) + kbDrift3
+     animation, which historically leaked past a plain
+     overflow:hidden in WebKit. The combination below pins
+     every browser:
+       • border-radius + overflow: hidden   — the base clip
+       • contain: paint                     — modern standard
+         that explicitly bounds descendant painting to the
+         element's padding box (rounded corners included),
+         even when the descendant is transformed/composited
+       • clip-path: inset(0 round 20px)     — secondary
+         geometric clip; works where contain:paint isn't
+         honored
+       • will-change: transform             — gives this box
+         its own compositor layer so the GPU rasterizer
+         applies the rounded clip to the layer instead of
+         letting the child draw past it
+     A previous attempt with mask-image: linear-gradient
+     was wrong — a solid linear gradient is a RECTANGLE
+     mask that overrode the rounded shape. Removed. */
+  contain: paint;
+  clip-path: inset(0 round 20px);
+  will-change: transform;
 }
 .approach-future__media img {
-  /* No border-radius here — the parent's mask is the clip.
-     A radius on the img used to fight the parent on some
-     engines, producing the "almost-rounded but not quite"
-     artifact at the top corners. */
-  border-radius: 0;
+  /* Match the parent's radius on the img itself so that
+     even if a browser fails to apply the parent clip
+     across the transform boundary, the img is rounded
+     in isolation. */
+  border-radius: 20px;
 }
 .approach-future__media img {
   width: 100%;
