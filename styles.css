@@ -2605,21 +2605,25 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
-  border-radius: 8px;
+  border-radius: 20px;          /* bumped from 8px — visibly rounded */
   overflow: hidden;
-  /* Belt-and-suspenders rounded-corner clip:
-       isolation: isolate      — new stacking context
-       transform: translateZ(0) — promotes to its own GPU layer, which
-                                  forces the renderer to clip composite
-                                  output to the border-radius (the only
-                                  reliable way across Safari + Chrome
-                                  when an inner transformed child has
-                                  a transform-origin offset).
-       clip-path: inset(0 round 8px) — explicit fallback for engines
-                                       that still ignore the above. */
+  /* Belt-and-suspenders rounded-corner clip — the inner img has
+     transform: scale() + transform-origin: top, which can escape a
+     plain overflow:hidden + border-radius clip. Trio of guards:
+       isolation: isolate       (own stacking context)
+       transform: translateZ(0) (own GPU compositor layer → forces
+                                 the renderer to clip to the radius)
+       clip-path: inset(0 round 20px)   (explicit fallback) */
   isolation: isolate;
   transform: translateZ(0);
-  clip-path: inset(0 round 8px);
+  clip-path: inset(0 round 20px);
+}
+.approach-future__media img {
+  /* Mask on the img too so the transformed inner image is clipped
+     to the same rounded shape — works even if the parent's clip
+     fails to inherit through a stacking context boundary. */
+  border-radius: 20px;
+  -webkit-mask-image: radial-gradient(white, black);   /* iOS Safari clip enforcement */
 }
 .approach-future__media img {
   width: 100%;
