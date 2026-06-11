@@ -1613,7 +1613,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 
 /* Ken Burns — slow zoom-in + drift */
 .slide[data-anim="kenburns"].is-in-view .slide__media img {
-  animation: kenburnsA 14s var(--ease-out) forwards;
+  animation: kenburnsA 14s var(--ease-out) forwards;   /* matches services */
 }
 @keyframes kenburnsA {
   0%   { transform: scale(1.10) translate(0, 0); }
@@ -1621,7 +1621,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 
 .slide[data-anim="kenburns2"].is-in-view .slide__media img {
-  animation: kenburnsB 16s var(--ease-out) forwards;
+  animation: kenburnsB 14s var(--ease-out) forwards;   /* was 16s, matches services */
 }
 @keyframes kenburnsB {
   0%   { transform: scale(1.20) translate(2%, 1%); }
@@ -1694,10 +1694,13 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .offerings-bg__img {
   will-change: transform;
 }
-.ld-hero__media img { animation: kbDrift1 22s var(--ease-out) forwards; transform: scale(1.10); }
-.fol-hero__media img { animation: kbDrift2 24s var(--ease-out) forwards; transform: scale(1.12); }
-.approach-future__media img { animation: kbDrift3 20s var(--ease-out) forwards; transform: scale(1.08); }
-.offerings-bg__img { animation: kbDrift4 26s var(--ease-out) forwards; transform: scale(1.12); }
+/* All hero / accent images animate at 14 s — matches the services
+   parallaxIn duration so the whole site moves at a consistent
+   pace (was 22s / 24s / 20s / 26s individually). */
+.ld-hero__media img { animation: kbDrift1 14s var(--ease-out) forwards; transform: scale(1.10); }
+.fol-hero__media img { animation: kbDrift2 14s var(--ease-out) forwards; transform: scale(1.12); }
+.approach-future__media img { animation: kbDrift3 14s var(--ease-out) forwards; transform: scale(1.08); }
+.offerings-bg__img { animation: kbDrift4 14s var(--ease-out) forwards; transform: scale(1.12); }
 
 @keyframes kbDrift1 {
   0%   { transform: scale(1.10) translate(0, 0); }
@@ -5759,6 +5762,14 @@ p, li { font-size: inherit; }
     padding: 0;
     overflow: visible !important;
     height: auto !important;
+  }
+  /* PDF body type — Aptos Narrow with a graceful fallback chain.
+     User reported the printed PDF was defaulting to Times-style serif;
+     this forces a clean sans across every element on the printed page. */
+  html, body,
+  body *:not(svg):not(svg *) {
+    font-family: "Aptos Narrow", "Aptos", "Aptos Display",
+                 "Inter", "Helvetica Neue", Arial, sans-serif !important;
   }
   body { font-size: 11pt; }
 
