@@ -2609,29 +2609,29 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
-  border-radius: 20px;          /* bumped from 8px — visibly rounded */
+  border-radius: 20px;
   overflow: hidden;
-  /* Belt-and-suspenders rounded-corner clip — the inner img has
-     transform: scale() + transform-origin: top, which can escape a
-     plain overflow:hidden + border-radius clip. Trio of guards:
-       isolation: isolate       (own stacking context)
-       transform: translateZ(0) (own GPU compositor layer → forces
-                                 the renderer to clip to the radius)
-       clip-path: inset(0 round 20px)   (explicit fallback) */
-  isolation: isolate;
-  transform: translateZ(0);
-  clip-path: inset(0 round 20px);
+  /* Rounded-corner clip that survives the animated child.
+     The inner <img> has transform: scale(1.08) + a kbDrift3
+     keyframe animation, which historically leaked past plain
+     overflow:hidden in WebKit. The fix that actually holds:
+     a CSS mask in the SAME rounded-rect shape. mask-image
+     forces the painter to clip every pixel — including those
+     produced by transformed/animated children — to the mask
+     bounds, no matter what stacking context the child sits in.
+     Previous attempts (clip-path: inset round, transform:
+     translateZ(0), isolation) were hit-and-miss across
+     browsers; this rule is the source of truth. */
+  -webkit-mask-image: radial-gradient(#fff, #000);
+  -webkit-mask-image: linear-gradient(#fff, #fff);
+          mask-image: linear-gradient(#fff, #fff);
 }
 .approach-future__media img {
-  /* Match the parent's rounded clip on the img itself. NO mask
-     here — a previous radial-gradient mask was producing a
-     circular vignette at the top corners (the actual cause of
-     the "rounded edges not perfect at the top" issue). The
-     parent's overflow:hidden + clip-path: inset(0 round 20px)
-     does the real clipping; this border-radius is just a
-     backup for engines that lose the parent clip across the
-     stacking-context boundary. */
-  border-radius: 20px;
+  /* No border-radius here — the parent's mask is the clip.
+     A radius on the img used to fight the parent on some
+     engines, producing the "almost-rounded but not quite"
+     artifact at the top corners. */
+  border-radius: 0;
 }
 .approach-future__media img {
   width: 100%;
