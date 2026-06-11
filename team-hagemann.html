@@ -28,12 +28,16 @@
     .profile-body p strong { color: rgba(255,255,255,0.88); }
     /* Pull-quote paragraph — same visual language as .fol-pull on
        future-of-leadership.html: bigger, brighter, with a thin red
-       bar on the left. Larger size for a stronger standout. */
+       bar on the left.
+       !important needed: a sitewide rule in styles.css line 5518
+       (`.profile-body p { font-size: 17px !important; line-height:
+       1.75 }`) was beating this inline block. Matching specificity
+       isn't enough when an !important is in play. */
     .profile-body p.profile-pull {
-      font-size: clamp(26px, 3.2vw, 38px);
-      line-height: 1.35;
-      color: #fff;
-      font-weight: 500;
+      font-size: clamp(26px, 3.2vw, 38px) !important;
+      line-height: 1.35 !important;
+      color: #fff !important;
+      font-weight: 500 !important;
       border-left: 3px solid var(--mlg-red);
       padding-left: 22px;
       margin: 36px 0;
