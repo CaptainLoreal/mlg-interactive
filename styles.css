@@ -4637,7 +4637,16 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   background: rgba(181,0,52,0.22);
   border: 1px solid rgba(181,0,52,0.45);
   border-radius: 999px;
-  padding: 3px 10px;
+  /* Optical centering for uppercase Helvetica/Inter: the font's
+     ascent (~0.78 em) is bigger than its descent (~0.22 em), so
+     symmetric padding renders bottom-heavy. inline-flex +
+     line-height:1 collapses the line-box to the cap height, then
+     asymmetric padding (4 top / 2 bottom) re-centers the glyphs
+     inside the pill. Same trick used for .eyebrow pills site-wide. */
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  padding: 4px 10px 2px;
   white-space: nowrap;
 }
 
