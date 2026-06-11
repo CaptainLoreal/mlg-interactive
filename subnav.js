@@ -94,8 +94,8 @@
   langSwitch.className = 'lang-switch';
   langSwitch.setAttribute('aria-label', 'Language switcher');
   langSwitch.innerHTML =
-    '<button class="lang-switch__btn" data-lang="de">DE</button>' +
-    '<button class="lang-switch__btn is-active" data-lang="en">EN</button>';
+    '<button class="lang-switch__btn is-active" data-lang="en">EN</button>' +
+    '<button class="lang-switch__btn" data-lang="de">DE</button>';
   topbar.appendChild(langSwitch);
 
   topbar.appendChild(burger);
