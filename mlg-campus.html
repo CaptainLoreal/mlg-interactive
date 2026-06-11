@@ -25,10 +25,17 @@
     .ld-content { background: #000; padding: clamp(48px, 7vh, 96px) clamp(24px, 5vw, 72px) 0; }
     .ld-intro { max-width: 820px; margin: 0 auto clamp(56px, 8vh, 96px); }
     /* Centred MLG Campus logo block sits above .ld-intro on the
-       campus subpage. Height-scaled so it reads as a header element
-       in line with the page's typographic rhythm. */
+       campus subpage. Now sized off WIDTH instead of height since
+       the trimmed logo is a 3:1 horizontal wordmark — width-driven
+       sizing scales to the column more naturally and keeps the
+       logo tight to its bounds (no extra padding around it). */
     .ld-intro-logo { max-width: 820px; margin: 0 auto clamp(28px, 4vh, 48px); text-align: center; }
-    .ld-intro-logo img { display: inline-block; height: clamp(96px, 16vw, 200px); width: auto; }
+    .ld-intro-logo img {
+      display: inline-block;
+      width: clamp(280px, 38vw, 480px);
+      height: auto;
+      vertical-align: middle;
+    }
     .ld-intro__heading { font-size: clamp(18px, 2.4vw, 26px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; margin: 0 0 28px; }
     .ld-intro p { font-size: 19px; line-height: 1.75; color: rgba(255,255,255,0.65); margin: 0 0 18px; }
     .ld-intro p strong { color: rgba(255,255,255,0.88); }
@@ -68,7 +75,7 @@
           <span>back</span>
         </a>
         <p class="ld-hero__eyebrow">Leadership Development</p>
-        <h1 class="ld-hero__title">MLG<br>Campus</h1>
+        <h1 class="ld-hero__title">MLG Campus</h1>
         <p class="ld-hero__lead">Learning from the best, in open programs</p>
       </div>
     </div>
