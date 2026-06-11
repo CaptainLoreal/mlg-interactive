@@ -26,7 +26,7 @@ PATCH_BOX = (115, 113, 635, 355)   # (left, top, right, bottom)
 
 # New subtitle (with the three dots) and styling — smaller than original
 # so the matching logo is also smaller than what was there before.
-SUBTITLE  = "...   EMPOWERING  LEADERSHIP"
+SUBTITLE  = "... EMPOWERING  LEADERSHIP"   # tighter gap between dots and E
 SUB_PT    = 16           # font size (px) — was 22; shrinks logo to ~300 px
 SUB_TRACK = 4            # extra px between glyphs
 
