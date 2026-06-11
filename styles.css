@@ -336,16 +336,19 @@ button { font-family: inherit; cursor: pointer; }
   text-align: inherit;
 }
 /* A display__line that's allowed to break with a soft hyphen when its
-   container gets narrow. Only enabled on tablet / smaller viewports —
-   desktop has plenty of room and the word should render whole. */
-@media (max-width: 1199px) {
-  .display__line--break {
-    white-space: normal;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    overflow-wrap: break-word;
-    word-break: normal;
-  }
+   container gets narrow. Now ALWAYS on (no media-query gate). Soft
+   hyphens are invisible unless the browser actually needs to break,
+   so wide screens still render the word whole — but on any viewport
+   where the column can't fit "organizations" on one line, it now
+   breaks cleanly with a hyphen instead of overflowing the right edge.
+   Previous max-width:1199px gate left a desktop window where the
+   word ran past the right border. */
+.display__line--break {
+  white-space: normal;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 /* <br class="br-mobile"> only breaks on mobile; hidden on desktop. */
