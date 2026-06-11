@@ -2619,11 +2619,15 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   clip-path: inset(0 round 20px);
 }
 .approach-future__media img {
-  /* Mask on the img too so the transformed inner image is clipped
-     to the same rounded shape — works even if the parent's clip
-     fails to inherit through a stacking context boundary. */
+  /* Match the parent's rounded clip on the img itself. NO mask
+     here — a previous radial-gradient mask was producing a
+     circular vignette at the top corners (the actual cause of
+     the "rounded edges not perfect at the top" issue). The
+     parent's overflow:hidden + clip-path: inset(0 round 20px)
+     does the real clipping; this border-radius is just a
+     backup for engines that lose the parent clip across the
+     stacking-context boundary. */
   border-radius: 20px;
-  -webkit-mask-image: radial-gradient(white, black);   /* iOS Safari clip enforcement */
 }
 .approach-future__media img {
   width: 100%;
