@@ -4,9 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#000" />
+  <!-- Cache-bust: tell browsers to revalidate this HTML on every
+       visit so content edits (quote text, body copy) show up
+       immediately instead of waiting for a 10-minute CDN cache. -->
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
   <title>Dr. Hans W. Hagemann — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=331" />
+  <link rel="stylesheet" href="styles.css?v=461" />
   <style>
     body { overflow: visible; }
     .standalone { overflow: visible; min-height: 100dvh; }
