@@ -11,7 +11,7 @@
   <!-- Preload Helvetica weights used above the fold -->
   <link rel="preload" as="font" type="font/ttf" href="assets/fonts/Helvetica.ttf" crossorigin />
   <link rel="preload" as="font" type="font/ttf" href="assets/fonts/Helvetica-Bold.ttf" crossorigin />
-  <link rel="stylesheet" href="styles.css?v=468" />
+  <link rel="stylesheet" href="styles.css?v=469" />
   <script>
     /* Any in-page hash (#slide=N, #services, #approach, etc.) means the
        visitor is being deep-linked into the deck — kill the intro flash
@@ -358,9 +358,14 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </a>
             </div>
-            <div class="approach-future__media">
-              <img decoding="async" src="assets/photos/vision-narrow.webp?v=2" alt="" loading="lazy" />
-            </div>
+            <!-- Vision image rebuilt: background-image on the div
+                 itself (NO child <img> with transform). Rounded
+                 corners now clip natively via border-radius — there's
+                 no transform-animated child to escape the box. The
+                 ken-burns drift runs on background-size + position
+                 instead of transform:scale. -->
+            <div class="approach-future__media" role="img" aria-label=""
+                 style="background-image:url('assets/photos/vision-narrow.webp?v=3');"></div>
           </div>
 
           <!-- Challenge cards -->

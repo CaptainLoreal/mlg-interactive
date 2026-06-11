@@ -1017,10 +1017,14 @@ button { font-family: inherit; cursor: pointer; }
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
+  /* Match the scrolled topbar exactly — same rgba(0,0,0,0.28)
+     wash + 14px backdrop blur + 10 % white hairline border.
+     Previously the dropdown used a weaker 10 px blur which read
+     as lighter than the menu above it. */
   background: rgba(0,0,0,0.28);
   border: 1px solid rgba(255,255,255,0.10);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 6px;
   /* padding-top bridges the visual gap so hover stays alive
      when moving from the button down into the dropdown */
@@ -1690,16 +1694,17 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    =========================================================== */
 .ld-hero__media img,
 .fol-hero__media img,
-.approach-future__media img,
 .offerings-bg__img {
   will-change: transform;
 }
 /* All hero / accent images animate at 14 s — matches the services
    parallaxIn duration so the whole site moves at a consistent
-   pace (was 22s / 24s / 20s / 26s individually). */
+   pace (was 22s / 24s / 20s / 26s individually).
+   NOTE: .approach-future__media is no longer in this list — that
+   image is now driven by background-size animation (see
+   .approach-future__media rule + kbDrift3Bg keyframes below). */
 .ld-hero__media img { animation: kbDrift1 14s var(--ease-out) forwards; transform: scale(1.10); }
 .fol-hero__media img { animation: kbDrift2 14s var(--ease-out) forwards; transform: scale(1.12); }
-.approach-future__media img { animation: kbDrift3 14s var(--ease-out) forwards; transform: scale(1.08); }
 .offerings-bg__img { animation: kbDrift4 14s var(--ease-out) forwards; transform: scale(1.12); }
 
 @keyframes kbDrift1 {
@@ -1710,19 +1715,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   0%   { transform: scale(1.15) translate(1%, 0); }
   100% { transform: scale(1.06) translate(0, 1%); }
 }
-@keyframes kbDrift3 {
-  /* Used by .approach-future__media img (the narrow vision photo).
-     Endpoints chosen so the FACES (upper ~20 % of the image) stay
-     visible throughout:
-       • Horizontal: drift LEFT (-1.5 %) so the right edge stays in
-         frame (right side has subject content).
-       • Vertical: drift DOWN (+1 %) so the top of the image is
-         revealed further. Combined with transform-origin: top on
-         the img, the scaling expands downward and the heads never
-         leave the visible area. */
-  0%   { transform: scale(1.08) translate(0, 0); }
-  100% { transform: scale(1.15) translate(-1.5%, 1%); }
-}
+/* (kbDrift3 keyframes removed — Vision image now uses kbDrift3Bg
+    background-size animation defined alongside .approach-future__media) */
 @keyframes kbDrift4 {
   0%   { transform: scale(1.12) translate(-1%, 0); }
   100% { transform: scale(1.22) translate(1.5%, -1.5%); }
@@ -1730,7 +1724,6 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 @media (prefers-reduced-motion: reduce) {
   .ld-hero__media img,
   .fol-hero__media img,
-  .approach-future__media img,
   .offerings-bg__img { animation: none !important; transform: none !important; }
 }
 
@@ -2606,59 +2599,36 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   margin-top: 8px;
 }
 .approach-future__media {
+  /* Vision image — REBUILT from scratch.
+     Previous architecture used <img> with transform:scale + an
+     animation that consistently leaked past the rounded clip in
+     WebKit, regardless of which combination of guards (clip-path,
+     contain, mask, will-change, isolation) was layered on top.
+
+     New architecture: there is NO child <img> at all. The photo
+     is the element's own background-image; the ken-burns drift
+     runs on background-size + background-position. Border-radius
+     + overflow:hidden therefore trivially clip the painted pixels
+     because nothing is being composited outside the box. */
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
   border-radius: 20px;
   overflow: hidden;
-  /* Rounded-corner clip that survives the animated child <img>.
-     The inner img has transform: scale(1.08) + kbDrift3
-     animation, which historically leaked past a plain
-     overflow:hidden in WebKit. The combination below pins
-     every browser:
-       • border-radius + overflow: hidden   — the base clip
-       • contain: paint                     — modern standard
-         that explicitly bounds descendant painting to the
-         element's padding box (rounded corners included),
-         even when the descendant is transformed/composited
-       • clip-path: inset(0 round 20px)     — secondary
-         geometric clip; works where contain:paint isn't
-         honored
-       • will-change: transform             — gives this box
-         its own compositor layer so the GPU rasterizer
-         applies the rounded clip to the layer instead of
-         letting the child draw past it
-     A previous attempt with mask-image: linear-gradient
-     was wrong — a solid linear gradient is a RECTANGLE
-     mask that overrode the rounded shape. Removed. */
-  contain: paint;
-  clip-path: inset(0 round 20px);
-  will-change: transform;
+  background-color: #0d0e0f;
+  background-repeat: no-repeat;
+  background-size: 108% auto;
+  /* Anchor the crop to the upper-right — that's where the photo's
+     two faces sit. Matches the previous object-position. */
+  background-position: 100% 0%;
+  animation: kbDrift3Bg 14s var(--ease-out) forwards;
 }
-.approach-future__media img {
-  /* Match the parent's radius on the img itself so that
-     even if a browser fails to apply the parent clip
-     across the transform boundary, the img is rounded
-     in isolation. */
-  border-radius: 20px;
+@keyframes kbDrift3Bg {
+  0%   { background-size: 108% auto; background-position: 100% 0%;  }
+  100% { background-size: 116% auto; background-position:  92% 4%;  }
 }
-.approach-future__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Anchor crop to RIGHT-TOP — the right person's face is the more
-     prominent subject in the new photo, and the default centre-crop
-     was slicing it off both on mobile (wide 16/10 aspect, vertical
-     centre crop pushed faces off the top) and on desktop (4/5
-     aspect, horizontal centre crop trimmed the right-side face).
-     'right top' keeps both axes anchored to the side that matters. */
-  object-position: right top;
-  /* Pin the scale/transform origin to the TOP edge too — otherwise
-     the default centre-origin scale(1.08+) shifts the image upward
-     by 4-8 %, slicing the heads off above the container edge during
-     and after the kbDrift3 animation. */
-  transform-origin: center top;
-  display: block;
+@media (prefers-reduced-motion: reduce) {
+  .approach-future__media { animation: none !important; }
 }
 @media (max-width: 800px) {
   .approach-future {
@@ -4752,7 +4722,12 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 /* =============================================================
    RESPONSIVE — desktop refinements
    ============================================================= */
-@media (min-width: 768px) {
+@media (min-width: 960px) {
+  /* Globe + "Trusted by leading organizations" two-column layout kicks
+     in at 960 px (was 768 px). Below 960 px the side headline + card
+     stack under the globe instead — the previous 768 px floor left a
+     ~200 px tablet window where the header was being crushed into a
+     thin column on the right and wrapping awkwardly. */
   .slide__copy { bottom: clamp(120px, 16vh, 180px); }
 
   /* Two-column grid: globe column on the left (with the hint + "see all
@@ -4789,11 +4764,10 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   .globe-card { width: 100%; }
 }
 
-/* Tablet range (768–1199 px): the desktop globe+side grid (520 px +
-   380 px + 80 px gap = ~980 px) overruns the available width and
-   pushes the "Trusted by leading organizations" header off the right
-   edge. Shrink globe + side + gap so the row sits comfortably. */
-@media (min-width: 768px) and (max-width: 1199px) {
+/* Mid-desktop range (960–1199 px): the desktop globe+side grid still
+   overruns the available width. Shrink globe + side + gap so the row
+   sits comfortably and the headline never wraps off-screen. */
+@media (min-width: 960px) and (max-width: 1199px) {
   .globe-wrap {
     grid-template-columns: min(46vw, 560px) min(28vw, 340px);
     column-gap: clamp(32px, 4vw, 64px);
