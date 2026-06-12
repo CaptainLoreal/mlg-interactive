@@ -40,10 +40,10 @@ VARIATIONS = [
     ("group-2.webp",    "group2",    None,         None),
     ("group-3.webp",    "group3",    None,         None),
     ("red-10.webp",     "red10",     None,         None),
-    # NEW — same layout as the default right-side banners, but uses
+    # Group1 variation — same photo and layout as group1, but uses
     # the white-red logo (MUNICH + GROUP in white, LEADERSHIP + mark
     # in MLG red).
-    ("working-2.webp",  "redlogo",   None,         LOGO_WHITERED),
+    ("group-1.webp",    "group1-redlogo",  "left-big",  LOGO_WHITERED),
 ]
 
 # Output dimensions
