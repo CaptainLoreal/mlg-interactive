@@ -69,16 +69,25 @@ def find_font(prefs):
         if pathlib.Path(p).exists(): return p
     return None
 
-FONT_BOLD = find_font([
-    "/System/Library/Fonts/HelveticaNeue.ttc",
-    "/System/Library/Fonts/Helvetica.ttc",
-    "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
-])
-FONT_REG = find_font([
-    "/System/Library/Fonts/Helvetica.ttc",
-    "/System/Library/Fonts/Supplemental/Arial.ttf",
-])
-if not FONT_BOLD or not FONT_REG: sys.exit("Need Helvetica/Arial.")
+# Helvetica.ttc is a font collection (TTC) on macOS: index 0 = Regular,
+# index 1 = Bold, index 2 = Oblique, index 3 = Bold Oblique. PIL can
+# load a specific face by passing `index=` to ImageFont.truetype.
+HELVETICA_TTC = "/System/Library/Fonts/Helvetica.ttc"
+FONT_BOLD_PATH = HELVETICA_TTC
+FONT_BOLD_INDEX = 1
+FONT_REG_PATH  = HELVETICA_TTC
+FONT_REG_INDEX = 0
+if not pathlib.Path(HELVETICA_TTC).exists():
+    # fallback to Arial Bold + Regular
+    FONT_BOLD_PATH = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
+    FONT_BOLD_INDEX = 0
+    FONT_REG_PATH  = "/System/Library/Fonts/Supplemental/Arial.ttf"
+    FONT_REG_INDEX = 0
+if not pathlib.Path(FONT_BOLD_PATH).exists():
+    sys.exit("Need Helvetica or Arial Bold.")
+
+def load_font(path, size, index=0):
+    return ImageFont.truetype(path, size, index=index)
 
 def render_svg(svg_path, width_px):
     png = cairosvg.svg2png(url=str(svg_path), output_width=width_px)
@@ -110,27 +119,36 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
     base.paste(photo, (0, 0))
 
     draw = ImageDraw.Draw(base)
-    headline_font = ImageFont.truetype(FONT_BOLD, HEADLINE_PT * scale)
+    headline_font = load_font(FONT_BOLD_PATH, HEADLINE_PT * scale, FONT_BOLD_INDEX)
 
     if layout == "left-big":
         # ── Hybrid layout: BIG LOGO top-left corner, text right.
-        # ── Mirrored cubic-ease gradient on BOTH sides so the photo
-        #    stays clear in the middle and both the logo (left) and
-        #    text (right) sit on a darker, legible base.
+        # ── SMOOTH mirrored gradient — uses a sigmoid-like smoothstep
+        #    (t³(6t² - 15t + 10)) so the start AND end of the fade are
+        #    both gentle, no visible "seam" where the gradient meets
+        #    the transparent middle. Each side now spans the FULL width
+        #    instead of a fixed grad_w, eliminating the hard inner edge.
+        def smoothstep(t):
+            # Quintic Hermite (Perlin's smootherstep) — no derivative
+            # discontinuity at t=0 or t=1 → invisible gradient endpoints.
+            return t * t * t * (t * (t * 6 - 15) + 10)
+
         grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
         gd = ImageDraw.Draw(grad)
-        grad_w = int(1050 * scale)
-        # Right side (text)
-        for i in range(grad_w):
-            t = i / grad_w
-            alpha = int(210 * (t ** 2.4))
-            x = w - grad_w + i
+        peak_alpha = 195
+
+        # Right side gradient: spans the full width of the banner so
+        # it has nowhere to terminate visibly. From the centre (alpha 0)
+        # to the right edge (alpha peak), smoothstep eased.
+        for x in range(w // 2, w):
+            t = (x - w / 2) / (w / 2)
+            alpha = int(peak_alpha * smoothstep(t))
             gd.line([(x, 0), (x, h)], fill=(0, 0, 0, alpha))
-        # Left side (logo) — mirror of the right gradient
-        for i in range(grad_w):
-            t = i / grad_w
-            alpha = int(210 * ((1 - t) ** 2.4))
-            gd.line([(i, 0), (i, h)], fill=(0, 0, 0, alpha))
+        # Left side gradient: mirror — full half-width.
+        for x in range(0, w // 2):
+            t = 1 - x / (w / 2)
+            alpha = int(peak_alpha * smoothstep(t))
+            gd.line([(x, 0), (x, h)], fill=(0, 0, 0, alpha))
         base.paste(grad, (0, 0), grad)
 
         # Big MLG logo — UPPER-LEFT corner (top margin, not centred)
@@ -157,13 +175,13 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
         best_pt = lo
         for _ in range(20):
             mid = (lo + hi) / 2
-            f = ImageFont.truetype(FONT_REG, max(1, int(mid * scale)))
+            f = load_font(FONT_REG_PATH, max(1, int(mid * scale)), FONT_REG_INDEX)
             tw = draw.textbbox((0, 0), TAGLINE, font=f)[2]
             if tw < head_block_w:
                 best_pt = mid; lo = mid + 0.5
             else:
                 hi = mid - 0.5
-        tagline_font = ImageFont.truetype(FONT_REG, max(1, int(best_pt * scale)))
+        tagline_font = load_font(FONT_REG_PATH, max(1, int(best_pt * scale)), FONT_REG_INDEX)
         tag_w = draw.textbbox((0, 0), TAGLINE, font=tagline_font)[2]
         draw.text(
             (w - MARGIN_R * scale - tag_w, TAGLINE_Y * scale),
@@ -186,7 +204,7 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
     logo_x = w - MARGIN_R * scale - lw
     base.paste(logo, (logo_x, MARGIN_T * scale), logo)
 
-    tagline_font = ImageFont.truetype(FONT_REG, TAGLINE_PT * scale)
+    tagline_font = load_font(FONT_REG_PATH, TAGLINE_PT * scale, FONT_REG_INDEX)
     head_lines = HEADLINE.split("\n")
     head_widths = [draw.textbbox((0, 0), ln, font=headline_font)[2] for ln in head_lines]
     head_block_w = max(head_widths)
