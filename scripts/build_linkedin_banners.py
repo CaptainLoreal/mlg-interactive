@@ -113,33 +113,32 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
     headline_font = ImageFont.truetype(FONT_BOLD, HEADLINE_PT * scale)
 
     if layout == "left-big":
-        # ── Hybrid layout: BIG LOGO on the LEFT, text on the RIGHT.
-        # ── Single smooth right-side gradient (same as default banners
-        #    but a touch darker for better headline contrast).
-
-        # Smooth dark fade from the right edge inward — no left fade.
-        # Slightly extended width + softer easing produces a cleaner
-        # transition than the symmetric two-sided gradient we had before.
+        # ── Hybrid layout: BIG LOGO top-left corner, text right.
+        # ── Mirrored cubic-ease gradient on BOTH sides so the photo
+        #    stays clear in the middle and both the logo (left) and
+        #    text (right) sit on a darker, legible base.
         grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
         gd = ImageDraw.Draw(grad)
         grad_w = int(1050 * scale)
+        # Right side (text)
         for i in range(grad_w):
-            # Cubic ease-in (^3) → near-transparent for the first 60 % of
-            # the gradient, then ramps up sharply toward the right edge.
             t = i / grad_w
             alpha = int(210 * (t ** 2.4))
             x = w - grad_w + i
             gd.line([(x, 0), (x, h)], fill=(0, 0, 0, alpha))
+        # Left side (logo) — mirror of the right gradient
+        for i in range(grad_w):
+            t = i / grad_w
+            alpha = int(210 * ((1 - t) ** 2.4))
+            gd.line([(i, 0), (i, h)], fill=(0, 0, 0, alpha))
         base.paste(grad, (0, 0), grad)
 
-        # Big MLG logo — LEFT side, top
+        # Big MLG logo — UPPER-LEFT corner (top margin, not centred)
         big_logo_w = 220                                      # 1× px
         logo = render_svg(LOGO_PATH, big_logo_w * scale)
         lw, lh = logo.size
         margin_l = 70 * scale
-        # Vertically centre the logo on the banner height for balance
-        logo_y = (h - lh) // 2
-        base.paste(logo, (margin_l, logo_y), logo)
+        base.paste(logo, (margin_l, MARGIN_T * scale), logo)
 
         # Headline RIGHT-aligned (same as default layout)
         head_lines = HEADLINE.split("\n")
