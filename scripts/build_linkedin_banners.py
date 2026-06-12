@@ -21,25 +21,29 @@ import io, pathlib, sys
 from PIL import Image, ImageDraw, ImageFont
 import cairosvg
 
-ROOT       = pathlib.Path(__file__).resolve().parent.parent
-PHOTO_DIR  = ROOT / "assets/photos"
-LOGO_PATH  = ROOT / "assets/logo-white-bold.svg"
-OUT_DIR    = ROOT / "assets/linkedin"
+ROOT          = pathlib.Path(__file__).resolve().parent.parent
+PHOTO_DIR     = ROOT / "assets/photos"
+LOGO_WHITE    = ROOT / "assets/logo-white-bold.svg"
+LOGO_WHITERED = ROOT / "assets/logo-white-red.svg"      # MUNICH+GROUP white, LEADERSHIP + mark in MLG red
+OUT_DIR       = ROOT / "assets/linkedin"
 
-# Variations to render (source photo slug → output slug → optional layout override)
+# Variations to render (source photo slug, output slug, optional layout, optional logo)
 # When `layout` is omitted, the variation uses the default RIGHT-side layout.
-# `layout="left-big"` flips content to the LEFT, scales the logo up,
-# adds a symmetric dark gradient on BOTH sides, and resizes the tagline
-# so its width matches the slogan's widest line.
+# When `logo` is omitted, the standard white logo is used.
 VARIATIONS = [
-    ("working-1.webp",  "working1",  None),
-    ("working-2.webp",  "working2",  None),
-    ("working-3.webp",  "working3",  None),
-    ("working-4.webp",  "working4",  None),
-    ("group-1.webp",    "group1",    "left-big"),
-    ("group-2.webp",    "group2",    None),
-    ("group-3.webp",    "group3",    None),
-    ("red-10.webp",     "red10",     None),
+    # src                slug         layout        logo
+    ("working-1.webp",  "working1",  None,         None),
+    ("working-2.webp",  "working2",  None,         None),
+    ("working-3.webp",  "working3",  None,         None),
+    ("working-4.webp",  "working4",  None,         None),
+    ("group-1.webp",    "group1",    "left-big",   None),
+    ("group-2.webp",    "group2",    None,         None),
+    ("group-3.webp",    "group3",    None,         None),
+    ("red-10.webp",     "red10",     None,         None),
+    # NEW — same layout as the default right-side banners, but uses
+    # the white-red logo (MUNICH + GROUP in white, LEADERSHIP + mark
+    # in MLG red).
+    ("working-2.webp",  "redlogo",   None,         LOGO_WHITERED),
 ]
 
 # Output dimensions
@@ -103,13 +107,17 @@ def cover_crop(img, target_w, target_h):
     top  = (nh - target_h) // 2
     return img.crop((left, top, left + target_w, top + target_h))
 
-def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = None) -> Image.Image:
+def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = None,
+                 logo_path: pathlib.Path | None = None) -> Image.Image:
     """Render one banner at the given scale (1× = 1584×396, 2× = 3168×792).
 
     layout=None        — default: content on the RIGHT, gradient on the right
     layout="left-big"  — content on the LEFT, bigger logo, gradients on BOTH
                          sides, tagline width matches the slogan width
+    logo_path=None     — defaults to LOGO_WHITE (all-white MLG logo).
+                         Pass LOGO_WHITERED for the red-LEADERSHIP variant.
     """
+    LOGO = logo_path if logo_path is not None else LOGO_WHITE
     w, h = W * scale, H * scale
     base = Image.new("RGB", (w, h), (12, 14, 16))
 
@@ -153,7 +161,7 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
 
         # Big MLG logo — UPPER-LEFT corner (top margin, not centred)
         big_logo_w = 220                                      # 1× px
-        logo = render_svg(LOGO_PATH, big_logo_w * scale)
+        logo = render_svg(LOGO, big_logo_w * scale)
         lw, lh = logo.size
         margin_l = 70 * scale
         base.paste(logo, (margin_l, MARGIN_T * scale), logo)
@@ -251,7 +259,7 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
         gd.line([(x, 0), (x, h)], fill=(0, 0, 0, alpha))
     base.paste(grad, (0, 0), grad)
 
-    logo = render_svg(LOGO_PATH, LOGO_W * scale)
+    logo = render_svg(LOGO, LOGO_W * scale)
     lw, lh = logo.size
     logo_x = w - MARGIN_R * scale - lw
     base.paste(logo, (logo_x, MARGIN_T * scale), logo)
@@ -275,7 +283,7 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
 
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for src, slug, layout in VARIATIONS:
+    for src, slug, layout, logo in VARIATIONS:
         photo = PHOTO_DIR / src
         if not photo.exists():
             print(f"  skip {src} (missing)")
@@ -285,14 +293,17 @@ def main():
         # proportions (e.g. "EMPOWERING" stretching by a different ratio
         # than at 2×). Downsampling the 2× output with LANCZOS gives a
         # pixel-perfect, proportionally identical 1× version.
-        b2 = build_banner(photo, scale=SCALE2X, layout=layout)
+        b2 = build_banner(photo, scale=SCALE2X, layout=layout, logo_path=logo)
         out2 = OUT_DIR / f"mlg-linkedin-{slug}@2x.png"
         b2.save(out2, "PNG", optimize=True)
         b1 = b2.resize((W, H), Image.LANCZOS)
         out1 = OUT_DIR / f"mlg-linkedin-{slug}.png"
         b1.save(out1, "PNG", optimize=True)
-        tag = f" [{layout}]" if layout else ""
-        print(f"✓ {slug:10s} ← {src}{tag}")
+        tag = []
+        if layout: tag.append(layout)
+        if logo: tag.append(f"logo={logo.name}")
+        suffix = f"  [{', '.join(tag)}]" if tag else ""
+        print(f"✓ {slug:10s} ← {src}{suffix}")
 
 if __name__ == "__main__":
     main()
