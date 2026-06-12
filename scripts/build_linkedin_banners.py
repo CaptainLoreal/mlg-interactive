@@ -43,14 +43,17 @@ W, H = 1584, 396
 SCALE2X = 2
 
 # Layout (1× coordinates — scaled up for 2× automatically)
-MARGIN_L    = 70                       # left padding
+# Content sits on the RIGHT half — photo fills the LEFT half. The dark
+# gradient now fades from transparent (left) → dark (right) so the text
+# is legible on the right side of the banner.
+MARGIN_R    = 70                       # right padding for text/logo
 MARGIN_T    = 30                       # top padding
 LOGO_W      = 130                      # logo width
 HEADLINE_PT = 64                       # "EMPOWERING LEADERSHIP" font size
 TAGLINE_PT  = 18                       # "Developing leaders…" font size
 HEADLINE_Y  = 130                      # y of headline (px from top)
 TAGLINE_Y   = HEADLINE_Y + HEADLINE_PT*2 + 24
-GRADIENT_W  = 900                      # width of dark-to-transparent gradient overlay
+GRADIENT_W  = 900                      # width of dark gradient overlay (from RIGHT edge)
 
 HEADLINE   = "EMPOWERING\nLEADERSHIP"
 TAGLINE    = "Developing leaders who shape organizations"
@@ -97,31 +100,46 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1) -> Image.Image:
     photo = cover_crop(photo, w, h)
     base.paste(photo, (0, 0))
 
-    # 2. Left-side dark gradient overlay for text legibility
+    # 2. RIGHT-side dark gradient overlay for text legibility.
+    #    Fade from transparent at the centre-line to dark at the right
+    #    edge — keeps the photo on the left half clearly visible while
+    #    giving the headline a solid background on the right.
     grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     gd = ImageDraw.Draw(grad)
     grad_w = GRADIENT_W * scale
-    for x in range(grad_w):
-        alpha = int(190 * (1 - x / grad_w) ** 1.2)        # ease-out
+    for i in range(grad_w):
+        # i=0 is the LEFT edge of the gradient (transparent),
+        # i=grad_w-1 is the RIGHT edge (dark).
+        alpha = int(190 * (i / grad_w) ** 1.2)
+        x = w - grad_w + i
         gd.line([(x, 0), (x, h)], fill=(0, 0, 0, alpha))
     base.paste(grad, (0, 0), grad)
 
-    # 3. MLG logo top-left
+    # 3. MLG logo — TOP-RIGHT (mirror of the original top-left)
     logo = render_svg(LOGO_PATH, LOGO_W * scale)
-    base.paste(logo, (MARGIN_L * scale, MARGIN_T * scale), logo)
+    lw, lh = logo.size
+    logo_x = w - MARGIN_R * scale - lw
+    base.paste(logo, (logo_x, MARGIN_T * scale), logo)
 
-    # 4. Headline "EMPOWERING LEADERSHIP"
+    # 4. Headline "EMPOWERING LEADERSHIP" — right-aligned to the same
+    #    edge as the logo
     headline_font = ImageFont.truetype(FONT_BOLD, HEADLINE_PT * scale)
     tagline_font  = ImageFont.truetype(FONT_REG, TAGLINE_PT * scale)
     draw = ImageDraw.Draw(base)
+    # Measure widest line of the headline to right-align the block
+    head_lines = HEADLINE.split("\n")
+    head_widths = [draw.textbbox((0, 0), ln, font=headline_font)[2] for ln in head_lines]
+    head_block_w = max(head_widths)
+    head_x = w - MARGIN_R * scale - head_block_w
     draw.multiline_text(
-        (MARGIN_L * scale, HEADLINE_Y * scale),
+        (head_x, HEADLINE_Y * scale),
         HEADLINE, font=headline_font, fill=WHITE,
         spacing=int(8 * scale),
     )
-    # 5. Tagline
+    # 5. Tagline — right-aligned to the same right margin
+    tag_w = draw.textbbox((0, 0), TAGLINE, font=tagline_font)[2]
     draw.text(
-        (MARGIN_L * scale, TAGLINE_Y * scale),
+        (w - MARGIN_R * scale - tag_w, TAGLINE_Y * scale),
         TAGLINE, font=tagline_font, fill=TAGLINE_FG,
     )
     return base
