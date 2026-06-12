@@ -280,14 +280,17 @@ def main():
         if not photo.exists():
             print(f"  skip {src} (missing)")
             continue
-        # 1×
-        b1 = build_banner(photo, scale=1, layout=layout)
-        out1 = OUT_DIR / f"mlg-linkedin-{slug}.png"
-        b1.save(out1, "PNG", optimize=True)
-        # 2×
+        # Render ONCE at 2× — font hinting makes textbbox non-linear
+        # across sizes, so a fresh 1× render would have subtly different
+        # proportions (e.g. "EMPOWERING" stretching by a different ratio
+        # than at 2×). Downsampling the 2× output with LANCZOS gives a
+        # pixel-perfect, proportionally identical 1× version.
         b2 = build_banner(photo, scale=SCALE2X, layout=layout)
         out2 = OUT_DIR / f"mlg-linkedin-{slug}@2x.png"
         b2.save(out2, "PNG", optimize=True)
+        b1 = b2.resize((W, H), Image.LANCZOS)
+        out1 = OUT_DIR / f"mlg-linkedin-{slug}.png"
+        b1.save(out1, "PNG", optimize=True)
         tag = f" [{layout}]" if layout else ""
         print(f"✓ {slug:10s} ← {src}{tag}")
 
