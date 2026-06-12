@@ -26,16 +26,20 @@ PHOTO_DIR  = ROOT / "assets/photos"
 LOGO_PATH  = ROOT / "assets/logo-white-bold.svg"
 OUT_DIR    = ROOT / "assets/linkedin"
 
-# Variations to render (source photo slug → output slug)
+# Variations to render (source photo slug → output slug → optional layout override)
+# When `layout` is omitted, the variation uses the default RIGHT-side layout.
+# `layout="left-big"` flips content to the LEFT, scales the logo up,
+# adds a symmetric dark gradient on BOTH sides, and resizes the tagline
+# so its width matches the slogan's widest line.
 VARIATIONS = [
-    ("working-1.webp",  "working1"),
-    ("working-2.webp",  "working2"),
-    ("working-3.webp",  "working3"),
-    ("working-4.webp",  "working4"),
-    ("group-1.webp",    "group1"),
-    ("group-2.webp",    "group2"),
-    ("group-3.webp",    "group3"),
-    ("red-10.webp",     "red10"),
+    ("working-1.webp",  "working1",  None),
+    ("working-2.webp",  "working2",  None),
+    ("working-3.webp",  "working3",  None),
+    ("working-4.webp",  "working4",  None),
+    ("group-1.webp",    "group1",    "left-big"),
+    ("group-2.webp",    "group2",    None),
+    ("group-3.webp",    "group3",    None),
+    ("red-10.webp",     "red10",     None),
 ]
 
 # Output dimensions
@@ -90,8 +94,13 @@ def cover_crop(img, target_w, target_h):
     top  = (nh - target_h) // 2
     return img.crop((left, top, left + target_w, top + target_h))
 
-def build_banner(photo_path: pathlib.Path, scale: int = 1) -> Image.Image:
-    """Render one banner at the given scale (1× = 1584×396, 2× = 3168×792)."""
+def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = None) -> Image.Image:
+    """Render one banner at the given scale (1× = 1584×396, 2× = 3168×792).
+
+    layout=None        — default: content on the RIGHT, gradient on the right
+    layout="left-big"  — content on the LEFT, bigger logo, gradients on BOTH
+                         sides, tagline width matches the slogan width
+    """
     w, h = W * scale, H * scale
     base = Image.new("RGB", (w, h), (12, 14, 16))
 
@@ -100,33 +109,81 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1) -> Image.Image:
     photo = cover_crop(photo, w, h)
     base.paste(photo, (0, 0))
 
-    # 2. RIGHT-side dark gradient overlay for text legibility.
-    #    Fade from transparent at the centre-line to dark at the right
-    #    edge — keeps the photo on the left half clearly visible while
-    #    giving the headline a solid background on the right.
+    draw = ImageDraw.Draw(base)
+    headline_font = ImageFont.truetype(FONT_BOLD, HEADLINE_PT * scale)
+
+    if layout == "left-big":
+        # ── LEFT-side layout: gradients on BOTH sides, larger logo,
+        # ── tagline width = slogan width
+        # Symmetric dark gradient — darker on both left and right edges
+        grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        gd = ImageDraw.Draw(grad)
+        grad_w = GRADIENT_W * scale
+        for i in range(grad_w):
+            # Left: dark at x=0, fades to transparent at x=grad_w
+            alpha = int(190 * (1 - i / grad_w) ** 1.2)
+            gd.line([(i, 0), (i, h)], fill=(0, 0, 0, alpha))
+        for i in range(grad_w):
+            # Right: transparent at x=w-grad_w, dark at x=w
+            alpha = int(170 * (i / grad_w) ** 1.4)
+            x = w - grad_w + i
+            gd.line([(x, 0), (x, h)], fill=(0, 0, 0, alpha))
+        base.paste(grad, (0, 0), grad)
+
+        # Bigger logo on the LEFT
+        big_logo_w = 200                                      # 1× px (was 130)
+        logo = render_svg(LOGO_PATH, big_logo_w * scale)
+        lw, lh = logo.size
+        margin_l = 70 * scale
+        base.paste(logo, (margin_l, MARGIN_T * scale), logo)
+
+        # Headline left-aligned
+        head_lines = HEADLINE.split("\n")
+        head_widths = [draw.textbbox((0, 0), ln, font=headline_font)[2] for ln in head_lines]
+        head_block_w = max(head_widths)
+        draw.multiline_text(
+            (margin_l, HEADLINE_Y * scale),
+            HEADLINE, font=headline_font, fill=WHITE,
+            spacing=int(8 * scale),
+        )
+
+        # Tagline — auto-scale font size so its rendered width matches
+        # the slogan's widest line exactly. Binary-search a font size
+        # whose textbbox width ≈ head_block_w.
+        lo, hi = 8, 200
+        best_pt = lo
+        for _ in range(20):
+            mid = (lo + hi) / 2
+            f = ImageFont.truetype(FONT_REG, max(1, int(mid * scale)))
+            tw = draw.textbbox((0, 0), TAGLINE, font=f)[2]
+            if tw < head_block_w:
+                best_pt = mid; lo = mid + 0.5
+            else:
+                hi = mid - 0.5
+        tagline_font = ImageFont.truetype(FONT_REG, max(1, int(best_pt * scale)))
+        tag_w = draw.textbbox((0, 0), TAGLINE, font=tagline_font)[2]
+        draw.text(
+            (margin_l, TAGLINE_Y * scale),
+            TAGLINE, font=tagline_font, fill=TAGLINE_FG,
+        )
+        return base
+
+    # ── Default RIGHT-side layout ────────────────────────────────
     grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     gd = ImageDraw.Draw(grad)
     grad_w = GRADIENT_W * scale
     for i in range(grad_w):
-        # i=0 is the LEFT edge of the gradient (transparent),
-        # i=grad_w-1 is the RIGHT edge (dark).
         alpha = int(190 * (i / grad_w) ** 1.2)
         x = w - grad_w + i
         gd.line([(x, 0), (x, h)], fill=(0, 0, 0, alpha))
     base.paste(grad, (0, 0), grad)
 
-    # 3. MLG logo — TOP-RIGHT (mirror of the original top-left)
     logo = render_svg(LOGO_PATH, LOGO_W * scale)
     lw, lh = logo.size
     logo_x = w - MARGIN_R * scale - lw
     base.paste(logo, (logo_x, MARGIN_T * scale), logo)
 
-    # 4. Headline "EMPOWERING LEADERSHIP" — right-aligned to the same
-    #    edge as the logo
-    headline_font = ImageFont.truetype(FONT_BOLD, HEADLINE_PT * scale)
-    tagline_font  = ImageFont.truetype(FONT_REG, TAGLINE_PT * scale)
-    draw = ImageDraw.Draw(base)
-    # Measure widest line of the headline to right-align the block
+    tagline_font = ImageFont.truetype(FONT_REG, TAGLINE_PT * scale)
     head_lines = HEADLINE.split("\n")
     head_widths = [draw.textbbox((0, 0), ln, font=headline_font)[2] for ln in head_lines]
     head_block_w = max(head_widths)
@@ -136,7 +193,6 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1) -> Image.Image:
         HEADLINE, font=headline_font, fill=WHITE,
         spacing=int(8 * scale),
     )
-    # 5. Tagline — right-aligned to the same right margin
     tag_w = draw.textbbox((0, 0), TAGLINE, font=tagline_font)[2]
     draw.text(
         (w - MARGIN_R * scale - tag_w, TAGLINE_Y * scale),
@@ -146,20 +202,21 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1) -> Image.Image:
 
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for src, slug in VARIATIONS:
+    for src, slug, layout in VARIATIONS:
         photo = PHOTO_DIR / src
         if not photo.exists():
             print(f"  skip {src} (missing)")
             continue
         # 1×
-        b1 = build_banner(photo, scale=1)
+        b1 = build_banner(photo, scale=1, layout=layout)
         out1 = OUT_DIR / f"mlg-linkedin-{slug}.png"
         b1.save(out1, "PNG", optimize=True)
         # 2×
-        b2 = build_banner(photo, scale=SCALE2X)
+        b2 = build_banner(photo, scale=SCALE2X, layout=layout)
         out2 = OUT_DIR / f"mlg-linkedin-{slug}@2x.png"
         b2.save(out2, "PNG", optimize=True)
-        print(f"✓ {slug:10s} ← {src}   ({out1.name} + @2x)")
+        tag = f" [{layout}]" if layout else ""
+        print(f"✓ {slug:10s} ← {src}{tag}")
 
 if __name__ == "__main__":
     main()
