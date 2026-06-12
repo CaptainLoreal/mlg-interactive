@@ -169,24 +169,54 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
             spacing=int(8 * scale),
         )
 
-        # Tagline — auto-scale font so its rendered width matches the
-        # slogan's widest line exactly; right-aligned to the same edge.
-        lo, hi = 8, 200
-        best_pt = lo
-        for _ in range(20):
+        # Tagline — pick the font size whose rendered width is CLOSEST
+        # to the slogan's widest line (may slightly under- or over-shoot
+        # by up to ~1 px, then we letter-stretch to land it exactly).
+        # Previous version only allowed under-shoot, which left a 4-8 px
+        # gap on the right.
+        lo, hi = 8.0, 200.0
+        best_pt, best_err = lo, 1e9
+        for _ in range(30):
             mid = (lo + hi) / 2
-            f = load_font(FONT_REG_PATH, max(1, int(mid * scale)), FONT_REG_INDEX)
+            f = load_font(FONT_REG_PATH, max(1, int(round(mid * scale))), FONT_REG_INDEX)
             tw = draw.textbbox((0, 0), TAGLINE, font=f)[2]
+            err = abs(tw - head_block_w)
+            if err < best_err:
+                best_err, best_pt = err, mid
             if tw < head_block_w:
-                best_pt = mid; lo = mid + 0.5
+                lo = mid
             else:
-                hi = mid - 0.5
-        tagline_font = load_font(FONT_REG_PATH, max(1, int(best_pt * scale)), FONT_REG_INDEX)
-        tag_w = draw.textbbox((0, 0), TAGLINE, font=tagline_font)[2]
-        draw.text(
-            (w - MARGIN_R * scale - tag_w, TAGLINE_Y * scale),
-            TAGLINE, font=tagline_font, fill=TAGLINE_FG,
-        )
+                hi = mid
+        tagline_font = load_font(FONT_REG_PATH, max(1, int(round(best_pt * scale))), FONT_REG_INDEX)
+
+        # Render the tagline to its own RGBA buffer at the natural size,
+        # then horizontally stretch it to EXACTLY head_block_w. This
+        # guarantees pixel-perfect right-edge alignment with the slogan.
+        # Render into a buffer the EXACT width of the text (no padding),
+        # then crop to the true bounding box before stretching — any
+        # leading/trailing transparent pixels would scale-stretch and
+        # leave the visible text slightly narrower than the buffer.
+        asc, dsc = tagline_font.getmetrics()
+        tag_h = asc + dsc + 4
+        # Render onto a generous buffer first…
+        tmp = Image.new("RGBA", (head_block_w + 200, tag_h), (0, 0, 0, 0))
+        ImageDraw.Draw(tmp).text((0, 0), TAGLINE, font=tagline_font, fill=TAGLINE_FG)
+        # …then crop to the actual non-transparent bbox so resize maps
+        # the TEXT (not the buffer) to exactly head_block_w.
+        bbox = tmp.getbbox()
+        if bbox:
+            tmp = tmp.crop((bbox[0], 0, bbox[2], tag_h))
+        if tmp.width != head_block_w:
+            tag_img = tmp.resize((head_block_w, tag_h), Image.LANCZOS)
+        else:
+            tag_img = tmp
+
+        # Move the tagline CLOSER to the slogan: 8 px under the slogan
+        # block instead of the default 24 px gap.
+        head_lines_h = (HEADLINE_PT * scale) * len(head_lines) + int(8 * scale) * (len(head_lines) - 1)
+        tag_y = HEADLINE_Y * scale + head_lines_h + int(8 * scale)
+        tag_x = w - MARGIN_R * scale - head_block_w
+        base.paste(tag_img, (tag_x, tag_y), tag_img)
         return base
 
     # ── Default RIGHT-side layout ────────────────────────────────
