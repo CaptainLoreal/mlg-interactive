@@ -113,43 +113,47 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
     headline_font = ImageFont.truetype(FONT_BOLD, HEADLINE_PT * scale)
 
     if layout == "left-big":
-        # ── LEFT-side layout: gradients on BOTH sides, larger logo,
-        # ── tagline width = slogan width
-        # Symmetric dark gradient — darker on both left and right edges
+        # ── Hybrid layout: BIG LOGO on the LEFT, text on the RIGHT.
+        # ── Single smooth right-side gradient (same as default banners
+        #    but a touch darker for better headline contrast).
+
+        # Smooth dark fade from the right edge inward — no left fade.
+        # Slightly extended width + softer easing produces a cleaner
+        # transition than the symmetric two-sided gradient we had before.
         grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
         gd = ImageDraw.Draw(grad)
-        grad_w = GRADIENT_W * scale
+        grad_w = int(1050 * scale)
         for i in range(grad_w):
-            # Left: dark at x=0, fades to transparent at x=grad_w
-            alpha = int(190 * (1 - i / grad_w) ** 1.2)
-            gd.line([(i, 0), (i, h)], fill=(0, 0, 0, alpha))
-        for i in range(grad_w):
-            # Right: transparent at x=w-grad_w, dark at x=w
-            alpha = int(170 * (i / grad_w) ** 1.4)
+            # Cubic ease-in (^3) → near-transparent for the first 60 % of
+            # the gradient, then ramps up sharply toward the right edge.
+            t = i / grad_w
+            alpha = int(210 * (t ** 2.4))
             x = w - grad_w + i
             gd.line([(x, 0), (x, h)], fill=(0, 0, 0, alpha))
         base.paste(grad, (0, 0), grad)
 
-        # Bigger logo on the LEFT
-        big_logo_w = 200                                      # 1× px (was 130)
+        # Big MLG logo — LEFT side, top
+        big_logo_w = 220                                      # 1× px
         logo = render_svg(LOGO_PATH, big_logo_w * scale)
         lw, lh = logo.size
         margin_l = 70 * scale
-        base.paste(logo, (margin_l, MARGIN_T * scale), logo)
+        # Vertically centre the logo on the banner height for balance
+        logo_y = (h - lh) // 2
+        base.paste(logo, (margin_l, logo_y), logo)
 
-        # Headline left-aligned
+        # Headline RIGHT-aligned (same as default layout)
         head_lines = HEADLINE.split("\n")
         head_widths = [draw.textbbox((0, 0), ln, font=headline_font)[2] for ln in head_lines]
         head_block_w = max(head_widths)
+        head_x = w - MARGIN_R * scale - head_block_w
         draw.multiline_text(
-            (margin_l, HEADLINE_Y * scale),
+            (head_x, HEADLINE_Y * scale),
             HEADLINE, font=headline_font, fill=WHITE,
             spacing=int(8 * scale),
         )
 
-        # Tagline — auto-scale font size so its rendered width matches
-        # the slogan's widest line exactly. Binary-search a font size
-        # whose textbbox width ≈ head_block_w.
+        # Tagline — auto-scale font so its rendered width matches the
+        # slogan's widest line exactly; right-aligned to the same edge.
         lo, hi = 8, 200
         best_pt = lo
         for _ in range(20):
@@ -163,7 +167,7 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
         tagline_font = ImageFont.truetype(FONT_REG, max(1, int(best_pt * scale)))
         tag_w = draw.textbbox((0, 0), TAGLINE, font=tagline_font)[2]
         draw.text(
-            (margin_l, TAGLINE_Y * scale),
+            (w - MARGIN_R * scale - tag_w, TAGLINE_Y * scale),
             TAGLINE, font=tagline_font, fill=TAGLINE_FG,
         )
         return base
