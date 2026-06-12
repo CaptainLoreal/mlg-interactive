@@ -158,16 +158,38 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
         margin_l = 70 * scale
         base.paste(logo, (margin_l, MARGIN_T * scale), logo)
 
-        # Headline RIGHT-aligned (same as default layout)
+        # Headline RIGHT-aligned, and each line stretched horizontally
+        # to the SAME width as the widest line (LEADERSHIP). This makes
+        # the slogan + tagline form a single visually justified block:
+        # every line shares BOTH the same left x and the same right x.
         head_lines = HEADLINE.split("\n")
-        head_widths = [draw.textbbox((0, 0), ln, font=headline_font)[2] for ln in head_lines]
-        head_block_w = max(head_widths)
+        head_ascent, head_descent = headline_font.getmetrics()
+        line_h = head_ascent + head_descent
+        line_gap = int(8 * scale)
+        # Render each line, find true bbox, then stretch to head_block_w.
+        line_imgs = []
+        line_natural_widths = []
+        for ln in head_lines:
+            tmp = Image.new("RGBA", (line_h * len(ln) + 200, line_h + 4), (0, 0, 0, 0))
+            ImageDraw.Draw(tmp).text((0, 0), ln, font=headline_font, fill=WHITE)
+            bb = tmp.getbbox()
+            if bb:
+                tmp = tmp.crop((bb[0], 0, bb[2], line_h + 4))
+            line_natural_widths.append(tmp.width)
+            line_imgs.append(tmp)
+        head_block_w = max(line_natural_widths)
+        # Now horizontally stretch any narrower line up to head_block_w
+        line_imgs = [
+            li.resize((head_block_w, li.height), Image.LANCZOS) if li.width != head_block_w else li
+            for li in line_imgs
+        ]
         head_x = w - MARGIN_R * scale - head_block_w
-        draw.multiline_text(
-            (head_x, HEADLINE_Y * scale),
-            HEADLINE, font=headline_font, fill=WHITE,
-            spacing=int(8 * scale),
-        )
+        cur_y = HEADLINE_Y * scale
+        for li in line_imgs:
+            base.paste(li, (head_x, cur_y), li)
+            cur_y += line_h + line_gap
+        # Track the bottom of the headline block for the tagline placement
+        head_block_bottom = cur_y - line_gap
 
         # Tagline — pick the font size whose rendered width is CLOSEST
         # to the slogan's widest line (may slightly under- or over-shoot
@@ -211,10 +233,10 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
         else:
             tag_img = tmp
 
-        # Move the tagline CLOSER to the slogan: 8 px under the slogan
-        # block instead of the default 24 px gap.
-        head_lines_h = (HEADLINE_PT * scale) * len(head_lines) + int(8 * scale) * (len(head_lines) - 1)
-        tag_y = HEADLINE_Y * scale + head_lines_h + int(8 * scale)
+        # Tagline sits 8 px under the actual bottom of the rendered
+        # headline block (uses head_block_bottom computed above —
+        # accurate regardless of font ascent/descent details).
+        tag_y = head_block_bottom + int(8 * scale)
         tag_x = w - MARGIN_R * scale - head_block_w
         base.paste(tag_img, (tag_x, tag_y), tag_img)
         return base
