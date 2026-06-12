@@ -9,9 +9,9 @@
   <!-- Preload hero image so it lands in the first paint (LCP) -->
   <link rel="preload" as="image" href="assets/photos/red-10.webp" fetchpriority="high" />
   <!-- Preload Helvetica weights used above the fold -->
-  <link rel="preload" as="font" type="font/ttf" href="assets/fonts/Helvetica.ttf" crossorigin />
-  <link rel="preload" as="font" type="font/ttf" href="assets/fonts/Helvetica-Bold.ttf" crossorigin />
-  <link rel="stylesheet" href="styles.css?v=471" />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica-Bold.woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css?v=472" />
   <script>
     /* Any in-page hash (#slide=N, #services, #approach, etc.) means the
        visitor is being deep-linked into the deck — kill the intro flash
@@ -359,7 +359,7 @@
               </a>
             </div>
             <!-- Vision image rebuilt: background-image on the div
-                 itself (NO child <img> with transform). Rounded
+                 itself (NO child <img> decoding="async" with transform). Rounded
                  corners now clip natively via border-radius — there's
                  no transform-animated child to escape the box. The
                  ken-burns drift runs on background-size + position
@@ -628,11 +628,11 @@
           <p class="network-strip__body">Everyone at MLG is an expert and a great learner. Collaborating with some of the world's best institutions ensures we are providing the best leadership development and most creative innovation for our clients.</p>
         </div>
         <div class="network-logos">
-          <div class="network-logo" data-partner="harvard"><img src="assets/network/harvard.svg" alt="Harvard Business School" loading="lazy" /></div>
-          <div class="network-logo" data-partner="oxford"><img src="assets/network/oxford.svg" alt="Oxford Saïd Business School" loading="lazy" /></div>
-          <div class="network-logo" data-partner="berkeley"><img src="assets/network/berkeley.svg" alt="UC Berkeley — Sutardja Center for Entrepreneurship &amp; Technology" loading="lazy" /></div>
-          <div class="network-logo" data-partner="max-planck"><img src="assets/network/max-planck.svg" alt="Max-Planck-Institut für Innovation und Wettbewerb" loading="lazy" /></div>
-          <div class="network-logo" data-partner="hult"><img src="assets/network/hult.svg" alt="HULT Ashridge" loading="lazy" /></div>
+          <div class="network-logo" data-partner="harvard"><img  decoding="async"src="assets/network/harvard.svg" alt="Harvard Business School" loading="lazy" /></div>
+          <div class="network-logo" data-partner="oxford"><img  decoding="async"src="assets/network/oxford.svg" alt="Oxford Saïd Business School" loading="lazy" /></div>
+          <div class="network-logo" data-partner="berkeley"><img  decoding="async"src="assets/network/berkeley.svg" alt="UC Berkeley — Sutardja Center for Entrepreneurship &amp; Technology" loading="lazy" /></div>
+          <div class="network-logo" data-partner="max-planck"><img  decoding="async"src="assets/network/max-planck.svg" alt="Max-Planck-Institut für Innovation und Wettbewerb" loading="lazy" /></div>
+          <div class="network-logo" data-partner="hult"><img  decoding="async"src="assets/network/hult.svg" alt="HULT Ashridge" loading="lazy" /></div>
         </div>
         <p class="network-strip__sub">What our network partners say</p>
         <blockquote class="network-strip__quote">
@@ -681,7 +681,7 @@
             <p class="news-card__cta"><a href="https://www.amazon.de/Leading-Brain-Neuroscience-Smarter-Happier/dp/0143129368?source=ps-sl-shoppingads-lpcontext&amp;smid=A3JWKAKR8XB7XF&amp;language=de_DE" target="_blank" rel="noopener">Order the book here<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></p>
           </div>
           <div class="news-media">
-            <img decoding="async" src="assets/photos/leading-brain.png" alt="The Leading Brain — book by Friederike Fabritius and Dr. Hans W. Hagemann (Best Business Books 2017, strategy+business)" loading="lazy" />
+            <img decoding="async" src="assets/photos/leading-brain.webp" alt="The Leading Brain — book by Friederike Fabritius and Dr. Hans W. Hagemann (Best Business Books 2017, strategy+business)" loading="lazy" />
           </div>
         </div>
       </article>
