@@ -5878,7 +5878,8 @@ p, li { font-size: inherit; }
     padding: 7mm !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start !important;
+    align-items: center !important;     /* centre the top header — MLG pill + name + role */
+    text-align: center !important;
   }
   /* .profile-hero__role now plays the RED PILL (top) */
   .profile-hero__role {
@@ -5967,7 +5968,9 @@ p, li { font-size: inherit; }
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #555 !important;
-    text-align: center !important;   /* centre the section headers in the PDF */
+    /* left-aligned — only the top banner header (MLG pill + name) is
+       centred; the 'Personal profile' / 'Areas of Expertise' section
+       headers stay left. */
   }
   /* Extra breathing room (a "line break") before the Areas of
      Expertise block in the PDF — that's the section-label directly
@@ -5980,6 +5983,7 @@ p, li { font-size: inherit; }
     flex-wrap: wrap;
     gap: 5px;
     margin-top: 5pt;
+    margin-bottom: 16pt !important;   /* "br" after the Areas of Expertise pills */
   }
   .profile-tag {
     display: inline-block !important;
