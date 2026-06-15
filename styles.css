@@ -6296,7 +6296,9 @@ p, li { font-size: inherit; }
   .eyebrow,
   .contact-block__label,
   .ld-hero__eyebrow,
-  .profile-hero__eyebrow {
+  .profile-hero__eyebrow,
+  .fol-hero__eyebrow,
+  .why-hero__eyebrow {
     text-box-trim: trim-both;
     text-box-edge: cap alphabetic;
     padding-top: 7px !important;
@@ -6307,7 +6309,9 @@ p, li { font-size: inherit; }
   .eyebrow,
   .contact-block__label,
   .ld-hero__eyebrow,
-  .profile-hero__eyebrow {
+  .profile-hero__eyebrow,
+  .fol-hero__eyebrow,
+  .why-hero__eyebrow {
     text-box: trim-both cap alphabetic;
     padding-top: 7px !important;
     padding-bottom: 7px !important;

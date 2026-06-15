@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#000" />
   <title>How We See the Future of Leadership — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.min.css?v=509" />
+  <link rel="stylesheet" href="styles.min.css?v=510" />
   <style>
     body { overflow: visible; }
     .standalone { overflow: visible; min-height: 100dvh; }
@@ -36,11 +36,19 @@
       max-width: 1100px;
     }
     .fol-hero__eyebrow {
+      display: inline-block;
+      align-self: flex-start;
+      width: fit-content;
+      background: var(--mlg-red);
+      border: 1px solid var(--mlg-red);
+      border-radius: 999px;
+      line-height: 1;
+      padding: 6px 12px 5px;   /* optical-centring, matches .eyebrow */
+      color: #fff;
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--mlg-red);
       margin: 0 0 14px;
     }
     .fol-hero__title {
