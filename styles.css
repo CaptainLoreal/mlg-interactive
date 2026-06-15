@@ -5814,14 +5814,24 @@ p, li { font-size: inherit; }
     display: none !important;
   }
 
-  /* Standalone page → simple block flow */
+  /* Standalone page → simple block flow.
+     HARD one-page guarantee: the printable area of A4 is
+     297mm − 6mm(top) − 16mm(bottom) = 275mm. Constrain the page to
+     exactly that and clip any overflow, so a team-member PDF is
+     ALWAYS a single page. The aggressive type/spacing compression
+     below is tuned so even the longest bio (Hagemann, 6 paragraphs +
+     expertise + quote) fits comfortably within 275mm — the clip is a
+     backstop, not the primary mechanism. */
   .standalone {
     position: static !important;
     min-height: auto !important;
     height: auto !important;
+    max-height: 275mm !important;
     background: #fff !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     animation: none !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
   }
 
   /* ── Profile hero: keep the image as a SLIM banner up top ── */
@@ -5830,9 +5840,9 @@ p, li { font-size: inherit; }
      page, and the bio starts much higher on the page. */
   .profile-hero {
     position: relative !important;
-    height: 140px !important;
+    height: 120px !important;
     min-height: 0 !important;
-    margin-bottom: 8mm;
+    margin-bottom: 6mm;
     page-break-inside: avoid;
   }
   .profile-hero__media,
@@ -5888,13 +5898,20 @@ p, li { font-size: inherit; }
     color: #222 !important;
   }
   .profile-body p {
-    font-size: 11pt !important;
-    line-height: 1.55 !important;
+    font-size: 9.5pt !important;
+    line-height: 1.4 !important;
     color: #222 !important;
-    margin: 0 0 9pt !important;
+    margin: 0 0 5pt !important;
     page-break-inside: avoid;
   }
   .profile-body p strong { color: #000 !important; }
+  /* Pull-quote shrinks for print too — otherwise its clamp() value
+     stays large and eats vertical space. */
+  .profile-body p.profile-pull {
+    font-size: 12pt !important;
+    line-height: 1.35 !important;
+    margin: 8pt 0 !important;
+  }
 
   /* Round photo float inside the body — let it print */
   .profile-body img {
@@ -5908,8 +5925,9 @@ p, li { font-size: inherit; }
   }
 
   .profile-section-label {
-    margin-top: 14pt !important;
-    font-size: 9pt !important;
+    margin-top: 9pt !important;
+    margin-bottom: 5pt !important;
+    font-size: 8.5pt !important;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #555 !important;
@@ -5917,40 +5935,40 @@ p, li { font-size: inherit; }
   .profile-tags {
     display: flex !important;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 6pt;
+    gap: 5px;
+    margin-top: 5pt;
   }
   .profile-tag {
     display: inline-block !important;
     background: #eee !important;
     color: #111 !important;
     border: 1px solid #ccc !important;
-    padding: 3px 10px;
+    padding: 2px 9px;
     border-radius: 4px;
-    font-size: 9pt;
+    font-size: 8.5pt;
     page-break-inside: avoid;
   }
 
   /* Quote block */
   .profile-quote {
-    margin-top: 14pt !important;
-    padding: 12pt 14pt !important;
+    margin-top: 9pt !important;
+    padding: 9pt 12pt !important;
     background: #f5f5f5 !important;
     border-left: 3px solid var(--mlg-red) !important;
     page-break-inside: avoid;
   }
   .profile-quote__label {
-    font-size: 9pt;
+    font-size: 8.5pt;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #666 !important;
-    margin: 0 0 4pt !important;
+    margin: 0 0 3pt !important;
   }
   .profile-quote__text {
     font-style: italic;
     color: #222 !important;
     margin: 0 !important;
-    font-size: 11pt !important;
+    font-size: 10pt !important;
   }
 }
 
