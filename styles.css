@@ -5992,7 +5992,7 @@ p, li { font-size: inherit; }
     display: flex !important;
     flex-wrap: wrap;
     gap: 5px;
-    margin-top: 5pt;
+    margin-top: 14pt !important;      /* "br" before the pills — gap under the label */
     margin-bottom: 16pt !important;   /* "br" after the Areas of Expertise pills */
   }
   .profile-tag {
