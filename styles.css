@@ -5940,6 +5940,12 @@ p, li { font-size: inherit; }
     text-transform: uppercase;
     color: #555 !important;
   }
+  /* Extra breathing room (a "line break") before the Areas of
+     Expertise block in the PDF — that's the section-label directly
+     followed by .profile-tags. */
+  .profile-section-label:has(+ .profile-tags) {
+    margin-top: 20pt !important;
+  }
   .profile-tags {
     display: flex !important;
     flex-wrap: wrap;
@@ -5957,9 +5963,9 @@ p, li { font-size: inherit; }
     page-break-inside: avoid;
   }
 
-  /* Quote block */
+  /* Quote block — extra gap above it in the PDF (a "line break"). */
   .profile-quote {
-    margin-top: 9pt !important;
+    margin-top: 20pt !important;
     padding: 9pt 12pt !important;
     background: #f5f5f5 !important;
     border-left: 3px solid var(--mlg-red) !important;
