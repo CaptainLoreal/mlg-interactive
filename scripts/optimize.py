@@ -26,7 +26,15 @@ def minify_css(s: str) -> str:
     @media / @keyframes / @page nesting, which the previous hand-rolled
     regex minifier silently broke (introduced a global .website-cta
     {display:none} rule by misreading the @media print scope)."""
-    return csscompressor.compress(s)
+    out = csscompressor.compress(s)
+    # csscompressor over-optimises lengths to unitless 0, INCLUDING the
+    # fallback inside env() — e.g. env(safe-area-inset-bottom, 0px) →
+    # env(safe-area-inset-bottom,0). That breaks calc/max math
+    # (`0 + 22px` mixes number+length and invalidates the whole
+    # declaration), which knocked the "Straight to website" button off
+    # the bottom. Restore a length unit on env() fallbacks.
+    out = re.sub(r'(env\([^,()]+,\s*)0\)', r'\g<1>0px)', out)
+    return out
 
 def minify_js(s: str) -> str:
     """Minify JS with rjsmin — string / template / regex-literal aware,
