@@ -5905,6 +5905,8 @@ p, li { font-size: inherit; }
   .profile-hero__eyebrow {
     order: 3 !important;
     display: block !important;
+    width: 100% !important;
+    text-align: center !important;   /* role line under the name, centred */
     background: none !important;
     color: rgba(255,255,255,0.9) !important;
     padding: 0 !important;
