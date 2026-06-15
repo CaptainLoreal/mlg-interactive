@@ -180,21 +180,29 @@
      from being recomputed every scroll frame, which was the actual
      mobile perf cost the old "strip backdrop-filter" rule was
      trying to avoid. */
+  /* Card chrome on mobile.
+     Backdrop blur was 14px on every card — readable but expensive:
+     ~6 cards visible at a time × per-frame compositor reblur = the
+     biggest single cause of scroll jitter on mid-range phones.
+     Cut to 6px (still visibly frosted, much cheaper to paint) and
+     dropped `will-change: transform` from static cards — that hint
+     pins a permanent GPU layer per card whether the card moves or
+     not, and most of these don't move. `contain: layout paint`
+     stays because it's a pure scoping hint, not a layer-promoting
+     property. */
   .hero-card,
   .card-item,
   .challenge-box,
   .network-strip,
   .news-card,
   .globe-card {
-    background: rgba(14,15,16,0.55) !important;
+    background: rgba(14,15,16,0.65) !important;
     background-image: none !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
     border: 1px solid rgba(255,255,255,0.12) !important;
     border-radius: 12px !important;
     box-shadow: none !important;
-    transform: translateZ(0);
-    will-change: transform;
     contain: layout paint;
   }
   /* Facts & figures: NO card on mobile — just the existing red
@@ -2633,6 +2641,14 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 @media (prefers-reduced-motion: reduce) {
   .approach-future__media { animation: none !important; }
 }
+/* The Vision image's ken-burns drift runs on background-size +
+   background-position. On mobile that animation forces a per-frame
+   raster of the background-image — one of the most expensive paint
+   operations on a phone. Pause it on small screens; the static
+   crop still shows the photo, scroll stays smooth. */
+@media (max-width: 640px) {
+  .approach-future__media { animation: none !important; }
+}
 @media (max-width: 800px) {
   .approach-future {
     grid-template-columns: 1fr;
@@ -5018,6 +5034,19 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     padding: 28px 24px;
     align-items: center;
     text-align: center;
+  }
+  /* Match the USP cards (Why MLG slide) to the same mobile chrome
+     as the approach cards above: tighter padding, centred text.
+     The desktop USP rule (.why-mlg__cards .challenge-box) bakes in
+     48-52 px padding + left-aligned prose — far too roomy on a
+     phone. Same outer card, same alignment as challenges. */
+  .why-mlg__cards .challenge-box {
+    padding: 28px 24px !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .why-mlg__cards .challenge-box__title {
+    text-align: center !important;
   }
   .challenge-box,
   .challenge-box__title,
