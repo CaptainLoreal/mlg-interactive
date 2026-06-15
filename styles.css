@@ -5915,6 +5915,7 @@ p, li { font-size: inherit; }
     width: 100% !important;
     text-align: center !important;   /* role line under the name, centred */
     background: none !important;
+    border: none !important;         /* drop the red pill border */
     color: rgba(255,255,255,0.9) !important;
     padding: 0 !important;
     border-radius: 0 !important;
