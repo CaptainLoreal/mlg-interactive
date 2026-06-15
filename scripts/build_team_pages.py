@@ -28,7 +28,7 @@ APS = [
         "Mark has delivered programs for Mercedes-Benz, IBM, Deloitte, China Telecom, China Mobile, China Vanke, Kimberly-Clark, Baidu, Shell, Lenovo and Beijing International Airport. His focus today is leadership development for middle and senior managers, communication, high-performance teams, meeting management and personal development.",
       ],
       expertise=["Leadership Development","Communication Skills","High Performance Teams","Meeting Management","Presentation Skills","Time Management","Cross-Cultural Training","Executive Coaching"],
-      quote='"Attitude is everything. Nothing is impossible. Training creates value."', quote_label="His guiding lines",
+      quote='"Attitude is everything. Nothing is impossible. Training creates value."', quote_label="How to become a hero",
     ),
     dict(
       slug="heindl", photo="heindl.png", banner="heindl-banner.jpg",
@@ -39,7 +39,7 @@ APS = [
         "Since 1994 he has been a trainer and coach for BMW Group, multiple UN agencies, German government ministries, and international corporates &mdash; on team performance, leadership impact, change management, and transcultural competences. He is an Associate Partner of the Munich Leadership Group.",
       ],
       expertise=["Team Performance","Leadership Impact","Change Management","Transcultural Competence","Adult Learning","Coaching","Train the Trainer","Action Research"],
-      quote='"Development is created by Man and through Man."', quote_label="His guiding line",
+      quote='"Development is created by Man and through Man."', quote_label="How to become a hero",
     ),
     dict(
       slug="hessenauer", photo="hessenauer.jpg", banner="hessenauer-banner.jpg",
@@ -50,7 +50,7 @@ APS = [
         "Jürgen designs and implements management and leadership programmes, leads change-management initiatives with a strong focus on employee involvement, and coaches senior leaders through transitions. His work spans reengineering, total quality, train-the-trainer architectures, and successful multicultural team-building.",
       ],
       expertise=["Management & Leadership Programs","Change Management","Team Development","Multicultural Teams","Reengineering","Total Quality Management","Train the Trainer","Executive Coaching"],
-      quote='"Getting to the top is the easy part &mdash; compared to staying at the top."', quote_label="His guiding line",
+      quote='"Getting to the top is the easy part &mdash; compared to staying at the top."', quote_label="How to become a hero",
     ),
     dict(
       slug="holch", photo="holch.jpg", banner="holch-banner.jpg",
@@ -61,7 +61,7 @@ APS = [
         "Earlier in his career he worked in international development with the UN and OSCE. He is a Toastmaster and former President of the Shanghai Leadership Toastmaster Club, and brings that rhetorical discipline to every facilitation and coaching engagement.",
       ],
       expertise=["Leadership Development","Cross-Cultural Leadership","Asia-Pacific Leadership","Executive Communication","Presentation Skills","Public Speaking","Executive Coaching"],
-      quote='"Lead so that you can be understood &mdash; especially across cultures."', quote_label="His guiding line",
+      quote='"Lead so that you can be understood &mdash; especially across cultures."', quote_label="How to become a hero",
     ),
     dict(
       slug="hyatt", photo="hyatt.jpg", banner="hyatt-banner.jpg",
@@ -72,7 +72,7 @@ APS = [
         "David is a certified executive coach from the <strong>Center for Creative Leadership</strong> and a practitioner of multiple 360, individual and team assessment tools. His work spans hiring-system design, leadership programmes, and consultant development &mdash; with delivery across the United States and Brazil.",
       ],
       expertise=["Leadership Development","Executive Coaching","Industrial-Organizational Psychology","360 Assessments","Team Assessments","Employee Surveys","Hiring Systems","Performance Management"],
-      quote='"Alignment is built one honest conversation at a time."', quote_label="His guiding line",
+      quote='"Alignment is built one honest conversation at a time."', quote_label="How to become a hero",
     ),
     dict(
       slug="jones", photo="jones.jpg", banner="jones-banner.jpg",
@@ -83,7 +83,7 @@ APS = [
         "Earlier in his career he led training and development in automotive, distribution and higher-education organisations, and served as Senior Consultant focused on change management in manufacturing. Today he coaches senior leaders, designs integrated leadership programmes, facilitates board-level strategy work, and runs team development &mdash; including using the outdoors for impact.",
       ],
       expertise=["Executive Coaching","Senior Team Strategy","Leadership Development","Team Development","360 Feedback","Board Facilitation","Change Management","Psychometric Assessment"],
-      quote='"View leadership from the position of those being led."', quote_label="His guiding line",
+      quote='"View leadership from the position of those being led."', quote_label="How to become a hero",
     ),
     dict(
       slug="klawitter", photo="klawitter.png", banner="klawitter-banner.jpg",
@@ -94,7 +94,7 @@ APS = [
         "Kate has also worked deeply in the public sector in the UK &mdash; including as a Strategy Adviser to Prime Minister Tony Blair within the Prime Minister&rsquo;s Delivery Unit. Today she focuses on culture change, executive coaching, training design, strategy development and programme management.",
       ],
       expertise=["Change Management","Organisational Culture Change","Executive Leadership Coaching","Training Design","Process Optimization","Strategy Development","Program Management"],
-      quote='"Creativity is thinking up new things. Innovation is doing new things." &mdash; Theodore Levitt', quote_label="Her guiding line",
+      quote='"Creativity is thinking up new things. Innovation is doing new things." &mdash; Theodore Levitt', quote_label="How to become a hero",
     ),
     dict(
       slug="kraen", photo="kraen.png", banner="kraen-banner.jpg",
@@ -105,7 +105,7 @@ APS = [
         "Since 2000 he has run his own consultancy. He is a Certified Global&rsquo;Ease Trilingual Trainer in Working in an Intercultural Environment and teaches Managing Cultural Differences and Global Presentation Skills at the University of Paris since 2008 &mdash; with guest professorships at HEC Paris, Centrale Paris, Stavanger University and University of Technology Sydney.",
       ],
       expertise=["Managing Cultural Differences","Global Presentation Skills","Team Building","Train the Trainer","Leadership & Management Training","Business Development","Workshop Facilitation"],
-      quote='"No question is stupid. Ask questions. Ask more questions &mdash; and respect the culture of your counterpart."', quote_label="His guiding line",
+      quote='"No question is stupid. Ask questions. Ask more questions &mdash; and respect the culture of your counterpart."', quote_label="How to become a hero",
     ),
     dict(
       slug="koehler", photo="koehler.jpg", banner="koehler-banner.jpg",
@@ -116,7 +116,7 @@ APS = [
         "Her additional training spans transactional analysis, systemic organizational development, mimic resonance and embodiment-focused psychology. Doreen designs and delivers integrated executive programmes, coaches one-on-one and in teams, and runs Train-the-Coach seminars across German-speaking Europe.",
       ],
       expertise=["Leadership Training","Intercultural Teams","Self-Management","Executive Coaching","Team Coaching","Train the Coach","Mimic Resonance & Body Language","Conflict Management","Mediation"],
-      quote='"Problem talk creates problems. Solution talk creates solutions." &mdash; Steve de Shazer', quote_label="Her guiding line",
+      quote='"Problem talk creates problems. Solution talk creates solutions." &mdash; Steve de Shazer', quote_label="How to become a hero",
     ),
     dict(
       slug="lale", photo="lale.png", banner="lale-banner.jpg",
@@ -127,7 +127,7 @@ APS = [
         "Serdar is an ICF Professional Certified Coach, with CTI Co-Active Coaching and Leadership training and ORSC (Organization and Relationship Systems Coaching) certification. His focus: leadership development, talent development, executive and team coaching, corporate culture and change, top management strategy workshops, and employee engagement.",
       ],
       expertise=["Leadership Development","Talent Development","Executive Coaching","Team Coaching","Corporate Culture & Change","Top Management Strategy","Employee Engagement"],
-      quote='"Doing inner work to know thyself is the number-one responsibility of human beings."', quote_label="His guiding line",
+      quote='"Doing inner work to know thyself is the number-one responsibility of human beings."', quote_label="How to become a hero",
     ),
     dict(
       slug="lo", photo="lo.png", banner="lo-banner.jpg",
@@ -138,7 +138,7 @@ APS = [
         "Patti led the establishment of METRO&rsquo;s Training Center in China and the METRO-Harvard Leadership Program for Asian managers. She now focuses on one-to-one executive coaching, performance and potential assessment, talent development, change management, and assessment- and development-center design.",
       ],
       expertise=["Executive Coaching","Performance Management","Talent Development","Senior Recruitment","Internal Communication & Change","Assessment Centers","Development Centers","Multicultural Team Effectiveness"],
-      quote='"Yesterday is for appreciation. Today is for real. Tomorrow is for imagination. Live life to the fullest."', quote_label="Her guiding line",
+      quote='"Yesterday is for appreciation. Today is for real. Tomorrow is for imagination. Live life to the fullest."', quote_label="How to become a hero",
     ),
     dict(
       slug="lucke", photo="lucke.jpg", banner="lucke-banner.jpg",
@@ -149,7 +149,7 @@ APS = [
         "Lynn serves as an Assessor with the U.S. Office of Personnel Management (OPM) and a moderator for the Apollo Professional Development Group. She delivers leadership programs, provides 360 and personality-based assessment feedback, and coaches across industries &mdash; with prior careers at Cameron/Butcher Commercial Real Estate and as a stockbroker with Merrill Lynch.",
       ],
       expertise=["Leadership Development","Executive Coaching","Government Assessment","Benchmark 360 Feedback","Personality Assessment","Conflict Resolution","Change Style Feedback"],
-      quote='"If your actions inspire others to dream more, learn more, do more, and become more, you are a leader." &mdash; John Quincy Adams', quote_label="Her guiding line",
+      quote='"If your actions inspire others to dream more, learn more, do more, and become more, you are a leader." &mdash; John Quincy Adams', quote_label="How to become a hero",
     ),
     dict(
       slug="marsh", photo="marsh.jpg", banner="marsh-banner.jpg",
@@ -160,7 +160,7 @@ APS = [
         "Elena designs and delivers training programmes on personal leadership, performance and talent management, presentation skills, resilience and stress management, and coaching for people managers. She is the founder and president of a non-profit organisation for personal development.",
       ],
       expertise=["Personal Leadership","Performance & Talent Management","Effective Presentations","Resilience & Stress Management","Coaching for Managers","Performance Coaching","Conflict-Resolution Coaching"],
-      quote='"Success starts from self-awareness and personal mastery."', quote_label="Her guiding line",
+      quote='"Success starts from self-awareness and personal mastery."', quote_label="How to become a hero",
     ),
     dict(
       slug="mauve", photo="mauve.jpg", banner="mauve-banner.jpg",
@@ -171,7 +171,7 @@ APS = [
         "Ulrike designs comprehensive change-management plans, facilitates the development of cultures that embrace change, and trains leaders to drive transformation effectively &mdash; with a particular focus on continuous improvement and sustainable adoption of new ways of working.",
       ],
       expertise=["Change Management","Cultural Transformation","Leadership Development","Post-Merger Integration","Reorganization","Executive Coaching","Organizational Development"],
-      quote='"Embrace change, even when it&rsquo;s uncomfortable. The fun lies in discovering what comes next."', quote_label="Her guiding line",
+      quote='"Embrace change, even when it&rsquo;s uncomfortable. The fun lies in discovering what comes next."', quote_label="How to become a hero",
     ),
     dict(
       slug="michaely", photo="michaely.jpg", banner="michaely-banner.jpg",
@@ -182,7 +182,7 @@ APS = [
         "Her career spans Experiential Marketing at <strong>BMW AG</strong> (2013&ndash;2015) and Manager at <strong>Deloitte Digital GmbH</strong> (2015&ndash;2019). She joined the Munich Leadership Group in 2019 and is also certified in Scrum and agile methods (borisgloger).",
       ],
       expertise=["Design Thinking","Human-Centred Innovation","Cognitive Neuroscience","Storytelling","Workshop Facilitation","Agile & Scrum","Cultural Transformation"],
-      quote='"When I talk to managers, I feel they are important. When I talk to leaders, I feel that I am important."', quote_label="Her guiding line",
+      quote='"When I talk to managers, I feel they are important. When I talk to leaders, I feel that I am important."', quote_label="How to become a hero",
     ),
     dict(
       slug="millar", photo="millar.png", banner="millar-banner.jpg",
@@ -193,7 +193,7 @@ APS = [
         "Jane consults on organizational-design interventions, coaches leaders up to CEO level, facilitates multicultural team development (often using MBTI and Lencioni models), and runs group sessions on leadership development programmes.",
       ],
       expertise=["Executive Coaching","Leadership Development","Multicultural Team Development","MBTI Certification","Lencioni Team Dysfunctions","Psychometric Profiling","Organizational Design"],
-      quote='"Know yourself. Seek to understand and appreciate others. Keep asking questions."', quote_label="Her guiding line",
+      quote='"Know yourself. Seek to understand and appreciate others. Keep asking questions."', quote_label="How to become a hero",
     ),
     dict(
       slug="naeslund", photo="naeslund.png", banner="naeslund-banner.jpg",
@@ -204,7 +204,7 @@ APS = [
         "Vivianne is a senior-level advisor to private equity groups and companies on leadership issues in cross-border M&amp;A. She is a certified practitioner in multiple 360 surveys and individual / team assessment tools including MBTI, FIRO-B and CPI, and is fluent in Swedish, English and French with strong German.",
       ],
       expertise=["Executive Coaching","Cross-Cultural Leadership","Cross-Border M&A Advisory","Leadership Development","Multicultural Team Development","Change Programmes","360 Feedback","Team Assessment"],
-      quote='"The ability to inspire and emotionally connect with people is the key skill of any leader &mdash; even more so in a global setting."', quote_label="Her guiding line",
+      quote='"The ability to inspire and emotionally connect with people is the key skill of any leader &mdash; even more so in a global setting."', quote_label="How to become a hero",
     ),
     dict(
       slug="orbea", photo="orbea.png", banner="orbea-banner.jpg",
@@ -215,7 +215,7 @@ APS = [
         "Angelita is an experienced facilitator of large group events, board meetings, and team development sessions. Her focus areas are leadership development, high-performance teamwork, culture change, and coaching skills.",
       ],
       expertise=["Leadership Development","High Performance Teamwork","Culture Change","Coaching Skills","Board Facilitation","Large-Group Facilitation","BPS Psychometrics"],
-      quote='"Support leaders to develop a deeper awareness of their own patterns &mdash; in the service of better outcomes for their people."', quote_label="Her guiding line",
+      quote='"Support leaders to develop a deeper awareness of their own patterns &mdash; in the service of better outcomes for their people."', quote_label="How to become a hero",
     ),
     dict(
       slug="ramos", photo="ramos.png", banner="ramos-banner.jpg",
@@ -226,7 +226,7 @@ APS = [
         "Teresa supports the management and delivery of complex international-intercultural projects &mdash; counselling project leaders, aligning teams, and coaching individuals. Her focus is leadership development, high-performance teams, intercultural management, change and innovation, and group and executive coaching.",
       ],
       expertise=["Leadership Development","High Performance Teams","Intercultural Management","Workshop Facilitation","Change Management","Innovation Coaching","Executive Coaching","Group & Team Coaching"],
-      quote='"At the centre of your being you have the answer; you know who you are and you know what you want." &mdash; Lao Tzu', quote_label="Her guiding line",
+      quote='"At the centre of your being you have the answer; you know who you are and you know what you want." &mdash; Lao Tzu', quote_label="How to become a hero",
     ),
     dict(
       slug="rentel", photo="rentel.png", banner="rentel-banner.jpg",
@@ -237,7 +237,7 @@ APS = [
         "Susanne is an Associate Partner of the Munich Leadership Group, with additional training in Transactional Analysis. She focuses on leadership programmes, change-management consulting, conflict moderation between employer and employee, workshop and large-group facilitation, team development, and Train-the-Trainer approaches.",
       ],
       expertise=["Leadership Development","Change Management","Conflict Moderation","Workshop Facilitation","Team Development","Train the Trainer","Systemic Consulting"],
-      quote='"If you want to build a ship, do not drum guys to supply wood &mdash; teach them the desire for the far, endless sea." &mdash; Antoine de Saint-Exup&eacute;ry', quote_label="Her guiding line",
+      quote='"If you want to build a ship, do not drum guys to supply wood &mdash; teach them the desire for the far, endless sea." &mdash; Antoine de Saint-Exup&eacute;ry', quote_label="How to become a hero",
     ),
     dict(
       slug="saliba", photo="saliba.jpg", banner="saliba-banner.jpg",
@@ -248,7 +248,7 @@ APS = [
         "He holds a <strong>Master&rsquo;s Degree in Psychology</strong> and a Bachelor&rsquo;s degree in Computer Engineering, with certifications as a Leadership Trainer, Management Developer, Leadership Facilitator, <strong>EFQM Excellence Assessor</strong>, Project Management Professional (PMP), and Trainer of Trainers.",
       ],
       expertise=["Leadership Effectiveness","Transformational Leadership","Organizational Strategy","Organizational Development","Cultural Health","Emotional Intelligence","Executive Coaching & Mentoring"],
-      quote='"Raise leaders who make a difference. See the whole picture &mdash; but be led by your dreams, not your fears."', quote_label="His guiding lines",
+      quote='"Raise leaders who make a difference. See the whole picture &mdash; but be led by your dreams, not your fears."', quote_label="How to become a hero",
     ),
     dict(
       slug="sanchez", photo="sanchez.png", banner="sanchez-banner.jpg",
@@ -259,7 +259,7 @@ APS = [
         "Margaret&rsquo;s focus is change management, strategic planning, diversity initiatives, executive consultations, leadership and human-resource development, needs assessment, benchmarking, facilitation, and team building &mdash; with extensive teaching experience in communication skills at the university and community level.",
       ],
       expertise=["Change Management","Strategic Planning","Diversity Initiatives","Executive Consultation","Leadership Development","Human Resource Development","Needs Assessment","Benchmarking","Team Effectiveness"],
-      quote='"Individuals lead most effectively when they discover, understand, and apply their unique talents."', quote_label="Her guiding line",
+      quote='"Individuals lead most effectively when they discover, understand, and apply their unique talents."', quote_label="How to become a hero",
     ),
     dict(
       slug="seidenfus", photo="seidenfus.png", banner="seidenfus-banner.jpg",
@@ -270,7 +270,7 @@ APS = [
         "Christoph focuses on leadership topics including communication, conflict management, target setting, and change &amp; restructuring processes. His engagements include the development of high-performance teams, executive coaching, senior-team strategy work, and process moderation in workshops.",
       ],
       expertise=["Leadership Training","High Performance Teams","Executive Coaching","Strategy Workshops","Process Moderation","Conflict Management","Change & Restructuring","Transactional Analysis","NLP"],
-      quote='"Responsibility, passion for performance, personal growth."', quote_label="His key values",
+      quote='"Responsibility, passion for performance, personal growth."', quote_label="How to become a hero",
     ),
     dict(
       slug="sellani", photo="sellani.jpg", banner="sellani-banner.jpg",
@@ -281,7 +281,7 @@ APS = [
         "She is an ICF-certified Coach (ACC), an ATC Organisational Counsellor, and a Gallup StrengthsFinder Coach &amp; Team Coach. Her focus: leadership development, employee experience and employer branding design, executive coaching and assessment, personal branding and career coaching, and the facilitation of cultural change.",
       ],
       expertise=["Leadership Development","Executive Coaching & Assessment","Employee Experience","Employer Branding","Cultural Change","Group & Team Coaching","Career Coaching"],
-      quote='"It will go as you want it to go."', quote_label="Her guiding line",
+      quote='"It will go as you want it to go."', quote_label="How to become a hero",
     ),
     dict(
       slug="shields", photo="shields.jpg", banner="shields-banner.jpg",
@@ -292,7 +292,7 @@ APS = [
         "Jim was Global Portfolio Lead for the <strong>Center for Creative Leadership&rsquo;s Leadership at the Peak</strong> programme for C-suite executives, where he led the programme redesign and the qualification of trainers. He is the founder and head of <strong>LeaderCore</strong>, developing coaching, senior-team development and training for global clients.",
       ],
       expertise=["Executive Coaching","Teams in Transition","Senior Executive Development","Leadership Assessments","Organizational Climate","Advanced Facilitation"],
-      quote='"&lsquo;Developing&rsquo; is really about changing &mdash; how you behave, how you think, and how you see."', quote_label="His guiding line",
+      quote='"&lsquo;Developing&rsquo; is really about changing &mdash; how you behave, how you think, and how you see."', quote_label="How to become a hero",
     ),
     dict(
       slug="tallman", photo="tallman.jpg", banner="tallman-banner.jpg",
@@ -303,7 +303,7 @@ APS = [
         "Rich&rsquo;s practice centres on facilitating conversations that advance better leadership at every level of an organization, and helping organizations understand the role of culture in how change does &mdash; or doesn&rsquo;t &mdash; happen.",
       ],
       expertise=["Executive Coaching","Senior Leadership Development","Culture & Change","Conversation Facilitation","360 Feedback","Personality Assessments","High-Potential Coaching"],
-      quote='"Starve your distractions and feed your focus."', quote_label="His guiding line",
+      quote='"Starve your distractions and feed your focus."', quote_label="How to become a hero",
     ),
     dict(
       slug="vanetti", photo="vanetti.jpg", banner="vanetti-banner.jpg",
@@ -314,7 +314,7 @@ APS = [
         "Eric&rsquo;s practice combines individual coaching with organization-wide diagnostic and intervention work to align leadership behaviours with strategic intent.",
       ],
       expertise=["Change Management","Competency Management","Employee Engagement","Organizational Performance","Process Improvement","Talent Management","Team Effectiveness"],
-      quote='"What separates truly great leaders from average ones is their core values, beliefs and attitudes toward people."', quote_label="His guiding line",
+      quote='"What separates truly great leaders from average ones is their core values, beliefs and attitudes toward people."', quote_label="How to become a hero",
     ),
     dict(
       slug="west", photo="west.jpg", banner="west-banner.jpg",
@@ -325,7 +325,7 @@ APS = [
         "Jan focuses on senior leadership team alignment and strengthening, coaching company founders and executives in startups and established companies, strategy coaching for grant pitch competitions, and leadership development across every level from first-time managers to C-Suite. She serves on the Beanstalk Foundation board and the Women&rsquo;s Council of the Leeds School of Business at the University of Colorado, Boulder.",
       ],
       expertise=["Senior Team Alignment","Founder & CEO Coaching","Leadership Development","Change Management","Conflict Resolution","Communication Skills","360 & Style Assessments"],
-      quote='"Everyone shines, given the right lighting." &mdash; Susan Cain', quote_label="Her guiding line",
+      quote='"Everyone shines, given the right lighting." &mdash; Susan Cain', quote_label="How to become a hero",
     ),
     dict(
       slug="xue", photo="xue.png", banner="xue-banner.jpg",
@@ -336,7 +336,7 @@ APS = [
         "Christine has been a business partner of CE.TOP Training &amp; Consulting since 2004 and is fluent in English and Chinese. Her focus: leadership skills and coaching for senior managers, conflict management, intercultural training, DISC&reg;-based personality and career coaching, meeting effectiveness, and time and self-management.",
       ],
       expertise=["Leadership Skills","Coaching for Senior Managers","Conflict Management","Intercultural Training","DISC Personality Profiling","Career Coaching","Meeting Effectiveness","Time & Self Management"],
-      quote='"Do unto others as they want to be done unto."', quote_label="Her guiding line",
+      quote='"Do unto others as they want to be done unto."', quote_label="How to become a hero",
     ),
     dict(
       slug="yong", photo="yong.png", banner="yong-banner.jpg",
@@ -347,7 +347,7 @@ APS = [
         "Stephen is accredited in MBTI Step I &amp; II, FIRO-B, Team Management Profiles, DiSC, Benchmarks, Skillscope and Inventory of Learning Styles, and has delivered programmes for Fortune 500 companies in Asia including JPMorgan, UBS, BP, Johnson &amp; Johnson, BASF, Credit Suisse, Amgen and Linde Gas.",
       ],
       expertise=["Leadership in Transition","Team Leader & Manager Training","Coaching Skills","Performance Management","Feedback & Objectives","Diversity Workshops","Executive Coaching","Influence Without Authority"],
-      quote='"Help managers in transition become leaders &mdash; one impactful conversation at a time."', quote_label="His guiding line",
+      quote='"Help managers in transition become leaders &mdash; one impactful conversation at a time."', quote_label="How to become a hero",
     ),
     dict(
       slug="yilancioglu", photo="yilancioglu.png", banner="yilancioglu-banner.jpg",
@@ -358,7 +358,7 @@ APS = [
         "Her professional roles include Facilitator, Academy Leader, European Head of Onboarding Programmes, Head of Leadership Trainings and Head of Learning &amp; Development in international corporations. She brings vast experience in managing multicultural teams and complex projects.",
       ],
       expertise=["Leadership Skills","Leadership Coaching & Mentoring","Communication Skills","Personal & Corporate Values","Management Trainee Programs","Assessment & Development Centers","HR Training Systems","Corporate Academy"],
-      quote='"If you change, your effect changes &mdash; once your effect changes, the world changes."', quote_label="Her guiding line",
+      quote='"If you change, your effect changes &mdash; once your effect changes, the world changes."', quote_label="How to become a hero",
     ),
 ]
 
