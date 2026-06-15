@@ -4928,32 +4928,32 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 
   /* Current Leadership Challenges — card hugs its content, background
      photo extends well above + below it for breathing room. */
-  .slide--approach-main .approach-cards-bg .approach-centered__cards {
+  .slide--approach-intro .approach-cards-bg .approach-centered__cards {
     padding-top: clamp(140px, 22vh, 260px) !important;
     padding-bottom: clamp(140px, 22vh, 260px) !important;
     gap: clamp(20px, 3vh, 32px) !important;   /* tighter gap between cards */
   }
-  .slide--approach-main .approach-cards-bg .challenge-box {
+  .slide--approach-intro .approach-cards-bg .challenge-box {
     max-width: 320px !important;
     width: 100% !important;
     margin-left: auto !important;
     margin-right: auto !important;
     padding: 20px 18px !important;            /* fit to content (was 28×24) */
   }
-  .slide--approach-main .approach-cards-bg .challenge-box__title {
+  .slide--approach-intro .approach-cards-bg .challenge-box__title {
     font-size: 16px !important;
     margin: 0 0 8px !important;
   }
-  .slide--approach-main .approach-cards-bg .challenge-box__body {
+  .slide--approach-intro .approach-cards-bg .challenge-box__body {
     font-size: 13px !important;
     line-height: 1.45 !important;
     margin: 0 0 6px !important;
   }
-  .slide--approach-main .approach-cards-bg .challenge-box__conclusion {
+  .slide--approach-intro .approach-cards-bg .challenge-box__conclusion {
     font-size: 12px !important;
     margin: 0 !important;
   }
-  .slide--approach-main .challenges-carousel {
+  .slide--approach-intro .challenges-carousel {
     padding: 0 24px !important;
     align-items: center !important;
     max-width: 380px !important;
@@ -5485,17 +5485,17 @@ p, li { font-size: inherit; }
 
   /* Rigorous-approach Challenges card — narrow and breathing room
      around the card stack at mobile widths too (480-640px range). */
-  .slide--approach-main .approach-cards-bg .approach-centered__cards {
+  .slide--approach-intro .approach-cards-bg .approach-centered__cards {
     padding-top: clamp(96px, 16vh, 180px) !important;
     padding-bottom: clamp(96px, 16vh, 180px) !important;
   }
-  .slide--approach-main .approach-cards-bg .challenge-box {
+  .slide--approach-intro .approach-cards-bg .challenge-box {
     max-width: 320px !important;
     width: 100% !important;
     margin-left: auto !important;
     margin-right: auto !important;
   }
-  .slide--approach-main .challenges-carousel {
+  .slide--approach-intro .challenges-carousel {
     padding: 0 24px !important;
     align-items: center !important;
     max-width: 380px !important;
@@ -6068,18 +6068,18 @@ p, li { font-size: inherit; }
    stretching the cards to full width or adding excessive padding.
    ============================================================ */
 @media (max-width: 640px) {
-  .slide--approach-main .approach-cards-bg {
+  .slide--approach-intro .approach-cards-bg {
     /* Ensure the bg image surface is generous so the photo shows
        above AND below the card stack. */
     min-height: 110vh !important;
   }
-  .slide--approach-main .approach-cards-bg .approach-centered__cards {
+  .slide--approach-intro .approach-cards-bg .approach-centered__cards {
     padding: clamp(180px, 26vh, 320px) 20px clamp(180px, 26vh, 320px) !important;
     gap: clamp(18px, 2.5vh, 28px) !important;
     align-items: center !important;
   }
-  .slide--approach-main .challenges-carousel,
-  .slide--approach-main .approach-cards-bg .challenges-carousel {
+  .slide--approach-intro .challenges-carousel,
+  .slide--approach-intro .approach-cards-bg .challenges-carousel {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -6089,7 +6089,7 @@ p, li { font-size: inherit; }
     padding: 0 !important;
     gap: clamp(14px, 2vh, 22px) !important;
   }
-  .slide--approach-main .approach-cards-bg .challenge-box {
+  .slide--approach-intro .approach-cards-bg .challenge-box {
     max-width: 320px !important;
     width: 100% !important;
     margin: 0 auto !important;
@@ -6097,17 +6097,17 @@ p, li { font-size: inherit; }
     align-items: center !important;
     text-align: center !important;
   }
-  .slide--approach-main .approach-cards-bg .challenge-box__title {
+  .slide--approach-intro .approach-cards-bg .challenge-box__title {
     font-size: 16px !important;
     line-height: 1.2 !important;
     margin: 0 0 8px !important;
   }
-  .slide--approach-main .approach-cards-bg .challenge-box__body {
+  .slide--approach-intro .approach-cards-bg .challenge-box__body {
     font-size: 13px !important;
     line-height: 1.45 !important;
     margin: 0 0 6px !important;
   }
-  .slide--approach-main .approach-cards-bg .challenge-box__conclusion {
+  .slide--approach-intro .approach-cards-bg .challenge-box__conclusion {
     font-size: 12px !important;
     line-height: 1.4 !important;
     margin: 0 !important;
@@ -6131,11 +6131,11 @@ p, li { font-size: inherit; }
   .ld-intro p,
   .ld-offering__body,
   .slide[data-title="Welcome"] .slide__copy > div:last-child p,
-  .slide--approach-main .approach-cards-bg .challenge-box__body {
+  .slide--approach-intro .approach-cards-bg .challenge-box__body {
     font-size: 17px !important;
     line-height: 1.6 !important;
   }
-  .slide--approach-main .approach-cards-bg .challenge-box__conclusion {
+  .slide--approach-intro .approach-cards-bg .challenge-box__conclusion {
     font-size: 15px !important;
     line-height: 1.5 !important;
   }
