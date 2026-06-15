@@ -898,7 +898,43 @@
     history.replaceState(null, '', location.pathname + location.search);
     return true;
   }
-  jumpFromHash();
+
+  /* Enter the deck immediately at the top (slide 0), skipping the intro
+     and the excuses/bubbles screen. Used for returning visitors. */
+  function enterDeckDirect() {
+    experienceStarted = true;          // block the 5s intro auto-advance
+    clearTimeout(introAutoAdvance);
+    intro.classList.add('is-leaving');
+    intro.style.display = 'none';
+    if (excuses) excuses.style.display = 'none';
+    deck.classList.add('is-on');
+    deck.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('deck-active');
+    syncHeight();
+    requestAnimationFrame(() => {
+      syncHeight();
+      scrollTarget  = 0;
+      scrollCurrent = 0;
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      startSmoothScroll();
+      setTimeout(buildGlobe, 16);
+      setTimeout(initReveal, 300);
+    });
+  }
+
+  /* First-visit gate: the intro + bubbles screen is shown only to
+     first-time visitors. Returning visitors (flag in localStorage) go
+     straight to the website. The flag is set on every load so any
+     subsequent visit — including reloads — skips the intro. */
+  const VISITED_KEY = 'mlg.visited';
+  let hasVisited = false;
+  try { hasVisited = localStorage.getItem(VISITED_KEY) === '1'; } catch (e) {}
+  try { localStorage.setItem(VISITED_KEY, '1'); } catch (e) {}
+
+  if (!jumpFromHash()) {
+    if (hasVisited) enterDeckDirect();
+    // first-time visitor → leave the default intro/bubbles flow running
+  }
 
   // "Straight to website" button
   const websiteCtaBtn = document.querySelector('.website-cta');
