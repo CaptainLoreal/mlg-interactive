@@ -16,98 +16,22 @@ Run:
 """
 import io, os, re, pathlib
 from PIL import Image
+import csscompressor                 # robust CSS minifier (preserves @media nesting)
+import rjsmin                         # robust JS minifier (string + regex literal aware)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
-# ── CSS / JS minifiers (small, no external deps) ──────────────────
 def minify_css(s: str) -> str:
-    """Strip /* … */ comments, collapse whitespace, drop trailing ;"""
-    s = re.sub(r'/\*.*?\*/', '', s, flags=re.DOTALL)        # comments
-    # collapse runs of whitespace (incl. newlines) to single space,
-    # but preserve necessary space inside selectors / shorthand.
-    s = re.sub(r'\s+', ' ', s)
-    # tighten around CSS punctuation
-    s = re.sub(r'\s*([{};:,>+~])\s*', r'\1', s)
-    # remove last ; before }
-    s = re.sub(r';}', '}', s)
-    return s.strip()
+    """Minify CSS with csscompressor — known to correctly preserve
+    @media / @keyframes / @page nesting, which the previous hand-rolled
+    regex minifier silently broke (introduced a global .website-cta
+    {display:none} rule by misreading the @media print scope)."""
+    return csscompressor.compress(s)
 
 def minify_js(s: str) -> str:
-    """Conservative JS minifier — strip /* … */ + // comments and
-    multi-line whitespace, but DON'T touch operators or identifiers
-    (the safe way: a parserless minifier can't know which spaces are
-    syntactically load-bearing). Yields ~20-25% size cut on top of
-    gzip.
-
-    Behaviour:
-      • Strip /* … */ block comments and // line comments (state-aware:
-        respects string / template / regex literals).
-      • Collapse 2+ blank lines → 1 newline.
-      • Trim leading whitespace on each line.
-      • Leave every meaningful space alone.
-    """
-    out = []
-    i, n = 0, len(s)
-    in_s = None       # active string quote: ", ', or `
-    in_l_cmt = False
-    in_b_cmt = False
-    in_regex = False
-    last_significant = ''   # last non-whitespace char (for regex detection)
-    while i < n:
-        ch = s[i]
-        nx = s[i+1] if i+1 < n else ''
-        if in_l_cmt:
-            if ch == '\n':
-                in_l_cmt = False
-                out.append('\n')
-            i += 1
-            continue
-        if in_b_cmt:
-            if ch == '*' and nx == '/':
-                in_b_cmt = False
-                i += 2
-            else:
-                i += 1
-            continue
-        if in_s:
-            out.append(ch)
-            if ch == '\\' and i+1 < n:
-                out.append(nx); i += 2; continue
-            if ch == in_s:
-                in_s = None
-            i += 1
-            continue
-        if in_regex:
-            out.append(ch)
-            if ch == '\\' and i+1 < n:
-                out.append(nx); i += 2; continue
-            if ch == '/':
-                in_regex = False
-            i += 1
-            continue
-        # not inside any literal/comment
-        if ch == '/' and nx == '/':
-            in_l_cmt = True; i += 2; continue
-        if ch == '/' and nx == '*':
-            in_b_cmt = True; i += 2; continue
-        if ch == '/' and last_significant in '(=,!&|?:;{}[+-*%~^<>':
-            # ambiguous — treat as regex literal
-            in_regex = True
-            out.append(ch); i += 1; continue
-        if ch in '"\'`':
-            in_s = ch
-            out.append(ch); i += 1; continue
-        out.append(ch)
-        if not ch.isspace():
-            last_significant = ch
-        i += 1
-    code = ''.join(out)
-    # Trim trailing whitespace on each line; collapse multiple blank lines
-    code = re.sub(r'[ \t]+\n', '\n', code)
-    code = re.sub(r'\n{2,}', '\n', code)
-    # Optional: drop leading whitespace per line (indentation) — safe
-    code = re.sub(r'(?m)^[ \t]+', '', code)
-    return code.strip()
+    """Minify JS with rjsmin — string / template / regex-literal aware,
+    well-tested. Replaces the previous hand-rolled state machine."""
+    return rjsmin.jsmin(s)
 
 # ── CSS + JS ───────────────────────────────────────────────────────
 def write_min(src: pathlib.Path, fn):
