@@ -11,11 +11,11 @@
   <!-- Preload Helvetica weights used above the fold -->
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica-Bold.woff2" crossorigin />
-  <link rel="stylesheet" href="styles.min.css?v=507" />
+  <link rel="stylesheet" href="styles.min.css?v=509" />
   <script>
     /* Any in-page hash (#slide=N, #services, #approach, etc.) means the
        visitor is being deep-linked into the deck — kill the intro flash
-       before paint. The JS in app.min.js?v=240 handles the actual slide jump. */
+       before paint. The JS in app.min.js?v=241 handles the actual slide jump. */
     if (location.hash && location.hash.length > 1) {
       document.documentElement.classList.add('skip-intro');
     }
@@ -70,7 +70,7 @@
     </nav>
 
     <!-- Top corner brand + slide nav + audience toggle. The big-hero
-         logo starts large (scaled via --hero-logo-scale by app.min.js?v=240) and
+         logo starts large (scaled via --hero-logo-scale by app.min.js?v=241) and
          shrinks into the menu on scroll. past-hero gets added by JS
          once the visitor scrolls ~50 % of the way through slide 0. -->
     <div class="topbar">
@@ -797,13 +797,13 @@
 
   </main>
 
-  <script src="app.min.js?v=240" defer></script>
+  <script src="app.min.js?v=241" defer></script>
   <script>
     /* Inline hero-state toggle. Runs immediately on page load before
-       app.min.js?v=240 defers in, so the topbar gets its past-hero class as
+       app.min.js?v=241 defers in, so the topbar gets its past-hero class as
        soon as the viewer is past ~50 % of the hero — eliminates a
        FOUC where the menu briefly shows hero-state styles on a
-       deep-linked / hash-jumped landing. app.min.js?v=240's tickSmooth then
+       deep-linked / hash-jumped landing. app.min.js?v=241's tickSmooth then
        takes over the toggle as the smoothed scroll runs. */
     (function () {
       var topbar = document.querySelector('.topbar');

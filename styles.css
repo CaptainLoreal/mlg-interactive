@@ -887,10 +887,30 @@ button { font-family: inherit; cursor: pointer; }
 }
 .topbar--past-hero,
 .standalone .topbar {
+  border-bottom-color: rgba(255,255,255,0.10);
+}
+/* Frost lives on a pseudo-element, NOT on .topbar itself. If .topbar
+   carried backdrop-filter it would become a "backdrop root" for its
+   descendants, so the Services dropdown (a DOM child) could only blur
+   the empty topbar layer below its strip — rendering it as a flat wash
+   instead of a real frost. With the blur on ::before, .topbar is no
+   longer a backdrop root, so the dropdown's own backdrop-filter blurs
+   the real page content with the SAME blur(14px)/0.28 wash as the bar. */
+.topbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: rgba(0,0,0,0.28);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: rgba(255,255,255,0.10);
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-out);
+  pointer-events: none;
+}
+.topbar--past-hero::before,
+.standalone .topbar::before {
+  opacity: 1;
 }
 
 /* ── Two-state logo (index only): black at top, white on scroll ─── */
@@ -5513,6 +5533,9 @@ p, li { font-size: inherit; }
   .approach-two-col__right { align-items: center; text-align: center; }
   .approach-ordinal { align-items: center; }
 
+  /* Center the Areas of Expertise pill row on member/partner pages. */
+  .profile-tags { justify-content: center; }
+
   /* Rigorous-approach Challenges card — narrow and breathing room
      around the card stack at mobile widths too (480-640px range). */
   .slide--approach-intro .approach-cards-bg .approach-centered__cards {
@@ -6210,8 +6233,14 @@ p, li { font-size: inherit; }
     text-align: center !important;
   }
   .slide--approach-intro .approach-cards-bg .challenge-box__title {
-    font-size: 16px !important;
+    /* Match the USP card title (.card-item__title) so the two card
+       families read identically on mobile: uppercase, display face,
+       weight 500, positive tracking. */
+    font-size: 17px !important;
     line-height: 1.2 !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
     margin: 0 0 8px !important;
   }
   .slide--approach-intro .approach-cards-bg .challenge-box__body {

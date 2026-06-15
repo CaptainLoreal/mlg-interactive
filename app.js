@@ -424,6 +424,15 @@
   let smoothRunning = false;
   let revealEls = [];
 
+  /* Mobile scroll-jitter fix: the per-frame transform that tracks native
+     scroll must stay at 60fps, but the read-heavy updates (nav highlight,
+     in-view + reveal triggers) call getBoundingClientRect right after the
+     transform write — forcing a synchronous reflow every frame. On touch
+     devices we run those every 3rd frame instead, cutting forced reflows
+     ~66% during scroll while the slide transform stays buttery. */
+  const TOUCH = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || window.innerWidth <= 640;
+  let tickFrame = 0;
+
   function syncHeight() {
     // Set body height = slides content height so the native scrollbar is real
     document.body.style.height = slidesEl.scrollHeight + 'px';
@@ -606,23 +615,30 @@
       railFill.style.height = `${Math.min(100, (scrollCurrent / maxScroll) * 100)}%`;
     }
 
-    // Active nav highlight
-    updateActiveNav();
+    /* Read-heavy, non-smoothness-critical updates: throttle to every 3rd
+       frame on touch devices to avoid per-frame forced reflows. */
+    tickFrame++;
+    const doHeavy = !TOUCH || (tickFrame % 3 === 0);
 
-    // Trigger is-in-view for image entrance animations
-    updateInView();
+    if (doHeavy) {
+      // Active nav highlight
+      updateActiveNav();
 
-    // Scroll-driven reveal
-    if (revealEls.length) {
-      const vh = window.innerHeight;
-      revealEls = revealEls.filter((el) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < vh * 0.88) {
-          el.classList.add('is-visible');
-          return false;
-        }
-        return true;
-      });
+      // Trigger is-in-view for image entrance animations
+      updateInView();
+
+      // Scroll-driven reveal
+      if (revealEls.length) {
+        const vh = window.innerHeight;
+        revealEls = revealEls.filter((el) => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < vh * 0.88) {
+            el.classList.add('is-visible');
+            return false;
+          }
+          return true;
+        });
+      }
     }
 
     requestAnimationFrame(tickSmooth);
@@ -1469,16 +1485,32 @@
     globeInView = true;
   }
 
-  function tickGlobe() {
+  /* Mobile perf: the globe spins 57 chips with a per-chip 3D transform
+     write every frame. On touch devices we cap the loop to ~30fps and
+     make the rotation time-scaled, so the spin LOOKS identical but does
+     half the per-frame DOM work. Desktop keeps full 60fps. */
+  const COARSE = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || window.innerWidth <= 640;
+  const FRAME_GAP = COARSE ? 32 : 0;   // ms between frames (~30fps on touch)
+  let lastGlobeT = performance.now();
+
+  function tickGlobe(now) {
+    requestAnimationFrame(tickGlobe);
+    now = now || performance.now();
+    if (FRAME_GAP && now - lastGlobeT < FRAME_GAP) return;
+    let dt = now - lastGlobeT;
+    lastGlobeT = now;
+    if (dt > 100) dt = 16.7;            // clamp after tab-away / stalls
+    const fr = dt / 16.7;               // elapsed in 60fps-frame units
+
     if (built && globeInView) {
       if (radius === 0 && globeStage.clientWidth > 0) {
         radius = Math.min(globeStage.clientWidth, globeStage.clientHeight) / 2 * 0.92;
       }
       if (isAuto) {
-        rotY += 0.18;
+        rotY += 0.18 * fr;
       } else {
-        rotY += velY;
-        velY *= 0.94;
+        rotY += velY * fr;
+        velY *= Math.pow(0.94, fr);
         if (Math.abs(velY) < 0.004) {
           velY = 0;
           if (!dragG) isAuto = true;
@@ -1526,11 +1558,12 @@
           c._veil = veil;
         }
 
-        c.el.style.zIndex = Math.round(t * 100);
-        c.el.style.pointerEvents = t < 0.35 ? 'none' : 'auto';
+        const zi = Math.round(t * 100);
+        if (c._zi !== zi) { c.el.style.zIndex = zi; c._zi = zi; }
+        const pe = t < 0.35 ? 'none' : 'auto';
+        if (c._pe !== pe) { c.el.style.pointerEvents = pe; c._pe = pe; }
       }
     }
-    requestAnimationFrame(tickGlobe);
   }
   requestAnimationFrame(tickGlobe);
 })();
