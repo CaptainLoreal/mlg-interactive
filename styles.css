@@ -303,21 +303,24 @@ button { font-family: inherit; cursor: pointer; }
   text-transform: uppercase;
   color: #fff;
   margin: 0 0 14px;
-  /* Optical-centring fix. Helvetica uppercase has ascent ≈ 0.78 em
-     vs descent ≈ 0.22 em — the cap cluster sits ~1.8 px ABOVE the
-     line-box centre at 11 pt. Symmetric 4 / 4 padding therefore
-     reads bottom-heavy. 6 px top / 2 px bottom shifts the cap
-     cluster down onto the cell's geometric centre so the visual
-     white space ABOVE and BELOW the text matches. */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 22px;
-  line-height: 1.25;
+  /* Optical vertical centring of the uppercase caps in the pill.
+     Baseline (works in every browser): inline-block + line-height 1 +
+     a 1 px top bias on the padding (6 top / 5 bottom). All-caps
+     Helvetica leaves an empty descender gap below the baseline, so
+     symmetric padding reads bottom-heavy; +1 px on top nudges the cap
+     cluster onto the true optical centre. The @supports block at the
+     end of this file then upgrades modern browsers to text-box-trim
+     (cap → baseline) with fully symmetric padding for a pixel-exact
+     result. NB text-box-trim only takes effect on inline-block /
+     block boxes — NOT on flex items — which is why these pills are
+     display:inline-block, not inline-flex. */
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  padding: 6px 12px 2px;
+  padding: 6px 12px 5px;
 }
 
 /* Allow mixed-case in an eyebrow without losing the red colour or weight. */
@@ -3976,11 +3979,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .contact-block__label {
   /* Display model copied verbatim from .eyebrow so the same
      numerical padding produces the same visual centring. */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 22px;
-  line-height: 1.25;
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 600;
@@ -3990,7 +3991,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  padding: 6px 12px 2px;   /* optical-centring shift, matches .eyebrow */
+  padding: 6px 12px 5px;   /* optical-centring, matches .eyebrow */
   margin: 0 0 14px;
   width: fit-content;
   align-self: center;
@@ -5555,12 +5556,14 @@ p, li { font-size: inherit; }
 .ld-hero__eyebrow,
 .profile-hero__eyebrow {
   display: inline-block;
+  text-align: center;
   align-self: flex-start;
   width: fit-content;
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  padding: 6px 12px 2px;   /* optical-centring shift, matches .eyebrow */
+  line-height: 1;
+  padding: 6px 12px 5px;   /* optical-centring, matches .eyebrow */
   color: #fff !important;
   font-size: 11px;
   font-weight: 600;
@@ -6247,5 +6250,37 @@ p, li { font-size: inherit; }
   .slide--approach-intro .approach-cards-bg .challenge-box__conclusion {
     font-size: 15px !important;
     line-height: 1.5 !important;
+  }
+}
+
+
+/* =============================================================
+   Eyebrow pills — pixel-exact cap centring (modern browsers).
+   text-box-trim trims the line box to the cap-height (top) and the
+   alphabetic baseline (bottom), removing the font's ascent/descent
+   padding. With the box reduced to exactly the visible caps, the
+   inline-flex centring + symmetric vertical padding produce TRULY
+   equal whitespace above and below the text. Browsers without
+   support fall back to the +1 px top-bias padding defined above.
+   ============================================================= */
+@supports (text-box-edge: cap alphabetic) {
+  .eyebrow,
+  .contact-block__label,
+  .ld-hero__eyebrow,
+  .profile-hero__eyebrow {
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+  }
+}
+@supports (text-box: trim-both cap alphabetic) {
+  .eyebrow,
+  .contact-block__label,
+  .ld-hero__eyebrow,
+  .profile-hero__eyebrow {
+    text-box: trim-both cap alphabetic;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
   }
 }
