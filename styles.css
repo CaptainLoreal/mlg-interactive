@@ -5905,13 +5905,21 @@ p, li { font-size: inherit; }
     page-break-inside: avoid;
   }
   .profile-body p strong { color: #000 !important; }
-  /* Pull-quote shrinks for print too — otherwise its clamp() value
-     stays large and eats vertical space. */
-  .profile-body p.profile-pull {
+  /* Pull-quote in print: shrink it AND force dark text. The page's
+     inline <style> sets `.profile-body p.profile-pull { color:#fff }`
+     for the screen (white on the dark page) — that exact same
+     selector would otherwise win in print too and render the
+     pull-quote white-on-white (invisible). The extra `.standalone`
+     prefix here raises specificity above the inline rule so the
+     dark print colour wins. */
+  .standalone .profile-body p.profile-pull {
+    color: #111 !important;
+    font-weight: 600 !important;
     font-size: 12pt !important;
     line-height: 1.35 !important;
     margin: 8pt 0 !important;
   }
+  .standalone .profile-body p.profile-pull strong { color: #000 !important; }
 
   /* Round photo float inside the body — let it print */
   .profile-body img {
