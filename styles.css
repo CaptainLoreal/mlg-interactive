@@ -5842,6 +5842,7 @@ p, li { font-size: inherit; }
     position: relative !important;
     height: 120px !important;
     min-height: 0 !important;
+    margin-top: 8mm;        /* "br" — gap above the banner in the PDF */
     margin-bottom: 6mm;
     page-break-inside: avoid;
   }
@@ -5857,32 +5858,51 @@ p, li { font-size: inherit; }
   .profile-hero__scrim {
     background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.10) 60%, transparent 100%) !important;
   }
+  /* Flex column so we can SWAP the pill ↔ sub-line by order:
+     in the PDF the pill should read "Munich Leadership Group"
+     (the text that lives in .profile-hero__role) and the person's
+     role (text in .profile-hero__eyebrow) drops to the small line
+     beneath the name. Each element keeps its own text — only the
+     styling + stacking order are swapped. */
   .profile-hero__copy {
     position: absolute !important;
     inset: auto 0 0 0 !important;
     padding: 7mm !important;
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
   }
-  .profile-hero__eyebrow {
+  /* .profile-hero__role now plays the RED PILL (top) */
+  .profile-hero__role {
+    order: 1 !important;
     display: inline-block !important;
     background: var(--mlg-red) !important;
     color: #fff !important;
-    padding: 2px 9px;
-    border-radius: 999px;
-    font-size: 7pt;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    padding: 2px 9px !important;
+    border-radius: 999px !important;
+    font-size: 7pt !important;
+    letter-spacing: 0.16em !important;
+    text-transform: uppercase !important;
     margin: 0 0 4px !important;
   }
   .profile-hero__name {
+    order: 2 !important;
     color: #fff !important;
     font-size: 19pt !important;
     margin: 0 0 2px !important;
     line-height: 1.05 !important;
   }
-  .profile-hero__role {
+  /* .profile-hero__eyebrow now plays the small PLAIN SUB-LINE (bottom) */
+  .profile-hero__eyebrow {
+    order: 3 !important;
+    display: block !important;
+    background: none !important;
     color: rgba(255,255,255,0.9) !important;
-    font-size: 10pt;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-size: 10pt !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
     margin: 0 !important;
   }
 
