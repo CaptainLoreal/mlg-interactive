@@ -5774,9 +5774,11 @@ p, li { font-size: inherit; }
     color-adjust: exact !important;
   }
 
-  /* Default page setup */
+  /* Default page setup.
+     Top margin trimmed (was 16 mm) so the team-member hero banner
+     sits closer to the top of the printed PDF. */
   @page {
-    margin: 16mm 14mm;
+    margin: 6mm 14mm 16mm;
     size: A4;
   }
   html, body {
@@ -5822,12 +5824,15 @@ p, li { font-size: inherit; }
     animation: none !important;
   }
 
-  /* ── Profile hero: keep the image as a banner up top ── */
+  /* ── Profile hero: keep the image as a SLIM banner up top ── */
+  /* Slimmer + tighter for PDF — was 240 px tall with 16 mm gap below.
+     Now 140 px tall with 8 mm gap so the banner doesn't eat half the
+     page, and the bio starts much higher on the page. */
   .profile-hero {
     position: relative !important;
-    height: 240px !important;
+    height: 140px !important;
     min-height: 0 !important;
-    margin-bottom: 16mm;
+    margin-bottom: 8mm;
     page-break-inside: avoid;
   }
   .profile-hero__media,
@@ -5845,25 +5850,25 @@ p, li { font-size: inherit; }
   .profile-hero__copy {
     position: absolute !important;
     inset: auto 0 0 0 !important;
-    padding: 14mm !important;
+    padding: 7mm !important;
     display: block !important;
   }
   .profile-hero__eyebrow {
     display: inline-block !important;
     background: var(--mlg-red) !important;
     color: #fff !important;
-    padding: 3px 10px;
+    padding: 2px 9px;
     border-radius: 999px;
-    font-size: 8pt;
-    letter-spacing: 0.18em;
+    font-size: 7pt;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    margin: 0 0 6px !important;
+    margin: 0 0 4px !important;
   }
   .profile-hero__name {
     color: #fff !important;
-    font-size: 26pt !important;
-    margin: 0 0 4px !important;
-    line-height: 1.1 !important;
+    font-size: 19pt !important;
+    margin: 0 0 2px !important;
+    line-height: 1.05 !important;
   }
   .profile-hero__role {
     color: rgba(255,255,255,0.9) !important;
