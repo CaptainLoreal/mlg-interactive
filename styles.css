@@ -1471,7 +1471,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   appearance: none;
   cursor: pointer;
   position: absolute;
-  bottom: max(env(safe-area-inset-bottom, 0px) + 22px, 22px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 22px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
