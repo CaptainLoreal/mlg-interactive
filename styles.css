@@ -2550,6 +2550,15 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   pointer-events: none;
   filter: blur(8px);
 }
+/* The approach body sits over a brighter part of the photo than the
+   header, so the shared halo reads as too faint there. Give the body
+   block a slightly stronger, taller halo so the paragraphs get the
+   same dark backing the header enjoys. */
+.approach-hero__body::before {
+  width: 150%;
+  height: 240%;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.40) 45%, rgba(0,0,0,0) 78%);
+}
 .approach-hero__copy .eyebrow {
   width: fit-content;
 }
