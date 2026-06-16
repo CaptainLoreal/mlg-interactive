@@ -1,11 +1,14 @@
 (function () {
   // Indices match the live slide NodeList in index.html as of the
-  // 2026-06-09 reorder (Tailor removed, Services moved before Clients,
-  // Book added):
-  //   0=Welcome 1=Services 2=Clients 3=Approach 4=Testimonials
-  //   5=Why-MLG 6=Tools(hidden) 7=Team 8=Book 9=Contact
+  // 2026-06-15 reorder (Vision added between Approach and Testimonials):
+  //   0=Welcome 1=Services 2=Clients 3=Approach 4=Why-MLG 5=Vision
+  //   6=Testimonials 7=Tools(hidden) 8=Team 9=Book 10=Contact
   // Items below mirror the desktop slide-nav order in app.js
-  // (Welcome/Testimonials/Tools filtered out).
+  // (Welcome/Vision/Testimonials/Tools filtered out).
+  //
+  // IMPORTANT: if you reorder slides, also update these indices —
+  // the old indices left Team pointing at the hidden Tools slide,
+  // which silently scrolled the user back to the Welcome hero.
 
   // Path prefix — quarterly pages live in /leadership-quarterly/ so
   // every href needs '../' to reach the index/services subpages.
@@ -21,10 +24,10 @@
     ]},
     { title: 'Clients',         href: P + 'index.html#slide=2' },
     { title: 'Approach',        href: P + 'index.html#slide=3' },
-    { title: 'Why MLG',         href: P + 'index.html#slide=5' },
-    { title: 'Team',            href: P + 'index.html#slide=7' },
-    { title: 'Book',            href: P + 'index.html#slide=8' },
-    { title: 'Contact',         href: P + 'index.html#slide=9' },
+    { title: 'Why MLG',         href: P + 'index.html#slide=4' },
+    { title: 'Team',            href: P + 'index.html#slide=8' },
+    { title: 'Book',            href: P + 'index.html#slide=9' },
+    { title: 'Contact',         href: P + 'index.html#slide=10' },
   ];
 
   var topbar = document.querySelector('.topbar');

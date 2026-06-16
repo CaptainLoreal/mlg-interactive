@@ -495,11 +495,31 @@
      resize so an orientation change or window resize lands cleanly. */
   function getHeroMaxScale() {
     const w = window.innerWidth;
-    if (w < 420)  return 1.55;   // small phone
-    if (w < 600)  return 1.85;   // large phone
-    if (w < 900)  return 2.30;   // tablet portrait
-    if (w < 1200) return 2.60;   // tablet landscape / small laptop
-    return 2.80;                 // desktop
+    const h = window.innerHeight;
+    // Width-based ceiling: tuned per viewport so the scaled logo + the
+    // inline topbar (CLIENTS APPROACH … lang-switch burger) fit.
+    let widthCap;
+    if (w < 420)       widthCap = 1.45;   // small phone
+    else if (w < 600)  widthCap = 1.70;   // large phone
+    else if (w < 900)  widthCap = 1.90;   // tablet portrait
+    else if (w < 1200) widthCap = 2.10;   // tablet landscape / small laptop
+    else               widthCap = 2.30;   // desktop
+    // Height-aware ceiling: the logo grows downward from the topbar;
+    // the H1 headline ("EMPOWERING LEADERSHIP") sits at the bottom of
+    // slide__copy. On short viewports the scaled logo's bottom edge
+    // can reach the headline. Reserve room for 2 H1 lines + a 40px
+    // buffer between them. Base logo box height = clamp(42, 6vw, 62)px;
+    // H1 size = clamp(34, 7vw, 80)px with line-height 1.05.
+    const baseLogoH = Math.min(62, Math.max(42, 0.06 * w));
+    const h1Size    = Math.min(80, Math.max(34, 0.07 * w));
+    const h1Lines   = 2;
+    const h1H       = h1Size * 1.05 * h1Lines;
+    const padBottom = Math.min(48, Math.max(28, 0.03 * w));
+    const topbarTop = 30;       // safe-area + topbar padding
+    const gap       = 40;       // breathing room between logo & H1
+    const avail     = h - padBottom - h1H - gap - topbarTop;
+    const heightCap = Math.max(1, avail / baseLogoH);
+    return Math.max(1.0, Math.min(widthCap, heightCap));
   }
   let heroMaxScale = getHeroMaxScale();
   // Initialise to the right scale immediately so first paint matches scroll=0
@@ -895,6 +915,26 @@
       setTimeout(buildGlobe, 16);
       setTimeout(initReveal, 300);
     });
+    /* Coming from a subpage (cold load), the target slide's offsetTop
+       can shift after images decode + fonts settle. The initial scroll
+       lands at a stale Y (often = 0, i.e. the Welcome slide) before
+       layout finalises. Re-anchor on window.load and a couple of safety
+       timeouts so the user reliably ends up ON the target slide rather
+       than at the hero on first navigation. */
+    function reAnchorToTarget() {
+      if (!document.body.classList.contains('deck-active')) return;
+      syncHeight();
+      const yy = slides[idx]?.offsetTop;
+      if (yy == null) return;
+      if (Math.abs(window.scrollY - yy) > 4) {
+        scrollTarget  = yy;
+        scrollCurrent = yy;
+        window.scrollTo({ top: yy, behavior: 'instant' });
+      }
+    }
+    window.addEventListener('load', reAnchorToTarget, { once: true });
+    setTimeout(reAnchorToTarget, 600);
+    setTimeout(reAnchorToTarget, 1600);
     history.replaceState(null, '', location.pathname + location.search);
     return true;
   }

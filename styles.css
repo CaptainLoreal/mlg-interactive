@@ -928,29 +928,26 @@ button { font-family: inherit; cursor: pointer; }
      belt-and-suspenders for the case where JS hasn't computed the cap
      yet (deferred script timing) or fails to load. The --hero-logo-cap
      custom property is bumped by media queries below. */
-  --hero-logo-cap: 2.8;
+  --hero-logo-cap: 2.30;
   transform: scale(min(var(--hero-logo-scale, 1), var(--hero-logo-cap)));
   will-change: transform;
 }
-/* Per-viewport cap on the hero-logo scale. Tuned smaller at tablet
-   sizes so the scaled logo + the inline menu (CLIENTS APPROACH …
-   lang-switch burger) can co-exist without overlap.
-     Small phone (≤419):       1.55×
-     Large phone (≤599):       1.80×
-     Tablet portrait (≤899):   1.55× (was 2.00 — collided with SERVICES)
-     Tablet landscape (≤1199): 1.80× (was 2.20 — collided with SERVICES)
-     Desktop (≥1200):          2.80× (default above) */
+/* Per-viewport hard cap on the hero-logo scale. JS computes a smarter
+   width+height-aware cap, but these CSS values are the belt-and-braces
+   fallback if JS hasn't run yet OR if the JS-computed cap exceeds them.
+   Tightened (2.80→2.30 on desktop) so the scaled logo never bleeds
+   into the H1 headline on short laptop viewports. */
 @media (max-width: 1199px) {
-  .topbar__logo-stack { --hero-logo-cap: 1.80; }
+  .topbar__logo-stack { --hero-logo-cap: 2.10; }
 }
 @media (max-width: 899px) {
-  .topbar__logo-stack { --hero-logo-cap: 1.55; }
+  .topbar__logo-stack { --hero-logo-cap: 1.90; }
 }
 @media (max-width: 599px) {
-  .topbar__logo-stack { --hero-logo-cap: 1.80; }
+  .topbar__logo-stack { --hero-logo-cap: 1.70; }
 }
 @media (max-width: 419px) {
-  .topbar__logo-stack { --hero-logo-cap: 1.55; }
+  .topbar__logo-stack { --hero-logo-cap: 1.45; }
 }
 /* Fallback for non-deck / no-JS: keep the logo at menu size. */
 .deck .topbar:not(.topbar--past-hero) .topbar__logo-stack {
