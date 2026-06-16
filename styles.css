@@ -1616,6 +1616,13 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .slide[data-anchor="right"]  .slide__media img { object-position: right center; }
 .slide[data-anchor="left"]   .slide__media img { object-position: left  center; }
 .slide[data-anchor="right-80"] .slide__media img { object-position: 80% center; }
+
+/* Welcome slide on mobile: the default centred crop of the wide group
+   photo cuts off the left man's head. Pull the focal point left so his
+   whole head stays in frame in portrait viewports. */
+@media (max-width: 640px) {
+  .slide[data-title="Welcome"] .slide__media img { object-position: 32% center; }
+}
 .slide[data-anchor="top"]    .slide__media img { object-position: center 5%;  }
 .slide[data-anchor="bottom"] .slide__media img { object-position: center 78%; }
 
