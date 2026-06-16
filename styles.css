@@ -5511,14 +5511,18 @@ p, li { font-size: inherit; }
 .team-tab-row { margin-top: clamp(20px, 3vh, 36px); }
 .team-grid--core { margin-top: clamp(20px, 3vh, 40px); }
 
-/* ── Team profile hero: pan right→left on mobile only, fixed on desktop ── */
+/* ── Team profile hero: continuous pan on mobile only, fixed on desktop.
+   Earlier version was "22s ease-out forwards" which ran ONCE and froze at
+   the end. Now: ease-in-out + infinite alternate so the pan smoothly
+   reverses at each end → looks like a constantly drifting banner instead
+   of a one-shot animation that stops. ── */
 @keyframes heroPan {
   from { object-position: 20% center; }
   to   { object-position: 100% center; }
 }
 @media (max-width: 768px) {
   .profile-hero__media img {
-    animation: heroPan 22s ease-out forwards;
+    animation: heroPan 30s ease-in-out infinite alternate;
   }
 }
 

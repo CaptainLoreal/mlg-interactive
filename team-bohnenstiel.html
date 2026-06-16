@@ -6,12 +6,12 @@
   <meta name="theme-color" content="#000" />
   <title>Martina Bohnenstiel — Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.min.css?v=515" />
+  <link rel="stylesheet" href="styles.min.css?v=516" />
   <style>
     body { overflow: visible; }
     .standalone { overflow: visible; min-height: 100dvh; }
-    .profile-hero { position: relative; height: 58vh; min-height: 360px; overflow: hidden; margin-top: calc(env(safe-area-inset-top, 0px) + clamp(66px, 6vw + 24px, 86px)); }
-    .profile-hero__media { position: absolute; inset: 0; }
+    .profile-hero { position: relative; height: 58vh; min-height: 360px; overflow: visible; margin-top: calc(env(safe-area-inset-top, 0px) + clamp(66px, 6vw + 24px, 86px)); }
+    .profile-hero__media { position: absolute; inset: 0; top: calc(-1 * (env(safe-area-inset-top, 0px) + clamp(66px, 6vw + 24px, 86px))); overflow: hidden; }
     .profile-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
     .profile-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(14,15,16,0.35) 50%, rgba(14,15,16,0.02) 100%); }
     .profile-hero__copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(24px,5vw,72px) clamp(24px,5vw,72px) clamp(32px,6vh,64px); }
