@@ -423,6 +423,17 @@
   const EASE = 1;
   let smoothRunning = false;
   let revealEls = [];
+  /* Cached layout metrics — re-read only when layout actually changes,
+     not per frame. Reading document.body.scrollHeight / window.innerHeight
+     per frame forces a synchronous reflow on mobile and is a major source
+     of scroll jank. We refresh them on resize, sync events, and image
+     load (where they can legitimately change). */
+  let cachedVH = window.innerHeight || 800;
+  let cachedMaxScroll = 1;
+  function refreshScrollMetrics() {
+    cachedVH = window.innerHeight || 800;
+    cachedMaxScroll = Math.max(1, document.body.scrollHeight - cachedVH);
+  }
 
   /* Mobile scroll-jitter fix: the per-frame transform that tracks native
      scroll must stay at 60fps, but the read-heavy updates (nav highlight,
@@ -438,6 +449,7 @@
     document.body.style.height = slidesEl.scrollHeight + 'px';
     // Slide offsets shift when the content height changes — refresh cache
     if (typeof recomputeSlideOffsets === 'function') recomputeSlideOffsets();
+    refreshScrollMetrics();
   }
 
   window.addEventListener('scroll', () => {
@@ -586,15 +598,25 @@
     }
     lastTickScroll = scrollCurrent;
 
-    slidesEl.style.transform = `translateY(${-scrollCurrent}px)`;
+    /* translate3d (instead of translateY) keeps the slides container on a
+       dedicated GPU compositor layer on iOS/Android Safari, so the per-
+       frame transform becomes a pure compositor update (no paint, no
+       layout). Significantly reduces scroll jitter on mobile. */
+    slidesEl.style.transform = `translate3d(0, ${-scrollCurrent}px, 0)`;
 
-    /* Section stickies (challenges, why-mlg) on mobile */
-    updateSectionStickies();
+    const vh = cachedVH;
+    tickFrame++;
+    const doHeavy = !TOUCH || (tickFrame % 3 === 0);
+
+    /* Section stickies (challenges, why-mlg) on mobile — these do a
+       getBoundingClientRect per element which forces reflow.
+       Throttle on touch to every Nth frame. */
+    if (doHeavy) updateSectionStickies();
 
     /* Hero sticky: stays in place during slides 0+1, then scrolls up
-       on the slide 1→2 transition, then disappears. */
-    if (heroSticky) {
-      const vh = window.innerHeight;
+       on the slide 1→2 transition, then disappears. Skip entirely once
+       past slide 2 (writes a no-op every frame otherwise). */
+    if (heroSticky && scrollCurrent < 2.1 * vh) {
       let translate, opacity;
       if (scrollCurrent <= vh) {
         translate = 0;            // slide 0: fully visible, anchored
@@ -606,39 +628,32 @@
         translate = -vh;
         opacity = 0;              // past slide 2: hide
       }
-      heroSticky.style.transform = `translateY(${translate}px)`;
+      heroSticky.style.transform = `translate3d(0, ${translate}px, 0)`;
       heroSticky.style.opacity = opacity;
     }
 
     /* Scroll-driven hero logo: shrinks from heroMaxScale → 1× as the
-       user scrolls through the first 35 % of slide 0. past-hero is
-       toggled at 50 % scroll (same threshold as the inline checkHero
-       script) so the colour swap + blurry-glass background follow
-       the same smoothed scroll. */
-    {
-      const vh = window.innerHeight;
+       user scrolls through the first 35 % of slide 0. Once past the
+       transition point, the logo is locked at 1× — stop writing the CSS
+       var every frame (was a constant style invalidation while scrolling
+       through slides 2+). past-hero class toggle is idempotent. */
+    if (scrollCurrent < vh * 0.5 + 50) {
       const heroProgress = Math.min(1, Math.max(0, scrollCurrent / (vh * 0.35)));
       const logoScale = heroMaxScale - (heroMaxScale - 1) * heroProgress;
       document.documentElement.style.setProperty('--hero-logo-scale', logoScale.toFixed(3));
-      if (topbarEl) topbarEl.classList.toggle('topbar--past-hero', scrollCurrent >= vh * 0.5);
+    }
+    if (topbarEl) {
+      const wantPastHero = scrollCurrent >= vh * 0.5;
+      if (topbarEl.classList.contains('topbar--past-hero') !== wantPastHero) {
+        topbarEl.classList.toggle('topbar--past-hero', wantPastHero);
+      }
     }
 
-    /* Menu-bar tagline ("… Empowering Leadership") is no longer
-       scroll-driven — it's now bound to the topbar's past-hero class
-       via a CSS rule in styles.css, so it fades in together with the
-       blurry-glass menu at the 50 % vh scroll threshold (toggled in
-       the block above). */
-
-    // Rail progress
-    const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+    // Rail progress — uses CACHED maxScroll (refreshed on resize/syncHeight)
+    // so we no longer read document.body.scrollHeight per frame.
     if (railFill) {
-      railFill.style.height = `${Math.min(100, (scrollCurrent / maxScroll) * 100)}%`;
+      railFill.style.height = `${Math.min(100, (scrollCurrent / cachedMaxScroll) * 100)}%`;
     }
-
-    /* Read-heavy, non-smoothness-critical updates: throttle to every 3rd
-       frame on touch devices to avoid per-frame forced reflows. */
-    tickFrame++;
-    const doHeavy = !TOUCH || (tickFrame % 3 === 0);
 
     if (doHeavy) {
       // Active nav highlight
@@ -649,7 +664,6 @@
 
       // Scroll-driven reveal
       if (revealEls.length) {
-        const vh = window.innerHeight;
         revealEls = revealEls.filter((el) => {
           const rect = el.getBoundingClientRect();
           if (rect.top < vh * 0.88) {
