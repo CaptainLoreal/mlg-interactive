@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="236 0 67 65" width="67" height="65">
+<!-- viewBox expanded beyond the artwork bounding box so the chevron sits
+     in the BOTTOM-LEFT of the rendered favicon with breathing room on
+     the top and right. Browsers crop favicons aggressively at the
+     corners; the extra space here is the safe area. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="236 -22 90 87" width="90" height="87">
   <path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="#b50034"></path>
   <path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="#b50034"></path>
   <path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"></path>
