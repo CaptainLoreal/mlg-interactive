@@ -13,6 +13,7 @@
     .ld-hero { position: relative; height: 56vh; min-height: 360px; overflow: hidden; }
     .ld-hero__media { position: absolute; inset: 0; }
     .ld-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+    @media (max-width: 640px) { .ld-hero__media img { object-position: 38% center; } }
     .ld-hero__scrim { position: absolute; inset: 0; background: linear-gradient(to top, #000 0%, rgba(14,15,16,0.08) 15%, rgba(14,15,16,0) 100%); }
     .ld-hero__copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 6vh, 64px); }
     .ld-hero__title { font-size: clamp(32px, 5.5vw, 64px); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; margin: 0 0 12px; line-height: 1.1; }
@@ -47,7 +48,7 @@
 
     <div class="ld-hero">
       <div class="ld-hero__media">
-        <img decoding="async" loading="lazy" src="assets/photos/hwh-coaching.webp" alt="" />
+        <img decoding="async" loading="lazy" src="assets/photos/michael.webp" alt="" />
       </div>
       <div class="ld-hero__scrim"></div>
       <div class="ld-hero__copy">
