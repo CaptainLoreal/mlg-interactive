@@ -5893,12 +5893,19 @@ p, li { font-size: inherit; }
      expertise + quote) fits comfortably within 275mm — the clip is a
      backstop, not the primary mechanism. */
   .standalone {
-    /* relative (was static) so the absolutely-positioned .pdf-footer
-       on core team pages can anchor to the printed page bottom. */
-    position: relative !important;
+    /* fixed (was relative) so .standalone is taken out of normal flow
+       entirely and pinned to the printed page rectangle. iOS Safari
+       paginates based on the in-flow document height even when
+       overflow:hidden visually clips — moving .standalone out of flow
+       removes the only thing that could push past 297mm. The
+       absolutely-positioned .pdf-footer still anchors to this fixed
+       box because fixed elements also create a containing block. */
+    position: fixed !important;
+    inset: 0 !important;
     /* EXACT 297mm (no max-height + auto) — see the html/body comment
        above. iOS Safari needs a hard-locked height, not a max with
        overflow clip, to avoid spilling a blank page 2. */
+    width: 210mm !important;
     min-height: 297mm !important;
     height: 297mm !important;
     max-height: 297mm !important;
