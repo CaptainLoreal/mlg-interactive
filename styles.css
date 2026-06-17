@@ -6123,19 +6123,18 @@ p, li { font-size: inherit; }
   }
 
   /* ── PDF-only footer (core team profiles) ──
-     Anchored at the bottom of the printed page inside .standalone
-     (which is position: relative in print). Brand line + personal
-     and info@ email on a single contact line, centred. The
-     .standalone has 22mm bottom padding reserved above, so the body
-     never collides with this footer. */
+     Static flow (not absolute) so iOS Safari doesn't escape it onto
+     a separate page — absolute children of .standalone were being
+     anchored against the full document on iOS, pushing the footer
+     onto page 2 even when body content fit on page 1. Now it just
+     sits as the last in-flow element after .profile-content, with a
+     small top margin for spacing. */
   .pdf-footer {
     display: block !important;
-    position: absolute !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 4mm !important;
-    text-align: center !important;
+    position: static !important;
+    margin: 6pt 0 0 !important;
     padding: 0 14mm !important;
+    text-align: center !important;
   }
   .pdf-footer__brand {
     margin: 0 0 2pt !important;
