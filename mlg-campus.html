@@ -30,11 +30,26 @@
        uses the SAME constraints and the inner img is flush-left
        within that 820 px column. Logo's left edge now sits exactly
        on the body text's left edge on every viewport. */
-    .ld-intro-logo { max-width: 820px; margin: 0 auto clamp(28px, 4vh, 48px); }
+    /* .ld-content is display: flex; flex-direction: column (set in
+       styles.css). Without align-self: stretch the logo wrapper
+       shrinks to its image width and auto margins centre the wrapper
+       itself, so the logo appeared centred on the page instead of
+       flush-left with the body text. align-self: stretch restores
+       block-level behaviour: the wrapper takes the parent's full
+       width (capped at 820px, centred via margin auto), and the
+       inner img sits at the wrapper's left edge — matching the body
+       text below. */
+    .ld-intro-logo {
+      align-self: stretch;
+      width: 100%;
+      max-width: 820px;
+      margin: 0 auto clamp(28px, 4vh, 48px);
+    }
     .ld-intro-logo img {
       display: block;
       width: clamp(280px, 38vw, 480px);
       height: auto;
+      margin-left: 0;
     }
     .ld-intro__heading { font-size: clamp(18px, 2.4vw, 26px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; margin: 0 0 28px; }
     .ld-intro p { font-size: 19px; line-height: 1.75; color: rgba(255,255,255,0.65); margin: 0 0 18px; }
