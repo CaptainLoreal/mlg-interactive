@@ -5909,12 +5909,13 @@ p, li { font-size: inherit; }
        just get a slightly larger empty bottom margin. Usable content
        area: 297 − 6 − 22 = 269 mm. */
     box-sizing: border-box !important;
-    /* Top padding trimmed from 6mm → 3mm. iOS Safari adds its own
-       small top margin to the printed page even with @page margin: 0,
-       so the bio was sitting too low on mobile exports. 3mm + the
-       3mm .profile-hero margin below = 6mm total above the banner,
-       which fits comfortably on mobile + desktop both. */
-    padding: 3mm 14mm 22mm !important;
+    /* Top + bottom safety gaps trimmed (was 3mm 14mm 22mm).
+       Top 0mm because .profile-hero already carries its own
+       margin-top in print. Bottom 14mm reserves just enough room
+       for the pdf-footer cluster (brand line + email line, sitting
+       at bottom: 4mm) without leaving empty whitespace below it.
+       Net: ~8mm more content height per single-page PDF. */
+    padding: 0 14mm 14mm !important;
     background: #fff !important;
     overflow: hidden !important;
     animation: none !important;
@@ -5945,10 +5946,10 @@ p, li { font-size: inherit; }
        sets margin-top to env(safe-area-inset-top) + clamp(66px,…) —
        roughly 90–140mm with the iOS notch — which is exactly what
        was pushing mobile PDF exports onto a second page. */
-    margin-top: 3mm !important;        /* gap above the banner in the PDF — trimmed from 8mm to keep mobile exports on a single page */
+    margin-top: 0 !important;         /* sit flush against the page top */
     margin-left: -8mm !important;
     margin-right: -8mm !important;
-    margin-bottom: 6mm !important;
+    margin-bottom: 4mm !important;    /* tighter gap below the banner so more body content fits */
     page-break-inside: avoid;
   }
   .profile-hero__media,
@@ -6133,7 +6134,7 @@ p, li { font-size: inherit; }
     position: absolute !important;
     left: 0 !important;
     right: 0 !important;
-    bottom: 8mm !important;
+    bottom: 4mm !important;
     text-align: center !important;
     padding: 0 14mm !important;
   }
