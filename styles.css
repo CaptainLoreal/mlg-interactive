@@ -5924,7 +5924,14 @@ p, li { font-size: inherit; }
      page, and the bio starts much higher on the page. */
   .profile-hero {
     position: relative !important;
-    height: 150px !important;
+    /* Bumped 150 → 170px so the absolutely-positioned .profile-hero__copy
+       cluster (red pill + 2-line name + small subtitle + padding) doesn't
+       overflow the top edge. The previous height clipped the red pill
+       off on bios whose name wraps to two lines (Hagemann was the most
+       visible because his busy multi-photo composite made the missing
+       pill obvious; other 2-line bios were affected to a smaller degree
+       but the lighter photo tops hid it). */
+    height: 170px !important;
     min-height: 0 !important;
     /* Broaden the banner: negative side margins pull it 8 mm past the
        .standalone side padding (14 mm) on each edge, so the image
@@ -5961,9 +5968,11 @@ p, li { font-size: inherit; }
   .profile-hero__copy {
     position: absolute !important;
     inset: auto 0 0 0 !important;
-    /* Extra top padding gives the header (pill + name) breathing room
-       above it inside the banner. */
-    padding: 14mm 7mm 7mm !important;
+    /* Top padding trimmed from 14mm → 8mm: combined with the banner
+       height bump (150 → 170px), this gives the pill + 2-line name +
+       sub cluster enough room to render inside the banner without
+       overflow: hidden clipping the red pill off the top edge. */
+    padding: 8mm 7mm 7mm !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;     /* centre the top header — MLG pill + name + role */
