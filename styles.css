@@ -911,6 +911,11 @@ html[lang="de"] .display__line {
   inset: 0;
   z-index: -1;
   background: rgba(0,0,0,0.28);
+  /* Desktop: 14px blur. Mobile override drops it to a much cheaper
+     6px (see @media block below) — the topbar covers the top edge
+     of every animation frame, so its blur is recomputed continuously
+     during scroll. 14px on mid-range phones is the single biggest
+     paint cost in the deck. */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   opacity: 0;
@@ -920,6 +925,30 @@ html[lang="de"] .display__line {
 .topbar--past-hero::before,
 .standalone .topbar::before {
   opacity: 1;
+}
+
+/* Mobile scroll-perf: cut the topbar blur from 14px → 6px on
+   phones. The topbar pseudo-element is composited on every frame
+   while the deck scrolls; on mid-range phones a 14px backdrop
+   blur is the single biggest paint cost in the entire site and
+   the most obvious cause of scroll stutter. 6px still reads as
+   visibly frosted glass, much cheaper to paint. */
+@media (max-width: 640px) {
+  .topbar::before {
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+  /* Decode large slide media off the main thread so a slide
+     scrolling into view doesn't stall the scroll loop while the
+     browser synchronously decodes its photo. */
+  .slide__media img,
+  .approach-hero__img img,
+  .approach-cards-bg__img,
+  .hero-sticky img,
+  .section-sticky img,
+  .news-media img {
+    content-visibility: auto;
+  }
 }
 
 /* ── Two-state logo (index only): black at top, white on scroll ─── */
