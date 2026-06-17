@@ -6359,3 +6359,23 @@ p, li { font-size: inherit; }
   padding-top: 6px !important;
   padding-bottom: 5px !important;
 }
+
+/* ── Approach intro: solid-dark backgrounds for Challenges + Vision ──
+   Remove the blurred photo behind the Current Leadership challenges
+   cards (desktop image + mobile sticky) and the Vision-section photo
+   column, so both sit on a flat dark canvas. Vision text now centres
+   in a single column. */
+.approach-cards-bg__img { display: none !important; }
+#challengesSticky { display: none !important; }
+.approach-future__media { display: none !important; }
+.approach-future { grid-template-columns: 1fr !important; justify-items: center; }
+.approach-future__copy { max-width: 720px; }
+
+/* Challenge card titles fit on a single line in EN + DE
+   ('Künstliche Intelligenz' is the longest at ~21 chars; the upper
+   clamp is small enough that even that fits within the 320px text
+   area inside a 400px-max card). */
+.approach-cards-bg .challenge-box__title {
+  white-space: nowrap;
+  font-size: clamp(20px, 2vw, 26px);
+}
