@@ -5893,19 +5893,12 @@ p, li { font-size: inherit; }
      expertise + quote) fits comfortably within 275mm — the clip is a
      backstop, not the primary mechanism. */
   .standalone {
-    /* fixed (was relative) so .standalone is taken out of normal flow
-       entirely and pinned to the printed page rectangle. iOS Safari
-       paginates based on the in-flow document height even when
-       overflow:hidden visually clips — moving .standalone out of flow
-       removes the only thing that could push past 297mm. The
-       absolutely-positioned .pdf-footer still anchors to this fixed
-       box because fixed elements also create a containing block. */
-    position: fixed !important;
-    inset: 0 !important;
-    /* EXACT 297mm (no max-height + auto) — see the html/body comment
-       above. iOS Safari needs a hard-locked height, not a max with
-       overflow clip, to avoid spilling a blank page 2. */
-    width: 210mm !important;
+    /* position: relative — fixed didn't work on iOS Safari (treated as
+       static for print, so content still paginated even with
+       inset: 0 + height: 297mm). With relative + a hard 297mm height
+       lock + the .profile-content zoom below, the bio is forced into
+       a single A4 page. */
+    position: relative !important;
     min-height: 297mm !important;
     height: 297mm !important;
     max-height: 297mm !important;
@@ -6036,6 +6029,13 @@ p, li { font-size: inherit; }
     background: #fff !important;
     color: #111 !important;
     padding: 0 !important;
+    /* iOS Safari respects CSS zoom (unlike transform: scale, which
+       only paints visually but keeps the original layout box).
+       Compressing the body section by 15 % makes longer bios fit on a
+       single A4 page even when iOS ignores .standalone's overflow:
+       hidden for pagination — the content itself is now physically
+       shorter, so there's nothing left to spill onto page 2. */
+    zoom: 0.85;
   }
   .profile-body {
     max-width: none !important;
