@@ -5846,13 +5846,13 @@ p, li { font-size: inherit; }
     color: #000;
     margin: 0 !important;
     padding: 0 !important;
-    /* Lock html/body to a single A4 page. iOS Safari was paginating
-       off the unclipped content height (overflow: hidden clipped
-       visually but the layout engine still counted the overflowed
-       region as a second page → blank white page 2 in the exported
-       PDF). height + overflow: hidden together force the document to
-       be exactly one page tall. */
-    height: 297mm !important;
+    /* Auto height + max-height: 297mm + overflow: hidden — the doc
+       is allowed to be shorter than A4 (no forced 297mm canvas to
+       paginate against) but never taller. Earlier height: 297mm
+       hard-locked html/body even for short bios, and combined with
+       sub-pixel rounding plus the static pdf-footer below pushed
+       iOS into emitting a blank page 2. */
+    height: auto !important;
     max-height: 297mm !important;
     overflow: hidden !important;
   }
@@ -5893,14 +5893,17 @@ p, li { font-size: inherit; }
      expertise + quote) fits comfortably within 275mm — the clip is a
      backstop, not the primary mechanism. */
   .standalone {
-    /* position: relative — fixed didn't work on iOS Safari (treated as
-       static for print, so content still paginated even with
-       inset: 0 + height: 297mm). With relative + a hard 297mm height
-       lock + the .profile-content zoom below, the bio is forced into
-       a single A4 page. */
+    /* position: relative — fixed didn't work on iOS Safari for print.
+       height: auto + max-height: 297mm lets the element size itself
+       to actual content (so a short bio just stops where its content
+       stops) while the max-height + overflow: hidden caps anything
+       longer at exactly one A4 page. Previously hard-locked to
+       height: 297mm + min-height: 297mm, which combined with the
+       static pdf-footer below pushed total content a few pixels past
+       297mm — iOS rounded that up to a full second blank page. */
     position: relative !important;
-    min-height: 297mm !important;
-    height: 297mm !important;
+    height: auto !important;
+    min-height: 0 !important;
     max-height: 297mm !important;
     /* @page margin is 0 (to suppress the browser header/footer), so
        the real page margins live here as padding. Bottom bumped from
