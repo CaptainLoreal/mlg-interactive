@@ -361,6 +361,15 @@ button { font-family: inherit; cursor: pointer; }
   overflow-wrap: break-word;
   word-break: normal;
 }
+/* In DE mode the auto-hyphenation was breaking 'vertrauen' as
+   'vertrau-en'. Disable auto-hyphenation on the German page; the
+   display headlines that need an explicit break (Organisationen)
+   carry a literal hyphen / <br> in the data-de value instead. */
+html[lang="de"] .display__line--break,
+html[lang="de"] .display__line {
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
 
 /* <br class="br-mobile"> only breaks on mobile; hidden on desktop. */
 .br-mobile { display: none; }
