@@ -5929,10 +5929,15 @@ p, li { font-size: inherit; }
     /* Broaden the banner: negative side margins pull it 8 mm past the
        .standalone side padding (14 mm) on each edge, so the image
        spans wider on the page (≈6 mm from each paper edge). */
-    margin-top: 3mm;        /* gap above the banner in the PDF — trimmed from 8mm to keep mobile exports on a single page */
+    /* Without !important the bio's inline <style> block wins, because
+       it's declared *after* styles.min.css in <head>. The inline rule
+       sets margin-top to env(safe-area-inset-top) + clamp(66px,…) —
+       roughly 90–140mm with the iOS notch — which is exactly what
+       was pushing mobile PDF exports onto a second page. */
+    margin-top: 3mm !important;        /* gap above the banner in the PDF — trimmed from 8mm to keep mobile exports on a single page */
     margin-left: -8mm !important;
     margin-right: -8mm !important;
-    margin-bottom: 6mm;
+    margin-bottom: 6mm !important;
     page-break-inside: avoid;
   }
   .profile-hero__media,
