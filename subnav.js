@@ -246,10 +246,42 @@
         meta.setAttribute('content', 'width=794, initial-scale=1');
       }
       window.addEventListener('afterprint', restoreViewport);
-      // iOS Safari needs a beat to apply the new viewport before print().
-      setTimeout(function () { window.print(); }, isMobile() ? 200 : 0);
-      // Fallback in case afterprint never fires (iOS).
-      setTimeout(restoreViewport, 4000);
+
+      /* Force any lazy-loaded images to load BEFORE print(). iOS Safari
+         doesn't load loading="lazy" images for print, so the hero banner
+         was rendering as a solid black box on mobile PDF exports. Flip
+         every img.loading to 'eager', then wait for them all to finish
+         decoding (with a generous 3s safety fallback) before calling
+         window.print(). */
+      Array.prototype.forEach.call(
+        document.querySelectorAll('img[loading="lazy"]'),
+        function (img) { img.loading = 'eager'; }
+      );
+      var imgs = Array.prototype.slice.call(document.querySelectorAll('img'));
+      var pending = imgs.filter(function (img) { return !img.complete; });
+      var printed = false;
+      function doPrint() {
+        if (printed) return; printed = true;
+        // iOS Safari needs a beat to apply the new viewport before print().
+        setTimeout(function () { window.print(); }, isMobile() ? 200 : 0);
+        // Fallback in case afterprint never fires (iOS).
+        setTimeout(restoreViewport, 4000);
+      }
+      if (pending.length === 0) {
+        doPrint();
+      } else {
+        var remaining = pending.length;
+        function tick() {
+          remaining--;
+          if (remaining <= 0) doPrint();
+        }
+        pending.forEach(function (img) {
+          img.addEventListener('load', tick, { once: true });
+          img.addEventListener('error', tick, { once: true });
+        });
+        // Safety: print anyway after 3s so a stuck image doesn't block forever.
+        setTimeout(doPrint, 3000);
+      }
     }
     window.MLG = window.MLG || {};
     window.MLG.printPdf = printPdf;
