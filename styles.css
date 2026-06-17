@@ -5870,16 +5870,20 @@ p, li { font-size: inherit; }
      expertise + quote) fits comfortably within 275mm — the clip is a
      backstop, not the primary mechanism. */
   .standalone {
-    position: static !important;
+    /* relative (was static) so the absolutely-positioned .pdf-footer
+       on core team pages can anchor to the printed page bottom. */
+    position: relative !important;
     min-height: auto !important;
     height: auto !important;
     /* @page margin is 0 (to suppress the browser header/footer), so
-       the real page margins live here as padding. Full A4 height
-       with box-sizing: border-box → usable content area is still
-       297 − 6 − 16 = 275 mm, the same single-page budget as before. */
+       the real page margins live here as padding. Bottom bumped from
+       16mm → 22mm to reserve room for the centered pdf-footer (brand
+       line + emails) on core team profiles; bios without a pdf-footer
+       just get a slightly larger empty bottom margin. Usable content
+       area: 297 − 6 − 22 = 269 mm. */
     box-sizing: border-box !important;
     max-height: 297mm !important;
-    padding: 6mm 14mm 16mm !important;
+    padding: 6mm 14mm 22mm !important;
     background: #fff !important;
     overflow: hidden !important;
     animation: none !important;
@@ -6072,7 +6076,40 @@ p, li { font-size: inherit; }
     margin: 0 !important;
     font-size: 10pt !important;
   }
+
+  /* ── PDF-only footer (core team profiles) ──
+     Anchored at the bottom of the printed page inside .standalone
+     (which is position: relative in print). Brand line + personal
+     and info@ email on a single contact line, centred. The
+     .standalone has 22mm bottom padding reserved above, so the body
+     never collides with this footer. */
+  .pdf-footer {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 8mm !important;
+    text-align: center !important;
+    padding: 0 14mm !important;
+  }
+  .pdf-footer__brand {
+    margin: 0 0 2pt !important;
+    font-size: 8.5pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mlg-red) !important;
+  }
+  .pdf-footer__contact {
+    margin: 0 !important;
+    font-size: 8.5pt !important;
+    color: #555 !important;
+  }
 }
+
+/* Hidden on screen — the PDF-only footer is shown only by the print
+   media query above. */
+.pdf-footer { display: none; }
 
 
 /* ── Sticky hero image — bridges slides 0 (Welcome) and 1 (Tailor) ──
