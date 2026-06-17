@@ -5831,11 +5831,21 @@ p, li { font-size: inherit; }
   html, body {
     background: #fff !important;
     color: #000;
-    margin: 0;
-    padding: 0;
-    overflow: visible !important;
-    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    /* Lock html/body to a single A4 page. iOS Safari was paginating
+       off the unclipped content height (overflow: hidden clipped
+       visually but the layout engine still counted the overflowed
+       region as a second page → blank white page 2 in the exported
+       PDF). height + overflow: hidden together force the document to
+       be exactly one page tall. */
+    height: 297mm !important;
+    max-height: 297mm !important;
+    overflow: hidden !important;
   }
+  /* Hide any body-level sibling that isn't the printable .standalone
+     (e.g. the mobile-nav drawer subnav.js appends to body). */
+  body > *:not(.standalone) { display: none !important; }
   /* PDF body type — Aptos Narrow with a graceful fallback chain.
      User reported the printed PDF was defaulting to Times-style serif;
      this forces a clean sans across every element on the printed page. */
@@ -5873,8 +5883,12 @@ p, li { font-size: inherit; }
     /* relative (was static) so the absolutely-positioned .pdf-footer
        on core team pages can anchor to the printed page bottom. */
     position: relative !important;
-    min-height: auto !important;
-    height: auto !important;
+    /* EXACT 297mm (no max-height + auto) — see the html/body comment
+       above. iOS Safari needs a hard-locked height, not a max with
+       overflow clip, to avoid spilling a blank page 2. */
+    min-height: 297mm !important;
+    height: 297mm !important;
+    max-height: 297mm !important;
     /* @page margin is 0 (to suppress the browser header/footer), so
        the real page margins live here as padding. Bottom bumped from
        16mm → 22mm to reserve room for the centered pdf-footer (brand
@@ -5882,7 +5896,6 @@ p, li { font-size: inherit; }
        just get a slightly larger empty bottom margin. Usable content
        area: 297 − 6 − 22 = 269 mm. */
     box-sizing: border-box !important;
-    max-height: 297mm !important;
     padding: 6mm 14mm 22mm !important;
     background: #fff !important;
     overflow: hidden !important;
