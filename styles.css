@@ -5820,6 +5820,18 @@ p, li { font-size: inherit; }
 }
 
 
+/* Screen-mode centring for the "Areas of Expertise" label and the tag
+   pills beneath it on team profile pages. The print block below
+   centres the same pair for PDF; this rule pairs them on screen too.
+   :has(+ .profile-tags) targets only the label that precedes the tags,
+   leaving the "Personal profile" header above the bio body left-aligned. */
+.profile-section-label:has(+ .profile-tags) {
+  text-align: center;
+}
+.profile-tags {
+  justify-content: center;
+}
+
 /* ── Print / Save-as-PDF styling for team member profile pages ─────────
    Triggered by the "Generate PDF" button → window.print().
    Hides navigation, controls, and back-links; preserves background
@@ -5949,11 +5961,11 @@ p, li { font-size: inherit; }
        sets margin-top to env(safe-area-inset-top) + clamp(66px,…) —
        roughly 90–140mm with the iOS notch — which is exactly what
        was pushing mobile PDF exports onto a second page. */
-    /* Top gap = 6mm to match the visual gap on the left and right
-       sides of the banner: .standalone has 14mm horizontal padding
-       and the banner has -8mm side margins, leaving 6mm of page
-       between banner and edge. Mirroring that vertically. */
-    margin-top: 6mm !important;
+    /* Generous 10mm of white space above the banner. The 6mm side
+       gap (14mm standalone padding − 8mm negative banner margin) is
+       intentionally narrower for visual balance — the banner reads
+       as deliberately seated below the page top. */
+    margin-top: 10mm !important;
     margin-left: -8mm !important;
     margin-right: -8mm !important;
     margin-bottom: 4mm !important;    /* tighter gap below the banner so more body content fits */
@@ -6081,13 +6093,16 @@ p, li { font-size: inherit; }
     text-transform: uppercase;
     color: #555 !important;
   }
-  /* Extra breathing room before the Areas of Expertise block. */
+  /* Extra breathing room before the Areas of Expertise block — and
+     centre both the section label and the tag pills under it. */
   .profile-section-label:has(+ .profile-tags) {
     margin-top: 20pt !important;
+    text-align: center !important;
   }
   .profile-tags {
     display: flex !important;
     flex-wrap: wrap;
+    justify-content: center !important;
     gap: 5px;
     margin-top: 14pt !important;
     margin-bottom: 16pt !important;
@@ -6207,7 +6222,7 @@ p, li { font-size: inherit; }
   }
   .profile-hero {
     height: 140px !important;
-    margin: 4mm -8mm 3mm !important;
+    margin: 8mm -8mm 3mm !important;
   }
   .pdf-footer { margin: 4pt 0 0 !important; }
   .pdf-footer__brand, .pdf-footer__contact { font-size: 7.5pt !important; }
