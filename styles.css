@@ -927,16 +927,18 @@ html[lang="de"] .display__line {
   opacity: 1;
 }
 
-/* Mobile scroll-perf: cut the topbar blur from 14px → 6px on
-   phones. The topbar pseudo-element is composited on every frame
-   while the deck scrolls; on mid-range phones a 14px backdrop
-   blur is the single biggest paint cost in the entire site and
-   the most obvious cause of scroll stutter. 6px still reads as
-   visibly frosted glass, much cheaper to paint. */
+/* Mobile scroll-perf: replace the topbar's backdrop-filter blur with
+   a solid opaque background on phones. backdrop-filter forces the
+   GPU to (1) composite everything behind the topbar, (2) run a blur
+   convolution over it, (3) layer the topbar on top — every animation
+   frame. A flat fill is effectively free. Visual cost: lose the
+   frosted-glass look on phones (topbar becomes solid black instead
+   of seeing the photo through it); huge perf win in return. */
 @media (max-width: 640px) {
   .topbar::before {
-    backdrop-filter: blur(6px) !important;
-    -webkit-backdrop-filter: blur(6px) !important;
+    background: #000 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
   /* Decode large slide media off the main thread so a slide
      scrolling into view doesn't stall the scroll loop while the
