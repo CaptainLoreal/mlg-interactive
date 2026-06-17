@@ -30,6 +30,18 @@
     { title: 'Contact',         href: P + 'index.html#slide=10' },
   ];
 
+  // German labels for the nav titles. Brand service names in the dropdown
+  // (Leadership Development, Coaching & Sparring, …) deliberately stay English.
+  var NAV_DE = {
+    'Services': 'Leistungen',
+    'Clients':  'Kunden',
+    'Approach': 'Ansatz',
+    'Why MLG':  'Warum MLG',
+    'Team':     'Team',
+    'Book':     'Buch',
+    'Contact':  'Kontakt',
+  };
+
   var topbar = document.querySelector('.topbar');
   if (!topbar) return;
 
@@ -50,7 +62,7 @@
       var btn = document.createElement('a');
       btn.className = 'slide-nav__btn slide-nav__btn--has-drop' + (isServicePage ? ' is-active' : '');
       btn.href = slide.href;
-      btn.innerHTML = slide.title + '<svg class="slide-nav__chevron" viewBox="0 0 10 6" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>';
+      btn.innerHTML = '<span data-de="' + (NAV_DE[slide.title] || slide.title) + '">' + slide.title + '</span><svg class="slide-nav__chevron" viewBox="0 0 10 6" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 1l4 4 4-4"/></svg>';
 
       var drop = document.createElement('div');
       drop.className = 'slide-nav__dropdown';
@@ -70,6 +82,7 @@
       a.className = 'slide-nav__btn';
       a.href = slide.href;
       a.textContent = slide.title;
+      if (NAV_DE[slide.title]) a.dataset.de = NAV_DE[slide.title];
       nav.appendChild(a);
     }
   });
@@ -115,6 +128,7 @@
     a.className = 'mobile-nav__item';
     a.href = slide.href;
     a.textContent = slide.title;
+    if (NAV_DE[slide.title]) a.dataset.de = NAV_DE[slide.title];
 
     if (slide.dropdown) {
       var isServicePage = slide.dropdown.some(function (d) { return d.href === page; });
@@ -188,12 +202,19 @@
   (function () {
     function applyLang(lang) {
       document.documentElement.lang = lang;
-      localStorage.setItem('mlg-lang', lang);
+      try { localStorage.setItem('mlg-lang', lang); } catch (e) {}
       document.querySelectorAll('.lang-switch__btn').forEach(function (b) {
         b.classList.toggle('is-active', b.dataset.lang === lang);
       });
-      document.querySelectorAll('[data-en][data-de]').forEach(function (el) {
-        el.textContent = lang === 'de' ? el.dataset.de : el.dataset.en;
+      // Translatable content carries only data-de; authored English stays as
+      // the element's markup and is captured once. innerHTML keeps inline tags.
+      document.querySelectorAll('[data-de]').forEach(function (el) {
+        if (el.__en == null) el.__en = el.innerHTML;
+        el.innerHTML = lang === 'de' ? el.dataset.de : el.__en;
+      });
+      document.querySelectorAll('[data-de-ph]').forEach(function (el) {
+        if (el.__enph == null) el.__enph = el.getAttribute('placeholder') || '';
+        el.setAttribute('placeholder', lang === 'de' ? el.dataset.dePh : el.__enph);
       });
     }
     var saved = localStorage.getItem('mlg-lang') || 'en';
