@@ -5946,7 +5946,7 @@ p, li { font-size: inherit; }
        sets margin-top to env(safe-area-inset-top) + clamp(66px,…) —
        roughly 90–140mm with the iOS notch — which is exactly what
        was pushing mobile PDF exports onto a second page. */
-    margin-top: 0 !important;         /* sit flush against the page top */
+    margin-top: 3mm !important;       /* small consistent gap above the banner on every bio */
     margin-left: -8mm !important;
     margin-right: -8mm !important;
     margin-bottom: 4mm !important;    /* tighter gap below the banner so more body content fits */
