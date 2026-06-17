@@ -45,6 +45,19 @@
   var topbar = document.querySelector('.topbar');
   if (!topbar) return;
 
+  /* Inject the "… Empowering Leadership" tagline next to the logo on
+     every subpage, matching the post-hero menu state of index.html.
+     The subpage HTML carries a bare <a class="topbar__logo"><img></a>
+     (no tagline span) — we add the span here so all 63 subpages
+     pick it up without touching their markup. */
+  var logoLink = topbar.querySelector('.topbar__logo');
+  if (logoLink && !logoLink.querySelector('.topbar__tagline')) {
+    var tagline = document.createElement('span');
+    tagline.className = 'topbar__tagline';
+    tagline.textContent = '… Empowering Leadership';
+    logoLink.appendChild(tagline);
+  }
+
   var page = location.pathname.split('/').pop() || 'index.html';
 
   /* ── Desktop slide-nav ── */

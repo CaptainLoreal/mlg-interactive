@@ -1035,7 +1035,11 @@ html[lang="de"] .display__line {
   opacity: 0;
   transition: opacity var(--dur-3) var(--ease-out);
 }
-.topbar--past-hero .topbar__tagline { opacity: 1; }
+.topbar--past-hero .topbar__tagline,
+/* On every standalone subpage the topbar is in its "menu" state by
+   default (same visual contract as past-hero on the deck), so the
+   tagline should be visible everywhere the topbar is rendered. */
+.standalone .topbar__tagline { opacity: 1; }
 @media (max-width: 640px) {
   .topbar__tagline { display: none; }
 }

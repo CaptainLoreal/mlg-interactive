@@ -534,8 +534,17 @@
     return Math.max(1.0, Math.min(widthCap, heightCap));
   }
   let heroMaxScale = getHeroMaxScale();
-  // Initialise to the right scale immediately so first paint matches scroll=0
-  if (heroLogoStack) document.documentElement.style.setProperty('--hero-logo-scale', heroMaxScale.toFixed(3));
+  // Initialise to the right scale immediately so first paint matches the
+  // landing slide. tickSmooth only writes --hero-logo-scale while
+  // scrollCurrent < vh * 0.5 + 50, so if we deep-link to a non-hero slide
+  // (e.g. subpage → index.html#slide=8 Team) the scale would stay at the
+  // big hero value forever — the menu logo rendered huge across the page.
+  // Detect a non-hero hash deep-link and start at 1× instead.
+  if (heroLogoStack) {
+    var deepLinkedPastHero = location.hash && location.hash !== '#slide=0' && location.hash !== '#';
+    var initialScale = deepLinkedPastHero ? 1 : heroMaxScale;
+    document.documentElement.style.setProperty('--hero-logo-scale', initialScale.toFixed(3));
+  }
   /* Resize listener — debounced via rAF — recomputes the cap and lets
      the next tickSmooth re-apply the smooth scroll-driven scale. */
   let resizeRaf = 0;
@@ -939,6 +948,17 @@
       scrollTarget  = y;
       scrollCurrent = y;
       window.scrollTo({ top: y, behavior: 'instant' });
+      /* Force the past-hero state immediately when deep-linking to a
+         non-hero slide. tickSmooth + checkHero both update the class
+         on a real scroll event, but the programmatic 'instant' jump
+         above does not always fire a scroll listener before the next
+         paint — leaving the topbar in its hero state (dark red/black
+         logo + transparent menu) for a visible frame on top of the
+         dark deep-linked slide. */
+      if (idx > 0) {
+        const tb = document.querySelector('.topbar');
+        if (tb) tb.classList.add('topbar--past-hero');
+      }
       startSmoothScroll();
       setTimeout(buildGlobe, 16);
       setTimeout(initReveal, 300);
