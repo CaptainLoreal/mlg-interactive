@@ -6036,10 +6036,10 @@ p, li { font-size: inherit; }
     color: #222 !important;
   }
   .profile-body p {
-    font-size: 8pt !important;            /* was 9.5pt — physical content shrink to fit one A4 page on iOS */
-    line-height: 1.3 !important;          /* was 1.4 */
+    font-size: 9.5pt !important;
+    line-height: 1.4 !important;
     color: #222 !important;
-    margin: 0 0 3pt !important;           /* was 5pt */
+    margin: 0 0 5pt !important;
     page-break-inside: avoid;
   }
   .profile-body p strong { color: #000 !important; }
@@ -6053,9 +6053,9 @@ p, li { font-size: inherit; }
   .standalone .profile-body p.profile-pull {
     color: #111 !important;
     font-weight: 600 !important;
-    font-size: 10.5pt !important;         /* was 12pt */
-    line-height: 1.3 !important;
-    margin: 5pt 0 !important;             /* was 8pt */
+    font-size: 12pt !important;
+    line-height: 1.35 !important;
+    margin: 8pt 0 !important;
   }
   .standalone .profile-body p.profile-pull strong { color: #000 !important; }
 
@@ -6071,55 +6071,55 @@ p, li { font-size: inherit; }
   }
 
   .profile-section-label {
-    margin-top: 6pt !important;           /* was 9pt */
-    margin-bottom: 3pt !important;        /* was 5pt */
-    font-size: 7.5pt !important;          /* was 8.5pt */
+    margin-top: 9pt !important;
+    margin-bottom: 5pt !important;
+    font-size: 8.5pt !important;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #555 !important;
   }
   /* Extra breathing room before the Areas of Expertise block. */
   .profile-section-label:has(+ .profile-tags) {
-    margin-top: 10pt !important;          /* was 20pt */
+    margin-top: 20pt !important;
   }
   .profile-tags {
     display: flex !important;
     flex-wrap: wrap;
-    gap: 3px;                             /* was 5px */
-    margin-top: 6pt !important;           /* was 14pt */
-    margin-bottom: 8pt !important;        /* was 16pt */
+    gap: 5px;
+    margin-top: 14pt !important;
+    margin-bottom: 16pt !important;
   }
   .profile-tag {
     display: inline-block !important;
     background: #eee !important;
     color: #111 !important;
     border: 1px solid #ccc !important;
-    padding: 1px 7px;                     /* was 2px 9px */
+    padding: 2px 9px;
     border-radius: 4px;
-    font-size: 7.5pt;                     /* was 8.5pt */
+    font-size: 8.5pt;
     page-break-inside: avoid;
   }
 
-  /* Quote block — tighter margins so it fits on one page. */
+  /* Quote block — extra gap above it in the PDF (a "line break"). */
   .profile-quote {
-    margin-top: 8pt !important;           /* was 20pt */
-    padding: 6pt 10pt !important;         /* was 9pt 12pt */
+    margin-top: 20pt !important;
+    padding: 9pt 12pt !important;
     background: #f5f5f5 !important;
     border-left: 3px solid var(--mlg-red) !important;
     page-break-inside: avoid;
   }
   .profile-quote__label {
-    font-size: 7.5pt;                     /* was 8.5pt */
+    font-size: 8.5pt;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #666 !important;
-    margin: 0 0 2pt !important;           /* was 3pt */
+    margin: 0 0 3pt !important;
   }
   .profile-quote__text {
     font-style: italic;
     color: #222 !important;
     margin: 0 !important;
-    font-size: 9pt !important;            /* was 10pt */
+    font-size: 10pt !important;
   }
 
   /* ── PDF-only footer (core team profiles) ──
