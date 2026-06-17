@@ -198,6 +198,61 @@
     }
   }
 
+  /* ── PDF export (Generate PDF button on team bio pages) ──
+     iOS Safari ignores `@page size: A4` for content-height; it paginates
+     based on the *current viewport* CSS-pixel layout. On a phone that
+     viewport is ~390px wide → the laid-out page is very tall → the print
+     spills onto multiple pages even though styles.css clips with
+     max-height: 297mm + overflow: hidden.
+     Fix: widen the viewport meta to A4-portrait pixel width (794 ≈ 210mm
+     at 96 dpi) right before print() so iOS re-lays out at A4 width; the
+     existing one-page print rule then renders a clean single-page PDF.
+     Restore the original viewport on afterprint (or after a fallback
+     timeout — iOS's afterprint is unreliable). */
+  (function () {
+    var meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) return;
+    function isMobile() {
+      return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+             window.matchMedia('(max-width: 760px)').matches;
+    }
+    var origContent = meta.getAttribute('content');
+    var restoring = false;
+    function restoreViewport() {
+      if (restoring) return; restoring = true;
+      if (origContent != null) meta.setAttribute('content', origContent);
+      window.removeEventListener('afterprint', restoreViewport);
+    }
+    function printPdf(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      restoring = false;
+      if (isMobile()) {
+        // 794 CSS px ≈ A4 portrait width at 96 dpi. iOS reflows to this
+        // width, then the print CSS's max-height: 297mm + overflow: hidden
+        // clips the content to a single page.
+        meta.setAttribute('content', 'width=794, initial-scale=1');
+      }
+      window.addEventListener('afterprint', restoreViewport);
+      // iOS Safari needs a beat to apply the new viewport before print().
+      setTimeout(function () { window.print(); }, isMobile() ? 200 : 0);
+      // Fallback in case afterprint never fires (iOS).
+      setTimeout(restoreViewport, 4000);
+    }
+    window.MLG = window.MLG || {};
+    window.MLG.printPdf = printPdf;
+    function bindButtons() {
+      document.querySelectorAll('button[onclick*="window.print"], a[onclick*="window.print"]').forEach(function (btn) {
+        btn.removeAttribute('onclick');
+        btn.addEventListener('click', printPdf);
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bindButtons);
+    } else {
+      bindButtons();
+    }
+  })();
+
   /* ── Language switcher init ── */
   (function () {
     function applyLang(lang) {
