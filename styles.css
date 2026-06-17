@@ -5896,7 +5896,12 @@ p, li { font-size: inherit; }
        just get a slightly larger empty bottom margin. Usable content
        area: 297 − 6 − 22 = 269 mm. */
     box-sizing: border-box !important;
-    padding: 6mm 14mm 22mm !important;
+    /* Top padding trimmed from 6mm → 3mm. iOS Safari adds its own
+       small top margin to the printed page even with @page margin: 0,
+       so the bio was sitting too low on mobile exports. 3mm + the
+       3mm .profile-hero margin below = 6mm total above the banner,
+       which fits comfortably on mobile + desktop both. */
+    padding: 3mm 14mm 22mm !important;
     background: #fff !important;
     overflow: hidden !important;
     animation: none !important;
@@ -5915,7 +5920,7 @@ p, li { font-size: inherit; }
     /* Broaden the banner: negative side margins pull it 8 mm past the
        .standalone side padding (14 mm) on each edge, so the image
        spans wider on the page (≈6 mm from each paper edge). */
-    margin-top: 8mm;        /* "br" — gap above the banner in the PDF */
+    margin-top: 3mm;        /* gap above the banner in the PDF — trimmed from 8mm to keep mobile exports on a single page */
     margin-left: -8mm !important;
     margin-right: -8mm !important;
     margin-bottom: 6mm;
