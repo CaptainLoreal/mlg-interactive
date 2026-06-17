@@ -942,12 +942,17 @@ html[lang="de"] .display__line {
   }
   /* Decode large slide media off the main thread so a slide
      scrolling into view doesn't stall the scroll loop while the
-     browser synchronously decodes its photo. */
+     browser synchronously decodes its photo.
+     Excludes .hero-sticky img and .section-sticky img on purpose
+     — those are position: fixed parallax-style backgrounds that
+     must stay paint-ready during the WHOLE section scroll;
+     content-visibility: auto on them caused the Why-MLG and
+     Challenges background images to stutter, because the browser
+     was skip-rendering them when momentarily off-screen and then
+     re-decoding on the next paint. */
   .slide__media img,
   .approach-hero__img img,
   .approach-cards-bg__img,
-  .hero-sticky img,
-  .section-sticky img,
   .news-media img {
     content-visibility: auto;
   }
