@@ -239,6 +239,13 @@
     @media (max-width: 640px) {
       .ld-offerings { grid-template-columns: 1fr; }
       .ld-usp { padding: 24px; }
+      /* Shorter banner on mobile so the wide group-32 photo isn't
+         cropped so aggressively at the sides — keeps both the left
+         man and the right woman visible in the frame. !important is
+         required because styles.css line 2033 sets .ld-hero to
+         100dvh !important globally. */
+      .ld-hero { height: 34vh !important; min-height: 260px !important; }
+      .ld-hero__media img { object-position: center center; }
     }
   </style>
 </head>
