@@ -714,7 +714,7 @@
   // language switcher swaps each generated element via its data-de attribute.
   const NAV_DE = {
     'Services': 'Leistungen',
-    'Clients':  'Kundenuniversum',
+    'Clients':  'Kunden',
     'Approach': 'Ansatz',
     'Why MLG':  'Warum MLG',
     'Team':     'Team',
