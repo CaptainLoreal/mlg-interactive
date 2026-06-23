@@ -1673,7 +1673,23 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    photo cuts off the left man's head. Pull the focal point left so his
    whole head stays in frame in portrait viewports. */
 @media (max-width: 640px) {
-  .slide[data-title="Welcome"] .slide__media img { object-position: 32% center; }
+  /* Nudge the hero image up a little on mobile. The image height exactly
+     fills the portrait viewport, so the only vertical room comes from the
+     scale (base 1.08, Ken Burns 1.10→1.22). The upward translate stays
+     within that scale's bottom overflow, so no gap appears. Both the
+     resting transform and the Ken Burns keyframes get the shift so the
+     nudge holds whether or not the entrance animation is running. */
+  .slide[data-title="Welcome"] .slide__media img {
+    object-position: 32% center;
+    transform: scale(1.08) translateY(-3%);
+  }
+  .slide[data-title="Welcome"].is-in-view .slide__media img {
+    animation: kenburnsAUp 14s var(--ease-out) forwards;
+  }
+  @keyframes kenburnsAUp {
+    0%   { transform: scale(1.10) translate(0, -2.5%); }
+    100% { transform: scale(1.22) translate(-2%, -4%); }
+  }
 }
 .slide[data-anchor="top"]    .slide__media img { object-position: center 5%;  }
 .slide[data-anchor="bottom"] .slide__media img { object-position: center 78%; }
