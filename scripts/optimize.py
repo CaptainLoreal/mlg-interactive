@@ -54,23 +54,34 @@ write_min(ROOT/'app.js',     minify_js)
 write_min(ROOT/'subnav.js',  minify_js)
 
 # ── WebP recompress ────────────────────────────────────────────────
-print('\n=== WebP photo recompress (quality 72, method 6) ===')
-photos = sorted((ROOT/'assets/photos').glob('*.webp'))
-total_before = total_after = 0
-for p in photos:
-    before = p.stat().st_size
-    total_before += before
-    im = Image.open(p).convert('RGB')
-    buf = io.BytesIO()
-    im.save(buf, 'WEBP', quality=72, method=6)
-    new_bytes = buf.getvalue()
-    # only overwrite if actually smaller (small files can grow with method 6 sometimes)
-    if len(new_bytes) < before:
-        p.write_bytes(new_bytes)
-        total_after += len(new_bytes)
-        flag = '✓'
-    else:
-        total_after += before
-        flag = '·'
-    print(f'  {flag} {p.name:24s} {before/1024:>6.1f}K → {len(new_bytes)/1024:>6.1f}K')
-print(f'\n  total: {total_before/1024:.0f}K → {total_after/1024:.0f}K  ({100*(1-total_after/total_before):.0f}% smaller)')
+# DISABLED by default. This step used to re-encode every WebP at
+# quality 72 IN PLACE on every build. Because it re-read the already-
+# compressed files and re-saved them lossily, each run added generation
+# loss — over many builds the photos visibly degraded (originals ~148K
+# dropped to ~93K, some far worse). Photos are now kept at full quality.
+#
+# Set MLG_RECOMPRESS=1 to opt in for a deliberate one-off pass. Even
+# then, only run it on PRISTINE sources — never repeatedly in place.
+if os.environ.get('MLG_RECOMPRESS') == '1':
+    print('\n=== WebP photo recompress (quality 82, method 6) — OPT-IN ===')
+    photos = sorted((ROOT/'assets/photos').glob('*.webp'))
+    total_before = total_after = 0
+    for p in photos:
+        before = p.stat().st_size
+        total_before += before
+        im = Image.open(p).convert('RGB')
+        buf = io.BytesIO()
+        im.save(buf, 'WEBP', quality=82, method=6)
+        new_bytes = buf.getvalue()
+        # only overwrite if actually smaller (small files can grow with method 6 sometimes)
+        if len(new_bytes) < before:
+            p.write_bytes(new_bytes)
+            total_after += len(new_bytes)
+            flag = '✓'
+        else:
+            total_after += before
+            flag = '·'
+        print(f'  {flag} {p.name:24s} {before/1024:>6.1f}K → {len(new_bytes)/1024:>6.1f}K')
+    print(f'\n  total: {total_before/1024:.0f}K → {total_after/1024:.0f}K  ({100*(1-total_after/total_before):.0f}% smaller)')
+else:
+    print('\n=== WebP photo recompress: SKIPPED (photos kept at full quality) ===')
