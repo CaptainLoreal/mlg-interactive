@@ -6517,6 +6517,8 @@ p, li { font-size: inherit; }
   .ld-hero__lead,
   .ld-intro p,
   .ld-offering__body,
+  .ld-offering__list li,
+  .ld-offering__list--lead li,
   .slide[data-title="Welcome"] .slide__copy > div:last-child p,
   .slide--approach-intro .approach-cards-bg .challenge-box__body {
     font-size: 17px !important;
