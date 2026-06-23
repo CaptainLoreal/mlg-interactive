@@ -1266,7 +1266,10 @@
       const next     = !expanded;
       toggle.setAttribute('aria-expanded', String(next));
       details.hidden = !next;
-      if (label) label.textContent = next ? 'show less' : 'learn more';
+      if (label) {
+        const de = document.documentElement.lang === 'de';
+        label.textContent = next ? (de ? 'weniger erfahren' : 'show less') : (de ? 'mehr erfahren' : 'learn more');
+      }
     });
   })();
 
