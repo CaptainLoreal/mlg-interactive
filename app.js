@@ -2079,8 +2079,8 @@
     showStep(DONE_IDX);
   }
 
-  /* Full submit — finalize + open the user's mail client. ONLY invoked
-     by an explicit click on the Send button (data-action="submit"). */
+  /* Full submit — finalize and show the thank-you screen. Does NOT open
+     the user's mail client; answers are simply stored. */
   function submitForm() {
     const step = steps[current];
     if (!validate(step)) {
@@ -2090,7 +2090,6 @@
     }
     collect(step);
     storeAnswers('contact', answers);
-    openMailto('info@munichleadership.com', 'Interested in MLG services');
     showStep(DONE_IDX);
   }
 

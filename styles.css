@@ -5892,6 +5892,8 @@ p, li { font-size: inherit; }
     margin: 8px 0 0;
   }
   .news-media { display: none; }
+  /* Centre the book order buttons under the centred card text */
+  .news-card__cta-group { margin-left: auto; margin-right: auto; }
 }
 
 
