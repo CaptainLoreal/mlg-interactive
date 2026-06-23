@@ -5811,6 +5811,21 @@ p, li { font-size: inherit; }
   color: rgba(255,255,255,0.78);
   margin: 0;
 }
+.news-card__cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: fit-content;
+  margin-top: 16px;
+}
+.news-card__cta-group .news-card__cta {
+  margin: 0;
+  width: 100%;
+}
+.news-card__cta-group .news-card__cta a {
+  width: 100%;
+  justify-content: space-between;
+}
 .news-card__cta {
   margin: 16px 0 0;
 }
