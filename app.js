@@ -692,8 +692,8 @@
      ===================================================== */
   const serviceLinks = [
     { label: 'Leadership Development',  de: 'Führungskräfteentwicklung',  href: 'leadership-development.html' },
-    { label: 'Coaching & Sparring',                                        href: 'coaching-sparring.html' },
-    { label: 'Audits & Assessments',                                       href: 'audits-assessments.html' },
+    { label: 'Coaching & Sparring',     de: 'Coaching & Sparring',        href: 'coaching-sparring.html' },
+    { label: 'Audits & Assessments',    de: 'Audits & Assessments',       href: 'audits-assessments.html' },
     { label: 'Cultural Transformation', de: 'Kulturelle Transformation',   href: 'cultural-transformation.html' },
   ];
 
@@ -858,8 +858,8 @@
   const mobileNav  = $('#mobileNav');
   const serviceSubLinks = [
     { label: 'Leadership Development',  de: 'Führungskräfteentwicklung',  href: 'leadership-development.html' },
-    { label: 'Coaching & Sparring',                                        href: 'coaching-sparring.html' },
-    { label: 'Audits & Assessments',                                       href: 'audits-assessments.html' },
+    { label: 'Coaching & Sparring',     de: 'Coaching & Sparring',        href: 'coaching-sparring.html' },
+    { label: 'Audits & Assessments',    de: 'Audits & Assessments',       href: 'audits-assessments.html' },
     { label: 'Cultural Transformation', de: 'Kulturelle Transformation',   href: 'cultural-transformation.html' },
   ];
 
