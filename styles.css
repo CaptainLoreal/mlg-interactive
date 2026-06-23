@@ -3353,7 +3353,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   font: inherit;
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: background var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
 }
