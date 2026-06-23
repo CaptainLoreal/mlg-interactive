@@ -4143,6 +4143,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 .contact-block__phone-row--standalone .contact-pill {
   margin-top: 6px;
+  background: var(--mlg-red);
+  border-color: var(--mlg-red);
+  width: 100%;
+  max-width: 340px;
+  justify-content: center;
 }
 @media (max-width: 640px) {
   .contact-pill {
