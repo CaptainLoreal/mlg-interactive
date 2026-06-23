@@ -36,7 +36,7 @@
     'Services': 'Leistungen',
     'Clients':  'Kunden',
     'Approach': 'Ansatz',
-    'Why MLG':  'Darum MLG',
+    'Why MLG':  'Warum MLG',
     'Team':     'Team',
     'Book':     'Buch',
     'Contact':  'Kontakt',
