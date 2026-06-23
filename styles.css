@@ -5871,6 +5871,9 @@ p, li { font-size: inherit; }
   object-fit: contain;
 }
 
+.news-media__img--mobile {
+  display: none;
+}
 @media (max-width: 900px) {
   .news-wrap {
     flex-direction: column;
@@ -5878,6 +5881,15 @@ p, li { font-size: inherit; }
   }
   .news-card,
   .news-media { max-width: 100%; width: 100%; }
+  .news-media__img--mobile {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 55vw;
+    object-fit: contain;
+    margin: 8px 0 0;
+  }
+  .news-media { display: none; }
 }
 
 
