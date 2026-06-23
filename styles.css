@@ -371,6 +371,9 @@ html[lang="de"] .display__line {
   -webkit-hyphens: manual;
 }
 
+.lang-de-only { display: none; }
+html[lang="de"] .lang-de-only { display: block; }
+
 /* <br class="br-mobile"> only breaks on mobile; hidden on desktop. */
 .br-mobile { display: none; }
 @media (max-width: 640px) {
@@ -3350,6 +3353,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   color: rgba(255,255,255,0.68);
   padding: 8px 18px;
   border-radius: 999px;
+  flex: 1;
   font: inherit;
   font-size: 13px;
   font-weight: 500;
