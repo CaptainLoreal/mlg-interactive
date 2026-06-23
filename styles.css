@@ -3644,6 +3644,29 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     rgba(0,0,0,0)    55%
   );
 }
+
+/* ── Legibility halo behind text that sits over photography ──
+   A soft dark glow directly behind the glyphs lifts contrast on bright
+   image regions without changing layout. Applied site-wide to every
+   hero / slide copy block that overlays an image (index hero + content
+   slides, all service & coaching subpages, every team profile page,
+   future-of-leadership and approach heroes). Pill eyebrows already
+   carry a solid background, so they don't need it. */
+.slide__copy .eyebrow,
+.slide__copy .display,
+.slide__copy .display--sub,
+.hero-head .eyebrow,
+.hero-head .display,
+.ld-hero__copy .ld-hero__title,
+.ld-hero__copy .ld-hero__lead,
+.ld-hero__copy .page-back,
+.profile-hero__copy .profile-hero__name,
+.profile-hero__copy .profile-hero__role,
+.fol-hero__copy .fol-hero__title,
+.approach-hero__copy .approach-hero__title,
+.approach-hero__copy .approach-hero__body {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.55), 0 0 24px rgba(0,0,0,0.45);
+}
 .contact-wrap--tailor .contact-wrap__head {
   text-align: center;
   position: relative;
