@@ -34,7 +34,7 @@
   // (Leadership Development, Coaching & Sparring, …) deliberately stay English.
   var NAV_DE = {
     'Services': 'Leistungen',
-    'Clients':  'Kunden',
+    'Clients':  'Kundenuniversum',
     'Approach': 'Ansatz',
     'Why MLG':  'Warum MLG',
     'Team':     'Team',

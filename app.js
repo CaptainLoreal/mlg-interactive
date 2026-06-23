@@ -691,10 +691,10 @@
      Navigation
      ===================================================== */
   const serviceLinks = [
-    { label: 'Leadership Development',  href: 'leadership-development.html' },
-    { label: 'Coaching & Sparring',     href: 'coaching-sparring.html' },
-    { label: 'Audits & Assessments',    href: 'audits-assessments.html' },
-    { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
+    { label: 'Leadership Development',  de: 'Führungskräfteentwicklung',  href: 'leadership-development.html' },
+    { label: 'Coaching & Sparring',                                        href: 'coaching-sparring.html' },
+    { label: 'Audits & Assessments',                                       href: 'audits-assessments.html' },
+    { label: 'Cultural Transformation', de: 'Kulturelle Transformation',   href: 'cultural-transformation.html' },
   ];
 
   /* Build the top nav in a FIXED order that mirrors the actual deck
@@ -714,7 +714,7 @@
   // language switcher swaps each generated element via its data-de attribute.
   const NAV_DE = {
     'Services': 'Leistungen',
-    'Clients':  'Kunden',
+    'Clients':  'Kundenuniversum',
     'Approach': 'Ansatz',
     'Why MLG':  'Warum MLG',
     'Team':     'Team',
@@ -748,11 +748,12 @@
 
         const drop = document.createElement('div');
         drop.className = 'slide-nav__dropdown';
-        serviceLinks.forEach(({ label, href }) => {
+        serviceLinks.forEach(({ label, de, href }) => {
           const a = document.createElement('a');
           a.className = 'slide-nav__dropdown-item';
           a.href = href;
           a.textContent = label;
+          if (de) a.dataset.de = de;
           drop.appendChild(a);
         });
 
@@ -856,10 +857,10 @@
   const burgerBtn  = $('#burgerBtn');
   const mobileNav  = $('#mobileNav');
   const serviceSubLinks = [
-    { label: 'Leadership Development',  href: 'leadership-development.html' },
-    { label: 'Coaching & Sparring',     href: 'coaching-sparring.html' },
-    { label: 'Audits & Assessments',    href: 'audits-assessments.html' },
-    { label: 'Cultural Transformation', href: 'cultural-transformation.html' },
+    { label: 'Leadership Development',  de: 'Führungskräfteentwicklung',  href: 'leadership-development.html' },
+    { label: 'Coaching & Sparring',                                        href: 'coaching-sparring.html' },
+    { label: 'Audits & Assessments',                                       href: 'audits-assessments.html' },
+    { label: 'Cultural Transformation', de: 'Kulturelle Transformation',   href: 'cultural-transformation.html' },
   ];
 
   if (burgerBtn && mobileNav) {
@@ -881,11 +882,12 @@
       if (title === 'Services') {
         const sub = document.createElement('div');
         sub.className = 'mobile-nav__sub';
-        serviceSubLinks.forEach(({ label, href }) => {
+        serviceSubLinks.forEach(({ label, de, href }) => {
           const a = document.createElement('a');
           a.className = 'mobile-nav__sub-item';
           a.href = href;
           a.textContent = label;
+          if (de) a.dataset.de = de;
           sub.appendChild(a);
         });
         mobileNav.appendChild(sub);
