@@ -5483,7 +5483,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding: clamp(24px, 2.5vw, 32px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 20px;
   min-height: 280px;
 }
