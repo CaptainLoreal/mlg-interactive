@@ -20,7 +20,7 @@
       { label: 'Leadership Development',  de: 'Führungskräfteentwicklung', href: P + 'leadership-development.html' },
       { label: 'Coaching & Sparring',     href: P + 'coaching-sparring.html' },
       { label: 'Audits & Assessments',    href: P + 'audits-assessments.html' },
-      { label: 'Cultural Transformation', href: P + 'cultural-transformation.html' },
+      { label: 'Cultural Transformation', de: 'Kulturelle Transformation', href: P + 'cultural-transformation.html' },
     ]},
     { title: 'Clients',         href: P + 'index.html#slide=2' },
     { title: 'Approach',        href: P + 'index.html#slide=3' },
