@@ -782,14 +782,23 @@
     scrollTarget  = y;
     scrollCurrent = y;
     window.scrollTo({ top: y, behavior: 'instant' });
-    // Sync logo scale and topbar state immediately on jump so they don't
-    // lag until tickSmooth's next rAF (logo would stay large on nav click).
+    // Sync logo scale, topbar and hero-sticky immediately on jump so they
+    // don't lag until tickSmooth's next rAF (logo stays large / sticky bg
+    // stays visible when nav-clicking past their thresholds).
     const vh = window.innerHeight;
     if (y >= vh * 0.5 + 50 && heroLogoStack) {
       document.documentElement.style.setProperty('--hero-logo-scale', '1');
     }
     if (topbarEl) {
       topbarEl.classList.toggle('topbar--past-hero', y >= vh * 0.5);
+    }
+    if (heroSticky) {
+      if (y >= 2.1 * vh) {
+        heroSticky.style.opacity = '0';
+      } else if (y <= vh) {
+        heroSticky.style.opacity = '1';
+        heroSticky.style.transform = 'translate3d(0,0,0)';
+      }
     }
   }
   // Expose globally so other IIFEs (tailor form, etc.) can navigate slides
