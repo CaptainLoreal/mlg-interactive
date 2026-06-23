@@ -445,8 +445,18 @@
   let tickFrame = 0;
 
   function syncHeight() {
-    // Set body height = slides content height so the native scrollbar is real
-    document.body.style.height = slidesEl.scrollHeight + 'px';
+    // On touch/mobile we scroll natively (see "NATIVE SCROLL ON MOBILE" in
+    // styles.css): the deck flows in normal document order, so the body's
+    // natural height already drives the scrollbar. Locking body height to a
+    // snapshot of slidesEl.scrollHeight is what caused black gaps when the
+    // mobile address bar resized the viewport — so skip it on touch and let
+    // the content define its own height.
+    if (!TOUCH) {
+      // Set body height = slides content height so the native scrollbar is real
+      document.body.style.height = slidesEl.scrollHeight + 'px';
+    } else if (document.body.style.height) {
+      document.body.style.height = '';
+    }
     // Slide offsets shift when the content height changes — refresh cache
     if (typeof recomputeSlideOffsets === 'function') recomputeSlideOffsets();
     refreshScrollMetrics();
@@ -610,8 +620,20 @@
     /* translate3d (instead of translateY) keeps the slides container on a
        dedicated GPU compositor layer on iOS/Android Safari, so the per-
        frame transform becomes a pure compositor update (no paint, no
-       layout). Significantly reduces scroll jitter on mobile. */
-    slidesEl.style.transform = `translate3d(0, ${-scrollCurrent}px, 0)`;
+       layout). Significantly reduces scroll jitter on mobile.
+
+       On touch/mobile we DON'T hijack: the deck flows and the browser
+       scrolls it natively (see "NATIVE SCROLL ON MOBILE" in styles.css),
+       so writing this transform would double-move the slides. Skip it
+       and clear any stale transform left from a desktop→mobile resize.
+       scrollCurrent still tracks window.scrollY, so the remaining
+       scroll-driven effects below (nav, rail, reveal, in-view) keep
+       working off the real native scroll position. */
+    if (!TOUCH) {
+      slidesEl.style.transform = `translate3d(0, ${-scrollCurrent}px, 0)`;
+    } else if (slidesEl.style.transform) {
+      slidesEl.style.transform = '';
+    }
 
     const vh = cachedVH;
     tickFrame++;

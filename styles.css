@@ -6603,3 +6603,33 @@ p, li { font-size: inherit; }
   white-space: nowrap;
   font-size: clamp(20px, 2vw, 26px);
 }
+
+/* ════════════════════════════════════════════════════════════════
+   NATIVE SCROLL ON MOBILE
+   The homepage normally hijacks scrolling: the deck is position:fixed
+   and a requestAnimationFrame loop translates #slides to match
+   window.scrollY, with body height locked to the slides' height. On
+   mobile this fought the dynamic viewport — when the address bar
+   showed/hid, 100dvh slides changed height but the locked body height
+   did not, so the bottom of the page revealed black gaps and scrolling
+   "ended" early.
+
+   On touch / small viewports we hand scrolling back to the browser:
+   un-pin the deck so it flows and scrolls natively (app.js skips the
+   transform write and the body-height lock on touch). The fixed,
+   rAF-driven hero/section stickies only make sense under the hijack,
+   so we hide them and render each slide's OWN inline media instead
+   (the Welcome hero image, the approach + why-mlg backgrounds all
+   already exist in-slide). Result: buttery native momentum scroll,
+   no locked-height mismatch, no black gaps. Desktop is untouched.
+   ════════════════════════════════════════════════════════════════ */
+@media (pointer: coarse), (max-width: 640px) {
+  .deck { position: static; overflow: visible; }
+  .hero-sticky,
+  .section-sticky { display: none !important; }
+  /* Un-hide the slides' own media that the fixed stickies used to cover */
+  .slide[data-slide="0"] .slide__media,
+  .slide--tailor .slide__media { visibility: visible; }
+  .slide[data-slide="0"],
+  .slide--tailor { background: #000; }
+}
