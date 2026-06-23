@@ -782,6 +782,15 @@
     scrollTarget  = y;
     scrollCurrent = y;
     window.scrollTo({ top: y, behavior: 'instant' });
+    // Sync logo scale and topbar state immediately on jump so they don't
+    // lag until tickSmooth's next rAF (logo would stay large on nav click).
+    const vh = window.innerHeight;
+    if (y >= vh * 0.5 + 50 && heroLogoStack) {
+      document.documentElement.style.setProperty('--hero-logo-scale', '1');
+    }
+    if (topbarEl) {
+      topbarEl.classList.toggle('topbar--past-hero', y >= vh * 0.5);
+    }
   }
   // Expose globally so other IIFEs (tailor form, etc.) can navigate slides
   window.__mlgScrollTo = scrollToSlide;
