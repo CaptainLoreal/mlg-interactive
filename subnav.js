@@ -17,7 +17,7 @@
 
   var slides = [
     { title: 'Services',        href: P + 'index.html#slide=1', dropdown: [
-      { label: 'Leadership Development',  href: P + 'leadership-development.html' },
+      { label: 'Leadership Development',  de: 'Führungskräfteentwicklung', href: P + 'leadership-development.html' },
       { label: 'Coaching & Sparring',     href: P + 'coaching-sparring.html' },
       { label: 'Audits & Assessments',    href: P + 'audits-assessments.html' },
       { label: 'Cultural Transformation', href: P + 'cultural-transformation.html' },
@@ -84,6 +84,7 @@
         a.className = 'slide-nav__dropdown-item' + (item.href === page ? ' is-active' : '');
         a.href = item.href;
         a.textContent = item.label;
+        if (item.de) a.dataset.de = item.de;
         drop.appendChild(a);
       });
 
@@ -154,6 +155,7 @@
         sa.className = 'mobile-nav__sub-item' + (item.href === page ? ' is-active' : '');
         sa.href = item.href;
         sa.textContent = item.label;
+        if (item.de) sa.dataset.de = item.de;
         sub.appendChild(sa);
       });
       mobileNav.appendChild(a);
