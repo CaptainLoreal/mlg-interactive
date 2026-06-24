@@ -6637,4 +6637,12 @@ p, li { font-size: inherit; }
   .slide--tailor .slide__media { visibility: visible; }
   .slide[data-slide="0"],
   .slide--tailor { background: #000; }
+  /* The section-sticky media query (max-width: 480px) hides the in-slide
+     background images for the approach challenges and why-mlg sections,
+     assuming the fixed sticky provides the photo. With the sticky now
+     disabled on touch, those sections went black — un-hide the in-slide
+     images so the photos render again. */
+  .approach-cards-bg__img { display: block !important; }
+  .why-mlg__image-area .slide__media { display: block !important; }
+  .why-mlg__image-area .slide__scrim { display: block !important; }
 }
