@@ -4504,9 +4504,18 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(14px, 3vh, 28px);
+  /* Stacked-layout breathing room (<960 px): the headline + globe +
+     selected-client card sit in a single column, so this gap is what
+     separates them. The earlier clamp(14, 3vh, 28) felt cramped on
+     phones and small laptops once the layout dropped out of 2-col
+     mode; the desktop grid (≥960 px) overrides this with its own
+     explicit row-gap, so widening here is stacked-only. */
+  gap: clamp(28px, 5vh, 56px);
   z-index: 2;
-  padding: clamp(72px, 10vh, 120px) var(--pad-x) clamp(40px, 6vh, 80px);
+  /* Slightly more vertical padding on the stacked layout so the whole
+     section breathes — the headline doesn't sit flush against the
+     section above and the card doesn't crowd the next slide. */
+  padding: clamp(96px, 12vh, 140px) var(--pad-x) clamp(56px, 8vh, 96px);
   min-height: 100dvh;
 }
 
