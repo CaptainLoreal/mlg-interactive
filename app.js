@@ -2046,16 +2046,17 @@
   const WEBHOOK_URL = 'https://default29bf1f7a94df4c3b94842cbd6d1d4f.ba.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/0786696f411c4ed78badee39b0b23ff9/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pIGKu2MJUyvL_DGHZRs_yc_HPdyMTEZefM4Ob_HQWZA';
 
   function sendToWebhook(payload) {
-    /* text/plain avoids the CORS preflight OPTIONS request that
-       application/json would trigger. Power Automate's HTTP trigger
-       parses the body via its JSON schema regardless of Content-Type,
-       so a JSON-stringified text body still hits the Excel + Outlook
-       steps correctly. Fire-and-forget: errors are logged but never
-       block the UX — the thank-you screen always shows. */
+    /* Power Automate's HTTP trigger REQUIRES application/json — it
+       parses the body against its JSON schema, and text/plain returns
+       400 "Expected Object but got String". Cross-origin POSTs trigger
+       a CORS preflight OPTIONS, but the powerplatform.com endpoint
+       handles it correctly: returns 204 with access-control-allow-
+       origin: *. Fire-and-forget: errors are logged but never block
+       the UX — the thank-you screen always shows. */
     try {
       return fetch(WEBHOOK_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
         keepalive: true,
       }).catch(function (err) {
