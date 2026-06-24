@@ -639,10 +639,15 @@
     tickFrame++;
     const doHeavy = !TOUCH || (tickFrame % 3 === 0);
 
-    /* Section stickies (challenges, why-mlg) on mobile — these do a
-       getBoundingClientRect per element which forces reflow.
-       Throttle on touch to every Nth frame. */
-    if (doHeavy) updateSectionStickies();
+    /* Section stickies (challenges, why-mlg) on mobile — must run EVERY
+       frame, not on the doHeavy throttle. Native scroll runs at 60fps+
+       on touch; if the sticky's transform updates only every 3rd frame
+       (~20fps) the user sees the image jitter strongly while the rest
+       of the page scrolls smoothly. The cost is small: one
+       getBoundingClientRect read + one transform/opacity write per
+       sticky (2 stickies total). Both stickies are on their own
+       compositor layer via will-change, so the writes are GPU-only. */
+    updateSectionStickies();
 
     /* Hero sticky: stays in place during slides 0+1, then scrolls up
        on the slide 1→2 transition, then disappears. Skip entirely once
