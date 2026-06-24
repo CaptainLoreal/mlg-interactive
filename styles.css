@@ -5503,8 +5503,13 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding: 8px var(--pad-x);
   scrollbar-width: none;
   overscroll-behavior-x: contain;
-  /* Override body's pan-y so horizontal swipe works on touch */
-  touch-action: pan-x;
+  /* Allow BOTH horizontal pan (carousel) and vertical pan (page scroll).
+     pan-x alone blocked vertical scroll whenever a finger landed on the
+     carousel — creating a "dead zone" where the page wouldn't scroll
+     past the testimonials section. With pan-x pan-y the browser picks
+     the dominant axis from the gesture: clear left/right swipes scroll
+     the carousel, clear up/down swipes scroll the page. */
+  touch-action: pan-x pan-y;
   cursor: grab;
 }
 .testimonials-carousel::-webkit-scrollbar { display: none; }
