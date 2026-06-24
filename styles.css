@@ -371,22 +371,25 @@ html[lang="de"] .display__line {
   -webkit-hyphens: manual;
 }
 
-/* German Clients-slide headline: "Unter­nehmen" and "vertrauen uns"
-   are both ~6× the font size wide, but the side column is hard-capped
-   at min(30vw, 380px) on full desktop, and SHRINKS to min(28vw, 340px)
-   in the 960–1199 px mid-desktop range. At the English clamp(34, 7vw,
-   80) cap they physically can't fit — the soft-hyphen break fires on
-   every desktop viewport.
+/* Clients-slide headline font cap (DE + EN). The side column is
+   hard-capped at min(30vw, 380 px) on full desktop and SHRINKS to
+   min(28vw, 340 px) in the 960–1199 px mid-desktop range. The long
+   words on this headline — DE "Unter­nehmen" / "vertrauen uns",
+   EN "organizations" — are all ~6× the font size wide, so at the
+   default clamp(34, 7vw, 80) cap they physically can't fit on one
+   line: the soft-hyphen break would fire on every desktop viewport.
 
-   Lower the DE font ceiling so both words fit whole inside the column
-   at every 2-col viewport from 960 px upward. Worst case is 960 px
-   where the column is just ~268 px wide; at clamp(30, 4.3vw, 50) the
-   font there is 41.3 px → word width ≈ 250 px, fits with ~20 px
-   buffer. At 1280 px+ the font caps at 50 px → word 303 px in 380 px
-   column. The soft-hyphen break (display__line--break on the span)
-   stays wired up as a safety net for any user who resizes below the
-   calc's safe range. */
-html[lang="de"] .slide__copy--side .display {
+   Lower the font ceiling so the long words fit whole inside the
+   column at every 2-col viewport from 960 px upward. Worst case is
+   960 px (column ~268 px) → at clamp(30, 4.3vw, 50) the font is
+   41.3 px → word width ≈ 245-250 px, fits with ~20 px buffer. At
+   1280 px+ the font caps at 50 px → "Unternehmen" 303 px and
+   "organizations" 297 px both fit in the 380 px column.
+
+   The soft-hyphen break (display__line--break on the spans) stays
+   wired up as a safety net for any user who resizes below the calc's
+   safe range (≤~170 px column). */
+.slide__copy--side .display {
   font-size: clamp(30px, 4.3vw, 50px);
 }
 
