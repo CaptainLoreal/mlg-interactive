@@ -6630,19 +6630,29 @@ p, li { font-size: inherit; }
    ════════════════════════════════════════════════════════════════ */
 @media (pointer: coarse), (max-width: 640px) {
   .deck { position: static; overflow: visible; }
-  .hero-sticky,
-  .section-sticky { display: none !important; }
-  /* Un-hide the slides' own media that the fixed stickies used to cover */
+  /* Hero-sticky stays disabled: the Welcome slide renders its own media
+     inline on mobile (above). Section-stickies are KEPT enabled — they
+     provide the fixed-background + top/bottom gradient effect for the
+     approach-challenges and why-mlg sections. Their JS positioner uses
+     getBoundingClientRect, which is viewport-relative and works fine
+     with native scroll, so no rewrite needed. */
+  .hero-sticky { display: none !important; }
+  /* Un-hide the slides' own media that the hero sticky used to cover */
   .slide[data-slide="0"] .slide__media,
   .slide--tailor .slide__media { visibility: visible; }
   .slide[data-slide="0"],
   .slide--tailor { background: #000; }
-  /* The section-sticky media query (max-width: 480px) hides the in-slide
-     background images for the approach challenges and why-mlg sections,
-     assuming the fixed sticky provides the photo. With the sticky now
-     disabled on touch, those sections went black — un-hide the in-slide
-     images so the photos render again. */
-  .approach-cards-bg__img { display: block !important; }
-  .why-mlg__image-area .slide__media { display: block !important; }
-  .why-mlg__image-area .slide__scrim { display: block !important; }
+  /* Restore the wider Challenges cards on mobile. The earlier rules
+     capped the carousel at 380px and the card at 320px — both feel
+     narrow now that the cards float over a fixed background image.
+     Widen both: carousel takes the full slide minus a small inset,
+     each card fills the carousel up to a comfortable cap. */
+  .slide--approach-intro .approach-cards-bg .challenges-carousel {
+    max-width: 480px !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .slide--approach-intro .approach-cards-bg .challenge-box {
+    max-width: 100% !important;
+  }
 }
