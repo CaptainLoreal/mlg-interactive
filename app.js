@@ -2038,6 +2038,34 @@
   let current    = 0;
   const answers  = {};
 
+  /* Power Automate flow webhook — appends a row to the
+     mlg-contact-submissions Excel and emails info@munichleadership.com.
+     The signature is in the URL itself; this URL is public by necessity
+     (it has to be reachable from the visitor's browser). The Excel file
+     and Outlook mailbox are the system of record. */
+  const WEBHOOK_URL = 'https://default29bf1f7a94df4c3b94842cbd6d1d4f.ba.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/0786696f411c4ed78badee39b0b23ff9/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pIGKu2MJUyvL_DGHZRs_yc_HPdyMTEZefM4Ob_HQWZA';
+
+  function sendToWebhook(payload) {
+    /* text/plain avoids the CORS preflight OPTIONS request that
+       application/json would trigger. Power Automate's HTTP trigger
+       parses the body via its JSON schema regardless of Content-Type,
+       so a JSON-stringified text body still hits the Excel + Outlook
+       steps correctly. Fire-and-forget: errors are logged but never
+       block the UX — the thank-you screen always shows. */
+    try {
+      return fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch(function (err) {
+        console.warn('Contact webhook failed:', err);
+      });
+    } catch (err) {
+      console.warn('Contact webhook threw:', err);
+    }
+  }
+
   function setProgress(idx) {
     if (!fillEl) return;
     const pct = Math.round((idx / DONE_IDX) * 100);
@@ -2106,8 +2134,9 @@
     showStep(DONE_IDX);
   }
 
-  /* Full submit — finalize and show the thank-you screen. Does NOT open
-     the user's mail client; answers are simply stored. */
+  /* Full submit — finalize, fire-and-forget to the Power Automate
+     webhook (which writes the row to Excel + emails info@), and show
+     the thank-you screen. Never blocks the UX on the network call. */
   function submitForm() {
     const step = steps[current];
     if (!validate(step)) {
@@ -2117,6 +2146,14 @@
     }
     collect(step);
     storeAnswers('contact', answers);
+    sendToWebhook({
+      problem:   answers.problem || '',
+      role:      answers.role    || '',
+      email:     answers.email   || '',
+      message:   answers.message || '',
+      language:  document.documentElement.lang || 'en',
+      timestamp: new Date().toISOString(),
+    });
     showStep(DONE_IDX);
   }
 
