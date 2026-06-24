@@ -1655,11 +1655,11 @@
   }
 
   /* Mobile perf: the globe spins 57 chips with a per-chip 3D transform
-     write every frame. On touch devices we cap the loop to ~30fps and
-     make the rotation time-scaled, so the spin LOOKS identical but does
-     half the per-frame DOM work. Desktop keeps full 60fps. */
+     write every frame. On touch devices we cap the loop to 24fps and
+     make the rotation time-scaled, so the spin runs at the same SPEED
+     but does far less per-frame DOM work. Desktop keeps full 60fps. */
   const COARSE = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || window.innerWidth <= 640;
-  const FRAME_GAP = COARSE ? 32 : 0;   // ms between frames (~30fps on touch)
+  const FRAME_GAP = COARSE ? 1000 / 24 : 0;   // ms between frames (24fps cap on touch)
   let lastGlobeT = performance.now();
 
   function tickGlobe(now) {
