@@ -1680,9 +1680,10 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
      resting transform and the Ken Burns keyframes get the shift so the
      nudge holds whether or not the entrance animation is running. */
   .slide[data-title="Welcome"] .slide__media img {
-    /* Centre the focus on the woman in the burgundy/red blazer (mid-
-       foreground of the wide group photo) on portrait mobile crops. */
-    object-position: 50% center;
+    /* Shift the crop window slightly LEFT (lower X%) so the man in the
+       dark suit immediately left of the woman in burgundy stays in
+       frame too, without cropping her face on the right. */
+    object-position: 44% center;
     transform: scale(1.08) translateY(-3%);
   }
   .slide[data-title="Welcome"].is-in-view .slide__media img {
