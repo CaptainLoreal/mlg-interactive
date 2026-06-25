@@ -6225,7 +6225,9 @@ p, li { font-size: inherit; }
     font-size: 9.5pt !important;
     line-height: 1.4 !important;
     color: #222 !important;
-    margin: 0 0 5pt !important;
+    /* Paragraph bottom margin bumped from 5pt → 9pt so consecutive bio
+       paragraphs read with clear visual separation in the PDF export. */
+    margin: 0 0 9pt !important;
     page-break-inside: avoid;
   }
   .profile-body p strong { color: #000 !important; }
@@ -6241,7 +6243,10 @@ p, li { font-size: inherit; }
     font-weight: 600 !important;
     font-size: 12pt !important;
     line-height: 1.35 !important;
-    margin: 8pt 0 !important;
+    /* Pull-quote sits between bio sections — give it noticeable air
+       above + below so it reads as a real visual break, not as just
+       another paragraph. */
+    margin: 14pt 0 !important;
   }
   .standalone .profile-body p.profile-pull strong { color: #000 !important; }
 
@@ -6257,8 +6262,11 @@ p, li { font-size: inherit; }
   }
 
   .profile-section-label {
-    margin-top: 9pt !important;
-    margin-bottom: 5pt !important;
+    /* Bumped both top and bottom so the small-caps section label
+       separates clearly from the prose above and the content below
+       (was 9/5 → now 18/8). */
+    margin-top: 18pt !important;
+    margin-bottom: 8pt !important;
     font-size: 8.5pt !important;
     letter-spacing: 0.16em;
     text-transform: uppercase;
