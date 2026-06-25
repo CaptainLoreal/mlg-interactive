@@ -5886,7 +5886,11 @@ p, li { font-size: inherit; }
   gap: 16px;
 }
 .news-card .eyebrow {
-  margin-bottom: 4px;
+  /* Eyebrow pill sits inside .news-card__header (a sibling block of
+     the title — not a flex child of .news-card itself), so the 16px
+     gap on .news-card doesn't apply here. Give it its own breathing
+     room above the title. */
+  margin-bottom: 20px;
   align-self: flex-start; /* prevent flex stretching the pill full-width */
   width: fit-content;
 }
