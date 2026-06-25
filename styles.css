@@ -6110,36 +6110,24 @@ p, li { font-size: inherit; }
   }
 
   /* ── Profile hero: keep the image as a SLIM banner up top ── */
-  /* Slimmer + tighter for PDF — was 240 px tall with 16 mm gap below.
-     Now 140 px tall with 8 mm gap so the banner doesn't eat half the
-     page, and the bio starts much higher on the page. */
+  /* Banner sized to use the full page width on PDF export. The team
+     banners are 2100 × 700 (3 : 1 aspect); at A4 paper width 210 mm
+     the natural height is 70 mm, so we set the print box exactly to
+     that and pull the side margins back the full .standalone padding
+     (14 mm) so the banner bleeds edge-to-edge instead of sitting
+     inside the body margin. The earlier 170 px (~45 mm) cropped the
+     image vertically; full-size shows the entire composite. */
   .profile-hero {
     position: relative !important;
-    /* Bumped 150 → 170px so the absolutely-positioned .profile-hero__copy
-       cluster (red pill + 2-line name + small subtitle + padding) doesn't
-       overflow the top edge. The previous height clipped the red pill
-       off on bios whose name wraps to two lines (Hagemann was the most
-       visible because his busy multi-photo composite made the missing
-       pill obvious; other 2-line bios were affected to a smaller degree
-       but the lighter photo tops hid it). */
-    height: 170px !important;
+    height: 70mm !important;
     min-height: 0 !important;
-    /* Broaden the banner: negative side margins pull it 8 mm past the
-       .standalone side padding (14 mm) on each edge, so the image
-       spans wider on the page (≈6 mm from each paper edge). */
-    /* Without !important the bio's inline <style> block wins, because
-       it's declared *after* styles.min.css in <head>. The inline rule
-       sets margin-top to env(safe-area-inset-top) + clamp(66px,…) —
-       roughly 90–140mm with the iOS notch — which is exactly what
-       was pushing mobile PDF exports onto a second page. */
-    /* Generous 10mm of white space above the banner. The 6mm side
-       gap (14mm standalone padding − 8mm negative banner margin) is
-       intentionally narrower for visual balance — the banner reads
-       as deliberately seated below the page top. */
+    /* !important because the bio's inline <style> sets a margin-top
+       (env(safe-area-inset-top) + clamp(66px,…) ≈ 90-140 mm with the
+       iOS notch) which used to push the PDF onto a second page. */
     margin-top: 10mm !important;
-    margin-left: -8mm !important;
-    margin-right: -8mm !important;
-    margin-bottom: 4mm !important;    /* tighter gap below the banner so more body content fits */
+    margin-left: -14mm !important;
+    margin-right: -14mm !important;
+    margin-bottom: 6mm !important;
     page-break-inside: avoid;
   }
   .profile-hero__media,
