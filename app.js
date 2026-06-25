@@ -799,9 +799,26 @@
     });
   }
 
+  /* Compute the Y position to scroll to when jumping to a slide. On
+     mobile (native scroll, see "NATIVE SCROLL ON MOBILE" in
+     styles.css) the .topbar is position:fixed and 70-90 px tall, so
+     scrolling to the raw slide.offsetTop puts the slide's top edge
+     UNDER the topbar — visibly clipped. Subtract the topbar height
+     so the slide lands flush below it. Desktop uses the hijacked
+     scroll (deck:fixed) where the topbar doesn't push into the
+     scroll container, so no offset is needed there. */
+  function getJumpY(idx) {
+    if (idx < 0 || idx >= slides.length) return 0;
+    let y = slides[idx].offsetTop;
+    if (TOUCH && topbarEl) {
+      y = Math.max(0, y - topbarEl.getBoundingClientRect().height);
+    }
+    return y;
+  }
+
   function scrollToSlide(idx) {
     if (idx < 0 || idx >= slides.length) return;
-    const y = slides[idx].offsetTop;
+    const y = getJumpY(idx);
     // Snap both targets so the smooth-scroll lerp doesn't animate the
     // deck through every intermediate slide. The transform is updated
     // on the next tick using these values, and 'instant' on window.scrollTo
@@ -991,7 +1008,7 @@
     // Defer scroll to next frame so browser layout is committed before we jump
     requestAnimationFrame(() => {
       syncHeight(); // re-sync after layout pass
-      const y = slides[idx]?.offsetTop || 0;
+      const y = getJumpY(idx);
       scrollTarget  = y;
       scrollCurrent = y;
       window.scrollTo({ top: y, behavior: 'instant' });
@@ -1019,8 +1036,7 @@
     function reAnchorToTarget() {
       if (!document.body.classList.contains('deck-active')) return;
       syncHeight();
-      const yy = slides[idx]?.offsetTop;
-      if (yy == null) return;
+      const yy = getJumpY(idx);
       if (Math.abs(window.scrollY - yy) > 4) {
         scrollTarget  = yy;
         scrollCurrent = yy;
