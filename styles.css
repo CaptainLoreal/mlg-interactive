@@ -4691,11 +4691,15 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 
 .globe-card {
   width: min(92vw, 460px);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.16);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-radius: 8px;
+  /* Match every other home-page card (.card-item / .challenge-box /
+     .testimonial / .news-card / .hero-card): same darkness, same blur,
+     same border + radius. The previous white-glass styling was the
+     visual outlier among the home cards. */
+  background: rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
   padding: 18px 22px;
   color: #fff;
   align-self: end;
