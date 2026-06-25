@@ -4434,7 +4434,14 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .imprint {
   position: relative;
   z-index: 3;
-  padding: 20px var(--pad-x) max(env(safe-area-inset-bottom, 0px) + 48px, 48px);
+  /* Bottom padding bumped to 80px — the disclaimer text was sitting
+     too close to the viewport bottom edge on desktop. Wrapping the
+     env() + 80px in an explicit calc() so the minifier can strip
+     whitespace around the `+` without breaking the CSS value (max()
+     follows calc()-like binary-operator whitespace rules; without
+     calc(), `0px)+80px` after minification gets parsed as invalid
+     and the entire padding declaration is dropped). */
+  padding: 20px var(--pad-x) max(calc(env(safe-area-inset-bottom, 0px) + 80px), 80px);
   color: rgba(255, 255, 255, 0.45);
   font-family: var(--font-sans);
   font-size: 11px;
