@@ -4619,12 +4619,26 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   opacity: 0.75;
   transition: opacity var(--dur-2) var(--ease-out);
 }
-.chip:hover, .chip.is-selected {
+/* Selected state — applies on every device (click / tap reaction). */
+.chip.is-selected {
   background: var(--mlg-red);
   border-color: var(--mlg-red);
 }
-.chip:hover .chip__logo, .chip.is-selected .chip__logo {
+.chip.is-selected .chip__logo {
   opacity: 1;
+}
+/* Hover state — only on devices that can really hover (mouse / trackpad).
+   On touch screens :hover would stick to the last-tapped chip until a tap
+   elsewhere clears it, which felt like a "stuck red" bug. The is-selected
+   class above already covers the active-tap visual on mobile. */
+@media (hover: hover) {
+  .chip:hover {
+    background: var(--mlg-red);
+    border-color: var(--mlg-red);
+  }
+  .chip:hover .chip__logo {
+    opacity: 1;
+  }
 }
 /* Per-client logo size overrides */
 .chip[data-client="hannover-re"] {
