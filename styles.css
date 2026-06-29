@@ -2662,7 +2662,6 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   line-height: 1.15;
   letter-spacing: -0.005em;
   color: rgba(255,255,255,0.92);
-  text-transform: uppercase;
   margin: 0 0 8px;
 }
 .approach-future__body {
