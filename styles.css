@@ -122,7 +122,7 @@
     font-size: clamp(40px, 7vw, 64px);
   }
   .slide[data-title="Welcome"] .slide__copy .display--sub {
-    font-size: clamp(10px, 1.41vw, 15px) !important;
+    font-size: clamp(16px, 2.24vw, 29px) !important;
   }
   /* Card: uniform padding on all four sides — the previous asymmetric
      pad (less on the left) read as "broken" because the text hugged
@@ -428,7 +428,7 @@ html[lang="de"] .lang-de-only { display: block; }
   letter-spacing: -0.005em;
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.85);
-  font-size: clamp(10px, 1.41vw, 15px);
+  font-size: clamp(16px, 2.24vw, 29px);
   margin: 12px 0 0;
   max-width: none;
   text-wrap: balance;
