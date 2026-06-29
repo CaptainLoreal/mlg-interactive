@@ -293,15 +293,15 @@
     "Unsere Unternehmenskultur fördert Höchstleistungen": "Unsere Kultur fördert Höchstleistungen",
   };
   const isMobileExcuse = window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
-  const isDE = document.documentElement.lang === 'de';
-  const _excusesAll = isDE ? EXCUSES_ALL_DE : EXCUSES_ALL;
-  const _excusesMobileHide = isDE ? EXCUSES_MOBILE_HIDE_DE : EXCUSES_MOBILE_HIDE;
-  const _excusesMobileRewrite = isDE ? EXCUSES_MOBILE_REWRITE_DE : EXCUSES_MOBILE_REWRITE;
-  const EXCUSES = isMobileExcuse
-    ? _excusesAll
-        .filter((t) => !_excusesMobileHide.has(t))
-        .map((t) => _excusesMobileRewrite[t] || t)
-    : _excusesAll;
+  function getExcuses() {
+    const de = document.documentElement.lang === 'de';
+    const all    = de ? EXCUSES_ALL_DE          : EXCUSES_ALL;
+    const hide   = de ? EXCUSES_MOBILE_HIDE_DE  : EXCUSES_MOBILE_HIDE;
+    const rewrite = de ? EXCUSES_MOBILE_REWRITE_DE : EXCUSES_MOBILE_REWRITE;
+    return isMobileExcuse
+      ? all.filter((t) => !hide.has(t)).map((t) => rewrite[t] || t)
+      : all;
+  }
 
   let chipsState = [];
   let chipsRAF = null;
@@ -313,7 +313,7 @@
     const W = excusesField.clientWidth;
     const H = excusesField.clientHeight;
 
-    EXCUSES.forEach((text, i) => {
+    getExcuses().forEach((text, i) => {
       const chip = document.createElement('button');
       chip.className = 'excuse-chip';
       chip.type = 'button';
@@ -429,6 +429,15 @@
     setTimeout(enterDeck, 3500);
   }
 
+  function rebuildBubbles() {
+    if (revealed) return;
+    if (chipsRAF) { cancelAnimationFrame(chipsRAF); chipsRAF = null; }
+    chipsState = [];
+    chipsCleared = 0;
+    excusesField.innerHTML = '';
+    buildExcuses();
+  }
+  window.MLG = Object.assign(window.MLG || {}, { rebuildBubbles });
 
   // Corner mark
   const cornerMark = $('#cornerMark');
@@ -2202,7 +2211,10 @@
     var saved = localStorage.getItem('mlg-lang') || 'en';
     applyLang(saved);
     document.querySelectorAll('.lang-switch__btn').forEach(function (btn) {
-      btn.addEventListener('click', function () { applyLang(btn.dataset.lang); });
+      btn.addEventListener('click', function () {
+        applyLang(btn.dataset.lang);
+        if (window.MLG && window.MLG.rebuildBubbles) window.MLG.rebuildBubbles();
+      });
     });
   }
 

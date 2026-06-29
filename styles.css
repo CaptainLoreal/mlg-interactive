@@ -707,6 +707,13 @@ html[lang="de"] .lang-de-only { display: block; }
   pointer-events: none;
 }
 
+.excuses__lang-switch {
+  position: absolute;
+  top: clamp(16px, 3vh, 28px);
+  right: clamp(16px, 3vw, 32px);
+  z-index: 1;
+}
+
 .excuses__hint {
   position: absolute;
   top: 50%;
