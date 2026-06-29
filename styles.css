@@ -3615,10 +3615,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    slides, all service & coaching subpages, every team profile page,
    future-of-leadership and approach heroes). Pill eyebrows already
    carry a solid background, so they don't need it. */
-.slide__copy .eyebrow,
 .slide__copy .display,
 .slide__copy .display--sub,
-.hero-head .eyebrow,
 .hero-head .display,
 .ld-hero__copy .ld-hero__title,
 .ld-hero__copy .ld-hero__lead,
