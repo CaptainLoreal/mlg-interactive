@@ -983,92 +983,25 @@ html[lang="de"] .lang-de-only { display: block; }
   }
 }
 
-/* ── Two-state logo (index only): black at top, white on scroll ─── */
+/* ── Logo: white at all times ─────────────────────────────────────── */
 .topbar__logo-stack {
   position: relative;
   display: inline-block;
-  /* Layout box stays at the regular topbar size on every state — the
-     hero "big logo" effect is a transform: scale so the rest of the
-     menu items don't shift when it grows/shrinks. */
   height: clamp(42px, 6vw, 62px);
   flex-shrink: 0;
-  transform-origin: left top;
-  /* Scale is driven by JS (--hero-logo-scale, 1× = menu, larger = hero).
-     CSS wraps it in min() so the maximum is hard-capped per viewport —
-     belt-and-suspenders for the case where JS hasn't computed the cap
-     yet (deferred script timing) or fails to load. The --hero-logo-cap
-     custom property is bumped by media queries below. */
-  --hero-logo-cap: 2.30;
-  transform: scale(min(var(--hero-logo-scale, 1), var(--hero-logo-cap)));
-  will-change: transform;
-}
-/* Per-viewport hard cap on the hero-logo scale. JS computes a smarter
-   width+height-aware cap, but these CSS values are the belt-and-braces
-   fallback if JS hasn't run yet OR if the JS-computed cap exceeds them.
-   Tightened (2.80→2.30 on desktop) so the scaled logo never bleeds
-   into the H1 headline on short laptop viewports. */
-@media (max-width: 1199px) {
-  .topbar__logo-stack { --hero-logo-cap: 2.10; }
-}
-@media (max-width: 899px) {
-  .topbar__logo-stack { --hero-logo-cap: 1.90; }
-}
-@media (max-width: 599px) {
-  .topbar__logo-stack { --hero-logo-cap: 1.70; }
-}
-@media (max-width: 419px) {
-  .topbar__logo-stack { --hero-logo-cap: 1.45; }
-}
-/* Fallback for non-deck / no-JS: keep the logo at menu size. */
-.deck .topbar:not(.topbar--past-hero) .topbar__logo-stack {
-  /* intentionally empty — scale is set by JS via --hero-logo-scale */
 }
 .topbar__logo-stack .topbar__logo-img {
   height: 100%;
   width: auto;
   display: block;
-  transition: opacity var(--dur-3) var(--ease-out);
 }
+.topbar__logo-stack .topbar__logo-img--dark  { opacity: 0; }
 .topbar__logo-stack .topbar__logo-img--light {
   position: absolute;
   inset: 0;
-  opacity: 0;
+  opacity: 1;
 }
-/* Hero: big BLACK + RED (bold) logo lifted off the photo by the dark
-   radial halo on .topbar__logo-stack::before below. Once the visitor
-   scrolls past the hero, the logo settles into the menu and swaps to
-   the WHITE wordmark so it reads against the dark glass topbar. */
-.deck .topbar:not(.topbar--past-hero) .topbar__logo-img--dark { opacity: 1; }
-.deck .topbar:not(.topbar--past-hero) .topbar__logo-img--light { opacity: 0; }
-.deck .topbar.topbar--past-hero .topbar__logo-img--dark { opacity: 0; }
-.deck .topbar.topbar--past-hero .topbar__logo-img--light { opacity: 1; }
 
-/* Halo behind the big hero logo — removed per request. The big logo
-   sits cleanly on the photo without any radial wash behind it. */
-
-/* ── Dark text/UI over the hero (only on the deck/index, no past-hero) */
-.deck .topbar:not(.topbar--past-hero) .slide-nav__btn { color: #000; }
-.deck .topbar:not(.topbar--past-hero) .slide-nav__btn:hover,
-.deck .topbar:not(.topbar--past-hero) .slide-nav__btn.is-active { color: #000; }
-.deck .topbar:not(.topbar--past-hero) .lang-switch {
-  background: rgba(0,0,0,0.05);
-  border-color: rgba(0,0,0,0.28);
-}
-.deck .topbar:not(.topbar--past-hero) .lang-switch__btn { color: rgba(0,0,0,0.55); }
-.deck .topbar:not(.topbar--past-hero) .lang-switch__btn.is-active {
-  color: #000;
-  background: rgba(0,0,0,0.12);
-}
-.deck .topbar:not(.topbar--past-hero) .lang-switch__btn:hover:not(.is-active) { color: #000; }
-.deck .topbar:not(.topbar--past-hero) .burger { color: #000; }
-.deck .topbar:not(.topbar--past-hero) .topbar__tagline { color: #000; }
-.deck .topbar:not(.topbar--past-hero) .slide-nav__btn,
-.deck .topbar:not(.topbar--past-hero) .lang-switch,
-.deck .topbar:not(.topbar--past-hero) .lang-switch__btn,
-.deck .topbar:not(.topbar--past-hero) .burger,
-.deck .topbar:not(.topbar--past-hero) .topbar__tagline {
-  transition: color var(--dur-3) var(--ease-out), background var(--dur-3) var(--ease-out), border-color var(--dur-3) var(--ease-out);
-}
 .topbar__logo {
   display: inline-flex; align-items: center;
   gap: clamp(8px, 1.2vw, 16px);
@@ -1316,11 +1249,6 @@ body.has-mobile-nav-open .topbar .lang-switch__btn,
 body.has-mobile-nav-open .topbar .topbar__tagline {
   color: rgba(255,255,255,0.92) !important;
 }
-/* Also force the white logo when the mobile nav is open — on the hero
-   the dark logo is the default, but it vanishes into the near-black overlay. */
-body.has-mobile-nav-open .topbar .topbar__logo-img--dark  { opacity: 0 !important; }
-body.has-mobile-nav-open .topbar .topbar__logo-img--light { opacity: 1 !important; }
-
 /* Mobile nav drawer */
 .mobile-nav {
   display: none;

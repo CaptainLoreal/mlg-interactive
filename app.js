@@ -507,61 +507,13 @@
   }
 
   const heroSticky = document.getElementById('heroSticky');
-  const heroLogoStack = document.querySelector('.topbar__logo-stack');
   const topbarEl = document.querySelector('.topbar');
 
-  /* Viewport-aware hero scale. The 2.8× was originally hardcoded — fine
-     on a desktop but oversized on a phone where it collided with the
-     "What is your dream?" headline. Keep the menu/settled state at 1×
-     and pick a hero-end scale that fits the viewport. Re-evaluated on
-     resize so an orientation change or window resize lands cleanly. */
-  function getHeroMaxScale() {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    // Width-based ceiling: tuned per viewport so the scaled logo + the
-    // inline topbar (CLIENTS APPROACH … lang-switch burger) fit.
-    let widthCap;
-    if (w < 420)       widthCap = 1.45;   // small phone
-    else if (w < 600)  widthCap = 1.70;   // large phone
-    else if (w < 900)  widthCap = 1.90;   // tablet portrait
-    else if (w < 1200) widthCap = 2.10;   // tablet landscape / small laptop
-    else               widthCap = 2.30;   // desktop
-    // Height-aware ceiling: the logo grows downward from the topbar;
-    // the H1 headline ("EMPOWERING LEADERSHIP") sits at the bottom of
-    // slide__copy. On short viewports the scaled logo's bottom edge
-    // can reach the headline. Reserve room for 2 H1 lines + a 40px
-    // buffer between them. Base logo box height = clamp(42, 6vw, 62)px;
-    // H1 size = clamp(34, 7vw, 80)px with line-height 1.05.
-    const baseLogoH = Math.min(62, Math.max(42, 0.06 * w));
-    const h1Size    = Math.min(80, Math.max(34, 0.07 * w));
-    const h1Lines   = 2;
-    const h1H       = h1Size * 1.05 * h1Lines;
-    const padBottom = Math.min(48, Math.max(28, 0.03 * w));
-    const topbarTop = 30;       // safe-area + topbar padding
-    const gap       = 40;       // breathing room between logo & H1
-    const avail     = h - padBottom - h1H - gap - topbarTop;
-    const heightCap = Math.max(1, avail / baseLogoH);
-    return Math.max(1.0, Math.min(widthCap, heightCap));
-  }
-  let heroMaxScale = getHeroMaxScale();
-  // Initialise to the right scale immediately so first paint matches the
-  // landing slide. tickSmooth only writes --hero-logo-scale while
-  // scrollCurrent < vh * 0.5 + 50, so if we deep-link to a non-hero slide
-  // (e.g. subpage → index.html#slide=8 Team) the scale would stay at the
-  // big hero value forever — the menu logo rendered huge across the page.
-  // Detect a non-hero hash deep-link and start at 1× instead.
-  if (heroLogoStack) {
-    var deepLinkedPastHero = location.hash && location.hash !== '#slide=0' && location.hash !== '#';
-    var initialScale = deepLinkedPastHero ? 1 : heroMaxScale;
-    document.documentElement.style.setProperty('--hero-logo-scale', initialScale.toFixed(3));
-  }
-  /* Resize listener — debounced via rAF — recomputes the cap and lets
-     the next tickSmooth re-apply the smooth scroll-driven scale. */
+  /* Resize listener — debounced via rAF */
   let resizeRaf = 0;
   window.addEventListener('resize', () => {
     if (resizeRaf) return;
     resizeRaf = requestAnimationFrame(() => {
-      heroMaxScale = getHeroMaxScale();
       lastTickScroll = -1;          // force tickSmooth to recompute
       resizeRaf = 0;
     });
@@ -673,11 +625,6 @@
        transition point, the logo is locked at 1× — stop writing the CSS
        var every frame (was a constant style invalidation while scrolling
        through slides 2+). past-hero class toggle is idempotent. */
-    if (scrollCurrent < vh * 0.5 + 50) {
-      const heroProgress = Math.min(1, Math.max(0, scrollCurrent / (vh * 0.35)));
-      const logoScale = heroMaxScale - (heroMaxScale - 1) * heroProgress;
-      document.documentElement.style.setProperty('--hero-logo-scale', logoScale.toFixed(3));
-    }
     if (topbarEl) {
       const wantPastHero = scrollCurrent >= vh * 0.5;
       if (topbarEl.classList.contains('topbar--past-hero') !== wantPastHero) {
@@ -826,13 +773,7 @@
     scrollTarget  = y;
     scrollCurrent = y;
     window.scrollTo({ top: y, behavior: 'instant' });
-    // Sync logo scale, topbar and hero-sticky immediately on jump so they
-    // don't lag until tickSmooth's next rAF (logo stays large / sticky bg
-    // stays visible when nav-clicking past their thresholds).
     const vh = window.innerHeight;
-    if (y >= vh * 0.5 + 50 && heroLogoStack) {
-      document.documentElement.style.setProperty('--hero-logo-scale', '1');
-    }
     if (topbarEl) {
       topbarEl.classList.toggle('topbar--past-hero', y >= vh * 0.5);
     }
