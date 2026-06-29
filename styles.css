@@ -475,6 +475,13 @@ html[lang="de"] .lang-de-only { display: block; }
   pointer-events: none;
 }
 
+.intro__lang-switch {
+  position: absolute;
+  top: clamp(16px, 3vh, 28px);
+  right: clamp(16px, 3vw, 32px);
+  z-index: 1;
+}
+
 .intro__logo {
   /* Match the slide-to-start slider width */
   width: clamp(260px, 78vw, 340px);

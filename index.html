@@ -11,7 +11,7 @@
   <!-- Preload Helvetica weights used above the fold -->
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica.woff2" crossorigin />
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica-Bold.woff2" crossorigin />
-  <link rel="stylesheet" href="styles.min.css?v=579" />
+  <link rel="stylesheet" href="styles.min.css?v=580" />
   <script>
     /* Kill the intro flash before paint when the intro should be skipped —
        either an in-page hash deep-link (#slide=N, #services, …) OR a
@@ -36,6 +36,10 @@
        ============================================================ -->
   <section id="intro" class="intro" aria-label="Welcome">
     <div class="intro__bg" aria-hidden="true"></div>
+    <div class="lang-switch intro__lang-switch" aria-label="Language switcher">
+      <button class="lang-switch__btn" data-lang="en">EN</button>
+      <button class="lang-switch__btn" data-lang="de">DE</button>
+    </div>
 
     <img decoding="async" loading="lazy" class="intro__logo" src="assets/logo-white-red-bold.svg" alt="Munich Leadership Group" />
     <p class="intro__prompt" data-de="Was ist<br>Ihr Traum?">What is<br>your dream?</p>
