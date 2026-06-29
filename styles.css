@@ -6113,8 +6113,8 @@ p, li { font-size: inherit; }
     padding: 8mm 7mm 7mm !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;     /* centre the top header — MLG pill + name + role */
-    text-align: center !important;
+    align-items: flex-start !important;
+    text-align: left !important;
   }
   /* .profile-hero__role now plays the RED PILL (top) */
   .profile-hero__role {
