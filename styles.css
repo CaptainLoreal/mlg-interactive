@@ -1667,7 +1667,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   z-index: 2;
 }
 .slide[data-title="Welcome"] .slide__copy {
-  bottom: clamp(72px, 11vh, 120px);
+  bottom: clamp(110px, 16vh, 170px);
 }
 .slide__copy--top {
   top: clamp(80px, 12vh, 140px);
