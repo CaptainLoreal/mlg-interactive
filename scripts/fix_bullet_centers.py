@@ -15,8 +15,8 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 DOT_CX    = 134
 DOT_R     = 5          # slightly larger than measured ~4.5 to keep crisp circle
 DOT_COLOR = (179, 10, 49, 255)
-OLD_DOT_CY = [354, 396, 438, 480]
-SHIFT      = 6         # pixels to move dots down to hit text-line vertical center
+OLD_DOT_CY = [360, 402, 444, 486]   # current centers after previous +6 shift
+SHIFT      = -3        # move back up 3px — 6 was too low, original was too high
 NEW_DOT_CY = [y + SHIFT for y in OLD_DOT_CY]
 
 ERASE_PAD = DOT_R + 3  # extra px around old dot to fully clear anti-aliased edges
