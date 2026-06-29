@@ -979,22 +979,11 @@ html[lang="de"] .lang-de-only { display: block; }
 }
 
 /* ── Logo: white at all times ─────────────────────────────────────── */
-.topbar__logo-stack {
-  position: relative;
-  display: inline-block;
+.topbar__logo-img {
   height: clamp(42px, 6vw, 62px);
-  flex-shrink: 0;
-}
-.topbar__logo-stack .topbar__logo-img {
-  height: 100%;
   width: auto;
   display: block;
-}
-.topbar__logo-stack .topbar__logo-img--dark  { opacity: 0; }
-.topbar__logo-stack .topbar__logo-img--light {
-  position: absolute;
-  inset: 0;
-  opacity: 1;
+  flex-shrink: 0;
 }
 
 .topbar__logo {
