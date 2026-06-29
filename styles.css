@@ -943,13 +943,8 @@ html[lang="de"] .lang-de-only { display: block; }
      paint cost in the deck. */
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  opacity: 0;
-  transition: opacity var(--dur-3) var(--ease-out);
-  pointer-events: none;
-}
-.topbar--past-hero::before,
-.standalone .topbar::before {
   opacity: 1;
+  pointer-events: none;
 }
 
 /* Mobile scroll-perf: replace the topbar's backdrop-filter blur with
