@@ -5627,7 +5627,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   color: rgba(255,255,255,0.85);
   font-weight: 600;
   display: inline-block;
-  margin-top: 6px;
+  margin-top: 10px;
 }
 
 /* Tablet + mobile: bigger cards, fewer visible at once but still peek */
