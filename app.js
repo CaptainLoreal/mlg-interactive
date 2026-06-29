@@ -844,6 +844,11 @@
         heroSticky.style.transform = 'translate3d(0,0,0)';
       }
     }
+    // On mobile, tickSmooth's early-return guard (lastTickScroll === scrollCurrent)
+    // fires immediately after the instant jump and updateInView never runs,
+    // leaving the target slide content invisible. Force it synchronously here.
+    lastTickScroll = -1;
+    updateInView();
   }
   // Expose globally so other IIFEs (tailor form, etc.) can navigate slides
   window.__mlgScrollTo = scrollToSlide;

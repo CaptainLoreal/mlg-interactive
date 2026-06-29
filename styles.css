@@ -1316,6 +1316,10 @@ body.has-mobile-nav-open .topbar .lang-switch__btn,
 body.has-mobile-nav-open .topbar .topbar__tagline {
   color: rgba(255,255,255,0.92) !important;
 }
+/* Also force the white logo when the mobile nav is open — on the hero
+   the dark logo is the default, but it vanishes into the near-black overlay. */
+body.has-mobile-nav-open .topbar .topbar__logo-img--dark  { opacity: 0 !important; }
+body.has-mobile-nav-open .topbar .topbar__logo-img--light { opacity: 1 !important; }
 
 /* Mobile nav drawer */
 .mobile-nav {
