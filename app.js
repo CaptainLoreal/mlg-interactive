@@ -255,6 +255,20 @@
     "I am an authentic leader with natural authority",
     "We give each other candid feedback",
   ];
+  const EXCUSES_ALL_DE = [
+    "Ich arbeite im besten aller Teams",
+    "Unsere Entscheidungen sind sicher, fundiert und schnell",
+    "Wir gewinnen die klügsten Talente",
+    "Ich bin der beste Chef aller Zeiten",
+    "Unsere Unternehmenskultur fördert Höchstleistungen",
+    "Wir sind Führungspersönlichkeiten und Vorbilder",
+    "Wir sind eine lernende Organisation",
+    "Die Konkurrenz beneidet uns",
+    "Wir sind ein erfolgreiches, neugieriges und innovatives Team",
+    "Ich bin stolz auf mein Unternehmen",
+    "Ich bin eine authentische Führungskraft mit natürlicher Autorität",
+    "Wir geben uns ehrliches Feedback",
+  ];
   /* On phones the field is too small to fit all 12 chips comfortably —
      drop the longest / lowest-priority ones so the rest can breathe,
      and shorten a couple more so they wrap better. */
@@ -264,16 +278,30 @@
     "I am an authentic leader with natural authority",
     "We give each other candid feedback",
   ]);
+  const EXCUSES_MOBILE_HIDE_DE = new Set([
+    "Ich arbeite im besten aller Teams",
+    "Wir sind Führungspersönlichkeiten und Vorbilder",
+    "Ich bin eine authentische Führungskraft mit natürlicher Autorität",
+    "Wir geben uns ehrliches Feedback",
+  ]);
   const EXCUSES_MOBILE_REWRITE = {
     "We are a winning team, curious and innovative": "We are a winning team",
     "Our company culture fosters best performance": "Our culture fosters best performance",
   };
+  const EXCUSES_MOBILE_REWRITE_DE = {
+    "Wir sind ein erfolgreiches, neugieriges und innovatives Team": "Wir sind ein Siegerteam",
+    "Unsere Unternehmenskultur fördert Höchstleistungen": "Unsere Kultur fördert Höchstleistungen",
+  };
   const isMobileExcuse = window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
+  const isDE = document.documentElement.lang === 'de';
+  const _excusesAll = isDE ? EXCUSES_ALL_DE : EXCUSES_ALL;
+  const _excusesMobileHide = isDE ? EXCUSES_MOBILE_HIDE_DE : EXCUSES_MOBILE_HIDE;
+  const _excusesMobileRewrite = isDE ? EXCUSES_MOBILE_REWRITE_DE : EXCUSES_MOBILE_REWRITE;
   const EXCUSES = isMobileExcuse
-    ? EXCUSES_ALL
-        .filter((t) => !EXCUSES_MOBILE_HIDE.has(t))
-        .map((t) => EXCUSES_MOBILE_REWRITE[t] || t)
-    : EXCUSES_ALL;
+    ? _excusesAll
+        .filter((t) => !_excusesMobileHide.has(t))
+        .map((t) => _excusesMobileRewrite[t] || t)
+    : _excusesAll;
 
   let chipsState = [];
   let chipsRAF = null;
@@ -1133,7 +1161,6 @@
     { name: 'Exyte',            logo: 'exyte.png',               services: ['Keynotes', 'Management Days', 'Leadership Development'],                           meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
     { name: 'BCG Platinion',    logo: 'bcg-platinion.png',       services: ['Team Development', 'Coaching'],                                                                   meta: 'Team development on top level is a skill that characterizes the work of the MLG experts. With a unique sense for individual strengths, they are helping to orchestrate the collaboration of leadership teams in a most successful way. Giving candid eye-opening feedback, speaking the truth — MLG works efficiently and straightforward.' },
     { name: 'Sauber',           logo: 'sauber.png',              services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { name: 'BayWa',            logo: 'baywa.png',               services: ['Leadership Development'],                                                                         meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
     { name: 'Knauf',            logo: 'knauf.png',               services: ['Team Development', 'Coaching'],                                                                   meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
     { name: 'Deutz',            logo: 'deutz.png',               services: ['Keynotes'],                                                                           meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
     { name: 'Vivawest',         logo: 'vivawest.svg',            services: ['Cultural Transformation', 'Leadership Development', 'Team Development', 'Coaching'],             meta: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },

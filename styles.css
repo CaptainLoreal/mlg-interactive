@@ -72,7 +72,7 @@
   padding: clamp(32px, 3.2vw, 52px);
 }
 .hero-card__body {
-  font-size: 26px;
+  font-size: 21px;
   font-weight: 500;
   line-height: 1.4;
   color: #fff;
@@ -122,7 +122,7 @@
     font-size: clamp(40px, 7vw, 64px);
   }
   .slide[data-title="Welcome"] .slide__copy .display--sub {
-    font-size: clamp(16px, 2.2vw, 24px) !important;
+    font-size: clamp(13px, 1.76vw, 19px) !important;
   }
   /* Card: uniform padding on all four sides — the previous asymmetric
      pad (less on the left) read as "broken" because the text hugged
@@ -135,7 +135,7 @@
     padding: clamp(24px, 2.8vw, 36px);
   }
   .slide[data-title="Welcome"] .hero-card__body {
-    font-size: clamp(14px, 1.6vw, 17px);
+    font-size: clamp(11px, 1.28vw, 14px);
     line-height: 1.5;
     margin-bottom: 10px;
   }
@@ -157,7 +157,7 @@
     border-radius: 12px;
   }
   .hero-card__body {
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 400;
     line-height: 1.55;
     color: rgba(255,255,255,0.88);
@@ -428,7 +428,7 @@ html[lang="de"] .lang-de-only { display: block; }
   letter-spacing: -0.005em;
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.85);
-  font-size: clamp(16px, 2.2vw, 24px);
+  font-size: clamp(13px, 1.76vw, 19px);
   margin: 12px 0 0;
   max-width: none;
   text-wrap: balance;
@@ -1662,6 +1662,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   max-width: 720px;
   color: #fff;
   z-index: 2;
+}
+.slide[data-title="Welcome"] .slide__copy {
+  bottom: clamp(36px, 6vh, 64px);
 }
 .slide__copy--top {
   top: clamp(80px, 12vh, 140px);
@@ -6132,13 +6135,14 @@ p, li { font-size: inherit; }
     font-size: 19pt !important;
     margin: 0 0 2px !important;
     line-height: 1.05 !important;
+    text-align: left !important;
   }
   /* .profile-hero__eyebrow now plays the small PLAIN SUB-LINE (bottom) */
   .profile-hero__eyebrow {
     order: 3 !important;
     display: block !important;
     width: 100% !important;
-    text-align: center !important;   /* role line under the name, centred */
+    text-align: left !important;
     background: none !important;
     border: none !important;         /* drop the red pill border */
     color: rgba(255,255,255,0.9) !important;
