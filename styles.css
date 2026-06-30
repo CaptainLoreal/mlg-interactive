@@ -86,7 +86,7 @@
    "EMPOWERING LEADERSHIP". Drop the slide__copy to a column-wise
    stack here, with the card sitting under the headline at a sensible
    max-width so the page still reads desktop-class. */
-@media (min-width: 641px) and (max-width: 1199px) {
+@media (min-width: 641px) and (max-width: 820px) {
   .slide[data-title="Welcome"] .slide__copy {
     /* Headline block + card both pile near the bottom (flex-end), with
        a small gap between them. Card bottom still aligns horizontally
@@ -138,6 +138,31 @@
     font-size: clamp(11px, 1.28vw, 14px);
     line-height: 1.5;
     margin-bottom: 10px;
+  }
+}
+
+/* 821–1199 px: keep the headline + card on the SAME ROW (card on the
+   right) instead of stacking. Scale the headline and card down as the
+   window narrows so both keep fitting side by side — only below 821 px
+   do they stack (handled in the block above). */
+@media (min-width: 821px) and (max-width: 1199px) {
+  .slide[data-title="Welcome"] .slide__copy {
+    gap: clamp(24px, 3.2vw, 52px) !important;
+  }
+  .slide[data-title="Welcome"] .slide__copy .display {
+    font-size: clamp(36px, 5.4vw, 56px);
+  }
+  .slide[data-title="Welcome"] .slide__copy .display--sub {
+    font-size: clamp(16px, 1.9vw, 22px);
+  }
+  .slide[data-title="Welcome"] .hero-card {
+    width: clamp(300px, 38vw, 470px);
+    padding: clamp(24px, 2.6vw, 40px);
+  }
+  .slide[data-title="Welcome"] .hero-card__body {
+    font-size: clamp(13px, 1.5vw, 18px);
+    line-height: 1.45;
+    margin-bottom: 12px;
   }
 }
 
@@ -5013,6 +5038,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   .slide[data-title="Welcome"] .slide__copy > div:first-child .display--sub {
     text-align: left;
     margin-top: 0;
+    font-size: clamp(18px, 5vw, 21px);
   }
   /* Glass card on mobile — sits BELOW the headline group, tight gap.
      Body text matches the rest of the mobile body copy (size + weight). */

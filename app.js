@@ -546,6 +546,23 @@
   const heroSticky = document.getElementById('heroSticky');
   const topbarEl = document.querySelector('.topbar');
 
+  /* Drive the topbar's past-hero (visible glass header) state straight
+     off the REAL scroll position. On mobile the smooth-scroll lerp's
+     scrollCurrent can lag window.scrollY — most visibly on a cold
+     deep-link (#slide=N): you land on a content slide but the header
+     stays in its hero look until you scroll. Reading window.scrollY
+     here (cheap, no layout flush) keeps the header correct the instant
+     you jump. Call it on every jump and on scroll. */
+  function syncTopbar() {
+    if (!topbarEl) return;
+    const pos = TOUCH ? window.scrollY : scrollCurrent;
+    const want = pos >= (cachedVH || window.innerHeight) * 0.5;
+    if (topbarEl.classList.contains('topbar--past-hero') !== want) {
+      topbarEl.classList.toggle('topbar--past-hero', want);
+    }
+  }
+  if (TOUCH) window.addEventListener('scroll', syncTopbar, { passive: true });
+
   /* Resize listener — debounced via rAF */
   let resizeRaf = 0;
   window.addEventListener('resize', () => {
@@ -662,12 +679,7 @@
        transition point, the logo is locked at 1× — stop writing the CSS
        var every frame (was a constant style invalidation while scrolling
        through slides 2+). past-hero class toggle is idempotent. */
-    if (topbarEl) {
-      const wantPastHero = scrollCurrent >= vh * 0.5;
-      if (topbarEl.classList.contains('topbar--past-hero') !== wantPastHero) {
-        topbarEl.classList.toggle('topbar--past-hero', wantPastHero);
-      }
-    }
+    syncTopbar();
 
     // Rail progress — uses CACHED maxScroll (refreshed on resize/syncHeight)
     // so we no longer read document.body.scrollHeight per frame.
@@ -1060,6 +1072,9 @@
         scrollCurrent = yy;
         window.scrollTo({ top: yy, behavior: 'instant' });
       }
+      // Re-assert the header state from the (now-settled) real scroll
+      // position — on mobile scrollCurrent can still be stale here.
+      syncTopbar();
     }
     window.addEventListener('load', reAnchorToTarget, { once: true });
     setTimeout(reAnchorToTarget, 600);

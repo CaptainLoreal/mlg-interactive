@@ -79,7 +79,20 @@
     .ld-cta__btn:hover { opacity: 0.85; }
     .ld-offering__list-highlight { color: rgba(255,255,255,0.88) !important; font-weight: 600; }
     .ld-offering__list-highlight::before { color: var(--mlg-red); }
-    @media (max-width: 640px) { .ld-offerings { grid-template-columns: 1fr; } .ld-usp { padding: 24px; } }
+    @media (max-width: 640px) {
+      .ld-offerings { grid-template-columns: 1fr; }
+      .ld-usp { padding: 24px; }
+      /* Centre the bullet items within the centred card: drop the
+         dot-left grid and centre the text with an inline red dot, so
+         the bullets match the centred body copy instead of hugging
+         the far-left edge. */
+      .ld-offering__list li, .ld-offering__list--lead li {
+        display: block; text-align: center;
+      }
+      .ld-offering__list li::before, .ld-offering__list--lead li::before {
+        display: inline-block; vertical-align: middle; margin: 0 9px 3px 0;
+      }
+    }
   </style>
 </head>
 <body>
