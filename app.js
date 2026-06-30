@@ -792,17 +792,13 @@
      scroll (deck:fixed) where the topbar doesn't push into the
      scroll container, so no offset is needed there.
 
-     Some slides (e.g. Vision) are taller than 100dvh. The CSS
-     content-visibility:auto rule collapses off-screen slides to
-     contain-intrinsic-size:100vh for layout, so slides[idx].offsetTop
-     under-estimates the true position when those taller slides precede
-     the target. Force a real layout pass by temporarily overriding
-     content-visibility on desktop before reading offsetTop. */
+     slide.offsetTop is reliable because calibrateIntrinsicSizes()
+     (in recomputeSlideOffsets) pins each slide's contain-intrinsic-size
+     to its REAL height, so content-visibility:auto collapses off-screen
+     slides to the exact space they render at — no offset drift. */
   function getJumpY(idx) {
     if (idx < 0 || idx >= slides.length) return 0;
-    slides.forEach((s) => { s.style.contentVisibility = 'visible'; });
-    let y = slides[idx].offsetTop; // read while forced visible — triggers reflow
-    slides.forEach((s) => { s.style.contentVisibility = ''; });
+    let y = slides[idx].offsetTop;
     if (TOUCH && topbarEl) {
       y = Math.max(0, y - topbarEl.getBoundingClientRect().height);
     }
@@ -864,10 +860,40 @@
     btns.forEach((btn) => btn.classList.toggle('is-active', btn === bestBtn));
   }
 
+  /* Calibrate each slide's contain-intrinsic-size to its REAL rendered
+     height. The CSS gives every .slide `content-visibility:auto;
+     contain-intrinsic-size:100vh` to skip painting off-screen slides.
+     But several slides (Vision, Team, Book) are far taller than 100vh,
+     so the 100vh placeholder makes them collapse to ~1 viewport while
+     off-screen — and every slide BELOW a collapsed tall slide then
+     reports a wrong offsetTop. That broke jump buttons + #slide deep
+     links (e.g. Feedback landed in black space, miles off target).
+
+     Fix: measure each slide's true height (forcing it momentarily
+     visible) and pin contain-intrinsic-size to that height. Now a
+     collapsed slide reserves exactly the space it renders at, so
+     offsetTop is identical whether the slide is painted or skipped —
+     jumps are pixel-accurate AND the paint-skipping perf win is kept.
+     Runs only on load / resize / layout-settle, never per frame. */
+  function calibrateIntrinsicSizes() {
+    // 1. Force every slide to render so offsetHeight is the real height
+    //    (a collapsed slide would otherwise report its 100vh placeholder).
+    slides.forEach((s) => { s.style.contentVisibility = 'visible'; });
+    // 2. Measure (this read flushes layout with all slides rendered).
+    const heights = slides.map((s) => s.offsetHeight);
+    // 3. Pin the intrinsic size to the measured height, then hand
+    //    content-visibility back to the CSS `auto`.
+    slides.forEach((s, i) => {
+      if (heights[i] > 0) s.style.containIntrinsicSize = heights[i] + 'px';
+      s.style.contentVisibility = '';
+    });
+  }
+
   /* Cache slide offsets so we don't force a layout on every frame.
      Recompute on resize / images-loaded / when slidesEl height changes. */
   let slideOffsets = [];
   function recomputeSlideOffsets() {
+    calibrateIntrinsicSizes();
     slideOffsets = slides.map((s) => ({
       top: s.offsetTop,
       bot: s.offsetTop + s.offsetHeight,
