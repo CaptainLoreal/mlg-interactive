@@ -801,9 +801,8 @@
   function getJumpY(idx) {
     if (idx < 0 || idx >= slides.length) return 0;
     slides.forEach((s) => { s.style.contentVisibility = 'visible'; });
-    void slides[idx].offsetTop; // sync layout
+    let y = slides[idx].offsetTop; // read while forced visible — triggers reflow
     slides.forEach((s) => { s.style.contentVisibility = ''; });
-    let y = slides[idx].offsetTop;
     if (TOUCH && topbarEl) {
       y = Math.max(0, y - topbarEl.getBoundingClientRect().height);
     }
