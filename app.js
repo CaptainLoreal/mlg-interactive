@@ -790,9 +790,19 @@
      UNDER the topbar — visibly clipped. Subtract the topbar height
      so the slide lands flush below it. Desktop uses the hijacked
      scroll (deck:fixed) where the topbar doesn't push into the
-     scroll container, so no offset is needed there. */
+     scroll container, so no offset is needed there.
+
+     Some slides (e.g. Vision) are taller than 100dvh. The CSS
+     content-visibility:auto rule collapses off-screen slides to
+     contain-intrinsic-size:100vh for layout, so slides[idx].offsetTop
+     under-estimates the true position when those taller slides precede
+     the target. Force a real layout pass by temporarily overriding
+     content-visibility on desktop before reading offsetTop. */
   function getJumpY(idx) {
     if (idx < 0 || idx >= slides.length) return 0;
+    slides.forEach((s) => { s.style.contentVisibility = 'visible'; });
+    void slides[idx].offsetTop; // sync layout
+    slides.forEach((s) => { s.style.contentVisibility = ''; });
     let y = slides[idx].offsetTop;
     if (TOUCH && topbarEl) {
       y = Math.max(0, y - topbarEl.getBoundingClientRect().height);
