@@ -6387,9 +6387,13 @@ p, li { font-size: inherit; }
     font-size: 10.5pt !important;
   }
   /* Full-size banner: bleed to the top + both side edges (cancel the
-     14mm .standalone padding), full 3:1 composite at 70mm. */
+     14mm .standalone padding), full 3:1 composite at 70mm. Explicit
+     height (NOT auto) is required — all the hero's children are
+     absolutely positioned, so height:auto collapses the banner box to
+     zero and the banner disappears. This is the block that actually
+     applies to A4 print (paper width ~794px < 800px). */
   .profile-hero {
-    height: auto !important;
+    height: 70mm !important;
     margin: 0 -14mm 12mm !important;
   }
   .pdf-footer { margin: 8pt 0 0 !important; }
