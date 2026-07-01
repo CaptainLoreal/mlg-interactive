@@ -6124,9 +6124,15 @@ p, li { font-size: inherit; }
     height: auto !important;        /* natural 3:1 → correct size, no skew, no squish */
     object-fit: unset !important;
   }
-  .profile-hero__scrim {
-    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.10) 60%, transparent 100%) !important;
-  }
+  /* Hide the scrim in print. The page's inline <style> sets it to
+     position:absolute; inset:0 with a linear-gradient starting at #000.
+     Firefox's PDF export can't render the CSS gradient and falls back to
+     a SOLID #000 fill over the whole hero → the banner prints as a black
+     box (Chrome renders the gradient semi-transparent, so it looked fine
+     there — that's why it was Chrome-OK / Firefox-black). We don't need
+     the scrim in the PDF; the white name/sub-line legibility is handled
+     by text-shadow instead. */
+  .profile-hero__scrim { display: none !important; }
   /* Flex column so we can SWAP the pill ↔ sub-line by order:
      in the PDF the pill should read "Munich Leadership Group"
      (the text that lives in .profile-hero__role) and the person's
@@ -6166,6 +6172,9 @@ p, li { font-size: inherit; }
     margin: 0 0 2px !important;
     line-height: 1.05 !important;
     text-align: left !important;
+    /* Scrim is hidden in print (see above), so shadow keeps the white
+       name legible over bright areas of any banner. */
+    text-shadow: 0 2px 8px rgba(0,0,0,0.78), 0 0 2px rgba(0,0,0,0.65) !important;
   }
   /* .profile-hero__eyebrow now plays the small PLAIN SUB-LINE (bottom) */
   .profile-hero__eyebrow {
@@ -6182,6 +6191,7 @@ p, li { font-size: inherit; }
     letter-spacing: 0 !important;
     text-transform: none !important;
     margin: 0 !important;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.8), 0 0 2px rgba(0,0,0,0.6) !important;
   }
 
   /* ── Content area ── */
