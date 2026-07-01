@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000" />
+  <title>Our Values — Munich Leadership Group</title>
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.min.css?v=601" />
+  <style>
+    body { overflow: visible; }
+    .standalone { overflow: visible; min-height: 100dvh; }
+
+    /* Hero */
+    .val-hero {
+      position: relative;
+      height: 66vh;
+      min-height: 460px;
+      overflow: hidden;
+    }
+    .val-hero__media { position: absolute; inset: 0; }
+    .val-hero__media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .val-hero__scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.15) 100%);
+    }
+    .val-hero__copy {
+      position: absolute; inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(40px, 7vh, 80px);
+      max-width: 1100px;
+    }
+    .val-hero__eyebrow {
+      display: inline-block;
+      align-self: flex-start;
+      width: fit-content;
+      background: var(--mlg-red);
+      border: 1px solid var(--mlg-red);
+      border-radius: 999px;
+      line-height: 1;
+      padding: 6px 12px 5px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin: 0 0 14px;
+    }
+    .val-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 6vw, 60px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #fff;
+      margin: 0;
+      line-height: 1.03;
+      max-width: 920px;
+    }
+
+    /* Content */
+    .val-content {
+      background: #000;
+      padding: clamp(48px, 7vh, 96px) clamp(24px, 5vw, 72px) clamp(48px, 6vh, 72px);
+    }
+    .val-body {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .val-lead {
+      font-size: clamp(20px, 2.4vw, 27px);
+      line-height: 1.5;
+      color: #fff;
+      font-weight: 500;
+      margin: 0 0 clamp(40px, 6vh, 64px);
+      max-width: 760px;
+    }
+    .val-lead strong { font-weight: 700; }
+
+    /* Value list */
+    .val-list {
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .val-item {
+      display: grid;
+      grid-template-columns: 56px minmax(180px, 240px) 1fr;
+      gap: clamp(16px, 3vw, 40px);
+      align-items: baseline;
+      padding: clamp(28px, 4vh, 40px) 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      transition: background var(--dur-2) var(--ease-out);
+    }
+    .val-item:hover { background: rgba(255,255,255,0.02); }
+    .val-item__num {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+      padding-top: 6px;
+    }
+    .val-item__name {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: var(--mlg-red);
+      margin: 0;
+    }
+    .val-item__desc {
+      font-size: clamp(17px, 1.7vw, 19px);
+      line-height: 1.65;
+      color: rgba(255,255,255,0.82);
+      margin: 0;
+      max-width: 620px;
+    }
+
+    /* CTA */
+    .val-cta {
+      text-align: center;
+      padding: clamp(40px, 6vh, 72px) 0 0;
+      max-width: 760px;
+      margin: clamp(40px, 6vh, 64px) auto 0;
+    }
+    .val-cta__text {
+      color: rgba(255,255,255,0.65);
+      font-size: clamp(17px, 1.8vw, 20px);
+      line-height: 1.6;
+      margin: 0 0 28px;
+    }
+    .val-cta__text strong { color: rgba(255,255,255,0.95); font-weight: 700; }
+    .val-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--mlg-red);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 999px;
+      transition: background var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out);
+    }
+    .val-cta__btn:hover { background: var(--mlg-red-deep); }
+    .val-cta__btn:active { transform: translateY(1px); }
+
+    @media (max-width: 720px) {
+      .val-item {
+        grid-template-columns: 40px 1fr;
+        gap: 6px 16px;
+        align-items: start;
+      }
+      .val-item__num { grid-row: 1; padding-top: 4px; }
+      .val-item__name { grid-column: 2; margin-bottom: 10px; }
+      .val-item__desc { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+  <main class="standalone">
+    <div class="topbar">
+      <a class="topbar__logo" href="index.html#slide=0" aria-label="Munich Leadership Group — back to home">
+        <img decoding="async" loading="lazy" src="assets/logo-white-red-bold.svg" alt="Munich Leadership Group" />
+      </a>
+    </div>
+    <span class="corner-mark" aria-hidden="true">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
+
+    <!-- Hero -->
+    <div class="val-hero">
+      <div class="val-hero__media">
+        <img decoding="async" loading="lazy" src="assets/photos/group-1.webp" alt="" />
+      </div>
+      <div class="val-hero__scrim"></div>
+      <div class="val-hero__copy">
+        <a class="page-back" href="index.html#slide=4">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span data-de="zurück">back</span>
+        </a>
+        <p class="val-hero__eyebrow" data-de="Werte">Values</p>
+        <h1 class="val-hero__title" data-de="Unsere Werte">Our values</h1>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="val-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html#slide=4" data-de="Warum MLG">Why MLG</a>
+        <span class="breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="breadcrumb__current" data-de="Werte">Values</span>
+      </nav>
+
+      <div class="val-body">
+        <p class="val-lead" data-de="Unsere Arbeit gründet auf einem klaren Wertesystem: Integrität und Vertrauen sind die Schlüssel zu Spitzenleistung. Fünf Werte bestimmen, wie wir denken, arbeiten und zusammenarbeiten."><strong>Our work is rooted in a strong set of values.</strong> We believe integrity and trust are essential to high performance. Five values shape how we think, work, and collaborate.</p>
+
+        <div class="val-list">
+          <div class="val-item">
+            <span class="val-item__num">01</span>
+            <h2 class="val-item__name" data-de="Respekt">Respect</h2>
+            <p class="val-item__desc" data-de="Wir respektieren alle Menschen in ihrer Vielfalt, mit ihrem unterschiedlichen persönlichen Hintergrund, ihren Überzeugungen und Talenten. Wir glauben an gute Absicht.">We respect all people in their diversity, with their different personal backgrounds, beliefs and talents. We believe in good intentions.</p>
+          </div>
+
+          <div class="val-item">
+            <span class="val-item__num">02</span>
+            <h2 class="val-item__name" data-de="Wirkung">Impact</h2>
+            <p class="val-item__desc" data-de="Wir schaffen Resonanz. Wir sind agil und arbeiten effizient &mdash; wir erarbeiten maßgeschneiderte Lösungen für Individuen, Teams und Unternehmen und standardisieren sie, um den größtmöglichen Erfolg für unsere Kunden zu erzielen.">We create resonance. We are both agile and efficient &mdash; we customize, individualize and standardize solutions for maximum client success.</p>
+          </div>
+
+          <div class="val-item">
+            <span class="val-item__num">03</span>
+            <h2 class="val-item__name" data-de="Wachstum">Growth</h2>
+            <p class="val-item__desc" data-de="Gemeinsam mit unseren Kunden stellen wir uns den Herausforderungen an vorderster Front &mdash; und ermutigen zu Unternehmertum und Innovation.">Together with our clients, we are working at the forefront of challenges &mdash; increasing trust and courage for entrepreneurship and innovation.</p>
+          </div>
+
+          <div class="val-item">
+            <span class="val-item__num">04</span>
+            <h2 class="val-item__name" data-de="Premium">Premium</h2>
+            <p class="val-item__desc" data-de="Wir setzen uns konsequent für nachhaltige Bestleistung im Unternehmen ein &mdash; aufbauend auf den Stärken aller Beteiligten.">We are dedicated to best performance and sustainability &mdash; built on strengths.</p>
+          </div>
+
+          <div class="val-item">
+            <span class="val-item__num">05</span>
+            <h2 class="val-item__name" data-de="Unabhängigkeit">Independence</h2>
+            <p class="val-item__desc" data-de="Wir engagieren uns nur für Projekte, von denen wir überzeugt sind. Wir schaffen psychologische Sicherheit und geben unseren Kunden ehrliches Feedback.">We only engage in projects we believe in. We create psychological safety and give candid feedback to our clients.</p>
+          </div>
+        </div>
+
+        <div class="val-cta">
+          <p class="val-cta__text" data-de="Diese Werte sind für uns zugleich Verpflichtung und Antrieb. Wir würden gerne mit Ihnen darüber sprechen, was wir für Sie tun können."><strong>These values are both a commitment and a motivation for us.</strong> We would love to start a conversation about what we can do for you.</p>
+          <a class="val-cta__btn" href="index.html#slide=10">
+            <span data-de="Kontaktieren Sie uns">Contact us</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <div style="margin-top: 24px;">
+            <a class="page-back" href="index.html#slide=4">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span data-de="zurück zu Warum MLG">back to Why MLG</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <footer class="imprint" style="margin-top: clamp(32px,4vh,56px);">
+        <p class="imprint__links">
+          <a href="disclaimer.html" data-de="Disclaimer">Disclaimer</a>
+          <span aria-hidden="true">&middot;</span>
+          <span class="imprint__copy" data-de="&copy; 2026 Munich Leadership Group">&copy; 2026 Munich Leadership Group</span>
+        </p>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.page-back').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        e.preventDefault();
+        document.querySelector('.standalone').classList.add('is-leaving');
+        setTimeout(() => { location.href = href; }, 320);
+      });
+    });
+  </script>
+  <script src="subnav.min.js?v=239"></script>
+</body>
+</html>
