@@ -6098,6 +6098,7 @@ p, li { font-size: inherit; }
      image vertically; full-size shows the entire composite. */
   .profile-hero {
     position: relative !important;
+    width: 210mm !important;        /* explicit 210×70mm = guaranteed 3:1 box (no fill skew) */
     height: 70mm !important;
     min-height: 0 !important;
     /* !important because the bio's inline <style> sets a margin-top
@@ -6387,12 +6388,15 @@ p, li { font-size: inherit; }
     font-size: 10.5pt !important;
   }
   /* Full-size banner: bleed to the top + both side edges (cancel the
-     14mm .standalone padding), full 3:1 composite at 70mm. Explicit
-     height (NOT auto) is required — all the hero's children are
-     absolutely positioned, so height:auto collapses the banner box to
-     zero and the banner disappears. This is the block that actually
-     applies to A4 print (paper width ~794px < 800px). */
+     14mm .standalone padding), full 3:1 composite. Explicit width AND
+     height (both absolute mm) pin the box to a true 3:1 (210:70) so
+     object-fit:fill does not stretch the image — Safari computed a
+     %-width + mm-height box as non-3:1 and skewed it. height must stay
+     explicit (not auto): all children are absolute, so auto collapses
+     the box to zero. This block is the one that applies to A4 print
+     (paper width ~794px < 800px). */
   .profile-hero {
+    width: 210mm !important;
     height: 70mm !important;
     margin: 0 -14mm 12mm !important;
   }
