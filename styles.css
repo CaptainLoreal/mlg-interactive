@@ -6064,7 +6064,7 @@ p, li { font-size: inherit; }
        static pdf-footer below pushed total content a few pixels past
        297mm — iOS rounded that up to a full second blank page. */
     position: relative !important;
-    height: 70mm !important;
+    height: auto !important;
     min-height: 0 !important;
     max-height: 297mm !important;
     /* @page margin is 0 (to suppress the browser header/footer), so
