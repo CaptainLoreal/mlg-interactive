@@ -6109,15 +6109,23 @@ p, li { font-size: inherit; }
     margin-bottom: 13mm !important;
     page-break-inside: avoid;
   }
-  .profile-hero__media,
-  .profile-hero__media img {
+  .profile-hero__media {
     position: absolute !important;
     inset: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: cover !important;
+    /* Render the banner from the element's CSS background-image (set
+       inline per page). A foreground <img> with object-fit prints
+       unreliably in some engines (async decode / Safari PDF export),
+       which left the banner a solid black box. A CSS background paints
+       during print layout and is forced visible by print-color-adjust
+       (set globally above), so it always shows. */
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
     animation: none !important;
   }
+  .profile-hero__media img { display: none !important; }
   .profile-hero__scrim {
     background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.10) 60%, transparent 100%) !important;
   }
