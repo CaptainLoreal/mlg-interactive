@@ -6114,18 +6114,29 @@ p, li { font-size: inherit; }
     inset: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    /* Render the banner from the element's CSS background-image (set
-       inline per page). A foreground <img> with object-fit prints
-       unreliably in some engines (async decode / Safari PDF export),
-       which left the banner a solid black box. A CSS background paints
-       during print layout and is forced visible by print-color-adjust
-       (set globally above), so it always shows. */
+    /* CSS background-image (set inline per page) as a FALLBACK for print
+       engines that render it; iOS Safari's PDF export drops background
+       graphics, so the foreground <img> below is the primary path. */
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
     animation: none !important;
   }
-  .profile-hero__media img { display: none !important; }
+  /* Primary banner for print: a foreground <img>. Foreground images
+     print reliably even where CSS backgrounds are dropped (iOS Safari).
+     Use object-fit:fill (plain stretch) NOT cover — object-fit:cover is
+     buggy in WebKit's print path (it left the banner blank/black). The
+     print banner box is 210×70mm = 3:1 and the image is 2100×700 = 3:1,
+     so fill stretches with zero visible distortion. */
+  .profile-hero__media img {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill !important;
+    object-position: center !important;
+  }
   .profile-hero__scrim {
     background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.10) 60%, transparent 100%) !important;
   }
