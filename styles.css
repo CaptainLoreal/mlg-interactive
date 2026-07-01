@@ -6088,57 +6088,41 @@ p, li { font-size: inherit; }
     page-break-after: avoid !important;
   }
 
-  /* ── Profile hero: keep the image as a SLIM banner up top ── */
-  /* Banner sized to use the full page width on PDF export. The team
-     banners are 2100 × 700 (3 : 1 aspect); at A4 paper width 210 mm
-     the natural height is 70 mm, so we set the print box exactly to
-     that and pull the side margins back the full .standalone padding
-     (14 mm) so the banner bleeds edge-to-edge instead of sitting
-     inside the body margin. The earlier 170 px (~45 mm) cropped the
-     image vertically; full-size shows the entire composite. */
+  /* ── Profile hero banner (PDF export) ──────────────────────────────
+     BULLETPROOF rendering for Safari's PDF/print engine: a PLAIN,
+     IN-FLOW <img> — no object-fit, no absolute positioning, no reliance
+     on a CSS background-image. Safari's print path reliably paints a
+     normal in-flow image but blanks the exotic paths: object-fit
+     rendered a BLACK box in the exported PDF, a CSS background-image is
+     dropped, and an absolutely-positioned img collapsed. The banners
+     are 3:1 (2100×700), so width:100% at the 210mm full-bleed width
+     yields ~70mm height at the TRUE aspect — no distortion and no
+     "squish" when a packed page is scaled to fit. The in-flow image
+     drives the hero height; the name/pill overlay stays absolute on
+     top. margin-top:0 !important overrides the bio inline <style>'s
+     margin-top (safe-area + clamp) that used to force a 2nd page. */
   .profile-hero {
     position: relative !important;
-    width: 210mm !important;        /* explicit 210×70mm = guaranteed 3:1 box (no fill skew) */
-    height: 70mm !important;
+    width: 210mm !important;
+    height: auto !important;        /* driven by the in-flow banner img (~70mm at 3:1) */
     min-height: 0 !important;
-    /* !important because the bio's inline <style> sets a margin-top
-       (env(safe-area-inset-top) + clamp(66px,…) ≈ 90-140 mm with the
-       iOS notch) which used to push the PDF onto a second page. */
-    margin-top: 0 !important;       /* bleed to the very top edge (no white gap above) */
-    margin-left: -14mm !important;
-    margin-right: -14mm !important;
-    margin-bottom: 13mm !important;
+    margin: 0 -14mm 13mm !important; /* bleed to top + both side edges */
     page-break-inside: avoid;
   }
-  /* Print banner rendering — the combination that actually works in
-     Safari's PDF export (the target engine):
-       - object-fit:fill is the ONLY fit Safari's print path renders; it
-         blanked with cover, with height:auto, and with a CSS
-         background-image.
-       - fill would stretch unless the box is the image's 3:1 aspect, and
-         Safari did NOT honour the fixed 70mm box height (it scales the
-         print viewport) → that was the skew.
-     So the box is pinned to 3:1 via aspect-ratio on .profile-hero below
-     (aspect-ratio ties height to the rendered width, holding under
-     Safari's scaling). 3:1 box + object-fit:fill = full image, no skew.
-     The inline background-image stays as a fallback. */
   .profile-hero__media {
-    position: absolute !important;
-    inset: 0 !important;
+    position: static !important;    /* in-flow so the img drives the box height */
+    display: block !important;
     width: 100% !important;
-    height: 100% !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
+    height: auto !important;
+    background: none !important;    /* drop the (dropped-anyway) bg-image; the <img> carries the banner */
     animation: none !important;
   }
   .profile-hero__media img {
     display: block !important;
-    position: absolute !important;
-    inset: 0 !important;
+    position: static !important;    /* plain in-flow image = the one path Safari's PDF engine always paints */
     width: 100% !important;
-    height: 100% !important;
-    object-fit: fill !important;
+    height: auto !important;        /* natural 3:1 → correct size, no skew, no squish */
+    object-fit: unset !important;
   }
   .profile-hero__scrim {
     background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.10) 60%, transparent 100%) !important;
@@ -6387,17 +6371,13 @@ p, li { font-size: inherit; }
   .profile-quote__text {
     font-size: 10.5pt !important;
   }
-  /* Full-size banner: bleed to the top + both side edges (cancel the
-     14mm .standalone padding), full 3:1 composite. Explicit width AND
-     height (both absolute mm) pin the box to a true 3:1 (210:70) so
-     object-fit:fill does not stretch the image — Safari computed a
-     %-width + mm-height box as non-3:1 and skewed it. height must stay
-     explicit (not auto): all children are absolute, so auto collapses
-     the box to zero. This block is the one that applies to A4 print
-     (paper width ~794px < 800px). */
+  /* Banner box for A4 print (this block applies: paper ~794px < 800px).
+     height:auto lets the plain in-flow <img> (see base block) drive the
+     box at its true 3:1 aspect — the bulletproof render for Safari's
+     PDF engine (object-fit blanked to a black box). */
   .profile-hero {
     width: 210mm !important;
-    height: 70mm !important;
+    height: auto !important;
     margin: 0 -14mm 12mm !important;
   }
   .pdf-footer { margin: 8pt 0 0 !important; }
