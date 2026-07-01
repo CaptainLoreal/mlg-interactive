@@ -6064,7 +6064,7 @@ p, li { font-size: inherit; }
        static pdf-footer below pushed total content a few pixels past
        297mm — iOS rounded that up to a full second blank page. */
     position: relative !important;
-    height: auto !important;
+    height: 70mm !important;
     min-height: 0 !important;
     max-height: 297mm !important;
     /* @page margin is 0 (to suppress the browser header/footer), so
@@ -6098,7 +6098,7 @@ p, li { font-size: inherit; }
      image vertically; full-size shows the entire composite. */
   .profile-hero {
     position: relative !important;
-    height: auto !important;
+    height: 70mm !important;
     min-height: 0 !important;
     /* !important because the bio's inline <style> sets a margin-top
        (env(safe-area-inset-top) + clamp(66px,…) ≈ 90-140 mm with the
@@ -6109,22 +6109,23 @@ p, li { font-size: inherit; }
     margin-bottom: 13mm !important;
     page-break-inside: avoid;
   }
-  /* Print banner = an IN-FLOW foreground <img> that defines the banner's
-     height by its own aspect. This is the only approach that is both
-     reliable and undistorted across engines:
-       - object-fit:cover blanks in WebKit's print path (the black box).
-       - object-fit:fill renders but skews whenever the box isn't exactly
-         the image's aspect (iOS didn't honour the fixed mm height, so
-         the box was the wrong shape → stretched faces).
-     With the media + img in normal flow at width:100%/height:auto, the
-     image simply lays out full-width at its native 3:1, and .profile-hero
-     (height:auto) wraps to exactly that height — no skew, no gap, no
-     clipping, on any paper size or engine. The inline background-image
-     stays as a belt-and-braces fallback. */
+  /* Print banner rendering — the combination that actually works in
+     Safari's PDF export (the target engine):
+       - object-fit:fill is the ONLY fit Safari's print path renders; it
+         blanked with cover, with height:auto, and with a CSS
+         background-image.
+       - fill would stretch unless the box is the image's 3:1 aspect, and
+         Safari did NOT honour the fixed 70mm box height (it scales the
+         print viewport) → that was the skew.
+     So the box is pinned to 3:1 via aspect-ratio on .profile-hero below
+     (aspect-ratio ties height to the rendered width, holding under
+     Safari's scaling). 3:1 box + object-fit:fill = full image, no skew.
+     The inline background-image stays as a fallback. */
   .profile-hero__media {
-    position: static !important;
+    position: absolute !important;
+    inset: 0 !important;
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
@@ -6132,10 +6133,11 @@ p, li { font-size: inherit; }
   }
   .profile-hero__media img {
     display: block !important;
-    position: static !important;
+    position: absolute !important;
+    inset: 0 !important;
     width: 100% !important;
-    height: auto !important;
-    object-fit: initial !important;
+    height: 100% !important;
+    object-fit: fill !important;
   }
   .profile-hero__scrim {
     background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.10) 60%, transparent 100%) !important;
