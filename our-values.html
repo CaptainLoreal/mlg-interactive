@@ -280,5 +280,37 @@
     });
   </script>
   <script src="subnav.min.js?v=239"></script>
+  <script>
+    /* Corner mark: animate on click only — do NOT navigate home.
+       subnav.min.js wires a "fly then go to index.html" handler on
+       subpages; replace the node to drop that listener, then add a
+       self-contained fly animation with no navigation. */
+    (function () {
+      var cm = document.querySelector('.corner-mark');
+      if (!cm) return;
+      var mark = cm.cloneNode(true);
+      cm.parentNode.replaceChild(mark, cm);
+      mark.style.cursor = 'pointer';
+      mark.removeAttribute('role');
+      mark.removeAttribute('tabindex');
+      mark.removeAttribute('aria-label');
+      mark.setAttribute('aria-hidden', 'true');
+      mark.addEventListener('click', function () {
+        if (mark.dataset.flying === '1') return;
+        mark.dataset.flying = '1';
+        var paths = mark.querySelectorAll('.mark__path');
+        var DUR = 1400, STAGGER = 110;
+        paths.forEach(function (p, i) {
+          p.animate([
+            { transform: 'translate(0,0) rotate(0deg) scale(1)', opacity: 1, offset: 0 },
+            { transform: 'translate(220px,-260px) rotate(35deg) scale(0.35)', opacity: 0, offset: 0.38 },
+            { transform: 'translate(-220px,260px) rotate(-25deg) scale(0.35)', opacity: 0, offset: 0.42 },
+            { transform: 'translate(0,0) rotate(0deg) scale(1)', opacity: 1, offset: 1 }
+          ], { duration: DUR, delay: i * STAGGER, easing: 'cubic-bezier(0.55, 0.05, 0.25, 1)', fill: 'both' });
+        });
+        setTimeout(function () { delete mark.dataset.flying; }, DUR + (paths.length - 1) * STAGGER + 50);
+      });
+    })();
+  </script>
 </body>
 </html>
