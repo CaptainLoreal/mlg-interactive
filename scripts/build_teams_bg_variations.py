@@ -78,32 +78,38 @@ def build_navy():
     im.save(DIR / "mlg-teams-bg-navy-1920x1080.png", "PNG", optimize=True)
     print("✓ navy")
 
-# ── 3) service names on generously spaced rows, divided by lines ────
+# ── 3) each service name broken across two lines, divided by lines ──
 #     (existing bullet-list text only — NO added copy)
-def build_lines_spaced():
+SPLITS = [
+    ("Leadership", "Development"),
+    ("Coaching &", "Sparring"),
+    ("Audits &", "Assessments"),
+    ("Cultural", "Transformation"),
+]
+def build_twoline():
     im = Image.open(BASE).convert("RGB"); px = im.load()
     bg = clean_bg().load()
-    # erase the whole existing service block (squares + names)
-    for y in range(340, 500):
+    for y in range(340, 570):                     # erase existing service block
         for x in range(120, 470):
             px[x, y] = bg[x, y]
     d = ImageDraw.Draw(im)
     name_f = font(21, bold=False)
     x = 132
-    top0, pitch = 350, 52
+    top0, pitch, lh = 346, 60, 23
     WHITE = (255, 255, 255)
-    for i, (name, _tag) in enumerate(SERVICES):
+    for i, (l1, l2) in enumerate(SPLITS):
         top = top0 + i * pitch
-        d.text((x, top), name, font=name_f, fill=WHITE)
-        if i < len(SERVICES) - 1:                # divider between items
-            ly = top + pitch - 10
+        d.text((x, top), l1, font=name_f, fill=WHITE)
+        d.text((x, top + lh), l2, font=name_f, fill=WHITE)
+        if i < len(SPLITS) - 1:                   # divider between items
+            ly = top + pitch - 8
             for xx in range(x, 470):
                 for yy in (ly, ly + 1):
                     im.putpixel((xx, yy), blend(im.getpixel((xx, yy)), (255, 255, 255), 0.4))
     im.save(DIR / "mlg-teams-bg-white-twoline-1920x1080.png", "PNG", optimize=True)
-    print("✓ white-twoline (names + dividers)")
+    print("✓ white-twoline (2-line names + dividers)")
 
 if __name__ == "__main__":
     build_lines()
     build_navy()
-    build_lines_spaced()
+    build_twoline()
