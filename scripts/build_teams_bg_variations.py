@@ -109,7 +109,31 @@ def build_twoline():
     im.save(DIR / "mlg-teams-bg-white-twoline-1920x1080.png", "PNG", optimize=True)
     print("✓ white-twoline (2-line names + dividers)")
 
+# ── 4) white-lines but with LEADERSHIP + mark in brand red ──────────
+def build_red_lines():
+    im = Image.open(BASE).convert("RGB"); px = im.load()
+    bg = clean_bg().load()
+    RED = (179, 10, 49)
+    def recolor(x0, y0, x1, y1):
+        for y in range(y0, y1):
+            for x in range(x0, x1):
+                m = min(px[x, y])
+                if m > 205:
+                    px[x, y] = blend(px[x, y], RED, min(1.0, (m - 205) / 50.0))
+    recolor(126, 198, 396, 236)     # LEADERSHIP word
+    recolor(390, 136, 484, 232)     # the mark (chevron)
+    for y in range(344, 496):        # lines treatment: erase squares
+        for x in range(122, 151):
+            px[x, y] = bg[x, y]
+    for ly in LINE_Y:                # white dividers
+        for x in range(132, 372):
+            for yy in (ly, ly + 1):
+                px[x, yy] = blend(px[x, yy], (255, 255, 255), 0.5)
+    im.save(DIR / "mlg-teams-bg-white-red-lines-1920x1080.png", "PNG", optimize=True)
+    print("✓ white-red-lines")
+
 if __name__ == "__main__":
     build_lines()
     build_navy()
     build_twoline()
+    build_red_lines()
