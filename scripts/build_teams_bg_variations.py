@@ -1,85 +1,109 @@
 #!/usr/bin/env python3
 """
-Build two variations of the all-white MLG Teams background
-(mlg-teams-bg-allwhite-1920x1080.png as the base — white logo, white
-service text, white square bullets, no slogan):
+Build variations of the all-white MLG Teams background
+(base: mlg-teams-bg-allwhite-1920x1080.png — white logo, white service
+text, white square bullets, no slogan; its background is the flipped
+'background blue.jpg' — clean gradient on the LEFT, mesh on the RIGHT).
 
+Variations produced:
   1) mlg-teams-bg-white-lines-1920x1080.png
-     Service items separated by thin horizontal lines instead of the
-     square bullet markers (bullets removed, dividers added).
-
+     Services separated by thin horizontal lines (no square bullets).
   2) mlg-teams-bg-navy-1920x1080.png
-     The whole content (logo, service text, bullets) recoloured to
-     #040e1a (dark navy) — everything else unchanged.
+     Whole content recoloured to #040e1a (dark navy); square bullets.
+  3) mlg-teams-bg-white-twoline-1920x1080.png
+     Each service on two lines (name + tagline), divided by lines.
 
 Run:
-  python3 scripts/build_teams_bg_variations.py
+  DYLD_LIBRARY_PATH=/opt/homebrew/lib python3 scripts/build_teams_bg_variations.py
 """
 import pathlib
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 
 DIR  = pathlib.Path(__file__).resolve().parent.parent / "assets/teams-backgrounds"
 BASE = DIR / "mlg-teams-bg-allwhite-1920x1080.png"
+RAW  = DIR / "background blue.jpg"
 
-# Service item text bboxes (measured): rows at these y-centres
-ITEM_MID = [358, 400, 442, 484]
-LINE_Y   = [379, 421, 463]          # midpoints between consecutive items
-NAVY     = (4, 14, 26)              # #040e1a
+NAVY = (4, 14, 26)
+ITEM_MID = [358, 400, 442, 484]                 # existing bullet-row centres
+LINE_Y   = [379, 421, 463]                       # midpoints between items
 
-def load():
-    return Image.open(BASE).convert("RGB")
+FONT = "/System/Library/Fonts/Helvetica.ttc"
+def font(pt, bold=False):
+    return ImageFont.truetype(FONT, pt, index=1 if bold else 0)
 
-def erase_square_strip(px):
-    """Remove the white square bullets by horizontally interpolating the
-    clean background across the marker column (x123..151)."""
-    x0, x1 = 123, 151
-    for y in range(344, 496):
-        ca, cb = px[x0, y], px[x1, y]
-        for x in range(x0 + 1, x1):
-            t = (x - x0) / (x1 - x0)
-            px[x, y] = tuple(round(ca[i] + (cb[i] - ca[i]) * t) for i in range(3))
+SERVICES = [
+    ("Leadership Development", "From potential to organizational performance"),
+    ("Coaching & Sparring",    "The fast lane to best performance"),
+    ("Audits & Assessments",   "Everyone in the perfect place"),
+    ("Cultural Transformation","Getting everyone engaged"),
+]
 
-def blend(orig, target, a):
-    return tuple(round(orig[i] * (1 - a) + target[i] * a) for i in range(3))
+def clean_bg():
+    return Image.open(RAW).convert("RGB").resize((1920, 1080), Image.LANCZOS).transpose(Image.FLIP_LEFT_RIGHT)
 
-def smooth_patch(px):
-    """Smooth out a faint pre-existing darker rectangle in the bg to the
-    right of the logo mark (clear of any content), via vertical interp."""
-    y0, y1 = 134, 242
-    for x in range(472, 584):
-        ca, cb = px[x, y0], px[x, y1]
-        for y in range(y0 + 1, y1):
-            t = (y - y0) / (y1 - y0)
-            px[x, y] = tuple(round(ca[i] + (cb[i] - ca[i]) * t) for i in range(3))
+def blend(o, t, a):
+    return tuple(round(o[i] * (1 - a) + t[i] * a) for i in range(3))
 
+# ── 1) lines ────────────────────────────────────────────────────────
 def build_lines():
-    im = load(); px = im.load()
-    erase_square_strip(px)
-    # thin divider lines between items — faint white, matches the text
-    for ly in LINE_Y:
+    im = Image.open(BASE).convert("RGB"); px = im.load()
+    bg = clean_bg().load()
+    for y in range(344, 496):                    # erase square column -> clean bg
+        for x in range(122, 151):
+            px[x, y] = bg[x, y]
+    for ly in LINE_Y:                            # faint white dividers
         for x in range(132, 372):
             for yy in (ly, ly + 1):
                 px[x, yy] = blend(px[x, yy], (255, 255, 255), 0.5)
-    out = DIR / "mlg-teams-bg-white-lines-1920x1080.png"
-    im.save(out, "PNG", optimize=True); print("✓", out.name)
+    im.save(DIR / "mlg-teams-bg-white-lines-1920x1080.png", "PNG", optimize=True)
+    print("✓ white-lines")
 
+# ── 2) navy ─────────────────────────────────────────────────────────
 def build_navy():
-    im = load(); px = im.load()
-    # Recolour bright (white) content -> navy in the left content regions.
-    regions = [(110, 130, 780, 240), (110, 340, 560, 500)]  # logo box, service box
-    for (x0, y0, x1, y1) in regions:
+    im = Image.open(BASE).convert("RGB"); px = im.load()
+    for (x0, y0, x1, y1) in [(108, 130, 780, 256), (108, 338, 565, 500)]:
         for y in range(y0, y1):
             for x in range(x0, x1):
-                r, g, b = px[x, y]
-                # White content has a high MIN channel; the bluish bg has a
-                # low R channel — so min() cleanly separates content from bg.
-                m = min(r, g, b)
+                m = min(px[x, y])
                 if m > 205:
-                    a = min(1.0, (m - 205) / 50.0)
-                    px[x, y] = blend((r, g, b), NAVY, a)
-    out = DIR / "mlg-teams-bg-navy-1920x1080.png"
-    im.save(out, "PNG", optimize=True); print("✓", out.name)
+                    px[x, y] = blend(px[x, y], NAVY, min(1.0, (m - 205) / 50.0))
+    # Smooth the faint light blob in the (content-free) upper-centre area so
+    # it doesn't read as a light box next to the dark navy content.
+    xa, xb = 498, 884
+    for y in range(92, 314):
+        ca, cb = px[xa, y], px[xb, y]
+        for x in range(xa + 1, xb):
+            t = (x - xa) / (xb - xa)
+            px[x, y] = tuple(round(ca[i] + (cb[i] - ca[i]) * t) for i in range(3))
+    im.save(DIR / "mlg-teams-bg-navy-1920x1080.png", "PNG", optimize=True)
+    print("✓ navy")
+
+# ── 3) two-line (name + tagline) with dividers ──────────────────────
+def build_twoline():
+    im = clean_bg()
+    logo = Image.open(BASE).convert("RGB")
+    # keep the logo: copy the logo region from the base onto the clean bg
+    im.paste(logo.crop((100, 120, 900, 300)), (100, 120))
+    d = ImageDraw.Draw(im)
+    name_f = font(21, bold=False)
+    tag_f  = font(14, bold=False)
+    x = 132
+    top0, pitch = 348, 50
+    WHITE = (255, 255, 255)
+    TAG = (255, 255, 255)
+    for i, (name, tag) in enumerate(SERVICES):
+        top = top0 + i * pitch
+        d.text((x, top), name, font=name_f, fill=WHITE)
+        d.text((x, top + 24), tag, font=tag_f, fill=TAG)
+        if i < len(SERVICES) - 1:                # divider under the item
+            ly = top + pitch - 6
+            for xx in range(x, 470):
+                for yy in (ly, ly + 1):
+                    im.putpixel((xx, yy), blend(im.getpixel((xx, yy)), (255, 255, 255), 0.4))
+    im.save(DIR / "mlg-teams-bg-white-twoline-1920x1080.png", "PNG", optimize=True)
+    print("✓ white-twoline")
 
 if __name__ == "__main__":
     build_lines()
     build_navy()
+    build_twoline()
