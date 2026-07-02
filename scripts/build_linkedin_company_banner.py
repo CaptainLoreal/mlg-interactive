@@ -22,7 +22,7 @@ import cairosvg
 
 ROOT    = pathlib.Path(__file__).resolve().parent.parent
 PHOTO   = ROOT / "assets/photos/group-1.webp"
-LOGO    = ROOT / "assets/logo-white-red-bold.svg"
+LOGO    = ROOT / "assets/logo-white.svg"
 OUT_DIR = ROOT / "assets/linkedin"
 
 # LinkedIn company page cover — recommended 1128×191
@@ -31,7 +31,8 @@ SCALE2X  = 2
 
 MARGIN_L    = 55      # left padding for logo (1× px)
 MARGIN_R    = 55      # right padding for text (1× px)
-LOGO_W      = 200     # logo width (1× px)
+MARGIN_T    = 26      # top padding for logo (1× px)
+LOGO_W      = 150     # logo width (1× px)
 HEADLINE_PT = 30      # "EMPOWERING LEADERSHIP" font size (1× px)
 SUBHEAD_PT  = 14      # subheader font size (1× px)
 
@@ -97,10 +98,10 @@ def build(scale=1):
         gd.line([(x, 0), (x, h)], fill=(0, 0, 0, int(peak * smoothstep(t))))
     base.paste(grad, (0, 0), grad)
 
-    # Logo — left, vertically centred
+    # Logo — top-left
     logo = render_svg(LOGO, LOGO_W * scale)
     lw, lh = logo.size
-    base.paste(logo, (MARGIN_L * scale, (h - lh) // 2), logo)
+    base.paste(logo, (MARGIN_L * scale, MARGIN_T * scale), logo)
 
     # Headline — 2 lines stretched to equal width (justified block)
     hf = load_font(FONT_BOLD_PATH, HEADLINE_PT * scale, FONT_BOLD_INDEX)
