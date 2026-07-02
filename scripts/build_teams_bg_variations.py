@@ -61,7 +61,7 @@ def build_lines():
 # ── 2) navy ─────────────────────────────────────────────────────────
 def build_navy():
     im = Image.open(BASE).convert("RGB"); px = im.load()
-    for (x0, y0, x1, y1) in [(108, 130, 780, 256), (108, 338, 565, 500)]:
+    for (x0, y0, x1, y1) in [(108, 130, 780, 285), (108, 338, 565, 500)]:
         for y in range(y0, y1):
             for x in range(x0, x1):
                 m = min(px[x, y])
@@ -78,32 +78,32 @@ def build_navy():
     im.save(DIR / "mlg-teams-bg-navy-1920x1080.png", "PNG", optimize=True)
     print("✓ navy")
 
-# ── 3) two-line (name + tagline) with dividers ──────────────────────
-def build_twoline():
-    im = clean_bg()
-    logo = Image.open(BASE).convert("RGB")
-    # keep the logo: copy the logo region from the base onto the clean bg
-    im.paste(logo.crop((100, 120, 900, 300)), (100, 120))
+# ── 3) service names on generously spaced rows, divided by lines ────
+#     (existing bullet-list text only — NO added copy)
+def build_lines_spaced():
+    im = Image.open(BASE).convert("RGB"); px = im.load()
+    bg = clean_bg().load()
+    # erase the whole existing service block (squares + names)
+    for y in range(340, 500):
+        for x in range(120, 470):
+            px[x, y] = bg[x, y]
     d = ImageDraw.Draw(im)
     name_f = font(21, bold=False)
-    tag_f  = font(14, bold=False)
     x = 132
-    top0, pitch = 348, 50
+    top0, pitch = 350, 52
     WHITE = (255, 255, 255)
-    TAG = (255, 255, 255)
-    for i, (name, tag) in enumerate(SERVICES):
+    for i, (name, _tag) in enumerate(SERVICES):
         top = top0 + i * pitch
         d.text((x, top), name, font=name_f, fill=WHITE)
-        d.text((x, top + 24), tag, font=tag_f, fill=TAG)
-        if i < len(SERVICES) - 1:                # divider under the item
-            ly = top + pitch - 6
+        if i < len(SERVICES) - 1:                # divider between items
+            ly = top + pitch - 10
             for xx in range(x, 470):
                 for yy in (ly, ly + 1):
                     im.putpixel((xx, yy), blend(im.getpixel((xx, yy)), (255, 255, 255), 0.4))
     im.save(DIR / "mlg-teams-bg-white-twoline-1920x1080.png", "PNG", optimize=True)
-    print("✓ white-twoline")
+    print("✓ white-twoline (names + dividers)")
 
 if __name__ == "__main__":
     build_lines()
     build_navy()
-    build_twoline()
+    build_lines_spaced()
