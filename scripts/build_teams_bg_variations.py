@@ -132,8 +132,37 @@ def build_red_lines():
     im.save(DIR / "mlg-teams-bg-white-red-lines-1920x1080.png", "PNG", optimize=True)
     print("✓ white-red-lines")
 
+# ── 5) everything red, lines style ──────────────────────────────────
+def build_red_all():
+    im = Image.open(BASE).convert("RGB"); px = im.load()
+    bg = clean_bg().load()
+    RED = (179, 10, 49)
+    for (x0, y0, x1, y1) in [(108, 130, 780, 285), (108, 338, 565, 500)]:
+        for y in range(y0, y1):
+            for x in range(x0, x1):
+                m = min(px[x, y])
+                if m > 205:
+                    px[x, y] = blend(px[x, y], RED, min(1.0, (m - 205) / 50.0))
+    for y in range(344, 496):        # lines treatment: erase squares
+        for x in range(122, 151):
+            px[x, y] = bg[x, y]
+    for ly in LINE_Y:                # red dividers
+        for x in range(132, 372):
+            for yy in (ly, ly + 1):
+                px[x, yy] = blend(px[x, yy], RED, 0.6)
+    # smooth the faint light blob so it doesn't read as a light box
+    xa, xb = 498, 884
+    for y in range(92, 314):
+        ca, cb = px[xa, y], px[xb, y]
+        for x in range(xa + 1, xb):
+            t = (x - xa) / (xb - xa)
+            px[x, y] = tuple(round(ca[i] + (cb[i] - ca[i]) * t) for i in range(3))
+    im.save(DIR / "mlg-teams-bg-red-lines-1920x1080.png", "PNG", optimize=True)
+    print("✓ red-lines (all red)")
+
 if __name__ == "__main__":
     build_lines()
     build_navy()
     build_twoline()
     build_red_lines()
+    build_red_all()
