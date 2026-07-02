@@ -4394,7 +4394,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   z-index: 3;
   max-width: 620px;
   margin: 0 auto;
-  padding: clamp(56px, 9vh, 96px) var(--pad-x) 0;
+  padding: clamp(88px, 16vh, 180px) var(--pad-x) 0;
   text-align: center;
 }
 .site-award__label {
