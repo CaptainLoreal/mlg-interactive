@@ -17,11 +17,13 @@
       height: 66vh;
       min-height: 460px;
       overflow: hidden;
+      margin-top: calc(env(safe-area-inset-top, 0px) + 88px);
     }
     .val-hero__media { position: absolute; inset: 0; }
     .val-hero__media img {
       width: 100%; height: 100%;
       object-fit: cover;
+      object-position: center top;
     }
     .val-hero__scrim {
       position: absolute; inset: 0;
@@ -154,6 +156,9 @@
     .val-cta__btn:hover { background: var(--mlg-red-deep); }
     .val-cta__btn:active { transform: translateY(1px); }
 
+    @media (max-width: 640px) {
+      .val-hero { margin-top: calc(env(safe-area-inset-top, 0px) + 84px); }
+    }
     @media (max-width: 720px) {
       .val-item {
         grid-template-columns: 40px 1fr;
