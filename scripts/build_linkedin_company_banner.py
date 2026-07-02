@@ -123,7 +123,7 @@ def build(scale=1):
         sub_img = sub_img.resize((block_w, sub_img.height), Image.LANCZOS)
     sub_h = sub_img.height
 
-    gap_head_sub = int(5 * scale)
+    gap_head_sub = int(16 * scale)
     total_h = head_h + gap_head_sub + sub_h
     right = w - MARGIN_R * scale
     y = (h - total_h) // 2
