@@ -22,7 +22,7 @@ import cairosvg
 
 ROOT    = pathlib.Path(__file__).resolve().parent.parent
 PHOTO   = ROOT / "assets/photos/group-1.webp"
-LOGO    = ROOT / "assets/logo-white.svg"
+LOGO    = ROOT / "assets/logo-white-bold.svg"
 OUT_DIR = ROOT / "assets/linkedin"
 
 # LinkedIn company page cover — recommended 1128×191
