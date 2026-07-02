@@ -37,7 +37,7 @@ HEADLINE_PT = 30      # "EMPOWERING LEADERSHIP" font size (1× px)
 SUBHEAD_PT  = 14      # subheader font size (1× px)
 
 HEADLINE   = "EMPOWERING\nLEADERSHIP"
-SUBHEAD    = "We build the cognitive and emotional\noperating system of leadership"
+SUBHEAD    = "Developing leaders who shape organizations"
 WHITE      = (255, 255, 255, 255)
 SUBHEAD_FG = (255, 255, 255, 224)
 
@@ -103,11 +103,24 @@ def build(scale=1):
     head_line_gap = int(5 * scale)
     head_h = sum(li.height for li in hlines) + head_line_gap * (len(hlines) - 1)
 
-    # Subheader — 2 lines, right-aligned (natural widths), bold
-    sf = load_font(FONT_BOLD_PATH, SUBHEAD_PT * scale, FONT_BOLD_INDEX)
-    slines = [render_line(ln, sf, SUBHEAD_FG) for ln in SUBHEAD.split("\n")]
-    sub_line_gap = int(3 * scale)
-    sub_h = sum(li.height for li in slines) + sub_line_gap * (len(slines) - 1)
+    # Subheader — single line, bold, stretched to EXACTLY the headline
+    # block width so slogan + tagline share both edges (justified block).
+    draw = ImageDraw.Draw(base)
+    lo, hi, best_pt, best_err = 6.0, 120.0, 6.0, 1e9
+    for _ in range(30):
+        mid = (lo + hi) / 2
+        f = load_font(FONT_BOLD_PATH, round(mid * scale), FONT_BOLD_INDEX)
+        tw = draw.textbbox((0, 0), SUBHEAD, font=f)[2]
+        err = abs(tw - block_w)
+        if err < best_err:
+            best_err, best_pt = err, mid
+        if tw < block_w: lo = mid
+        else: hi = mid
+    sf = load_font(FONT_BOLD_PATH, round(best_pt * scale), FONT_BOLD_INDEX)
+    sub_img = render_line(SUBHEAD, sf, SUBHEAD_FG)
+    if sub_img.width != block_w:
+        sub_img = sub_img.resize((block_w, sub_img.height), Image.LANCZOS)
+    sub_h = sub_img.height
 
     gap_head_sub = int(12 * scale)
     total_h = head_h + gap_head_sub + sub_h
@@ -118,9 +131,7 @@ def build(scale=1):
         base.paste(li, (right - li.width, y), li)
         y += li.height + head_line_gap
     y = y - head_line_gap + gap_head_sub
-    for li in slines:                       # subheader right-aligned
-        base.paste(li, (right - li.width, y), li)
-        y += li.height + sub_line_gap
+    base.paste(sub_img, (right - sub_img.width, y), sub_img)
     return base
 
 def main():
