@@ -33,7 +33,7 @@ MARGIN_L    = 55      # left padding for logo (1× px)
 MARGIN_R    = 55      # right padding for text (1× px)
 MARGIN_T    = 26      # top padding for logo (1× px)
 LOGO_W      = 150     # logo width (1× px)
-HEADLINE_PT = 30      # "EMPOWERING LEADERSHIP" font size (1× px)
+HEADLINE_PT = 37      # "EMPOWERING LEADERSHIP" font size (1× px)
 SUBHEAD_PT  = 14      # subheader font size (1× px)
 
 HEADLINE   = "EMPOWERING\nLEADERSHIP"
@@ -122,7 +122,7 @@ def build(scale=1):
         sub_img = sub_img.resize((block_w, sub_img.height), Image.LANCZOS)
     sub_h = sub_img.height
 
-    gap_head_sub = int(12 * scale)
+    gap_head_sub = int(5 * scale)
     total_h = head_h + gap_head_sub + sub_h
     right = w - MARGIN_R * scale
     y = (h - total_h) // 2
