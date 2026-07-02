@@ -98,9 +98,10 @@ def build(scale=1):
     # Headline — 2 lines stretched to equal width (justified block)
     hf = load_font(FONT_BOLD_PATH, HEADLINE_PT * scale, FONT_BOLD_INDEX)
     hlines = [render_line(ln, hf, WHITE) for ln in HEADLINE.split("\n")]
+    hlines = [li.crop(li.getbbox()) for li in hlines]   # tight vertical crop (glyph height only)
     block_w = max(li.width for li in hlines)
     hlines = [li.resize((block_w, li.height), Image.LANCZOS) if li.width != block_w else li for li in hlines]
-    head_line_gap = int(5 * scale)
+    head_line_gap = int(8 * scale)
     head_h = sum(li.height for li in hlines) + head_line_gap * (len(hlines) - 1)
 
     # Subheader — single line, bold, stretched to EXACTLY the headline
