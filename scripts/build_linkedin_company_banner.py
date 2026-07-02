@@ -2,36 +2,43 @@
 """
 Build the LinkedIn *company page* banner from the group-1 design.
 
-Differences vs the profile banner (build_linkedin_banners.py):
   • Dimensions: 1128×191 (LinkedIn company page cover) + @2x (2256×382)
-  • NO logo — only the headline + tagline over the photo
-  • Right-side dark gradient so the text stays legible
+  • MLG logo (white/red) — left, vertically centred
+  • "EMPOWERING LEADERSHIP" headline — right, justified block
+  • Subheader "We build the cognitive and emotional operating system
+    of leadership" — right, under the headline
+  • Mirrored dark gradient so logo + text stay legible
 
 Output:
   assets/linkedin/mlg-linkedin-group1-company.png       (1128×191)
   assets/linkedin/mlg-linkedin-group1-company@2x.png    (2256×382)
 
 Run:
-  python3 scripts/build_linkedin_company_banner.py
+  DYLD_LIBRARY_PATH=/opt/homebrew/lib python3 scripts/build_linkedin_company_banner.py
 """
-import pathlib, sys
+import io, pathlib, sys
 from PIL import Image, ImageDraw, ImageFont
+import cairosvg
 
-ROOT      = pathlib.Path(__file__).resolve().parent.parent
-PHOTO     = ROOT / "assets/photos/group-1.webp"
-OUT_DIR   = ROOT / "assets/linkedin"
+ROOT    = pathlib.Path(__file__).resolve().parent.parent
+PHOTO   = ROOT / "assets/photos/group-1.webp"
+LOGO    = ROOT / "assets/logo-white-red-bold.svg"
+OUT_DIR = ROOT / "assets/linkedin"
 
 # LinkedIn company page cover — recommended 1128×191
 W, H     = 1128, 191
 SCALE2X  = 2
 
+MARGIN_L    = 55      # left padding for logo (1× px)
 MARGIN_R    = 55      # right padding for text (1× px)
-HEADLINE_PT = 34      # "EMPOWERING LEADERSHIP" font size (1× px)
+LOGO_W      = 200     # logo width (1× px)
+HEADLINE_PT = 30      # "EMPOWERING LEADERSHIP" font size (1× px)
+SUBHEAD_PT  = 14      # subheader font size (1× px)
 
 HEADLINE   = "EMPOWERING\nLEADERSHIP"
-TAGLINE    = "Developing leaders who shape organizations"
+SUBHEAD    = "We build the cognitive and emotional\noperating system of leadership"
 WHITE      = (255, 255, 255, 255)
-TAGLINE_FG = (255, 255, 255, 220)
+SUBHEAD_FG = (255, 255, 255, 224)
 
 HELVETICA_TTC = "/System/Library/Fonts/Helvetica.ttc"
 FONT_BOLD_PATH, FONT_BOLD_INDEX = HELVETICA_TTC, 1
@@ -45,6 +52,10 @@ if not pathlib.Path(FONT_BOLD_PATH).exists():
 def load_font(path, size, index=0):
     return ImageFont.truetype(path, max(1, int(size)), index=index)
 
+def render_svg(svg_path, width_px):
+    png = cairosvg.svg2png(url=str(svg_path), output_width=int(width_px))
+    return Image.open(io.BytesIO(png)).convert("RGBA")
+
 def cover_crop(img, tw, th):
     sw, sh = img.size
     scale = max(tw / sw, th / sh)
@@ -56,74 +67,67 @@ def cover_crop(img, tw, th):
 def smoothstep(t):
     return t * t * t * (t * (t * 6 - 15) + 10)
 
+def render_line(text, font, fill):
+    """Render a single text line, cropped horizontally to its glyph bbox
+    but keeping the full ascent+descent line height for stable baselines."""
+    asc, dsc = font.getmetrics()
+    line_h = asc + dsc + 4
+    tmp = Image.new("RGBA", (line_h * len(text) + 400, line_h), (0, 0, 0, 0))
+    ImageDraw.Draw(tmp).text((0, 0), text, font=font, fill=fill)
+    bb = tmp.getbbox()
+    if bb:
+        tmp = tmp.crop((bb[0], 0, bb[2], line_h))
+    return tmp
+
 def build(scale=1):
     w, h = W * scale, H * scale
     base = Image.new("RGB", (w, h), (12, 14, 16))
     photo = Image.open(PHOTO).convert("RGB")
     base.paste(cover_crop(photo, w, h), (0, 0))
 
-    # Right-side dark gradient (full-width smoothstep from centre → right)
+    # Mirrored dark gradient (full-width smoothstep, both edges dark)
     grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     gd = ImageDraw.Draw(grad)
-    peak_alpha = 205
+    peak = 195
     for x in range(w // 2, w):
         t = (x - w / 2) / (w / 2)
-        gd.line([(x, 0), (x, h)], fill=(0, 0, 0, int(peak_alpha * smoothstep(t))))
+        gd.line([(x, 0), (x, h)], fill=(0, 0, 0, int(peak * smoothstep(t))))
+    for x in range(0, w // 2):
+        t = 1 - x / (w / 2)
+        gd.line([(x, 0), (x, h)], fill=(0, 0, 0, int(peak * smoothstep(t))))
     base.paste(grad, (0, 0), grad)
 
-    draw = ImageDraw.Draw(base)
-    headline_font = load_font(FONT_BOLD_PATH, HEADLINE_PT * scale, FONT_BOLD_INDEX)
+    # Logo — left, vertically centred
+    logo = render_svg(LOGO, LOGO_W * scale)
+    lw, lh = logo.size
+    base.paste(logo, (MARGIN_L * scale, (h - lh) // 2), logo)
 
-    # Render headline lines, crop to true bbox, stretch all to the widest
-    # line's width so slogan + tagline form one justified block.
-    head_lines = HEADLINE.split("\n")
-    asc, dsc = headline_font.getmetrics()
-    line_h = asc + dsc
-    line_gap = int(6 * scale)
-    line_imgs, widths = [], []
-    for ln in head_lines:
-        tmp = Image.new("RGBA", (line_h * len(ln) + 200, line_h + 4), (0, 0, 0, 0))
-        ImageDraw.Draw(tmp).text((0, 0), ln, font=headline_font, fill=WHITE)
-        bb = tmp.getbbox()
-        if bb:
-            tmp = tmp.crop((bb[0], 0, bb[2], line_h + 4))
-        widths.append(tmp.width)
-        line_imgs.append(tmp)
-    block_w = max(widths)
-    line_imgs = [li.resize((block_w, li.height), Image.LANCZOS) if li.width != block_w else li
-                 for li in line_imgs]
+    # Headline — 2 lines stretched to equal width (justified block)
+    hf = load_font(FONT_BOLD_PATH, HEADLINE_PT * scale, FONT_BOLD_INDEX)
+    hlines = [render_line(ln, hf, WHITE) for ln in HEADLINE.split("\n")]
+    block_w = max(li.width for li in hlines)
+    hlines = [li.resize((block_w, li.height), Image.LANCZOS) if li.width != block_w else li for li in hlines]
+    head_line_gap = int(5 * scale)
+    head_h = sum(li.height for li in hlines) + head_line_gap * (len(hlines) - 1)
 
-    # Tagline — fit its width to the headline block width
-    lo, hi, best_pt, best_err = 6.0, 120.0, 6.0, 1e9
-    for _ in range(30):
-        mid = (lo + hi) / 2
-        f = load_font(FONT_REG_PATH, round(mid * scale), FONT_REG_INDEX)
-        tw = draw.textbbox((0, 0), TAGLINE, font=f)[2]
-        err = abs(tw - block_w)
-        if err < best_err:
-            best_err, best_pt = err, mid
-        if tw < block_w: lo = mid
-        else: hi = mid
-    tagline_font = load_font(FONT_REG_PATH, round(best_pt * scale), FONT_REG_INDEX)
-    tasc, tdsc = tagline_font.getmetrics()
-    tag_h = tasc + tdsc + 4
-    tmp = Image.new("RGBA", (block_w + 200, tag_h), (0, 0, 0, 0))
-    ImageDraw.Draw(tmp).text((0, 0), TAGLINE, font=tagline_font, fill=TAGLINE_FG)
-    bb = tmp.getbbox()
-    if bb:
-        tmp = tmp.crop((bb[0], 0, bb[2], tag_h))
-    tag_img = tmp.resize((block_w, tag_h), Image.LANCZOS) if tmp.width != block_w else tmp
+    # Subheader — 2 lines, right-aligned (natural widths)
+    sf = load_font(FONT_REG_PATH, SUBHEAD_PT * scale, FONT_REG_INDEX)
+    slines = [render_line(ln, sf, SUBHEAD_FG) for ln in SUBHEAD.split("\n")]
+    sub_line_gap = int(3 * scale)
+    sub_h = sum(li.height for li in slines) + sub_line_gap * (len(slines) - 1)
 
-    # Vertically centre the whole text block
-    tag_gap = int(10 * scale)
-    block_h = len(line_imgs) * line_h + (len(line_imgs) - 1) * line_gap + tag_gap + tag_img.height
-    x = w - MARGIN_R * scale - block_w
-    y = (h - block_h) // 2
-    for li in line_imgs:
-        base.paste(li, (x, y), li)
-        y += line_h + line_gap
-    y += tag_gap - line_gap
-    base.paste(tag_img, (x, y), tag_img)
+    gap_head_sub = int(12 * scale)
+    total_h = head_h + gap_head_sub + sub_h
+    right = w - MARGIN_R * scale
+    y = (h - total_h) // 2
+
+    for li in hlines:                       # headline right-aligned (block)
+        base.paste(li, (right - li.width, y), li)
+        y += li.height + head_line_gap
+    y = y - head_line_gap + gap_head_sub
+    for li in slines:                       # subheader right-aligned
+        base.paste(li, (right - li.width, y), li)
+        y += li.height + sub_line_gap
     return base
 
 def main():
@@ -132,7 +136,7 @@ def main():
     b2.save(OUT_DIR / "mlg-linkedin-group1-company@2x.png", "PNG", optimize=True)
     b1 = b2.resize((W, H), Image.LANCZOS)
     b1.save(OUT_DIR / "mlg-linkedin-group1-company.png", "PNG", optimize=True)
-    print(f"✓ company banner  {W}×{H}  (+@2x {W*SCALE2X}×{H*SCALE2X})  ← group-1.webp, no logo")
+    print(f"✓ company banner  {W}×{H}  (+@2x {W*SCALE2X}×{H*SCALE2X})  ← group-1.webp, logo + new subheader")
 
 if __name__ == "__main__":
     main()
