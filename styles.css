@@ -4385,6 +4385,40 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 
 /* Imprint — small print at the very bottom of the contact slide. */
+/* ── Global footer award (Brandon Hall HCM Excellence Awards) ────────
+   Injected above the .imprint disclaimer on every page. Deliberately
+   understated: small red eyebrow, muted caption, small seal. The
+   generous padding-top pushes the whole footer further down. */
+.site-award {
+  position: relative;
+  z-index: 3;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: clamp(56px, 9vh, 96px) var(--pad-x) 0;
+  text-align: center;
+}
+.site-award__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mlg-red);
+  margin: 0 0 10px;
+}
+.site-award__text {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.55);
+  max-width: 470px;
+  margin: 0 auto 16px;
+}
+.site-award__badge {
+  width: 74px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 .imprint {
   position: relative;
   z-index: 3;

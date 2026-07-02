@@ -202,6 +202,19 @@
     }
   }
 
+  /* ── Global footer award (Brandon Hall) — inject above every imprint ── */
+  (function () {
+    var imprint = document.querySelector('.imprint');
+    if (!imprint || document.querySelector('.site-award')) return;
+    var award = document.createElement('div');
+    award.className = 'site-award';
+    award.innerHTML =
+      '<p class="site-award__label" data-de="Ausgezeichnete Leistung">Awarded performance</p>' +
+      '<p class="site-award__text" data-de="MLG gehört zu den Gewinnern der internationalen Brandon Hall Excellence Awards in der Kategorie „Best Advance in Performance Management“ – ausgezeichnet für ein globales Projekt mit der Bayer AG.">MLG is among the winners of the international Brandon Hall Excellence Awards in the category „Best Advance in Performance Management“ – awarded for a global project with Bayer AG.</p>' +
+      '<img class="site-award__badge" src="' + P + 'assets/badge-brandon-hall.png" alt="Brandon Hall Group HCM Excellence Awards — Bronze, Excellence in Talent Management 2015" loading="lazy" decoding="async" width="203" height="144">';
+    imprint.parentNode.insertBefore(award, imprint);
+  })();
+
   /* ── PDF export (Generate PDF button on team bio pages) ──
      iOS Safari ignores `@page size: A4` for content-height; it paginates
      based on the *current viewport* CSS-pixel layout. On a phone that
