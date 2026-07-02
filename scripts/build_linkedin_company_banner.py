@@ -86,22 +86,14 @@ def build(scale=1):
     photo = Image.open(PHOTO).convert("RGB")
     base.paste(cover_crop(photo, w, h), (0, 0))
 
-    # Mirrored dark gradient (full-width smoothstep, both edges dark)
+    # Right-side dark gradient (full-width smoothstep from centre → right)
     grad = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     gd = ImageDraw.Draw(grad)
-    peak = 195
+    peak = 200
     for x in range(w // 2, w):
         t = (x - w / 2) / (w / 2)
         gd.line([(x, 0), (x, h)], fill=(0, 0, 0, int(peak * smoothstep(t))))
-    for x in range(0, w // 2):
-        t = 1 - x / (w / 2)
-        gd.line([(x, 0), (x, h)], fill=(0, 0, 0, int(peak * smoothstep(t))))
     base.paste(grad, (0, 0), grad)
-
-    # Logo — top-left
-    logo = render_svg(LOGO, LOGO_W * scale)
-    lw, lh = logo.size
-    base.paste(logo, (MARGIN_L * scale, MARGIN_T * scale), logo)
 
     # Headline — 2 lines stretched to equal width (justified block)
     hf = load_font(FONT_BOLD_PATH, HEADLINE_PT * scale, FONT_BOLD_INDEX)
@@ -111,8 +103,8 @@ def build(scale=1):
     head_line_gap = int(5 * scale)
     head_h = sum(li.height for li in hlines) + head_line_gap * (len(hlines) - 1)
 
-    # Subheader — 2 lines, right-aligned (natural widths)
-    sf = load_font(FONT_REG_PATH, SUBHEAD_PT * scale, FONT_REG_INDEX)
+    # Subheader — 2 lines, right-aligned (natural widths), bold
+    sf = load_font(FONT_BOLD_PATH, SUBHEAD_PT * scale, FONT_BOLD_INDEX)
     slines = [render_line(ln, sf, SUBHEAD_FG) for ln in SUBHEAD.split("\n")]
     sub_line_gap = int(3 * scale)
     sub_h = sum(li.height for li in slines) + sub_line_gap * (len(slines) - 1)
