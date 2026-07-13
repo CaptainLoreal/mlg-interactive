@@ -112,10 +112,11 @@
     }
 
     /* Offering cards grid */
+    .offerings-bg { padding-left: clamp(16px, 2vw, 28px); padding-right: clamp(16px, 2vw, 28px); }
     .ld-offerings {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
+      gap: 18px;
       max-width: 1480px;
       margin: 0 auto clamp(56px, 8vh, 96px);
     }
@@ -123,7 +124,7 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.14);
       border-radius: 8px;
-      padding: 32px 28px 36px;
+      padding: 32px 20px 36px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -145,7 +146,7 @@
       flex-shrink: 0;
     }
     .ld-offering__title {
-      font-size: clamp(22px, 2.3vw, 31px);
+      font-size: clamp(22px, 2.4vw, 33px);
       font-weight: 700;
       font-family: var(--font-sans);
       letter-spacing: 0.04em;
