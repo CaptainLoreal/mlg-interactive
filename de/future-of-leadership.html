@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000" />
+  <meta name="description" content="How Munich Leadership Group sees the future of leadership — preparing leaders for the biggest and fastest change in business history." />
+  <link rel="canonical" href="https://www.munichleadership.com/de/future-of-leadership.html" />
+  <link rel="alternate" hreflang="en" href="https://www.munichleadership.com/de/future-of-leadership.html" />
+  <link rel="alternate" hreflang="de" href="https://www.munichleadership.com/de/future-of-leadership.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.munichleadership.com/de/future-of-leadership.html" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Munich Leadership Group" />
+  <meta property="og:title" content="How We See the Future of Leadership — Munich Leadership Group" />
+  <meta property="og:description" content="How Munich Leadership Group sees the future of leadership — preparing leaders for the biggest and fastest change in business history." />
+  <meta property="og:url" content="https://www.munichleadership.com/de/future-of-leadership.html" />
+  <meta property="og:image" content="https://www.munichleadership.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How We See the Future of Leadership — Munich Leadership Group" />
+  <meta name="twitter:description" content="How Munich Leadership Group sees the future of leadership — preparing leaders for the biggest and fastest change in business history." />
+  <meta name="twitter:image" content="https://www.munichleadership.com/assets/og-image.png" />
+  <title>How We See the Future of Leadership — Munich Leadership Group</title>
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.min.css?v=604" />
+  <style>
+    body { overflow: visible; }
+    .standalone { overflow: visible; min-height: 100dvh; }
+
+    /* Hero */
+    .fol-hero {
+      position: relative;
+      height: 82vh;
+      min-height: 520px;
+      overflow: hidden;
+    }
+    .fol-hero__media { position: absolute; inset: 0; }
+    .fol-hero__media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .fol-hero__scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0) 100%);
+    }
+    .fol-hero__copy {
+      position: absolute; inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(40px, 7vh, 80px);
+      max-width: 1100px;
+    }
+    .fol-hero__eyebrow {
+      display: inline-block;
+      align-self: flex-start;
+      width: fit-content;
+      background: var(--mlg-red);
+      border: 1px solid var(--mlg-red);
+      border-radius: 999px;
+      line-height: 1;
+      padding: 6px 12px 5px;   /* optical-centring, matches .eyebrow */
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin: 0 0 14px;
+    }
+    .fol-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 600;
+      letter-spacing: -0.005em;
+      color: #fff;
+      margin: 0;
+      line-height: 1.05;
+      max-width: 920px;
+    }
+
+    /* Content */
+    .fol-content {
+      background: #000;
+      padding: clamp(48px, 7vh, 96px) clamp(24px, 5vw, 72px) clamp(48px, 6vh, 72px);
+    }
+    .fol-body {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .fol-body p {
+      font-size: 19px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.72);
+      margin: 0 0 22px;
+    }
+    .fol-body p strong {
+      color: rgba(255,255,255,0.95);
+      font-weight: 700;
+    }
+    .fol-body p.fol-lead {
+      font-size: clamp(22px, 2.4vw, 28px);
+      line-height: 1.5;
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+    .fol-body p.fol-question {
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: 1.45;
+      color: #fff;
+      font-weight: 500;
+      border-left: 2px solid var(--mlg-red);
+      padding-left: 18px;
+      margin: 28px 0;
+    }
+
+    /* Pull quote between Step 1 and Step 2 — uses the EXACT same
+       selector shape as .fol-question above so they win against the
+       generic `.fol-body p` rule and render at identical size + colour. */
+    .fol-body p.fol-pull {
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: 1.45;
+      color: #fff;
+      font-weight: 500;
+      font-style: normal;
+      border-left: 2px solid var(--mlg-red);
+      padding-left: 18px;
+      margin: 28px 0;
+      text-align: left;
+      max-width: none;
+    }
+    .fol-body p.fol-pull strong { color: #fff; font-weight: 700; }
+    .fol-body p.fol-pull::before,
+    .fol-body p.fol-pull::after { content: none; }
+
+    /* Step blocks */
+    .fol-step {
+      margin: 36px 0;
+      padding: 28px 32px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 8px;
+    }
+    .fol-step__label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mlg-red);
+      margin: 0 0 12px;
+    }
+    .fol-step p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.78);
+    }
+
+    /* CTA */
+    .fol-cta {
+      text-align: center;
+      padding: clamp(40px, 6vh, 72px) 0 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      max-width: 760px;
+      margin: clamp(40px, 6vh, 64px) auto 0;
+    }
+    .fol-cta__text {
+      color: rgba(255,255,255,0.65);
+      font-size: clamp(17px, 1.8vw, 20px);
+      line-height: 1.6;
+      margin: 0 0 28px;
+    }
+    .fol-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--mlg-red);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 999px;
+      transition: background var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out);
+    }
+    .fol-cta__btn:hover { background: var(--mlg-red-deep); }
+    .fol-cta__btn:active { transform: translateY(1px); }
+
+    @media (max-width: 640px) {
+      .fol-step { padding: 20px 22px; }
+      .fol-body p { font-size: 17px; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.munichleadership.com/"},{"@type":"ListItem","position":2,"name":"Approach","item":"https://www.munichleadership.com/#slide=3"},{"@type":"ListItem","position":3,"name":"Future of Leadership","item":"https://www.munichleadership.com/de/future-of-leadership.html"}]}
+  </script>
+</head>
+<body>
+  <main class="standalone">
+    <div class="topbar">
+      <a class="topbar__logo" href="index.html#slide=0" aria-label="Munich Leadership Group — back to home">
+        <img decoding="async" loading="lazy" src="../assets/logo-white-red-bold.svg" alt="Munich Leadership Group" />
+      </a>
+    </div>
+    <span class="corner-mark" aria-hidden="true">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
+
+    <!-- Hero -->
+    <div class="fol-hero">
+      <div class="fol-hero__media">
+        <img decoding="async" loading="lazy" src="../assets/photos/vision-5.webp?v=1" alt="" />
+      </div>
+      <div class="fol-hero__scrim"></div>
+      <div class="fol-hero__copy">
+        <a class="page-back" href="index.html#slide=3">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span data-de="zurück">zurück</span>
+        </a>
+        <p class="fol-hero__eyebrow" data-de="Vision">Vision</p>
+        <h1 class="fol-hero__title" data-de="Wie wir die Zukunft<br>von Führung sehen">Wie wir die Zukunft<br>von Führung sehen</h1>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="fol-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html#slide=3" data-de="Ansatz">Ansatz</a>
+        <span class="breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="breadcrumb__current" data-de="Future of Leadership">Future of Leadership</span>
+      </nav>
+
+      <div class="fol-body">
+        <p class="fol-question" data-de="Heute beschäftigt ein großer Automobilkonzern rund 150.000 Menschen, um sein Geschäft zu führen. Wie viele wird er in nicht allzu ferner Zukunft noch benötigen?">Heute beschäftigt ein großer Automobilkonzern rund 150.000 Menschen, um sein Geschäft zu führen. Wie viele wird er in nicht allzu ferner Zukunft noch benötigen?</p>
+
+        <p data-de="Wenn Sie heute ein neues Automobilunternehmen gründen wollten, würden Sie wahrscheinlich daran arbeiten, eine vollständig automatisierte Produktion aufzubauen. Diese wäre fast ausschließlich mit bestens angelernten Robotern bestückt. Darüber hinaus würden Sie wahrscheinlich daran arbeiten, so viele Prozesse wie möglich und am Ende vielleicht sogar die gesamte Verwaltung von KI steuern zu lassen.">Wenn Sie heute ein neues Automobilunternehmen gründen wollten, würden Sie wahrscheinlich daran arbeiten, eine vollständig automatisierte Produktion aufzubauen. Diese wäre fast ausschließlich mit bestens angelernten Robotern bestückt. Darüber hinaus würden Sie wahrscheinlich daran arbeiten, so viele Prozesse wie möglich und am Ende vielleicht sogar die gesamte Verwaltung von KI steuern zu lassen.</p>
+
+        <p data-de="KI und Robotics haben sich in den vergangenen Jahren und Monaten so weit entwickelt, dass all dies bereits möglich wäre. Und was für die Automobilbranche gilt, gilt vermutlich für nahezu jedes Produktions- und Dienstleistungsunternehmen auf der Welt.">KI und Robotics haben sich in den vergangenen Jahren und Monaten so weit entwickelt, dass all dies bereits möglich wäre. Und was für die Automobilbranche gilt, gilt vermutlich für nahezu jedes Produktions- und Dienstleistungsunternehmen auf der Welt.</p>
+
+        <p data-de="&lt;strong&gt;Machen wir uns nichts vor:&lt;/strong&gt; Je mehr KI und Robotik unser Arbeitsleben erobern, desto weniger menschliche Arbeitskraft werden wir benötigen. Und je mehr autonome Agenten wir einsetzen &mdash; die mit anderen Agenten zusammenarbeiten, neue Agenten erzeugen und Entscheidungen ohne menschliches Eingreifen vorbereiten, wenn nicht sogar treffen &mdash; desto weniger (rein) menschliche Teams werden wir sehen."><strong>Machen wir uns nichts vor:</strong> Je mehr KI und Robotik unser Arbeitsleben erobern, desto weniger menschliche Arbeitskraft werden wir benötigen. Und je mehr autonome Agenten wir einsetzen — die mit anderen Agenten zusammenarbeiten, neue Agenten erzeugen und Entscheidungen ohne menschliches Eingreifen vorbereiten, wenn nicht sogar treffen — desto weniger (rein) menschliche Teams werden wir sehen.</p>
+
+        <p data-de="Für viele mag das im ersten Moment beängstigend klingen, doch jede Disruption birgt Chancen. Auf diese Chancen müssen wir uns fokussieren. Wir sind überzeugt: Die Führung der Zukunft muss sich in zwei entscheidenden Schritten weiterentwickeln.">Für viele mag das im ersten Moment beängstigend klingen, doch jede Disruption birgt Chancen. Auf diese Chancen müssen wir uns fokussieren. Wir sind überzeugt: Die Führung der Zukunft muss sich in zwei entscheidenden Schritten weiterentwickeln.</p>
+
+        <div class="fol-step">
+          <p class="fol-step__label" data-de="Schritt eins">Schritt eins</p>
+          <p data-de="Wir brauchen transformationale Führungskräfte, die den turbulenten Übergang mit Integrität meistern können. Führungskräfte, die mit hoher Unsicherheit zurechtkommen und trotzdem Orientierung bieten, ohne zu viel zu versprechen. Selbstreflektiert, empathisch, herausragend kommunizierend, sowohl vertikal als auch horizontal. Denker in Szenarien. Konstruktiv im Umgang mit Einwänden und Widerständen, und in der Lage, Denkrahmen bei sich selbst und in ihrem Umfeld zu verändern. Geradlinig und zugleich hochgradig anpassungsfähig. Gestalter der Zukunft, die andere mitnehmen.">Wir brauchen transformationale Führungskräfte, die den turbulenten Übergang mit Integrität meistern können. Führungskräfte, die mit hoher Unsicherheit zurechtkommen und trotzdem Orientierung bieten, ohne zu viel zu versprechen. Selbstreflektiert, empathisch, herausragend kommunizierend, sowohl vertikal als auch horizontal. Denker in Szenarien. Konstruktiv im Umgang mit Einwänden und Widerständen, und in der Lage, Denkrahmen bei sich selbst und in ihrem Umfeld zu verändern. Geradlinig und zugleich hochgradig anpassungsfähig. Gestalter der Zukunft, die andere mitnehmen.</p>
+        </div>
+
+        <p class="fol-pull" data-de="Transformationsgeschwindigkeit wird zum entscheidenden Erfolgsfaktor.">Transformationsgeschwindigkeit wird zum entscheidenden Erfolgsfaktor.</p>
+
+        <div class="fol-step">
+          <p class="fol-step__label" data-de="Schritt zwei">Schritt zwei</p>
+          <p data-de="In der neuen Welt der KI brauchen wir Führungskräfte mit einer völlig neuen Denk- und Handlungsweise. Können Sie sich vorstellen, dass nur noch 100 Menschen einen großen Automobilhersteller führen? Diese „chosen few“ werden in einem Umfeld beispielloser Herausforderungen agieren. Visionäre von Natur aus. Sie handeln unter intensiver öffentlicher Beobachtung. Sie tragen extreme Verantwortung. Sie orchestrieren Zusammenarbeit mit hoher Entscheidungsfähigkeit. Ausgestattet mit herausragenden Netzwerkfähigkeiten und einem weiten intellektuellen Horizont, unterstützt von „responsible agentic AI“. Sie werden die Wechselwirkung von Wirtschaft, Politik und Gesellschaft aktiv mitgestalten und beherrschen müssen wie keine Generation vor ihnen.">In der neuen Welt der KI brauchen wir Führungskräfte mit einer völlig neuen Denk- und Handlungsweise. Können Sie sich vorstellen, dass nur noch 100 Menschen einen großen Automobilhersteller führen? Diese „chosen few“ werden in einem Umfeld beispielloser Herausforderungen agieren. Visionäre von Natur aus. Sie handeln unter intensiver öffentlicher Beobachtung. Sie tragen extreme Verantwortung. Sie orchestrieren Zusammenarbeit mit hoher Entscheidungsfähigkeit. Ausgestattet mit herausragenden Netzwerkfähigkeiten und einem weiten intellektuellen Horizont, unterstützt von „responsible agentic AI“. Sie werden die Wechselwirkung von Wirtschaft, Politik und Gesellschaft aktiv mitgestalten und beherrschen müssen wie keine Generation vor ihnen.</p>
+        </div>
+
+        <p class="fol-question" data-de="Wie viele der Menschen in Ihrem Unternehmen sind auf die Zukunft vorbereitet bzw. für die Zukunft qualifiziert? Je weniger Führungskräfte zukünftig mit diesen wichtigen Aufgaben betraut werden, desto wichtiger und am Ende spielentscheidend wird die Auswahl und Entwicklung der richtigen Personen sein.">Wie viele der Menschen in Ihrem Unternehmen sind auf die Zukunft vorbereitet bzw. für die Zukunft qualifiziert? Je weniger Führungskräfte zukünftig mit diesen wichtigen Aufgaben betraut werden, desto wichtiger und am Ende spielentscheidend wird die Auswahl und Entwicklung der richtigen Personen sein.</p>
+
+        <p data-de="Wir bei der Munich Leadership Group sind bereit, Ihr Unternehmen bei der Vorbereitung auf die Zukunft zu unterstützen. Wir helfen Ihnen, die Führungskräfte für die Zukunft zu identifizieren und zu entwickeln. Wir verfügen über neue Tools und Prozesse, die für diese Herausforderung geeignet sind. Wir arbeiten in einem internationalen Netzwerk führender Institute, Business Schools und renommierter Forscher, um ganz vorne dabei zu sein &mdash; und zu antizipieren, was als Nächstes kommt, bevor es eintritt.">Wir bei der Munich Leadership Group sind bereit, Ihr Unternehmen bei der Vorbereitung auf die Zukunft zu unterstützen. Wir helfen Ihnen, die Führungskräfte für die Zukunft zu identifizieren und zu entwickeln. Wir verfügen über neue Tools und Prozesse, die für diese Herausforderung geeignet sind. Wir arbeiten in einem internationalen Netzwerk führender Institute, Business Schools und renommierter Forscher, um ganz vorne dabei zu sein — und zu antizipieren, was als Nächstes kommt, bevor es eintritt.</p>
+
+        <p data-de="&lt;strong&gt;Die Zukunft der Wertschöpfung ist psychologisch.&lt;/strong&gt;"><strong>Die Zukunft der Wertschöpfung ist psychologisch.</strong></p>
+
+        <p data-de="Schon heute setzen wir fortschrittliche Assessment-Tools und -Prozesse ein, die sich kontinuierlich weiterentwickeln. Wir helfen unseren Kunden, Top Talent frühzeitig zu erkennen, die Führungspipeline zu optimieren, leistungsstarke und zukunftsfähige Teams aufzubauen und zu begleiten sowie die besten Kandidaten für die wichtigsten Positionen zu auditieren. Mit unseren Learning Journeys verfolgen wir innovative Ansätze, um die Qualifizierung auf jeder Führungsebene zu beschleunigen &mdash; mit einem klaren Fokus auf Wirksamkeit.">Schon heute setzen wir fortschrittliche Assessment-Tools und -Prozesse ein, die sich kontinuierlich weiterentwickeln. Wir helfen unseren Kunden, Top Talent frühzeitig zu erkennen, die Führungspipeline zu optimieren, leistungsstarke und zukunftsfähige Teams aufzubauen und zu begleiten sowie die besten Kandidaten für die wichtigsten Positionen zu auditieren. Mit unseren Learning Journeys verfolgen wir innovative Ansätze, um die Qualifizierung auf jeder Führungsebene zu beschleunigen — mit einem klaren Fokus auf Wirksamkeit.</p>
+
+        <div class="fol-cta">
+          <p class="fol-cta__text" data-de="Wir würden sehr gerne mit Ihnen darüber sprechen, was wir für Sie tun können.">Wir würden sehr gerne mit Ihnen darüber sprechen, was wir für Sie tun können.</p>
+          <a class="fol-cta__btn" href="index.html#slide=10">
+            <span data-de="Kontaktieren Sie uns">Kontaktieren Sie uns</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <div style="margin-top: 24px;">
+            <a class="page-back" href="index.html#services">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span data-de="zurück zu unseren Leistungen">zurück zu unseren Leistungen</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <footer class="imprint" style="margin-top: 2px;">
+        <p class="imprint__links">
+          <a href="disclaimer.html" data-de="Disclaimer">Disclaimer</a>
+          <span aria-hidden="true">&middot;</span>
+          <span class="imprint__copy" data-de="&copy; 2026 Munich Leadership Group">© 2026 Munich Leadership Group</span>
+        </p>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.page-back').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        e.preventDefault();
+        document.querySelector('.standalone').classList.add('is-leaving');
+        setTimeout(() => { location.href = href; }, 320);
+      });
+    });
+  </script>
+  <script src="../subnav.min.js?v=241"></script>
+</body>
+</html>

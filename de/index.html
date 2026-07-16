@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#000" />
+  <meta name="description" content="Munich Leadership Group develops leaders who shape organizations — leadership development, coaching, team development and cultural transformation, grounded in neuroscience and hands-on experience." />
+  <link rel="canonical" href="https://www.munichleadership.com/de/" />
+  <link rel="alternate" hreflang="en" href="https://www.munichleadership.com/de/" />
+  <link rel="alternate" hreflang="de" href="https://www.munichleadership.com/de/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.munichleadership.com/de/" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Munich Leadership Group" />
+  <meta property="og:title" content="Munich Leadership Group — Leadership Development, Coaching &amp; Transformation" />
+  <meta property="og:description" content="Munich Leadership Group develops leaders who shape organizations — leadership development, coaching, team development and cultural transformation, grounded in neuroscience and hands-on experience." />
+  <meta property="og:url" content="https://www.munichleadership.com/de/" />
+  <meta property="og:image" content="https://www.munichleadership.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Munich Leadership Group — Leadership Development, Coaching &amp; Transformation" />
+  <meta name="twitter:description" content="Munich Leadership Group develops leaders who shape organizations — leadership development, coaching, team development and cultural transformation, grounded in neuroscience and hands-on experience." />
+  <meta name="twitter:image" content="https://www.munichleadership.com/assets/og-image.png" />
+  <title>Munich Leadership Group — Leadership Development, Coaching &amp; Transformation</title>
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
+  <!-- Preload hero image so it lands in the first paint (LCP) -->
+  <link rel="preload" as="image" href="../assets/photos/red-10.webp" fetchpriority="high" />
+  <!-- Preload Helvetica weights used above the fold -->
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/Helvetica.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/Helvetica-Bold.woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.min.css?v=604" />
+  <script>
+    /* Kill the intro flash before paint when the intro should be skipped —
+       either an in-page hash deep-link (#slide=N, #services, …) OR a
+       returning visitor (mlg.visited flag). app.min.js handles the actual
+       deck bootstrap; this only suppresses the first paint. */
+    try {
+      if ((location.hash && location.hash.length > 1) ||
+          localStorage.getItem('mlg.visited') === '1') {
+        document.documentElement.classList.add('skip-intro');
+      }
+    } catch (e) {
+      if (location.hash && location.hash.length > 1) {
+        document.documentElement.classList.add('skip-intro');
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"Munich Leadership Group","alternateName":"MLG","url":"https://www.munichleadership.com/","logo":"https://www.munichleadership.com/assets/og-image.png","description":"Munich Leadership Group develops leaders who shape organizations through leadership development, coaching, team development and cultural transformation.","email":"info@munichleadership.com","telephone":"+49 89 413191-0","address":{"@type":"PostalAddress","streetAddress":"Theresienhoehe 13A","postalCode":"80339","addressLocality":"Munich","addressCountry":"DE"},"sameAs":["https://www.linkedin.com/company/munich-leadership-group/"]}
+  </script>
+</head>
+<body>
+
+  <!-- ============================================================
+       INTRO — click to enter, play with the logo
+       ============================================================ -->
+  <section id="intro" class="intro" aria-label="Welcome">
+    <div class="intro__bg" aria-hidden="true"></div>
+    <div class="lang-switch intro__lang-switch" aria-label="Language switcher">
+      <button class="lang-switch__btn" data-lang="en">EN</button>
+      <button class="lang-switch__btn" data-lang="de">DE</button>
+    </div>
+
+    <img decoding="async" loading="lazy" class="intro__logo" src="../assets/logo-white-red-bold.svg" alt="Munich Leadership Group" />
+    <p class="intro__prompt" data-de="Was ist<br>Ihr Traum?">Was ist<br>Ihr Traum?</p>
+
+    <div id="enterBtn" class="slide-start" role="button" tabindex="0" aria-label="Slide to start">
+      <div class="slide-start__track">
+        <span class="slide-start__label" data-de="zum Starten wischen">zum Starten wischen</span>
+        <span class="slide-start__fill" aria-hidden="true"></span>
+      </div>
+      <span class="slide-start__knob" id="enterKnob" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       EXCUSES — interstitial: pop the excuses, reveal the truth
+       ============================================================ -->
+  <section id="excuses" class="excuses" aria-hidden="true">
+    <div class="lang-switch excuses__lang-switch" aria-label="Language switcher">
+      <button class="lang-switch__btn" data-lang="en">EN</button>
+      <button class="lang-switch__btn" data-lang="de">DE</button>
+    </div>
+    <p class="excuses__hint" data-de="Klicken Sie Ihren Traum">Klicken Sie Ihren Traum</p>
+    <p class="excuses__prompt" id="excusesPrompt" hidden></p>
+    <div class="excuses__field" id="excusesField" aria-label="Tap each excuse"></div>
+    <p class="excuses__reveal" id="excusesReveal" data-de="Es ist eine Frage der Führung.">Es ist eine Frage der Führung.</p>
+    <button class="website-cta" aria-label="Skip to first slide">
+      <span class="website-cta__label" data-de="Direkt zur Website">Direkt zur Website</span>
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+  </section>
+
+
+  <!-- ============================================================
+       MAIN — slideshow
+       ============================================================ -->
+  <main id="deck" class="deck" aria-hidden="true">
+
+    <!-- Vertical progress rail -->
+    <nav class="rail" aria-label="Slide progress">
+      <div class="rail__bar"><span class="rail__fill" id="railFill"></span></div>
+    </nav>
+
+    <!-- Top corner brand + slide nav + audience toggle. The big-hero
+         logo starts large (scaled via --hero-logo-scale by app.min.js?v=249) and
+         shrinks into the menu on scroll. past-hero gets added by JS
+         once the visitor scrolls ~50 % of the way through slide 0. -->
+    <div class="topbar">
+      <a class="topbar__logo" href="#" data-jump="0" aria-label="Munich Leadership Group">
+        <img class="topbar__logo-img" decoding="async" src="../assets/logo-white-red-bold.svg" alt="Munich Leadership Group" />
+      </a>
+
+      <nav class="slide-nav" aria-label="Slide navigation">
+        <!-- built by JS -->
+      </nav>
+
+      <div class="lang-switch" id="langSwitch" aria-label="Language switcher">
+        <button class="lang-switch__btn is-active" data-lang="en">EN</button>
+        <button class="lang-switch__btn" data-lang="de">DE</button>
+      </div>
+
+      <button class="burger" id="burgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <svg class="burger__icon burger__icon--open" viewBox="0 0 22 16" width="22" height="16" fill="none" aria-hidden="true">
+          <rect y="0"  width="22" height="1.5" rx="1" fill="currentColor"/>
+          <rect y="7"  width="22" height="1.5" rx="1" fill="currentColor"/>
+          <rect y="14" width="22" height="1.5" rx="1" fill="currentColor"/>
+        </svg>
+        <svg class="burger__icon burger__icon--close" viewBox="0 0 18 18" width="18" height="18" fill="none" aria-hidden="true">
+          <line x1="1" y1="1" x2="17" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="17" y1="1" x2="1" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation" aria-hidden="true">
+      <!-- built by JS -->
+    </nav>
+
+    <!-- Bottom-right mark — click to play the fly animation -->
+    <button id="cornerMark" class="corner-mark" type="button" aria-label="Munich Leadership Group">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="currentColor"/></svg>
+    </button>
+
+    <!-- Sticky hero image — stays in place across slides 0 (Welcome) and 1 (Tailor),
+         then scrolls up as the user goes to slide 2. Controlled by JS in tickSmooth. -->
+    <div class="hero-sticky" id="heroSticky" aria-hidden="true">
+      <img decoding="async" loading="lazy" src="../assets/photos/hero-main.webp" alt="" />
+      <div class="hero-sticky__scrim"></div>
+    </div>
+
+    <!-- Sticky bg for the Current Leadership challenges section (mobile only) -->
+    <div class="section-sticky" id="challengesSticky" data-section=".approach-cards-bg" aria-hidden="true">
+      <img decoding="async" loading="lazy" src="../assets/photos/working-2.webp" alt="" />
+    </div>
+
+    <!-- Sticky bg for the Why MLG image area (mobile only) -->
+    <div class="section-sticky" id="whyMlgSticky" data-section=".why-mlg__image-area" aria-hidden="true">
+      <img decoding="async" loading="lazy" src="../assets/photos/man-1.webp" alt="" />
+    </div>
+
+    <!-- Slides
+         Munich architecture imagery courtesy of Wikimedia Commons (CC-BY-SA).
+         Mirrored slides use data-mirror="1" to flip the photo on the X axis. -->
+    <div class="slides" id="slides">
+
+      <!-- 1 — Welcome -->
+      <article class="slide" data-slide="0" data-anim="kenburns" data-title="Welcome">
+        <div class="slide__media">
+          <img decoding="async" src="../assets/photos/hero-main.webp" alt="" loading="eager" fetchpriority="high" />
+        </div>
+        <div class="slide__scrim"></div>
+        <div class="slide__copy" style="display: flex; align-items: flex-end; justify-content: space-between; gap: clamp(32px, 5vw, 80px); max-width: none; right: var(--pad-x);">
+          <div class="hero-head" style="flex-shrink: 0; padding-bottom: clamp(28px, 3vw, 48px);">
+            <p class="eyebrow">Munich Leadership Group</p>
+            <h1 class="display" style="text-transform: uppercase; font-weight: 700;">Empowering<br>leadership</h1>
+            <p class="display display--sub" style="font-weight: 500; line-height: 1.3; margin-bottom: 0;" data-de="Wir gestalten das kognitive und emotionale<br>Betriebssystem von Leadership">Wir gestalten das kognitive und emotionale<br>Betriebssystem von Leadership</p>
+          </div>
+          <div class="hero-card">
+            <p class="hero-card__body" data-de="In der Welt von AI und Robotics wird Führung zum entscheidenden Wettbewerbsvorteil.">In der Welt von AI und Robotics wird Führung zum entscheidenden Wettbewerbsvorteil.</p>
+            <p class="hero-card__body" data-de="MLG ist spezialisiert darauf, Führung wirksamer zu machen: Leadership in Organisationen, in denen Menschen und intelligente Systeme gemeinsam Wert erzeugen.">MLG ist spezialisiert darauf, Führung wirksamer zu machen: Leadership in Organisationen, in denen Menschen und intelligente Systeme gemeinsam Wert erzeugen.</p>
+            <p class="hero-card__body" data-de="In Großunternehmen, im Mittelstand und in Start-ups / Scale-ups.">In Großunternehmen, im Mittelstand und in Start-ups / Scale-ups.</p>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- Facts & Figures strip — between hero and Services -->
+      <div class="stats-strip">
+        <p class="eyebrow stats-eyebrow" data-de="Fakten &amp; Zahlen">Fakten & Zahlen</p>
+        <div class="stats-cols">
+          <div class="stat-item">
+            <p class="stat-item__number" data-count="50" data-suffix="+">50+</p>
+            <h3 class="stat-item__label" data-de="Leadership-Experten">Leadership-Experten</h3>
+            <p class="stat-item__body" data-de="Unsere Teammitglieder und Associates leben in über 10 Ländern, sprechen mehr als 12 Sprachen und arbeiten weltweit">Unsere Teammitglieder und Associates leben in über 10 Ländern, sprechen mehr als 12 Sprachen und arbeiten weltweit</p>
+            <a class="btn btn--ghost btn--more" href="#" data-jump="8" data-de="Team">Team</a>
+          </div>
+          <div class="stat-item">
+            <p class="stat-item__number" data-count="182000" data-suffix="+" data-format="dot">182.000+</p>
+            <h3 class="stat-item__label" data-de="Teilnehmer">Teilnehmer</h3>
+            <p class="stat-item__body" data-de="Projekte, Programme und Aktivitäten von MLG sind maßgeschneidert – erfahren Sie, warum sie den Unterschied machen">Projekte, Programme und Aktivitäten von MLG sind maßgeschneidert – erfahren Sie, warum sie den Unterschied machen</p>
+            <a class="btn btn--ghost btn--more" href="#" data-jump="1" data-de="Leistungen">Leistungen</a>
+          </div>
+          <div class="stat-item">
+            <p class="stat-item__number" data-count="80" data-suffix="+">80+</p>
+            <h3 class="stat-item__label" data-de="Ambitionierte Kunden">Ambitionierte Kunden</h3>
+            <p class="stat-item__body" data-de="Großunternehmen, Mittelstand oder Start-ups / Scale-ups: MLG-Kunden zählen zu den ambitioniertesten Unternehmen – hier sagen sie, warum sie mit uns arbeiten">Großunternehmen, Mittelstand oder Start-ups / Scale-ups: MLG-Kunden zählen zu den ambitioniertesten Unternehmen – hier sagen sie, warum sie mit uns arbeiten</p>
+            <a class="btn btn--ghost btn--more" href="#" data-jump="6" data-de="Feedback">Feedback</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 — Services -->
+      <article id="services" class="slide slide--cards slide--services-split" data-slide="2" data-anim="parallax" data-title="Services">
+        <div class="services-split">
+          <div class="services-split__photo">
+            <img decoding="async" src="../assets/photos/group-2.webp" alt="" loading="lazy" />
+            <div class="services-split__scrim"></div>
+          </div>
+          <div class="services-split__copy">
+            <p class="eyebrow" data-de="Unsere Leistungen">Unsere Leistungen</p>
+            <h2 class="display"><span class="display__line" data-de="Wonach">Wonach</span><span class="display__line" data-de="suchen Sie?">suchen Sie?</span></h2>
+          </div>
+          <div class="services-wrap">
+            <div class="services-grid">
+              <a class="card-item" href="leadership-development.html">
+                <h3 class="card-item__title" data-de="Führungskräfte-<br>entwicklung">Führungskräfte-<br>entwicklung</h3>
+                <p class="card-item__body" data-de="Aus Potenzial wird Ambition und Leistung">Aus Potenzial wird Ambition und Leistung</p>
+                <span class="btn btn--ghost btn--more">
+                  <span data-de="mehr">mehr</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </span>
+              </a>
+              <a class="card-item" href="coaching-sparring.html">
+                <h3 class="card-item__title" data-de="Coaching &amp;<br>Sparring">Coaching &<br>Sparring</h3>
+                <p class="card-item__body" data-de="Die Überholspur zu nachhaltiger Leistung">Die Überholspur zu nachhaltiger Leistung</p>
+                <span class="btn btn--ghost btn--more">
+                  <span data-de="mehr">mehr</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </span>
+              </a>
+              <a class="card-item" href="audits-assessments.html">
+                <h3 class="card-item__title" data-de="Audits &amp;<br>Assessments">Audits &<br>Assessments</h3>
+                <p class="card-item__body" data-de="Treffen Sie stärkenorientierte Personalentscheidungen">Treffen Sie stärkenorientierte Personalentscheidungen</p>
+                <span class="btn btn--ghost btn--more">
+                  <span data-de="mehr">mehr</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </span>
+              </a>
+              <a class="card-item" href="cultural-transformation.html">
+                <h3 class="card-item__title" data-de="Kulturelle Transformation">Kulturelle Transformation</h3>
+                <p class="card-item__body" data-de="Mit Zuversicht in die Zukunft">Mit Zuversicht in die Zukunft</p>
+                <span class="btn btn--ghost btn--more">
+                  <span data-de="mehr">mehr</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+      <!-- 3 — GLOBE / Clients -->
+      <article class="slide slide--globe" data-slide="3" data-anim="zoom" data-title="Clients">
+        <div class="slide__media slide__media--soft">
+          <img decoding="async" src="../assets/munich/bmw-welt.jpg" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="globe-wrap">
+          <div class="globe-stage" id="globeStage">
+            <div class="globe" id="globe">
+              <div class="globe__ring globe__ring--equator"></div>
+              <div class="globe__ring globe__ring--meridian"></div>
+              <div class="globe__core"></div>
+              <!-- Client chips injected by JS -->
+            </div>
+          </div>
+
+          <!-- Right column on desktop: headline + selected-client card + quote stacked vertically -->
+          <div class="globe-side">
+            <div class="slide__copy slide__copy--side">
+              <p class="eyebrow" data-de="Kundenuniversum">Kundenuniversum</p>
+              <h2 class="display"><span class="display__line" data-de="Führende">Führende</span><span class="display__line display__line--break" data-de="Unter&shy;nehmen">Unter­nehmen</span><span class="display__line display__line--break" data-de="vertrauen uns">vertrauen uns</span></h2>
+            </div>
+
+            <div class="globe-card globe-card--idle" id="globeCard" aria-live="polite">
+              <h3 class="globe-card__name" id="globeCardName"></h3>
+              <p class="globe-card__meta globe-card__meta--hint" id="globeCardMeta" data-de="Drehen Sie den Globus und tippen Sie auf ein Logo">Drehen Sie den Globus und tippen Sie auf ein Logo</p>
+              <div class="globe-card__services" id="globeCardServices" hidden></div>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 — Approach Intro -->
+      <article class="slide slide--approach-intro slide--approach-main" data-slide="2" data-anim="parallax" data-title="Approach">
+        <div class="approach-centered-wrap">
+
+          <!-- Hero image — top portion, no scrim -->
+          <div class="approach-hero">
+            <div class="approach-hero__img">
+              <img decoding="async" src="../assets/photos/group-31.webp" alt="" loading="lazy" />
+            </div>
+            <div class="approach-hero__copy">
+              <div class="approach-hero__head">
+                <p class="eyebrow">Munich Leadership Group</p>
+                <h2 class="display approach-hero__title"><span class="display__line approach-hero__title--d" data-de="Lust auf Leistung">Lust auf Leistung</span><span class="display__line approach-hero__title--d" data-de=""></span><span class="display__line approach-hero__title--m" data-de="Lust auf Leistung">Lust auf Leistung</span><span class="display__line approach-hero__title--m" data-de=""></span><span class="display__line approach-hero__title--m" data-de=""></span></h2>
+              </div>
+              <div class="approach-hero__body">
+                <p class="approach-intro__body" data-de="Die Zeiten wandeln sich schneller als je zuvor – und mit ihnen die Anforderungen an wirkungsvolle Führungskräfteentwicklung.">Die Zeiten wandeln sich schneller als je zuvor – und mit ihnen die Anforderungen an wirkungsvolle Führungskräfteentwicklung.</p>
+                <br>
+                <p class="approach-intro__body" data-de="&lt;strong&gt;Das WAS für Führungskräfte bleibt unverändert:&lt;/strong&gt; bestmögliche Performance in ihrem Verantwortungsbereich schaffen."><strong>Das WAS für Führungskräfte bleibt unverändert:</strong> bestmögliche Performance in ihrem Verantwortungsbereich schaffen.</p>
+                <br>
+                <p class="approach-intro__body" data-de="&lt;strong&gt;Das WIE hat sich verändert:&lt;/strong&gt; Unsicherheit akzeptieren, offen für Neues sein, sich schnell anpassen, aus Fehlern lernen, das eigene Umfeld inspirieren und ohne formale Autorität führen."><strong>Das WIE hat sich verändert:</strong> Unsicherheit akzeptieren, offen für Neues sein, sich schnell anpassen, aus Fehlern lernen, das eigene Umfeld inspirieren und ohne formale Autorität führen.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1 · 2 · 3 — solid dark strip -->
+          <div class="approach-ordinals-section">
+            <div class="approach-ordinals-row">
+              <div class="approach-ordinal">
+                <span class="approach-ordinal__num">1</span>
+                <p class="approach-ordinal__text" data-de="<strong>Evidenzbasiert</strong>"><strong>Evidenzbasiert</strong></p>
+              </div>
+              <div class="approach-ordinal">
+                <span class="approach-ordinal__num">2</span>
+                <p class="approach-ordinal__text" data-de="&lt;strong&gt;Maßgeschneidert&lt;/strong&gt;"><strong>Maßgeschneidert</strong></p>
+              </div>
+              <div class="approach-ordinal">
+                <span class="approach-ordinal__num">3</span>
+                <p class="approach-ordinal__text" data-de="<strong>Pragmatisch</strong>"><strong>Pragmatisch</strong></p>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.approach-centered-wrap (part 1) -->
+      </article>
+
+      <!-- USP / Why MLG — inserted between Approach intro (hero + ordinals)
+           and the Vision sub-section, so "Our USP" sits directly above
+           "How We See the Future of Leadership". -->
+      <article class="slide slide--why-mlg" data-slide="2" data-anim="parallax" data-title="Why MLG">
+        <!-- Top: solid black header strip -->
+        <div class="why-mlg__header-strip">
+          <div class="why-mlg__head">
+            <p class="eyebrow" data-de="Unser USP">Unser USP</p>
+            <h2 class="display" data-de="Darum MLG">Darum MLG</h2>
+            <p class="why-mlg__sub" data-de="Drei Vorteile<br class='br-mobile'> für nachhaltige Wirkung">Drei Vorteile<br class='br-mobile'> für nachhaltige Wirkung</p>
+          </div>
+        </div>
+        <!-- Bottom: image with cards overlaid -->
+        <div class="why-mlg__image-area">
+          <div class="slide__media">
+            <img decoding="async" src="../assets/photos/man-1.webp" alt="" loading="lazy" />
+          </div>
+          <div class="slide__scrim slide__scrim--strong"></div>
+          <div class="why-mlg__cards">
+            <div class="challenge-box">
+              <h3 class="challenge-box__title" data-de="Unschlagbare fachliche Erfahrung">Unschlagbare fachliche Erfahrung</h3>
+              <p class="challenge-box__body" data-de="Seit 2008 begleiten wir führende Unternehmen bei allen Themen rund um wirksame Führung – belohnt mit einer ausgezeichneten Reputation und von Fachinstitutionen prämiert. Wir haben hunderte vollständig maßgeschneiderte Programme zu Leadership, Change und Transformation designt und durchgeführt. Unser Team: über 50 Experten aus mehr als 10 Nationen, die für die individuellen Herausforderungen unserer Kunden erfolgreiche Lösungen sicherstellen.">Seit 2008 begleiten wir führende Unternehmen bei allen Themen rund um wirksame Führung – belohnt mit einer ausgezeichneten Reputation und von Fachinstitutionen prämiert. Wir haben hunderte vollständig maßgeschneiderte Programme zu Leadership, Change und Transformation designt und durchgeführt. Unser Team: über 50 Experten aus mehr als 10 Nationen, die für die individuellen Herausforderungen unserer Kunden erfolgreiche Lösungen sicherstellen.</p>
+            </div>
+            <div class="challenge-box">
+              <h3 class="challenge-box__title" data-de="Evidenzbasierte Lösungen und Ansätze">Evidenzbasierte Lösungen und Ansätze</h3>
+              <p class="challenge-box__body" data-de="Leadership ist eine Wissenschaft, keine Kunst – unsere Arbeit basiert auf Psychologie, Neurowissenschaft, Soziologie und einem starken Fokus auf Kultur und Innovation. Wir sind unabhängig und keinem &#8222;Dogma&#8221; verpflichtet. Wir kooperieren mit Netzwerkpartnern wie der University of California, Berkeley; der Harvard University; der Stanford University; der University of Oxford; und dem Max-Planck-Institut für Innovation und Wettbewerb.">Leadership ist eine Wissenschaft, keine Kunst – unsere Arbeit basiert auf Psychologie, Neurowissenschaft, Soziologie und einem starken Fokus auf Kultur und Innovation. Wir sind unabhängig und keinem „Dogma” verpflichtet. Wir kooperieren mit Netzwerkpartnern wie der University of California, Berkeley; der Harvard University; der Stanford University; der University of Oxford; und dem Max-Planck-Institut für Innovation und Wettbewerb.</p>
+            </div>
+            <div class="challenge-box">
+              <h3 class="challenge-box__title" data-de="Respekt und<br>Unabhängigkeit<br><span style='white-space:nowrap'>als Grundwerte</span>">Respekt und<br>Unabhängigkeit<br><span style='white-space:nowrap'>als Grundwerte</span></h3>
+              <p class="challenge-box__body" style="flex: 0 1 auto; margin-bottom: 4px;" data-de="Unsere Arbeit gründet auf einem klaren Wertesystem: Integrität und Vertrauen sind die Schlüssel zu Spitzenleistung. Ungeachtet politischer Einflüsse arbeiten wir transparent an der Bestlösung für das Unternehmen. Wir empfehlen ausschließlich Maßnahmen, die einen signifikanten und nachhaltigen Mehrwert schaffen.">Unsere Arbeit gründet auf einem klaren Wertesystem: Integrität und Vertrauen sind die Schlüssel zu Spitzenleistung. Ungeachtet politischer Einflüsse arbeiten wir transparent an der Bestlösung für das Unternehmen. Wir empfehlen ausschließlich Maßnahmen, die einen signifikanten und nachhaltigen Mehrwert schaffen.</p>
+              <a class="btn btn--ghost btn--more" href="our-values.html" style="align-self: center;">
+                <span data-de="Unsere Werte">Unsere Werte</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Approach (part 2) — Vision + Challenges -->
+      <article class="slide slide--approach-intro slide--approach-vision" data-slide="2" data-anim="parallax" data-title="Vision">
+        <div class="approach-centered-wrap">
+
+          <!-- Future split — text left, image right, sits under ordinals -->
+          <div class="approach-future">
+            <div class="approach-future__copy">
+              <p class="eyebrow" data-de="Vision">Vision</p>
+              <h2 class="approach-future__title" data-de="Wie wir die Zukunft von Führung sehen">Wie wir die Zukunft von Führung sehen</h2>
+              <p class="approach-future__body" data-de="Heute beschäftigt ein großer Automobilkonzern rund 150.000 Menschen, um sein Geschäft zu führen. Wie viele wird er in nicht allzu ferner Zukunft noch benötigen?">Heute beschäftigt ein großer Automobilkonzern rund 150.000 Menschen, um sein Geschäft zu führen. Wie viele wird er in nicht allzu ferner Zukunft noch benötigen?</p>
+              <p class="approach-future__body" data-de="Wenn Sie heute ein neues Automobilunternehmen gründen wollten, würden Sie wahrscheinlich&hellip;">Wenn Sie heute ein neues Automobilunternehmen gründen wollten, würden Sie wahrscheinlich…</p>
+              <a class="btn btn--ghost btn--more approach-future__cta" href="future-of-leadership.html">
+                <span data-de="mehr">mehr</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+            <!-- Vision image rebuilt: background-image on the div
+                 itself (NO child <img> decoding="async" with transform). Rounded
+                 corners now clip natively via border-radius — there's
+                 no transform-animated child to escape the box. The
+                 ken-burns drift runs on background-size + position
+                 instead of transform:scale. -->
+            <div class="approach-future__media" role="img" aria-label=""
+                 style="background-image:url('../assets/photos/vision-5-narrow.webp?v=1');"></div>
+          </div>
+
+          <!-- Challenge cards -->
+          <div class="approach-cards-bg">
+            <img decoding="async" class="approach-cards-bg__img" src="../assets/photos/working-2.webp" alt="" loading="lazy" />
+            <div class="approach-centered__cards">
+              <p class="eyebrow approach-challenges-eyebrow" data-de="Aktuelle Herausforderungen">Aktuelle Herausforderungen</p>
+              <div class="challenges-carousel">
+                <div class="challenge-box">
+                  <h3 class="challenge-box__title" data-de="Künstliche Intelligenz">Künstliche Intelligenz</h3>
+                  <p class="challenge-box__body" data-de="Wie macht mich KI besser, schneller und produktiver? Was bedeutet KI für einen Leistungsschub in meinem Team bzw. meinen Teams? Wie halte ich mit dem Tempo der KI-Entwicklung Schritt?">Wie macht mich KI besser, schneller und produktiver? Was bedeutet KI für einen Leistungsschub in meinem Team bzw. meinen Teams? Wie halte ich mit dem Tempo der KI-Entwicklung Schritt?</p>
+                  <p class="challenge-box__conclusion" data-de="Wer KI früh adaptiert, wird vorankommen.<br>Wer zu sehr zögert, wird zurückfallen.">Wer KI früh adaptiert, wird vorankommen.<br>Wer zu sehr zögert, wird zurückfallen.</p>
+                </div>
+                <div class="challenge-box">
+                  <h3 class="challenge-box__title" data-de="Unsicherheit">Unsicherheit</h3>
+                  <p class="challenge-box__body" data-de="Wie treffe ich bessere Entscheidungen bei wachsender Unsicherheit? Wie gebe ich Orientierung, wenn die Zeiten rauer werden? Gibt es Situationen, in denen ich meinem Bauchgefühl vertrauen kann?">Wie treffe ich bessere Entscheidungen bei wachsender Unsicherheit? Wie gebe ich Orientierung, wenn die Zeiten rauer werden? Gibt es Situationen, in denen ich meinem Bauchgefühl vertrauen kann?</p>
+                  <p class="challenge-box__conclusion" data-de="Wer Unsicherheit annimmt, wird vorankommen.<br>Wer zu sehr zögert, wird zurückfallen.">Wer Unsicherheit annimmt, wird vorankommen.<br>Wer zu sehr zögert, wird zurückfallen.</p>
+                </div>
+                <div class="challenge-box">
+                  <h3 class="challenge-box__title" data-de="Ambidextrie">Ambidextrie</h3>
+                  <p class="challenge-box__body" data-de="Wie lange optimiere ich das heutige Geschäft – bis es perfekt oder obsolet ist? Wo ersticke ich Innovation, indem ich sie mit den KPIs von gestern steuere?">Wie lange optimiere ich das heutige Geschäft – bis es perfekt oder obsolet ist? Wo ersticke ich Innovation, indem ich sie mit den KPIs von gestern steuere?</p>
+                  <p class="challenge-box__conclusion"><span class="challenge-box__conclusion-line" data-de="Wer Ambidextrie versteht, wird vorankommen.">Wer Ambidextrie versteht, wird vorankommen.</span><span class="challenge-box__conclusion-line" data-de="Wer zu sehr zögert, wird zurückfallen.">Wer zu sehr zögert, wird zurückfallen.</span></p>
+                </div>
+                <div class="challenge-box">
+                  <h3 class="challenge-box__title" data-de="Selbstwahrnehmung">Selbstwahrnehmung</h3>
+                  <p class="challenge-box__body" data-de="Welches Feedback vermeide ich, weil es mein Selbstbild infrage stellt? Wie schaffe ich ein Klima psychologischer Sicherheit, in dem sich alle trauen, offen zu sprechen?">Welches Feedback vermeide ich, weil es mein Selbstbild infrage stellt? Wie schaffe ich ein Klima psychologischer Sicherheit, in dem sich alle trauen, offen zu sprechen?</p>
+                  <p class="challenge-box__conclusion" data-de="Wer selbstreflektiert ist, wird vorankommen.<br>Wer zu sehr zögert, wird zurückfallen.">Wer selbstreflektiert ist, wird vorankommen.<br>Wer zu sehr zögert, wird zurückfallen.</p>
+                </div>
+              </div>
+            </div>
+        </div><!-- /.approach-centered-wrap -->
+      </article>
+
+      <!-- Testimonials -->
+      <article class="slide slide--testimonials" data-anim="parallax" data-title="Testimonials">
+
+        <div class="testimonials-wrap">
+          <div class="testimonials-header">
+            <p class="eyebrow" data-de="Feedback">Feedback</p>
+            <h2 class="display" data-de="Was unsere Kunden sagen">Was unsere Kunden sagen</h2>
+          </div>
+
+          <div class="testimonials-stage">
+            <button class="testimonials-arrow testimonials-arrow--prev" id="testimonialsPrev" aria-label="Previous testimonial">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <button class="testimonials-arrow testimonials-arrow--next" id="testimonialsNext" aria-label="Next testimonial">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </button>
+
+          <div class="testimonials-carousel" id="testimonialsCarousel">
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="&#8222;Wie schaffen wir eine kulturelle Transformation, in der sich Mitarbeitende unbefangen einbringen und gegenseitig begeistern? Gemeinsam mit den Experten der MLG haben wir zu dieser Frage einen neuen Umsetzungsansatz entwickelt. Überraschungsmomente, Neugier und Dynamik standen im Mittelpunkt. Das haben wir durch einen passgenauen Mix aus Kernteam-Workshops, Sounding Boards, Guerilla-Aktivitäten und Führungskräfteentwicklung erreicht. &hellip; Das Projekt war nicht nur ein voller Erfolg, sondern die Zusammenarbeit hat uns auch sehr viel Spaß gemacht. Daher empfehlen wir MLG gerne weiter.&#8220;">„Wie schaffen wir eine kulturelle Transformation, in der sich Mitarbeitende unbefangen einbringen und gegenseitig begeistern? Gemeinsam mit den Experten der MLG haben wir zu dieser Frage einen neuen Umsetzungsansatz entwickelt. Überraschungsmomente, Neugier und Dynamik standen im Mittelpunkt. Das haben wir durch einen passgenauen Mix aus Kernteam-Workshops, Sounding Boards, Guerilla-Aktivitäten und Führungskräfteentwicklung erreicht. … Das Projekt war nicht nur ein voller Erfolg, sondern die Zusammenarbeit hat uns auch sehr viel Spaß gemacht. Daher empfehlen wir MLG gerne weiter.“</blockquote>
+                <footer class="testimonial__footer">Fabian Grothues, Bereichsleiter Kommunikation,<br><strong>Vivawest</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„MLG war ein maßgeblicher Partner in unserer Transformation. Gemeinsam haben wir den Austausch über die gewünschte und die tatsächliche Kultur auf allen Führungsebenen innerhalb von Montblanc gefördert. Wir haben eine Journey gemeinsam konzipiert und umgesetzt, die Neugier und Bewegung bei Montblanc entfacht hat. Ich kann die Zusammenarbeit mit MLG sehr empfehlen.”">„MLG war ein maßgeblicher Partner in unserer Transformation. Gemeinsam haben wir den Austausch über die gewünschte und die tatsächliche Kultur auf allen Führungsebenen innerhalb von Montblanc gefördert. Wir haben eine Journey gemeinsam konzipiert und umgesetzt, die Neugier und Bewegung bei Montblanc entfacht hat. Ich kann die Zusammenarbeit mit MLG sehr empfehlen.”</blockquote>
+                <footer class="testimonial__footer">Sascha Schneider, CHRO,<br><strong>Montblanc</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„MLG schult unsere erfahrenen Führungskräfte weltweit, ihre Selbstwahrnehmung zu stärken und sich selbst, ihre Teams und Transformationen noch besser zu führen. Seit mehr als 10 Jahren erhalten wir durchgängig äußerst positives Feedback von unseren Teilnehmern. Vor allem schätzen sie die große Fähigkeit der Facilitatoren, an ihre Herausforderungen anzuknüpfen und eine Lernatmosphäre zu schaffen, in der offenes Feedback echte Wirkung entfaltet.”">„MLG schult unsere erfahrenen Führungskräfte weltweit, ihre Selbstwahrnehmung zu stärken und sich selbst, ihre Teams und Transformationen noch besser zu führen. Seit mehr als 10 Jahren erhalten wir durchgängig äußerst positives Feedback von unseren Teilnehmern. Vor allem schätzen sie die große Fähigkeit der Facilitatoren, an ihre Herausforderungen anzuknüpfen und eine Lernatmosphäre zu schaffen, in der offenes Feedback echte Wirkung entfaltet.”</blockquote>
+                <footer class="testimonial__footer">Paul Eckert, Director Leadership Development,<br><strong>Rohde &amp; Schwarz</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„Wenn Sie ambitionierte, zukunftsorientierte Leadership-Experten suchen, die strategisches Denken mit pragmatischer, praxisnaher Umsetzung verbinden, ist MLG ein Partner der Wahl. In Führungskräfteentwicklung zu investieren heißt letztlich, in die Zukunft Ihrer Organisation zu investieren – und mit MLG investieren Sie in nachhaltige Wirkung.”">„Wenn Sie ambitionierte, zukunftsorientierte Leadership-Experten suchen, die strategisches Denken mit pragmatischer, praxisnaher Umsetzung verbinden, ist MLG ein Partner der Wahl. In Führungskräfteentwicklung zu investieren heißt letztlich, in die Zukunft Ihrer Organisation zu investieren – und mit MLG investieren Sie in nachhaltige Wirkung.”</blockquote>
+                <footer class="testimonial__footer">Daniela Todorova, HR Expert,<br><strong>Microsoft</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„Die Experten der Munich Leadership Group unterstützen uns seit Jahren bei der konsequenten Weiterentwicklung unserer Unternehmenskultur. Trainings und Workshops sind optimal auf die jeweilige Zielgruppe zugeschnitten – ob in der Produktion oder auf jeder Managementebene. Wir haben sehr von der Zusammenarbeit mit MLG profitiert.”">„Die Experten der Munich Leadership Group unterstützen uns seit Jahren bei der konsequenten Weiterentwicklung unserer Unternehmenskultur. Trainings und Workshops sind optimal auf die jeweilige Zielgruppe zugeschnitten – ob in der Produktion oder auf jeder Managementebene. Wir haben sehr von der Zusammenarbeit mit MLG profitiert.”</blockquote>
+                <footer class="testimonial__footer">Baldassare LaGaetana, CEO,<br><strong>Aqseptence</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„Die Munich Leadership Group ist eine hochqualifizierte internationale Boutique-Beratung, die tiefe Leadership-Expertise mit einem pragmatischen Verständnis organisationaler Transformation verbindet. Sie haben uns geholfen, die Ausrichtung unseres internationalen Führungsteams zu stärken, die Grundlagen für eine gemeinsame Leadership-Kultur zu schaffen und ein gemeinsames Set an Führungsprinzipien zu definieren, das unsere Transformations-Journey unterstützt.”">„Die Munich Leadership Group ist eine hochqualifizierte internationale Boutique-Beratung, die tiefe Leadership-Expertise mit einem pragmatischen Verständnis organisationaler Transformation verbindet. Sie haben uns geholfen, die Ausrichtung unseres internationalen Führungsteams zu stärken, die Grundlagen für eine gemeinsame Leadership-Kultur zu schaffen und ein gemeinsames Set an Führungsprinzipien zu definieren, das unsere Transformations-Journey unterstützt.”</blockquote>
+                <footer class="testimonial__footer">Frank Koch, CEO,<br><strong>Swiss Steel</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„Wir sind in einem komplexen, dynamischen Geschäft tätig. Ich kann die Zusammenarbeit mit MLG in allen Facetten der Leadership-Entwicklung und Transformation sehr empfehlen. Die MLG-Experten verstehen unsere Kultur und unser Geschäft vollständig – und darauf aufbauend schneidern sie alle erfolgreichen Maßnahmen zur Förderung unserer Leadership-Performance maßgenau zu.”">„Wir sind in einem komplexen, dynamischen Geschäft tätig. Ich kann die Zusammenarbeit mit MLG in allen Facetten der Leadership-Entwicklung und Transformation sehr empfehlen. Die MLG-Experten verstehen unsere Kultur und unser Geschäft vollständig – und darauf aufbauend schneidern sie alle erfolgreichen Maßnahmen zur Förderung unserer Leadership-Performance maßgenau zu.”</blockquote>
+                <footer class="testimonial__footer">Susanne Winter, Head of Leadership Development,<br><strong>DVAG</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„MLG hat uns geholfen, tiefe Einblicke in die Stärken und besonderen Eigenschaften unseres Führungsteams zu gewinnen. Die Kombination aus psychometrischen Tools, der fachlichen Expertise der MLG-Experten und ihrer Moderation von Team-Workshops ist einzigartig und schafft großen Mehrwert.”">„MLG hat uns geholfen, tiefe Einblicke in die Stärken und besonderen Eigenschaften unseres Führungsteams zu gewinnen. Die Kombination aus psychometrischen Tools, der fachlichen Expertise der MLG-Experten und ihrer Moderation von Team-Workshops ist einzigartig und schafft großen Mehrwert.”</blockquote>
+                <footer class="testimonial__footer">Jeremy Golding, CEO,<br><strong>Golding Capital</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„Als einer der Senior Executives bei Bilfinger habe ich einen fokussierten Sparring-Prozess mit einem der MLG-Experten erlebt. Es war eine mehr als wertvolle Erfahrung. Der MLG-Experte hat meinen Entwicklungsanspruch vollständig verstanden und mich auf höchst flexible Weise unterstützt.”">„Als einer der Senior Executives bei Bilfinger habe ich einen fokussierten Sparring-Prozess mit einem der MLG-Experten erlebt. Es war eine mehr als wertvolle Erfahrung. Der MLG-Experte hat meinen Entwicklungsanspruch vollständig verstanden und mich auf höchst flexible Weise unterstützt.”</blockquote>
+                <footer class="testimonial__footer">Top Executive,<br><strong>Bilfinger</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„MLG hat uns geholfen, die professionelle Zusammenarbeit auf Top-Ebene zu fokussieren und weiterzuentwickeln. Das Toolset, die Maßschneiderung und die Expertise der MLG-Experten haben es uns ermöglicht, unsere Selbstwahrnehmung deutlich zu schärfen und unsere Stärken in unserer Zusammenarbeit voll zu nutzen.”">„MLG hat uns geholfen, die professionelle Zusammenarbeit auf Top-Ebene zu fokussieren und weiterzuentwickeln. Das Toolset, die Maßschneiderung und die Expertise der MLG-Experten haben es uns ermöglicht, unsere Selbstwahrnehmung deutlich zu schärfen und unsere Stärken in unserer Zusammenarbeit voll zu nutzen.”</blockquote>
+                <footer class="testimonial__footer">Christian von Toll, CSO,<br><strong>Weidmüller</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„MLG ist unser vertrauenswürdiger Partner für das Senior Leadership Programme „LEAD BY EMPOWERMENT”. Wir schätzen besonders die enge und konstruktive Zusammenarbeit, und das MLG-Team erhält durchweg hervorragendes Feedback. Ihr Engagement und ihre Bereitschaft, die Extrameile zu gehen, machen einen spürbaren Unterschied.”">„MLG ist unser vertrauenswürdiger Partner für das Senior Leadership Programme „LEAD BY EMPOWERMENT”. Wir schätzen besonders die enge und konstruktive Zusammenarbeit, und das MLG-Team erhält durchweg hervorragendes Feedback. Ihr Engagement und ihre Bereitschaft, die Extrameile zu gehen, machen einen spürbaren Unterschied.”</blockquote>
+                <footer class="testimonial__footer">Connie Demmel, Head of HR,<br><strong>Hannover Re</strong></footer>
+              </div>
+
+              <div class="testimonial">
+                <blockquote class="testimonial__quote" data-de="„In unserem Umfeld hat Führung direkten Einfluss auf Umsetzung, Qualität und den Umgang der Teams mit Druck. Die Leadership-Programme und Coaching-Formate von MLG sind praxisnah, fokussiert und hochrelevant – sie helfen Führungskräften, Klarheit, Eigenverantwortung und Wirksamkeit im anspruchsvollen Tagesgeschäft zu stärken.”">„In unserem Umfeld hat Führung direkten Einfluss auf Umsetzung, Qualität und den Umgang der Teams mit Druck. Die Leadership-Programme und Coaching-Formate von MLG sind praxisnah, fokussiert und hochrelevant – sie helfen Führungskräften, Klarheit, Eigenverantwortung und Wirksamkeit im anspruchsvollen Tagesgeschäft zu stärken.”</blockquote>
+                <footer class="testimonial__footer">Jakov Šekelja, VP Production &amp; Operations,<br><strong>Isar Aerospace</strong></footer>
+              </div>
+
+          </div><!-- /.testimonials-carousel -->
+          </div><!-- /.testimonials-stage -->
+        </div>
+      </article>
+
+      <!-- 6 — Tools -->
+      <article class="slide slide--approach-intro slide--tools" data-slide="2" data-anim="parallax" data-title="Tools">
+        <div class="slide__media slide__media--soft">
+          <img decoding="async" src="../assets/photos/working-3.webp" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+        <div class="approach-centered-wrap">
+          <div class="approach-centered__header">
+            <p class="eyebrow" data-de="Tools">Tools</p>
+            <h2 class="display" data-de="Wissenschafts- &amp; Assessment-Tools, hinter denen wir stehen.">Wissenschafts- & Assessment-Tools, hinter denen wir stehen.</h2>
+            <p class="approach-intro__body" data-de="Zwei Instrumente – eines für Leadership-Wissenschaft, eines für Teampotenzial –, die wir in unsere gesamte Arbeit integrieren.">Zwei Instrumente – eines für Leadership-Wissenschaft, eines für Teampotenzial –, die wir in unsere gesamte Arbeit integrieren.</p>
+          </div>
+          <div class="approach-centered__cards">
+            <div class="challenge-box">
+              <h3 class="challenge-box__title">The Leading Brain</h3>
+              <p class="challenge-box__body" data-de="Das international gefeierte Buch von Friederike Fabritius und Dr. Hans W. Hagemann übersetzt die neuesten Durchbrüche der Neurowissenschaft in praktische Strategien für Führungskräfte – zu Fokus, Emotionsregulation, Entscheidungsfindung und Spitzenleistung. Von strategy+business als Best Business Book ausgezeichnet.">Das international gefeierte Buch von Friederike Fabritius und Dr. Hans W. Hagemann übersetzt die neuesten Durchbrüche der Neurowissenschaft in praktische Strategien für Führungskräfte – zu Fokus, Emotionsregulation, Entscheidungsfindung und Spitzenleistung. Von strategy+business als Best Business Book ausgezeichnet.</p>
+              <p class="challenge-box__conclusion"><a href="https://theleadingbrain.com/" target="_blank" rel="noopener" class="approach-intro__link">theleadingbrain.com →</a></p>
+            </div>
+            <div class="challenge-box">
+              <h3 class="challenge-box__title" data-de="Team BPTI Assessment">Team BPTI Assessment</h3>
+              <p class="challenge-box__body" data-de="Der High Potential Trait Indicator (HPTI) ist ein validiertes Persönlichkeits-Assessment, das sechs Eigenschaften misst, die mit langfristigem Leadership-Erfolg verbunden sind: Gewissenhaftigkeit, Anpassungsfähigkeit, Neugier, Risikoorientierung, Ambiguitätstoleranz und Wettbewerbsorientierung. Eingesetzt für Nachfolgeplanung, Teamentwicklung und Leadership-Recruiting.">Der High Potential Trait Indicator (HPTI) ist ein validiertes Persönlichkeits-Assessment, das sechs Eigenschaften misst, die mit langfristigem Leadership-Erfolg verbunden sind: Gewissenhaftigkeit, Anpassungsfähigkeit, Neugier, Risikoorientierung, Ambiguitätstoleranz und Wettbewerbsorientierung. Eingesetzt für Nachfolgeplanung, Teamentwicklung und Leadership-Recruiting.</p>
+              <p class="challenge-box__conclusion"><a href="http://team-hpti.com/theidea" target="_blank" rel="noopener" class="approach-intro__link">team-hpti.com →</a></p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 — Team -->
+      <article class="slide slide--team" data-slide="5" data-anim="parallax" data-title="Team">
+        <div class="slide__media slide__media--soft">
+          <img decoding="async" src="../assets/photos/group-4.webp" alt="" loading="lazy" />
+        </div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+
+        <div class="team-wrap">
+          <div class="team-head">
+            <p class="eyebrow" data-de="Kompetenz und Erfahrung">Kompetenz und Erfahrung</p>
+            <h2 class="display" data-de="Ein handverlesenes<br>Expertenteam">Ein handverlesenes<br>Expertenteam</h2>
+            <div class="team-tab-row">
+              <div class="team-tabs" role="tablist">
+                <button class="team-tab is-active" role="tab" type="button" data-tab="core" data-de="Kernteam">Kernteam</button>
+                <button class="team-tab" role="tab" type="button" data-tab="associates" data-de="Associate Partners">Associate Partners</button>
+              </div>
+              <!-- Region filter — visible only when associates tab is active -->
+              <div class="region-filter" hidden>
+                <button class="region-btn is-active" type="button" data-region="all" data-de="Alle">Alle</button>
+                <button class="region-btn" type="button" data-region="americas" data-de="Amerika">Amerika</button>
+                <button class="region-btn" type="button" data-region="europe" data-de="Europa">Europa</button>
+                <button class="region-btn" type="button" data-region="asia-pacific" data-de="Asien-Pazifik">Asien-Pazifik</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Core team — 8 members, visible by default -->
+          <div class="team-grid team-grid--core" data-pane="core">
+            <a class="member member--link" href="team-hagemann.html"><div class="member__photo"><img decoding="async" src="../assets/team/hagemann.webp" alt="Dr. Hans W. Hagemann" loading="lazy" /></div><h3 class="member__name">Dr. Hans W. Hagemann</h3><p class="member__role">Managing Partner</p><span class="member__cta" data-de="Profil ansehen →">Profil ansehen →</span></a>
+            <a class="member member--link" href="team-knieling.html"><div class="member__photo"><img decoding="async" src="../assets/team/knieling.jpg" alt="Michael Knieling" loading="lazy" /></div><h3 class="member__name">Michael Knieling</h3><p class="member__role">Managing Partner</p><span class="member__cta" data-de="Profil ansehen →">Profil ansehen →</span></a>
+            <a class="member member--link" href="team-rosengart.html"><div class="member__photo"><img decoding="async" src="../assets/team/rosengart.jpg" alt="Natalie Rosengart" loading="lazy" /></div><h3 class="member__name">Natalie Rosengart</h3><p class="member__role">Partner</p><span class="member__cta" data-de="Profil ansehen →">Profil ansehen →</span></a>
+            <a class="member member--link" href="team-duerrbeck.html"><div class="member__photo"><img decoding="async" src="../assets/team/duerrbeck.webp" alt="Klaus Dürrbeck" loading="lazy" /></div><h3 class="member__name">Klaus Dürrbeck</h3><p class="member__role">Partner</p><span class="member__cta" data-de="Profil ansehen →">Profil ansehen →</span></a>
+            <a class="member member--link" href="team-bohnenstiel.html"><div class="member__photo"><img decoding="async" src="../assets/team/bohnenstiel.webp" alt="Martina Bohnenstiel" loading="lazy" /></div><h3 class="member__name">Martina Bohnenstiel</h3><p class="member__role">Senior Executive</p><span class="member__cta" data-de="Profil ansehen →">Profil ansehen →</span></a>
+            <a class="member member--link" href="team-westermayr.html"><div class="member__photo"><img decoding="async" src="../assets/team/westermayr.jpg" alt="Christine Westermayr" loading="lazy" /></div><h3 class="member__name">Christine Westermayr</h3><p class="member__role">Senior Executive</p><span class="member__cta" data-de="Profil ansehen →">Profil ansehen →</span></a>
+            <a class="member member--link" href="team-sickinger.html"><div class="member__photo"><img decoding="async" src="../assets/team/sickinger.jpg" alt="Dr. Sabine Sickinger" loading="lazy" /></div><h3 class="member__name">Dr. Sabine Sickinger</h3><p class="member__role">Senior Executive</p><span class="member__cta" data-de="Profil ansehen →">Profil ansehen →</span></a>
+            <a class="member member--link" href="team-sarnes.html"><div class="member__photo"><img decoding="async" src="../assets/team/sarnes.jpg" alt="Kristof Sarnes" loading="lazy" /></div><h3 class="member__name">Kristof Sarnes</h3><p class="member__role">Senior Executive</p><span class="member__cta" data-de="Profil ansehen →">Profil ansehen →</span></a>
+          </div>
+
+          <!-- Associate partners — 41 members, hidden until tab is selected -->
+          <div class="team-grid team-grid--associates" data-pane="associates" hidden>
+            <a class="member member--link" href="team-aguilar.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/aguilar.png" alt="Margarita Aguilar" loading="lazy" /></div><h3 class="member__name">Margarita Aguilar</h3></a>
+            <a class="member member--link" href="team-albrecht-s.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/albrecht-s.jpg" alt="Simone Albrecht" loading="lazy" /></div><h3 class="member__name">Simone Albrecht</h3></a>
+            <a class="member member--link" href="team-albrecht-frueh.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/albrecht-frueh.png" alt="Dr. Ulrich Albrecht-Früh" loading="lazy" /></div><h3 class="member__name">Dr. Ulrich Albrecht-Früh</h3></a>
+            <a class="member member--link" href="team-ambrosini.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/ambrosini.png" alt="Monica Ambrosini" loading="lazy" /></div><h3 class="member__name">Monica Ambrosini</h3></a>
+            <a class="member member--link" href="team-banks.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/banks.png" alt="Deanna Banks, PhD" loading="lazy" /></div><h3 class="member__name">Deanna Banks, PhD</h3></a>
+            <a class="member member--link" href="team-beadle.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/beadle.png" alt="Matt Beadle" loading="lazy" /></div><h3 class="member__name">Matt Beadle</h3></a>
+            <a class="member member--link" href="team-fichtel.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/fichtel.png" alt="Dr. Roland Fichtel" loading="lazy" /></div><h3 class="member__name">Dr. Roland Fichtel</h3></a>
+            <a class="member member--link" href="team-ganslmayr.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/ganslmayr.png" alt="Thomas Ganslmayr" loading="lazy" /></div><h3 class="member__name">Thomas Ganslmayr</h3></a>
+            <a class="member member--link" href="team-graham.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/graham.jpg" alt="Paige K. Graham, PhD" loading="lazy" /></div><h3 class="member__name">Paige K. Graham, PhD</h3></a>
+            <a class="member member--link" href="team-grayson.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/grayson.jpg" alt="Adam Grayson" loading="lazy" /></div><h3 class="member__name">Adam Grayson</h3></a>
+            <a class="member member--link" href="team-guo.html" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="../assets/team/associates/guo.png" alt="Mark Guo" loading="lazy" /></div><h3 class="member__name">Mark Guo</h3></a>
+            <a class="member member--link" href="team-heindl.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/heindl.png" alt="Hubert Heindl" loading="lazy" /></div><h3 class="member__name">Hubert Heindl</h3></a>
+            <a class="member member--link" href="team-hessenauer.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/hessenauer.jpg" alt="Jürgen Hessenauer" loading="lazy" /></div><h3 class="member__name">Jürgen Hessenauer</h3></a>
+            <a class="member member--link" href="team-holch.html" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="../assets/team/associates/holch.jpg" alt="Gabor Holch" loading="lazy" /></div><h3 class="member__name">Gabor Holch</h3></a>
+            <a class="member member--link" href="team-hyatt.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/hyatt.jpg" alt="David E. Hyatt, PhD" loading="lazy" /></div><h3 class="member__name">David E. Hyatt, PhD</h3></a>
+            <a class="member member--link" href="team-jones.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/jones.jpg" alt="Glyn Jones" loading="lazy" /></div><h3 class="member__name">Glyn Jones</h3></a>
+            <a class="member member--link" href="team-klawitter.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/klawitter.png" alt="Kate Klawitter" loading="lazy" /></div><h3 class="member__name">Kate Klawitter</h3></a>
+            <a class="member member--link" href="team-kraen.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/kraen.png" alt="Thomas Krän" loading="lazy" /></div><h3 class="member__name">Thomas Krän</h3></a>
+            <a class="member member--link" href="team-koehler.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/koehler.jpg" alt="Doreen Köhler" loading="lazy" /></div><h3 class="member__name">Doreen Köhler</h3></a>
+            <a class="member member--link" href="team-lale.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/lale.png" alt="Serdar Lale" loading="lazy" /></div><h3 class="member__name">Serdar Lale</h3></a>
+            <a class="member member--link" href="team-lo.html" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="../assets/team/associates/lo.png" alt="Patti Lo" loading="lazy" /></div><h3 class="member__name">Patti Lo</h3></a>
+            <a class="member member--link" href="team-lucke.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/lucke.jpg" alt="Lynn Lucke" loading="lazy" /></div><h3 class="member__name">Lynn Lucke</h3></a>
+            <a class="member member--link" href="team-marsh.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/marsh.jpg" alt="Elena Marsh" loading="lazy" /></div><h3 class="member__name">Elena Marsh</h3></a>
+            <a class="member member--link" href="team-mauve.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/mauve.jpg" alt="Ulrike Mauve" loading="lazy" /></div><h3 class="member__name">Ulrike Mauve</h3></a>
+            <a class="member member--link" href="team-michaely.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/michaely.jpg" alt="Tonia Maria Michaely" loading="lazy" /></div><h3 class="member__name">Tonia Maria Michaely</h3></a>
+            <a class="member member--link" href="team-millar.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/millar.png" alt="Jane Millar" loading="lazy" /></div><h3 class="member__name">Jane Millar</h3></a>
+            <a class="member member--link" href="team-naeslund.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/naeslund.png" alt="Vivianne Näslund" loading="lazy" /></div><h3 class="member__name">Vivianne Näslund</h3></a>
+            <a class="member member--link" href="team-orbea.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/orbea.png" alt="Angelita Orbea" loading="lazy" /></div><h3 class="member__name">Angelita Orbea</h3></a>
+            <a class="member member--link" href="team-ramos.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/ramos.png" alt="Teresa Ramos" loading="lazy" /></div><h3 class="member__name">Teresa Ramos</h3></a>
+            <a class="member member--link" href="team-rentel.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/rentel.png" alt="Susanne Rentel" loading="lazy" /></div><h3 class="member__name">Susanne Rentel</h3></a>
+            <a class="member member--link" href="team-saliba.html" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="../assets/team/associates/saliba.jpg" alt="Basel Saliba" loading="lazy" /></div><h3 class="member__name">Basel Saliba</h3></a>
+            <a class="member member--link" href="team-sanchez.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/sanchez.png" alt="Margaret A. Sánchez" loading="lazy" /></div><h3 class="member__name">Margaret A. Sánchez</h3></a>
+            <a class="member member--link" href="team-seidenfus.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/seidenfus.png" alt="Christoph Seidenfus" loading="lazy" /></div><h3 class="member__name">Christoph Seidenfus</h3></a>
+            <a class="member member--link" href="team-sellani.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/sellani.jpg" alt="Francesca Sellani" loading="lazy" /></div><h3 class="member__name">Francesca Sellani</h3></a>
+            <a class="member member--link" href="team-shields.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/shields.jpg" alt="Jim Shields" loading="lazy" /></div><h3 class="member__name">Jim Shields</h3></a>
+            <a class="member member--link" href="team-tallman.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/tallman.jpg" alt="Rich Tallman" loading="lazy" /></div><h3 class="member__name">Rich Tallman</h3></a>
+            <a class="member member--link" href="team-vanetti.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/vanetti.jpg" alt="Eric Vanetti, PhD" loading="lazy" /></div><h3 class="member__name">Eric Vanetti, PhD</h3></a>
+            <a class="member member--link" href="team-west.html" data-region="americas"><div class="member__photo"><img decoding="async" src="../assets/team/associates/west.jpg" alt="Jan West" loading="lazy" /></div><h3 class="member__name">Jan West</h3></a>
+            <a class="member member--link" href="team-xue.html" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="../assets/team/associates/xue.png" alt="Christine Xue" loading="lazy" /></div><h3 class="member__name">Christine Xue</h3></a>
+            <a class="member member--link" href="team-yong.html" data-region="asia-pacific"><div class="member__photo"><img decoding="async" src="../assets/team/associates/yong.png" alt="Stephen Yong" loading="lazy" /></div><h3 class="member__name">Stephen Yong</h3></a>
+            <a class="member member--link" href="team-yilancioglu.html" data-region="europe"><div class="member__photo"><img decoding="async" src="../assets/team/associates/yilancioglu.png" alt="Biran Yılancıoğlu" loading="lazy" /></div><h3 class="member__name">Biran Yılancıoğlu</h3></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- MLG Network strip — below Team -->
+      <div class="network-strip">
+        <div class="network-strip__header">
+          <p class="eyebrow network-eyebrow" data-de="Netzwerk">Netzwerk</p>
+          <h2 class="network-strip__title" data-de="Ideen für wirkungsvolle Projekte<br>brauchen erstklassige Partner">Ideen für wirkungsvolle Projekte<br>brauchen erstklassige Partner</h2>
+          <p class="network-strip__body" data-de="Jeder bei MLG ist Experte und zugleich begeisterter Lerner. Die Zusammenarbeit mit einigen der besten Institutionen stellt sicher, dass wir unseren Kunden innovativste Führungskräfteentwicklung bieten.">Jeder bei MLG ist Experte und zugleich begeisterter Lerner. Die Zusammenarbeit mit einigen der besten Institutionen stellt sicher, dass wir unseren Kunden innovativste Führungskräfteentwicklung bieten.</p>
+        </div>
+        <div class="network-logos">
+          <div class="network-logo" data-partner="harvard"><a href="https://www.hbs.edu/" target="_blank" rel="noopener" aria-label="Harvard Business School" style="display:contents"><img  decoding="async"src="../assets/network/harvard.svg" alt="Harvard Business School" loading="lazy" /></a></div>
+          <div class="network-logo" data-partner="oxford"><a href="https://www.sbs.ox.ac.uk/" target="_blank" rel="noopener" aria-label="Oxford Saïd Business School" style="display:contents"><img  decoding="async"src="../assets/network/oxford.svg" alt="Oxford Saïd Business School" loading="lazy" /></a></div>
+          <div class="network-logo" data-partner="berkeley"><a href="https://scet.berkeley.edu/" target="_blank" rel="noopener" aria-label="UC Berkeley — Sutardja Center for Entrepreneurship &amp; Technology" style="display:contents"><img  decoding="async"src="../assets/network/berkeley.svg" alt="UC Berkeley — Sutardja Center for Entrepreneurship &amp; Technology" loading="lazy" /></a></div>
+          <div class="network-logo" data-partner="max-planck"><a href="https://www.ip.mpg.de/en/" target="_blank" rel="noopener" aria-label="Max-Planck-Institut für Innovation und Wettbewerb" style="display:contents"><img  decoding="async"src="../assets/network/max-planck.svg" alt="Max-Planck-Institut für Innovation und Wettbewerb" loading="lazy" /></a></div>
+          <div class="network-logo" data-partner="hult"><a href="https://www.hult.edu/" target="_blank" rel="noopener" aria-label="HULT Ashridge" style="display:contents"><img  decoding="async"src="../assets/network/hult.svg" alt="HULT Ashridge" loading="lazy" /></a></div>
+        </div>
+        <p class="network-strip__sub" data-de="Was unsere Netzwerkpartner sagen">Was unsere Netzwerkpartner sagen</p>
+        <blockquote class="network-strip__quote">
+          <p class="network-strip__quote-text" data-de="„Für unsere Grundlagenforschung sind Diskussionen mit Dr. Hagemann und seinem Team inspirierend. Die MLG versteht das Mindset von Top Executives durch ihre intensive Arbeit mit Führungskräften – das ist für Innovation ganz entscheidend. Gerade in Zeiten radikalen Wandels sind Beobachtungen aus der Praxis zentral – Hinweise aus der MLG helfen uns, Grundlagenforschung mit Relevanz zu betreiben.“">„Für unsere Grundlagenforschung sind Diskussionen mit Dr. Hagemann und seinem Team inspirierend. Die MLG versteht das Mindset von Top Executives durch ihre intensive Arbeit mit Führungskräften – das ist für Innovation ganz entscheidend. Gerade in Zeiten radikalen Wandels sind Beobachtungen aus der Praxis zentral – Hinweise aus der MLG helfen uns, Grundlagenforschung mit Relevanz zu betreiben.“</p>
+          <footer class="network-strip__quote-source" data-de="Prof. Dr. Dietmar Harhoff, Direktor am <strong>Max-Planck-Institut für Innovation und Wettbewerb</strong>">Prof. Dr. Dietmar Harhoff, Direktor am <strong>Max-Planck-Institut für Innovation und Wettbewerb</strong></footer>
+        </blockquote>
+        <button id="networkToggle" class="btn btn--ghost btn--more network-toggle" type="button" aria-expanded="false" aria-controls="networkDetails">
+          <span class="network-toggle__label" data-de="mehr erfahren">mehr erfahren</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div id="networkDetails" class="network-details" hidden>
+          <div class="network-detail" data-partner="harvard">
+            <h3 class="network-detail__title">Harvard Business School</h3>
+            <p class="network-detail__body" data-de="Bei einigen unserer Kunden stehen wir mit HBS Executive Development in Kontakt, wenn wir Leadership-Programme gemeinsam oder parallel durchführen.">Bei einigen unserer Kunden stehen wir mit HBS Executive Development in Kontakt, wenn wir Leadership-Programme gemeinsam oder parallel durchführen.</p>
+          </div>
+          <div class="network-detail" data-partner="max-planck">
+            <h3 class="network-detail__title">Max-Planck-Institute</h3>
+            <p class="network-detail__body" data-de="Wir stehen in Kontakt mit Prof. Dietmar Harhoff, Director des Max-Planck-Instituts für Innovation und Wettbewerb.">Wir stehen in Kontakt mit Prof. Dietmar Harhoff, Director des Max-Planck-Instituts für Innovation und Wettbewerb.</p>
+          </div>
+          <div class="network-detail" data-partner="berkeley">
+            <h3 class="network-detail__title">University of Berkeley, CA</h3>
+            <p class="network-detail__body" data-de="Wir kooperieren mit Prof. Ken Singer, Director des Center for Entrepreneurship and Technology der UC Berkeley, und stehen in Kontakt mit Prof. Henry Chesbrough, dem weltweit führenden Experten für Open Innovation.">Wir kooperieren mit Prof. Ken Singer, Director des Center for Entrepreneurship and Technology der UC Berkeley, und stehen in Kontakt mit Prof. Henry Chesbrough, dem weltweit führenden Experten für Open Innovation.</p>
+          </div>
+          <div class="network-detail" data-partner="oxford">
+            <h3 class="network-detail__title">Oxford Saïd Business School</h3>
+            <p class="network-detail__body" data-de="MLG steht im kontinuierlichen Austausch und Dialog zur Leadership-Entwicklung mit der OSBS und ist einer der bevorzugten Partner der OSBS für High-End-Leadership- und Change-Programme. Dazu gehört ein europaweites Leadership-Entwicklungsprogramm für ein Life-Science-Unternehmen durch.">MLG steht im kontinuierlichen Austausch und Dialog zur Leadership-Entwicklung mit der OSBS und ist einer der bevorzugten Partner der OSBS für High-End-Leadership- und Change-Programme. Dazu gehört ein europaweites Leadership-Entwicklungsprogramm für ein Life-Science-Unternehmen durch.</p>
+          </div>
+          <div class="network-detail" data-partner="hult">
+            <h3 class="network-detail__title">HULT Ashridge</h3>
+            <p class="network-detail__body" data-de="Gemeinsam führen wir eine internationale Learning Journey für einen globalen TIC-Kunden durch und verbinden unsere praxisnahe Expertise mit der akademischen Exzellenz von HULT Ashridge. Über drei Module auf zwei Kontinenten hinweg schafft dieser integrierte Ansatz außergewöhnlichen Mehrwert, der von den Teilnehmern durchweg genutzt und gefeiert wird.">Gemeinsam führen wir eine internationale Learning Journey für einen globalen TIC-Kunden durch und verbinden unsere praxisnahe Expertise mit der akademischen Exzellenz von HULT Ashridge. Über drei Module auf zwei Kontinenten hinweg schafft dieser integrierte Ansatz außergewöhnlichen Mehrwert, der von den Teilnehmern durchweg genutzt und gefeiert wird.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- News — The Leading Brain book -->
+      <article class="slide slide--news" data-anim="parallax" data-title="Book">
+        <div class="slide__media slide__media--soft"><!-- hidden; kept for DOM parity with team --></div>
+        <div class="slide__scrim slide__scrim--strong"></div>
+        <div class="news-wrap">
+          <div class="news-card">
+            <div class="news-card__header">
+              <p class="eyebrow" style="text-align: center;" data-de="Lesen Sie unser Buch">Lesen Sie unser Buch</p>
+              <h2 class="news-card__title" data-de="The Leading Brain:<br>unser Buch macht unsere Erfahrung verfügbar">The Leading Brain:<br>unser Buch macht unsere Erfahrung verfügbar</h2>
+              <img class="news-media__img--mobile" decoding="async" src="../assets/photos/leading-brain.webp" alt="The Leading Brain book" loading="lazy" />
+            </div>
+            <div class="news-card__body-wrap">
+              <p class="news-card__body" data-de="Nachdem wir zunehmend Erkenntnisse aus den Neurowissenschaften in unsere Veranstaltungen eingebaut hatten, wollten unsere Kunden immer mehr über unsere Ansätze und Methoden erfahren. Daher haben wir uns entschieden, ein Buch zu schreiben.">Nachdem wir zunehmend Erkenntnisse aus den Neurowissenschaften in unsere Veranstaltungen eingebaut hatten, wollten unsere Kunden immer mehr über unsere Ansätze und Methoden erfahren. Daher haben wir uns entschieden, ein Buch zu schreiben.</p>
+              <p class="news-card__body" data-de="Es ist in einem unterhaltsamen Stil geschrieben und stellt den Nutzen der Neurowissenschaften für Führungskräfte in den Mittelpunkt. Das Buch ist voller überraschender Fakten, nützlichen Wissens, unterstützender Mindsets, anwendbarer Tools und praktischer Hacks.">Es ist in einem unterhaltsamen Stil geschrieben und stellt den Nutzen der Neurowissenschaften für Führungskräfte in den Mittelpunkt. Das Buch ist voller überraschender Fakten, nützlichen Wissens, unterstützender Mindsets, anwendbarer Tools und praktischer Hacks.</p>
+              <p class="news-card__body" data-de="Erstmals in den USA bei Penguin Random House erschienen, wurde es ausgezeichnet, zum Bestseller und mittlerweile in 7 Sprachen übersetzt – darunter Deutsch, Japanisch, Mandarin, Koreanisch und Spanisch.">Erstmals in den USA bei Penguin Random House erschienen, wurde es ausgezeichnet, zum Bestseller und mittlerweile in 7 Sprachen übersetzt – darunter Deutsch, Japanisch, Mandarin, Koreanisch und Spanisch.</p>
+              <div class="news-card__cta-group">
+                <p class="news-card__cta"><a href="https://www.amazon.de/Leading-Brain-Neuroscience-Smarter-Happier/dp/0143129368?source=ps-sl-shoppingads-lpcontext&amp;smid=A3JWKAKR8XB7XF&amp;language=de_DE" target="_blank" rel="noopener"><span data-de="Buch (englisch) hier bestellen">Buch (englisch) hier bestellen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></p>
+                <p class="news-card__cta lang-de-only"><a href="https://www.amazon.de/-/en/Neurohacks-Gehirngerecht-gl%C3%BCcklicher-Friederike-Fabritius/dp/3593514869" target="_blank" rel="noopener"><span>Buch (deutsch) hier bestellen</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a></p>
+              </div>
+            </div>
+          </div>
+          <div class="news-media">
+            <img decoding="async" src="../assets/photos/leading-brain.webp" alt="The Leading Brain — book by Friederike Fabritius and Dr. Hans W. Hagemann (Best Business Books 2017, strategy+business)" loading="lazy" />
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 — Contact -->
+      <article class="slide slide--contact" data-slide="8" data-anim="zoom" data-title="Contact">
+        <div class="contact-wrap">
+          <div class="contact-wrap__card">
+            <img decoding="async" class="contact-wrap__bg" src="../assets/photos/teams.webp" alt="" loading="lazy" />
+            <div class="contact-wrap__scrim"></div>
+          <div class="slide__copy contact-wrap__head">
+            <p class="eyebrow" data-de="Kontakt">Kontakt</p>
+            <h2 class="display" data-de="Nehmen Sie Kontakt mit uns auf.">Nehmen Sie Kontakt mit uns auf.</h2>
+          </div>
+
+          <div class="contact-body">
+          <div class="contact-block">
+            <form class="tf" id="contactForm" novalidate>
+              <div class="tf__progress"><span class="tf__progress-fill" id="tfFill"></span></div>
+
+              <!-- Step 1 — Problem -->
+              <div class="tf__step is-active" data-step="0" data-field="problem" data-required="1">
+                <p class="tf__num" data-de="01 — Ihre Herausforderung">01 — Ihre Herausforderung</p>
+                <h3 class="tf__q" data-de="Wonach<br>suchen Sie?">Wonach<br>suchen Sie?</h3>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="leadership-program" data-de="Wir benötigen ein wirksames Leadership-Programm">Wir benötigen ein wirksames Leadership-Programm</button>
+                  <button class="tf__choice" type="button" data-value="team-development" data-de="Ich brauche einen Teamentwicklungs-Workshop">Ich brauche einen Teamentwicklungs-Workshop</button>
+                  <button class="tf__choice" type="button" data-value="coaching-sparring" data-de="Ich interessiere mich für Coaching &amp; Sparring">Ich interessiere mich für Coaching & Sparring</button>
+                  <button class="tf__choice" type="button" data-value="retain-attract" data-de="Wir wollen Top-Talent halten &amp; gewinnen">Wir wollen Top-Talent halten & gewinnen</button>
+                  <button class="tf__choice" type="button" data-value="audits-assessments" data-de="Ich interessiere mich für Audits &amp; Assessments">Ich interessiere mich für Audits & Assessments</button>
+                  <button class="tf__choice" type="button" data-value="diagnostic-tools" data-de="Ich möchte mehr über diagnostische Tools erfahren">Ich möchte mehr über diagnostische Tools erfahren</button>
+                  <button class="tf__choice" type="button" data-value="cultural-transformation" data-de="Wir interessieren uns für kulturelle Transformation">Wir interessieren uns für kulturelle Transformation</button>
+                  <button class="tf__choice" type="button" data-value="special-topic" data-de="Ich habe ein besonderes Anliegen">Ich habe ein besonderes Anliegen</button>
+                </div>
+              </div>
+
+              <!-- Step 2 — Role -->
+              <div class="tf__step" data-step="1" data-field="role" data-required="1">
+                <p class="tf__num" data-de="02 — über Sie">02 — über Sie</p>
+                <h3 class="tf__q" data-de="Was beschreibt Sie am besten?">Was beschreibt Sie am besten?</h3>
+                <div class="tf__choices">
+                  <button class="tf__choice" type="button" data-value="top-talent" data-de="Top Talent">Top Talent</button>
+                  <button class="tf__choice" type="button" data-value="senior-manager" data-de="Senior Manager">Senior Manager</button>
+                  <button class="tf__choice" type="button" data-value="top-exec" data-de="Top Executive">Top Executive</button>
+                  <button class="tf__choice" type="button" data-value="hr-talent" data-de="HR or Talent Lead">HR or Talent Lead</button>
+                  <button class="tf__choice" type="button" data-value="other" data-de="Sonstiges">Sonstiges</button>
+                </div>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back" data-de="← Zurück">← Zurück</button>
+                </div>
+              </div>
+
+              <!-- Step 4 — Anything else (optional) -->
+              <div class="tf__step" data-step="2" data-field="message">
+                <p class="tf__num" data-de="03 — sonst noch etwas">03 — sonst noch etwas</p>
+                <h3 class="tf__q" data-de="Sollten wir vor unserer Antwort noch etwas wissen?">Sollten wir vor unserer Antwort noch etwas wissen?</h3>
+                <textarea class="tf__input tf__input--area" name="message" rows="3" placeholder="Optional – die beteiligten Personen, was bereits versucht wurde, die Dringlichkeit." data-de-ph="Optional – die beteiligten Personen, was bereits versucht wurde, die Dringlichkeit."></textarea>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back" data-de="← Zurück">← Zurück</button>
+                  <button class="tf__cta" type="button" data-action="next">OK<span class="tf__hint" data-de="drücken <kbd>↵</kbd>">drücken <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 5 — Name -->
+              <!-- Step 4 — Email -->
+              <div class="tf__step" data-step="3" data-field="email" data-required="1" data-type="email">
+                <p class="tf__num" data-de="04 — Ihre Angaben">04 — Ihre Angaben</p>
+                <h3 class="tf__q" data-de="Wie lautet Ihre E-Mail-Adresse?">Wie lautet Ihre E-Mail-Adresse?</h3>
+                <input class="tf__input" type="email" name="email" placeholder="sie@unternehmen.de" autocomplete="email" data-de-ph="sie@unternehmen.de" />
+                <p class="tf__error" hidden data-de="Bitte geben Sie eine gültige E-Mail-Adresse ein.">Bitte geben Sie eine gültige E-Mail-Adresse ein.</p>
+                <div class="tf__foot">
+                  <button class="tf__back" type="button" data-action="back" data-de="← Zurück">← Zurück</button>
+                  <button class="tf__cta tf__cta--send" type="button" data-action="submit"><span data-de="Senden">Senden</span><span class="tf__hint" data-de="drücken <kbd>↵</kbd>">drücken <kbd>↵</kbd></span></button>
+                </div>
+              </div>
+
+              <!-- Step 5 — Done -->
+              <div class="tf__step tf__step--done" data-step="4">
+                <p class="tf__num" data-de="✓ — gesendet">✓ — gesendet</p>
+                <h3 class="tf__q" data-de="Danke – wir melden uns">Danke – wir melden uns</h3>
+                <p class="tf__sub" data-de="Ein MLG-Experte liest Ihre Nachricht.<br>Erwarten Sie eine persönliche Antwort am nächsten Werktag.">Ein MLG-Experte liest Ihre Nachricht.<br>Erwarten Sie eine persönliche Antwort am nächsten Werktag.</p>
+              </div>
+            </form>
+          </div>
+
+          <div class="contact-block__phone-row contact-block__phone-row--standalone">
+            <a class="contact-pill" href="mailto:info@munichleadership.com">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+              <span>info@munichleadership.com</span>
+            </a>
+            <a class="contact-pill" href="tel:+49894131910">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+              <span>+49 89 413 1910</span>
+            </a>
+          </div>
+          </div><!-- /.contact-body -->
+          </div><!-- /.contact-wrap__card -->
+        </div>
+
+        <div class="site-award">
+          <p class="site-award__label" data-de="Ausgezeichnete Leistung">Ausgezeichnete Leistung</p>
+          <p class="site-award__text" data-de="MLG gehört zu den Gewinnern der internationalen Brandon Hall Excellence Awards in der Kategorie „Best Advance in Performance Management“ – ausgezeichnet für ein globales Projekt mit der Bayer AG.">MLG gehört zu den Gewinnern der internationalen Brandon Hall Excellence Awards in der Kategorie „Best Advance in Performance Management“ – ausgezeichnet für ein globales Projekt mit der Bayer AG.</p>
+          <img class="site-award__badge" src="../assets/badge-brandon-hall.png" alt="Brandon Hall Group HCM Excellence Awards — Bronze, Excellence in Talent Management 2015" loading="lazy" decoding="async" width="203" height="144" />
+        </div>
+
+        <footer class="imprint">
+          <p class="imprint__links">
+            <a href="disclaimer.html" data-de="Disclaimer">Disclaimer</a>
+            <span aria-hidden="true">·</span>
+            <a href="privacy-policy.html" data-de="Datenschutz">Datenschutz</a>
+            <span aria-hidden="true">·</span>
+            <a href="terms-of-service.html" data-de="Nutzungsbedingungen">Nutzungsbedingungen</a>
+            <span aria-hidden="true">·</span>
+            <span class="imprint__copy" data-de="© 2026 Munich Leadership Group">© 2026 Munich Leadership Group</span>
+            <span aria-hidden="true">·</span>
+            <a href="https://www.linkedin.com/company/munich-leadership-group/" target="_blank" rel="noopener" aria-label="Munich Leadership Group on LinkedIn" style="display:inline-flex;vertical-align:middle;">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+            </a>
+          </p>
+        </footer>
+      </article>
+
+    </div>
+
+    <button id="jumpToApproach" data-jump="3" style="display:none" aria-hidden="true" tabindex="-1"></button>
+
+  </main>
+
+  <script src="../app.min.js?v=249" defer></script>
+  <script>
+    /* Inline hero-state toggle. Runs immediately on page load before
+       app.min.js?v=249 defers in, so the topbar gets its past-hero class as
+       soon as the viewer is past ~50 % of the hero — eliminates a
+       FOUC where the menu briefly shows hero-state styles on a
+       deep-linked / hash-jumped landing. app.min.js?v=249's tickSmooth then
+       takes over the toggle as the smoothed scroll runs. */
+    (function () {
+      var topbar = document.querySelector('.topbar');
+      if (!topbar) return;
+      function checkHero() {
+        var hero = document.querySelector('.slide[data-slide="0"]');
+        if (!hero) return;
+        var past = window.scrollY > hero.offsetHeight * 0.5;
+        topbar.classList.toggle('topbar--past-hero', past);
+      }
+      window.addEventListener('scroll', checkHero, { passive: true });
+      checkHero();
+    })();
+  </script>
+  <script>
+    // Tailor form step machine — inline because the form lives inside the deck slide.
+    (() => {
+      const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+      const tf = document.getElementById('tailorForm');
+      if (!tf) return;
+      const steps = $$('.tf__step', tf);
+      const fill  = document.getElementById('tailorFill');
+      let stepIdx = 0;
+      const answers = {};
+
+      function updateProgress() {
+        fill.style.width = Math.min(100, ((stepIdx + 1) / 3) * 100) + '%';
+      }
+      function show(i) {
+        steps.forEach((s, k) => s.classList.toggle('is-active', k === i));
+        stepIdx = i;
+        updateProgress();
+        const input = steps[i].querySelector('input, textarea');
+        if (input) setTimeout(() => input.focus(), 320);
+      }
+      function validate(step) {
+        const required = step.dataset.required === '1';
+        const type = step.dataset.type;
+        const input = step.querySelector('input, textarea');
+        const err = step.querySelector('.tf__error');
+        if (err) err.hidden = true;
+        if (!input) return true;
+        const v = input.value.trim();
+        if (required && !v) { input.focus(); return false; }
+        if (type === 'email' && v && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+          if (err) err.hidden = false;
+          input.focus();
+          return false;
+        }
+        return true;
+      }
+      function next() {
+        const step = steps[stepIdx];
+        if (!validate(step)) return;
+        const input = step.querySelector('input, textarea');
+        if (input && step.dataset.field) answers[step.dataset.field] = input.value.trim();
+        show(Math.min(stepIdx + 1, steps.length - 1));
+      }
+      function back() { show(Math.max(stepIdx - 1, 0)); }
+      function pickChoice(btn) {
+        const step = steps[stepIdx];
+        const field = step.dataset.field;
+        $$('.tf__choice', step).forEach((c) => c.classList.toggle('is-selected', c === btn));
+        if (field) answers[field] = btn.dataset.value;
+        if (stepIdx === 2) {
+          setTimeout(() => {
+            document.getElementById('jumpToApproach').click();
+          }, 280);
+        } else {
+          setTimeout(() => show(Math.min(stepIdx + 1, steps.length - 1)), 280);
+        }
+      }
+
+      tf.addEventListener('click', (e) => {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const action = btn.dataset.action;
+        if (action === 'next')   { e.preventDefault(); e.stopPropagation(); next(); }
+        else if (action === 'back') { e.preventDefault(); e.stopPropagation(); back(); }
+        else if (action === 'submit') {
+          e.preventDefault(); e.stopPropagation();
+          const lastStep = steps[steps.length - 2];
+          if (lastStep) {
+            const input = lastStep.querySelector('input, textarea');
+            if (input && lastStep.dataset.field) answers[lastStep.dataset.field] = input.value.trim();
+          }
+          show(steps.length - 1);
+        }
+        else if (btn.classList.contains('tf__choice')) { e.stopPropagation(); pickChoice(btn); }
+      });
+
+      tf.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter') return;
+        const step = steps[stepIdx];
+        if (e.target.tagName === 'TEXTAREA' && e.shiftKey) return;
+        e.preventDefault(); e.stopPropagation();
+        const primary = step.querySelector('.tf__cta');
+        if (primary && primary.dataset.action === 'submit') {
+          if (!validate(step)) return;
+          const input = step.querySelector('input, textarea');
+          if (input && step.dataset.field) answers[step.dataset.field] = input.value.trim();
+          show(steps.length - 1);
+        } else if ($$('.tf__choice', step).length) {
+          const first = step.querySelector('.tf__choice.is-selected') || step.querySelector('.tf__choice');
+          if (first) pickChoice(first);
+        } else next();
+      }, true);
+
+      tf.addEventListener('keydown', (e) => {
+        const step = steps[stepIdx];
+        const choices = $$('.tf__choice', step);
+        if (!choices.length) return;
+        const letter = e.key.toUpperCase();
+        const idx = 'ABCDEFGHIJ'.indexOf(letter);
+        if (idx < 0 || idx >= choices.length) return;
+        e.preventDefault(); e.stopPropagation();
+        pickChoice(choices[idx]);
+      }, true);
+
+      updateProgress();
+    })();
+  </script>
+</body>
+</html>

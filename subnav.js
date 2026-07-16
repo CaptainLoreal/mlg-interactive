@@ -211,7 +211,7 @@
     award.innerHTML =
       '<p class="site-award__label" data-de="Ausgezeichnete Leistung">Awarded performance</p>' +
       '<p class="site-award__text" data-de="MLG gehört zu den Gewinnern der internationalen Brandon Hall Excellence Awards in der Kategorie „Best Advance in Performance Management“ – ausgezeichnet für ein globales Projekt mit der Bayer AG.">MLG is among the winners of the international Brandon Hall Excellence Awards in the category „Best Advance in Performance Management“ – awarded for a global project with Bayer AG.</p>' +
-      '<img class="site-award__badge" src="' + P + 'assets/badge-brandon-hall.png" alt="Brandon Hall Group HCM Excellence Awards — Bronze, Excellence in Talent Management 2015" loading="lazy" decoding="async" width="203" height="144">';
+      '<img class="site-award__badge" src="' + (location.pathname.indexOf('/de/') > -1 ? '../' : P) + 'assets/badge-brandon-hall.png" alt="Brandon Hall Group HCM Excellence Awards — Bronze, Excellence in Talent Management 2015" loading="lazy" decoding="async" width="203" height="144">';
     imprint.parentNode.insertBefore(award, imprint);
   })();
 
@@ -321,10 +321,17 @@
         el.setAttribute('placeholder', lang === 'de' ? el.dataset.dePh : el.__enph);
       });
     }
-    var saved = localStorage.getItem('mlg-lang') || 'en';
-    applyLang(saved);
+    var urlLang = location.pathname.indexOf('/de/') > -1 ? 'de' : 'en';
+    applyLang(urlLang);
     document.querySelectorAll('.lang-switch__btn').forEach(function (btn) {
-      btn.addEventListener('click', function () { applyLang(btn.dataset.lang); });
+      btn.addEventListener('click', function () {
+        if (btn.dataset.lang === urlLang) return;
+        var p = location.pathname;
+        var dest = btn.dataset.lang === 'de'
+          ? p.replace(/\/([^\/]*)$/, '/de/$1')
+          : p.replace('/de/', '/');
+        location.href = dest + location.search + location.hash;
+      });
     });
   })();
 })();

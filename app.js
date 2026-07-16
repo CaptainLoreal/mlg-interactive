@@ -1276,7 +1276,7 @@
       chip.className = 'chip';
       const chipImg = document.createElement('img');
       chipImg.className = 'chip__logo';
-      chipImg.src = 'assets/clients/' + c.logo;
+      chipImg.src = (location.pathname.indexOf('/de/') > -1 ? '../' : '') + 'assets/clients/' + c.logo;
       chipImg.alt = c.name;
       chip.appendChild(chipImg);
       chip.dataset.index = String(i);
@@ -2259,12 +2259,16 @@
   }
 
   function initLangSwitch() {
-    var saved = localStorage.getItem('mlg-lang') || 'en';
-    applyLang(saved);
+    var urlLang = location.pathname.indexOf('/de/') > -1 ? 'de' : 'en';
+    applyLang(urlLang);
     document.querySelectorAll('.lang-switch__btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        applyLang(btn.dataset.lang);
-        if (window.MLG && window.MLG.rebuildBubbles) window.MLG.rebuildBubbles();
+        if (btn.dataset.lang === urlLang) return;
+        var p = location.pathname;
+        var dest = btn.dataset.lang === 'de'
+          ? p.replace(/\/([^\/]*)$/, '/de/$1')
+          : p.replace('/de/', '/');
+        location.href = dest + location.search + location.hash;
       });
     });
   }
