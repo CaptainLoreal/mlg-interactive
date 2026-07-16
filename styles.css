@@ -772,9 +772,9 @@ html[lang="de"] .lang-de-only { display: block; }
      Darker at top/bottom to mute the hero headline + topbar edge; a touch
      lighter through the middle so the photo glows through behind the chips. */
   background: linear-gradient(180deg,
-    rgba(0,0,0,0.78) 0%,
-    rgba(0,0,0,0.62) 42%,
-    rgba(0,0,0,0.82) 100%);
+    rgba(0,0,0,0.90) 0%,
+    rgba(0,0,0,0.80) 42%,
+    rgba(0,0,0,0.92) 100%);
   z-index: 40;
   opacity: 0;
   visibility: hidden;
