@@ -1,0 +1,8 @@
+#!/bin/sh
+# Keep sitemap.xml <lastmod> fresh: whenever HTML is committed, regenerate the
+# per-page lastmod from git and fold sitemap.xml into the same commit so
+# Google's recrawl hints reflect what actually changed. Never blocks a commit.
+if git diff --cached --name-only | grep -q '\.html$'; then
+  python3 scripts/build_sitemap.py --quiet 2>/dev/null && git add sitemap.xml
+fi
+exit 0
