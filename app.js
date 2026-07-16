@@ -1371,21 +1371,7 @@
     const wrap     = document.querySelector('.network-logos');
     const details  = document.getElementById('networkDetails');
     if (!wrap) return;
-    const logos = Array.from(wrap.children);
-    for (let i = logos.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [logos[i], logos[j]] = [logos[j], logos[i]];
-    }
-    logos.forEach((el) => wrap.appendChild(el));
-
-    // Re-order the details panel to mirror the shuffled logos
-    if (details) {
-      logos.forEach((logo) => {
-        const key = logo.dataset.partner;
-        const match = details.querySelector(`.network-detail[data-partner="${key}"]`);
-        if (match) details.appendChild(match);
-      });
-    }
+    // Partner order locked to the HTML source order (no shuffle).
   })();
 
   // ── Stat counter animation ─────────────────────────────────────
