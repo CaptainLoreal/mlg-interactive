@@ -5866,20 +5866,20 @@ p, li { font-size: inherit; }
 
 
 /* ── News slide — The Leading Brain book promotion ────────────── */
-.slide--news { background: #000; }
+.slide--news { background: #000; min-height: auto; }
 .slide--news .slide__media { display: none; }
 /* scrim left visible — matches team's 10% black overlay so backgrounds align */
 
 .news-wrap {
   position: relative;
   z-index: 2;
-  min-height: 100dvh;
+  min-height: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: clamp(32px, 5vw, 80px);
-  padding: clamp(48px, 7vh, 88px) var(--pad-x) clamp(40px, 6vh, 72px);
+  padding: clamp(44px, 6vh, 72px) var(--pad-x);
   width: 100%;
   box-sizing: border-box;
   background: #000;
@@ -5926,10 +5926,10 @@ p, li { font-size: inherit; }
   margin: 0;
 }
 .news-card__cta-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+  width: 100%;
   margin-top: 16px;
 }
 .news-card__cta-group .news-card__cta {
