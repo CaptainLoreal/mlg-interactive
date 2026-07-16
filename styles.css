@@ -8,6 +8,60 @@
 .skip-intro #excuses { display: none !important; }
 .skip-intro #deck { opacity: 1 !important; pointer-events: auto !important; }
 
+/* First visit — the hero loads directly as the base layer and the
+   "pick your dream" game overlays on top of it (see the inline <head>
+   script + startFirstScreen() in app.js).
+     • first-screen : paint the hero (deck) + the game overlay from the
+       first frame, and drop the slide-to-start intro from the flow.
+     • game-on      : hide the deck chrome (topbar / rail / mark) while the
+       overlay is up; app.js removes both classes on reveal so the chrome
+       and hero fade in as the overlay dissolves. */
+.first-screen #intro { display: none !important; }
+.first-screen #deck {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+.first-screen #excuses {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.game-on #excuses { z-index: 120; }   /* lift the overlay above the topbar (z-100) */
+.game-on .topbar,
+.game-on .rail,
+.game-on .corner-mark {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+/* Freeze the page on the hero while the game overlay is up. On desktop the
+   deck is position:fixed so it can't scroll anyway; on mobile it scrolls
+   natively (position:static), so without this lock a touch-scroll — or a
+   focus() on a control in a lower slide (the contact form auto-focuses one
+   on load) — would drag the hero out from under the overlay. Pinning the
+   deck to fixed + clip means slide 0 (the hero) can't be scrolled away.
+   deck-active (added on reveal) restores native scrolling via
+   body.deck-active above. */
+html.game-on,
+html.game-on body {
+  overflow: hidden !important;
+  height: 100%;
+  overscroll-behavior: none;
+}
+html.game-on #deck {
+  position: fixed !important;
+  inset: 0;
+  overflow: clip;
+}
+/* The hero PHOTO shows through the overlay (proof the site is loaded), but
+   its copy (headline + card) is muted while the game is up so it doesn't
+   fight the chips + hint; it fades in as the overlay dissolves. */
+.slide[data-title="Welcome"] .slide__copy {
+  transition: opacity var(--dur-4) var(--ease-out);
+}
+.game-on .slide[data-title="Welcome"] .slide__copy {
+  opacity: 0;
+}
+
 @font-face {
   font-family: "Nostard";
   src: url("assets/fonts/Nostard-Medium.ttf") format("woff2");
@@ -713,7 +767,14 @@ html[lang="de"] .lang-de-only { display: block; }
 .excuses {
   position: fixed;
   inset: 0;
-  background: #000;
+  /* Semi-transparent scrim, not solid black: the hero underneath stays
+     visible (dimmed) so the game reads as sitting ON TOP of the live hero.
+     Darker at top/bottom to mute the hero headline + topbar edge; a touch
+     lighter through the middle so the photo glows through behind the chips. */
+  background: linear-gradient(180deg,
+    rgba(0,0,0,0.78) 0%,
+    rgba(0,0,0,0.62) 42%,
+    rgba(0,0,0,0.82) 100%);
   z-index: 40;
   opacity: 0;
   visibility: hidden;
@@ -956,7 +1017,8 @@ html[lang="de"] .lang-de-only { display: block; }
   transition: background var(--dur-3) var(--ease-out),
               backdrop-filter var(--dur-3) var(--ease-out),
               -webkit-backdrop-filter var(--dur-3) var(--ease-out),
-              border-color var(--dur-3) var(--ease-out);
+              border-color var(--dur-3) var(--ease-out),
+              opacity var(--dur-4) var(--ease-out);
 }
 .topbar--past-hero,
 .standalone .topbar {
@@ -1416,7 +1478,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   color: var(--mlg-red);
   cursor: pointer;
   display: block;
-  transition: transform var(--dur-2) var(--ease-out), filter var(--dur-2) var(--ease-out);
+  transition: transform var(--dur-2) var(--ease-out), filter var(--dur-2) var(--ease-out), opacity var(--dur-4) var(--ease-out);
   filter: drop-shadow(0 4px 10px rgba(0,0,0,0.35));
 }
 .corner-mark:hover { transform: scale(1.06); }
@@ -1560,6 +1622,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   flex-direction: column;
   align-items: center;
   pointer-events: none;
+  transition: opacity var(--dur-4) var(--ease-out);
 }
 
 .rail__bar {

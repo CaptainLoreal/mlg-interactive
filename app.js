@@ -141,6 +141,10 @@
   }, 5000);
 
   function enterDeck() {
+    // Drop the first-screen game overlay: the hero underneath is already
+    // painted, so removing these classes dissolves the overlay to reveal it
+    // and fades the deck chrome (topbar / rail / mark) back in.
+    document.documentElement.classList.remove('game-on', 'first-screen');
     excuses.classList.add('is-leaving');
     deck.classList.add('is-on');
     deck.setAttribute('aria-hidden', 'false');
@@ -1123,10 +1127,44 @@
     });
   }
 
-  /* First-visit gate: the intro + bubbles screen is shown only to
-     first-time visitors. Returning visitors (flag in localStorage) go
-     straight to the website. The flag is set on every load so any
-     subsequent visit — including reloads — skips the intro. */
+  /* First visit: the hero is already painted as the base layer (see the
+     inline <head> script + the .first-screen rules in styles.css), so it
+     lands in the first paint for SEO / LCP. We skip the slide-to-start
+     intro entirely and drop the "pick your dream" game straight on top of
+     the live hero; clearing it dissolves the overlay to reveal the site. */
+  function startFirstScreen() {
+    experienceStarted = true;          // block the 5s intro auto-advance
+    clearTimeout(introAutoAdvance);
+    if (intro) { intro.classList.add('is-leaving'); intro.style.display = 'none'; }
+    // Pin to the hero behind the overlay (see the .game-on scroll lock in
+    // styles.css) — a fresh first visit is at 0, but guard against a
+    // restored scroll offset from bfcache / back-forward. The mobile deck
+    // scrolls the <body> (not the window), so reset both scrollers.
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    document.documentElement.classList.add('game-on');
+    deck.classList.add('is-on');       // keep the hero visible once .first-screen is dropped
+    deck.setAttribute('aria-hidden', 'false');
+    excuses.classList.add('is-on');
+    excuses.setAttribute('aria-hidden', 'false');
+    /* app.min.js is deferred and can run before the stylesheet has fully
+       applied, so the field may still measure 0×0 here — which would bunch
+       every chip into the top-left corner. Wait for a real layout before
+       scattering them. */
+    (function buildWhenSized() {
+      if (excusesField.clientWidth > 0 && excusesField.clientHeight > 0) {
+        buildExcuses();
+      } else {
+        requestAnimationFrame(buildWhenSized);
+      }
+    })();
+  }
+
+  /* First-visit gate: the game screen is shown only to first-time
+     visitors. Returning visitors (flag in localStorage) go straight to
+     the website. The flag is set on every load so any subsequent visit —
+     including reloads — skips the game. */
   const VISITED_KEY = 'mlg.visited';
   let hasVisited = false;
   try { hasVisited = localStorage.getItem(VISITED_KEY) === '1'; } catch (e) {}
@@ -1134,7 +1172,7 @@
 
   if (!jumpFromHash()) {
     if (hasVisited) enterDeckDirect();
-    // first-time visitor → leave the default intro/bubbles flow running
+    else startFirstScreen();           // first-time visitor → game over the hero
   }
 
   // "Straight to website" button
@@ -1142,6 +1180,7 @@
   if (websiteCtaBtn) {
     websiteCtaBtn.addEventListener('click', (e) => {
       e.preventDefault();
+      document.documentElement.classList.remove('game-on', 'first-screen');
       excuses.classList.add('is-leaving');
       deck.classList.add('is-on');
       deck.setAttribute('aria-hidden', 'false');
