@@ -1858,10 +1858,24 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .ld-hero__media img { animation: kbDrift1 14s var(--ease-out) forwards; transform: scale(1.10); }
 .fol-hero__media img { animation: kbDrift2 14s var(--ease-out) forwards; transform: scale(1.12); }
 .offerings-bg__img { animation: kbDrift4 14s var(--ease-out) forwards; transform: scale(1.12); }
-/* Homepage hero + current-challenges image: continuous, gentle Ken Burns loop (always visible) */
+/* Homepage hero + current-challenges image: continuous, gentle Ken Burns loop (always visible).
+   The VISIBLE element differs per viewport: desktop shows the sticky hero
+   (#heroSticky) + the in-slide challenges/why-mlg images; mobile swaps to
+   the hero's own slide media + the section-sticky backgrounds. Animate
+   every form so the image drifts in BOTH — the hidden one per viewport just
+   drifts offscreen (harmless). Previously the loop sat on the hero's mobile
+   slide media (hidden on desktop) and on why-mlg instead of the challenges
+   image (.approach-cards-bg__img), so on desktop neither the hero nor the
+   challenges image actually moved. */
 @keyframes kbLoop { from { transform: scale(1.06) translate(0, 0); } to { transform: scale(1.16) translate(-1.6%, -1.4%); } }
-@media (min-width: 641px) { .slide[data-title="Welcome"] .slide__media img { animation: kbLoop 26s ease-in-out infinite alternate !important; } }
-.slide--why-mlg .why-mlg__image-area .slide__media img { animation: kbLoop 26s ease-in-out infinite alternate !important; }
+#heroSticky img,
+.slide[data-title="Welcome"] .slide__media img,
+.approach-cards-bg__img,
+#challengesSticky img,
+.slide--why-mlg .why-mlg__image-area .slide__media img,
+#whyMlgSticky img {
+  animation: kbLoop 26s ease-in-out infinite alternate !important;
+}
 
 @keyframes kbDrift1 {
   0%   { transform: scale(1.10) translate(0, 0); }
@@ -1882,7 +1896,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   .fol-hero__media img,
   .offerings-bg__img,
   .slide[data-title="Welcome"] .slide__media img,
-  .slide--why-mlg .why-mlg__image-area .slide__media img { animation: none !important; transform: none !important; }
+  .slide--why-mlg .why-mlg__image-area .slide__media img,
+  #heroSticky img,
+  .approach-cards-bg__img,
+  #challengesSticky img,
+  #whyMlgSticky img { animation: none !important; transform: none !important; }
 }
 
 /* Approach hero — image lives in .approach-hero__img, outside .slide__media */
