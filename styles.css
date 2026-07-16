@@ -1868,8 +1868,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    image (.approach-cards-bg__img), so on desktop neither the hero nor the
    challenges image actually moved. */
 @keyframes kbLoop { from { transform: scale(1.06) translate(0, 0); } to { transform: scale(1.16) translate(-1.6%, -1.4%); } }
+/* Hero drifts faster than the calmer section images. */
 #heroSticky img,
-.slide[data-title="Welcome"] .slide__media img,
+.slide[data-title="Welcome"] .slide__media img {
+  animation: kbLoop 16s ease-in-out infinite alternate !important;
+}
 .approach-cards-bg__img,
 #challengesSticky img,
 .slide--why-mlg .why-mlg__image-area .slide__media img,
