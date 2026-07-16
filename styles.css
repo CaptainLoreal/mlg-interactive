@@ -1795,9 +1795,10 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .ld-hero__media img { animation: kbDrift1 14s var(--ease-out) forwards; transform: scale(1.10); }
 .fol-hero__media img { animation: kbDrift2 14s var(--ease-out) forwards; transform: scale(1.12); }
 .offerings-bg__img { animation: kbDrift4 14s var(--ease-out) forwards; transform: scale(1.12); }
-/* Homepage hero + current-challenges image: Ken Burns drift (were missing on desktop / scroll) */
-@media (min-width: 641px) { .slide[data-title="Welcome"] .slide__media img { animation: kenburnsA 14s var(--ease-out) forwards; } }
-.slide--why-mlg.is-in-view .why-mlg__image-area .slide__media img { animation: kbDrift4 16s var(--ease-out) forwards; }
+/* Homepage hero + current-challenges image: continuous, gentle Ken Burns loop (always visible) */
+@keyframes kbLoop { from { transform: scale(1.06) translate(0, 0); } to { transform: scale(1.16) translate(-1.6%, -1.4%); } }
+@media (min-width: 641px) { .slide[data-title="Welcome"] .slide__media img { animation: kbLoop 26s ease-in-out infinite alternate !important; } }
+.slide--why-mlg .why-mlg__image-area .slide__media img { animation: kbLoop 26s ease-in-out infinite alternate !important; }
 
 @keyframes kbDrift1 {
   0%   { transform: scale(1.10) translate(0, 0); }
