@@ -5874,7 +5874,7 @@ p, li { font-size: inherit; }
   align-items: center;
   justify-content: center;
   gap: clamp(32px, 5vw, 80px);
-  padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(64px, 10vh, 120px);
+  padding: clamp(48px, 7vh, 88px) var(--pad-x) clamp(40px, 6vh, 72px);
   width: 100%;
   box-sizing: border-box;
   background: #000;
