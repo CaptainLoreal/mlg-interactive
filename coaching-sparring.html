@@ -23,10 +23,12 @@
     .ld-intro p { font-size: 19px; line-height: 1.75; color: rgba(255,255,255,0.65); margin: 0 0 18px; }
     .ld-intro p strong { color: rgba(255,255,255,0.88); }
     .ld-section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 32px; max-width: 1200px; margin-left: auto; margin-right: auto; }
-    .ld-offerings { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 1200px; margin: 0 auto clamp(56px, 8vh, 96px); }
-    .ld-offering { flex: 0 1 calc(50% - 4px); }
-    .ld-offering { background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 48px 40px 52px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-    .ld-offering__title { font-size: clamp(26px, 3vw, 38px); font-weight: 700; font-family: var(--font-sans); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.1; color: #fff; margin: 0 0 24px; }
+    .offerings-bg { padding-left: clamp(16px, 2vw, 28px); padding-right: clamp(16px, 2vw, 28px); }
+    .ld-offerings { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 1440px; margin: 0 auto clamp(56px, 8vh, 96px); }
+    .ld-offering { flex: 0 1 calc(25% - 8px); }
+    .ld-offering { background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 44px 22px 48px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .ld-offering__title { font-size: clamp(20px, 2.3vw, 30px); font-weight: 700; font-family: var(--font-sans); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.1; color: #fff; margin: 0 0 24px; }
+    @media (max-width: 1040px) { .ld-offering { flex: 0 1 calc(50% - 5px); } }
     .ld-offering__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
     .ld-offering__list li { font-size: 14px; color: rgba(255,255,255,0.86); font-weight: 450; padding-left: 16px; position: relative; line-height: 1.5; }
     .ld-offering__list li::before { content: '—'; position: absolute; left: 0; color: var(--mlg-red); font-size: 12px; }
