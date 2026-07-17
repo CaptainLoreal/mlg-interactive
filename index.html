@@ -31,26 +31,18 @@
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica-Bold.woff2" crossorigin />
   <link rel="stylesheet" href="styles.min.css?v=615" />
   <script>
-    /* Decide the first-paint state before styles apply. Three cases:
-       • deep-link (#slide=N, #services, …) OR returning visitor
-         (mlg.visited) → skip-intro: show the deck straight away.
-       • first-time visitor → first-screen: paint the hero as the base
-         layer (so it lands in the first paint for SEO / LCP) and show the
-         "pick your dream" game on top of it. game-on hides the deck chrome
-         while the overlay is up. app.min.js builds the drifting chips.
-       This only sets first-paint classes; app.min.js does the real work. */
+    /* Suppress the intro flash before paint when the intro should be
+       skipped — either an in-page hash deep-link (#slide=N, #services, …)
+       OR a returning visitor (mlg.visited). First-time visitors get the
+       default intro (logo + slide-to-start); app.min.js runs the flow. */
     try {
       if ((location.hash && location.hash.length > 1) ||
           localStorage.getItem('mlg.visited') === '1') {
         document.documentElement.classList.add('skip-intro');
-      } else {
-        document.documentElement.classList.add('first-screen', 'game-on');
       }
     } catch (e) {
       if (location.hash && location.hash.length > 1) {
         document.documentElement.classList.add('skip-intro');
-      } else {
-        document.documentElement.classList.add('first-screen', 'game-on');
       }
     }
   </script>
@@ -115,7 +107,7 @@
     </nav>
 
     <!-- Top corner brand + slide nav + audience toggle. The big-hero
-         logo starts large (scaled via --hero-logo-scale by app.min.js?v=254) and
+         logo starts large (scaled via --hero-logo-scale by app.min.js?v=255) and
          shrinks into the menu on scroll. past-hero gets added by JS
          once the visitor scrolls ~50 % of the way through slide 0. -->
     <div class="topbar">
@@ -843,13 +835,13 @@
 
   </main>
 
-  <script src="app.min.js?v=254" defer></script>
+  <script src="app.min.js?v=255" defer></script>
   <script>
     /* Inline hero-state toggle. Runs immediately on page load before
-       app.min.js?v=254 defers in, so the topbar gets its past-hero class as
+       app.min.js?v=255 defers in, so the topbar gets its past-hero class as
        soon as the viewer is past ~50 % of the hero — eliminates a
        FOUC where the menu briefly shows hero-state styles on a
-       deep-linked / hash-jumped landing. app.min.js?v=254's tickSmooth then
+       deep-linked / hash-jumped landing. app.min.js?v=255's tickSmooth then
        takes over the toggle as the smoothed scroll runs. */
     (function () {
       var topbar = document.querySelector('.topbar');
