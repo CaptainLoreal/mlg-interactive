@@ -1906,6 +1906,20 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   #whyMlgSticky img { animation: none !important; transform: none !important; }
 }
 
+/* Mobile: drop the continuous Ken Burns loops. On phones a full-viewport
+   transform animation fights content-visibility:auto on the same image
+   (the browser thrashes render-skip vs the animating bounds) — the hero
+   "bugs" / flickers on scroll, and it drains battery. Keep the images
+   static on mobile; the loop stays on desktop where it's smooth. */
+@media (max-width: 640px) {
+  #heroSticky img,
+  .slide[data-title="Welcome"] .slide__media img,
+  .approach-cards-bg__img,
+  #challengesSticky img,
+  .slide--why-mlg .why-mlg__image-area .slide__media img,
+  #whyMlgSticky img { animation: none !important; transform: none !important; }
+}
+
 /* Approach hero — image lives in .approach-hero__img, outside .slide__media */
 .slide--approach-main .approach-hero__img img {
   transform: scale(1.10) translate(0, 0);
