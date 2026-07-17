@@ -6663,6 +6663,21 @@ p, li { font-size: inherit; }
   content-visibility: auto;
   contain-intrinsic-size: 100vh;
 }
+/* Mobile: content-visibility:auto skip-renders elements as they cross the
+   viewport, which makes the large background images flash/flicker (they get
+   re-decoded on scroll-in — the same stutter the sticky-image exclusion
+   above was written to avoid). On phones we scroll natively, so keep the
+   slides + their images painted; the desktop hijack keeps the perf win. */
+@media (max-width: 640px) {
+  .slide,
+  .slide__media img,
+  .approach-hero__img img,
+  .approach-cards-bg__img,
+  .news-media img {
+    content-visibility: visible !important;
+    contain-intrinsic-size: auto !important;
+  }
+}
 /* Mobile: card blur was previously stripped here as a perf optimization,
    but it left .card-item / .challenge-box / .news-card / .globe-card
    visually inconsistent with the approach card (which DID keep blur).
