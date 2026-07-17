@@ -1867,7 +1867,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    slide media (hidden on desktop) and on why-mlg instead of the challenges
    image (.approach-cards-bg__img), so on desktop neither the hero nor the
    challenges image actually moved. */
-@keyframes kbLoop { from { transform: scale(1.06) translate(0, 0); } to { transform: scale(1.16) translate(-1.6%, -1.4%); } }
+/* translateZ(0) (a visual no-op, applied last) forces a 3D transform so the
+   loop runs on its own GPU compositor layer — the browser scales the already-
+   rasterized layer instead of re-rastering the big image every frame, which
+   is what made it shimmer/"rattle" on desktop. */
+@keyframes kbLoop { from { transform: translateZ(0) scale(1.06) translate(0, 0); } to { transform: translateZ(0) scale(1.16) translate(-1.6%, -1.4%); } }
 /* Hero drifts faster than the calmer section images. */
 #heroSticky img,
 .slide[data-title="Welcome"] .slide__media img {
@@ -1878,6 +1882,20 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .slide--why-mlg .why-mlg__image-area .slide__media img,
 #whyMlgSticky img {
   animation: kbLoop 26s ease-in-out infinite alternate !important;
+}
+/* Pin the animated images to a stable GPU layer (desktop only — the loop is
+   disabled on mobile). backface-visibility:hidden + will-change:transform
+   stop the sub-pixel re-raster that reads as jitter/rattle. */
+@media (min-width: 641px) {
+  #heroSticky img,
+  .slide[data-title="Welcome"] .slide__media img,
+  .approach-cards-bg__img,
+  .slide--why-mlg .why-mlg__image-area .slide__media img {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-origin: center center;
+  }
 }
 
 @keyframes kbDrift1 {
