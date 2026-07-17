@@ -6578,7 +6578,7 @@ p, li { font-size: inherit; }
 .slides { position: relative; }  /* needed so z-index can apply */
 @media (max-width: 480px) {
   .section-sticky {
-    display: block;
+    display: none;   /* disabled on mobile (flickers on iOS) — in-flow images used instead */
     position: fixed;
     top: 0;
     left: 0;
@@ -6617,10 +6617,23 @@ p, li { font-size: inherit; }
     bottom: 0;
     background: linear-gradient(to top, #000 0%, rgba(0,0,0,0) 100%);
   }
-  /* Hide the in-slide images — the sticky handles the background */
-  .approach-cards-bg__img { display: none !important; }
-  .why-mlg__image-area .slide__media { display: none !important; }
-  .why-mlg__image-area .slide__scrim { display: none !important; }
+  /* Show each section's own in-flow image. The fixed section-sticky is
+     disabled (below): position:fixed driven by a per-frame JS transform
+     flickers/lags on iOS momentum scroll, so use the in-flow image that
+     scrolls natively with the content instead. */
+  .approach-cards-bg__img { display: block !important; }
+  .why-mlg__image-area .slide__media { display: block !important; }
+  .why-mlg__image-area .slide__scrim { display: block !important; }
+  /* Darkening scrim over the challenges in-flow image (the fixed sticky's
+     gradients went away with it) so the cards stay readable. Sits between
+     the image (z 0) and the cards (z 2). */
+  .approach-cards-bg::after {
+    display: block !important;
+    inset: 0 !important;
+    height: auto !important;
+    z-index: 1 !important;
+    background: linear-gradient(180deg, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.56) 45%, rgba(0,0,0,0.74) 100%) !important;
+  }
   /* Lift slides above the sticky so cards render on top of the visible image */
   .slides { z-index: 2 !important; }
   /* Make sure the sections AND their parent slides are transparent so the

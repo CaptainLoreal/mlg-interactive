@@ -602,34 +602,13 @@
   const sectionStickies = Array.from(document.querySelectorAll('.section-sticky'))
     .map((el) => ({ el, sel: el.dataset.section, target: null, _opacity: -1, _transform: '' }));
   function updateSectionStickies() {
-    const isMobile = window.innerWidth <= 480;
-    if (!isMobile) {
-      sectionStickies.forEach((s) => {
-        if (s._opacity !== 0) { s.el.style.opacity = 0; s._opacity = 0; }
-      });
-      return;
-    }
-    const vh = window.innerHeight;
+    /* Section stickies are disabled: the fixed-background parallax
+       (position:fixed + a per-frame JS transform) flickered and lagged on
+       iOS momentum scroll. Each section now shows its own in-flow image
+       (see styles.css) that scrolls natively. Keep the sticky elements
+       hidden and skip the per-frame getBoundingClientRect entirely. */
     sectionStickies.forEach((s) => {
-      if (!s.target) s.target = s.sel && document.querySelector(s.sel);
-      if (!s.target) return;
-      const rect = s.target.getBoundingClientRect();
-      let opacity, transform;
-      if (rect.bottom <= 0 || rect.top >= vh) {
-        opacity = 0;
-        transform = s._transform;
-      } else {
-        opacity = 1;
-        if (rect.top <= 0 && rect.bottom > vh) {
-          transform = 'translateY(0)';
-        } else if (rect.top > 0) {
-          transform = `translateY(${rect.top}px)`;
-        } else {
-          transform = `translateY(${rect.bottom - vh}px)`;
-        }
-      }
-      if (opacity !== s._opacity) { s.el.style.opacity = opacity; s._opacity = opacity; }
-      if (transform !== s._transform) { s.el.style.transform = transform; s._transform = transform; }
+      if (s._opacity !== 0) { s.el.style.opacity = 0; s._opacity = 0; }
     });
   }
 
