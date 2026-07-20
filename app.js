@@ -2324,5 +2324,41 @@
   } else {
     initLangSwitch();
   }
+
+  /* ── Scroll diagnostics — opt-in via ?scrolldebug=1 ───────────────────
+     Inert unless the query param is present, so it costs normal visitors
+     nothing. Exists because the iOS scroll-jump can't be reproduced off
+     an actual device: it pins down WHICH quantity moves when the page
+     lurches, instead of guessing.
+       viewport  changes -> Safari's address bar is resizing the viewport
+       docHeight changes -> our layout is still viewport-dependent (a bug)
+       both flat, page still jumps -> Safari's own scroll adjustment,
+                                      not something the stylesheet controls
+     Uses setInterval, not rAF, so it keeps reporting even when the tab
+     throttles animation frames. */
+  if (/[?&]scrolldebug=1\b/.test(location.search)) {
+    const box = document.createElement('div');
+    box.style.cssText =
+      'position:fixed;left:8px;top:8px;z-index:99999;background:rgba(0,0,0,.85);' +
+      'color:#3f6;font:11px/1.5 ui-monospace,monospace;padding:8px 10px;' +
+      'border-radius:6px;pointer-events:none;white-space:pre';
+    document.addEventListener('DOMContentLoaded', () => document.body.appendChild(box));
+    let prevIH = 0, prevDH = 0, worstIH = 0, worstDH = 0;
+    setInterval(() => {
+      const ih = window.innerHeight;
+      const dh = document.documentElement.scrollHeight;
+      const vv = window.visualViewport;
+      if (prevIH) {
+        worstIH = Math.max(worstIH, Math.abs(ih - prevIH));
+        worstDH = Math.max(worstDH, Math.abs(dh - prevDH));
+      }
+      prevIH = ih; prevDH = dh;
+      box.textContent =
+        'viewport   ' + ih + '   worst Δ ' + worstIH + '\n' +
+        'docHeight  ' + dh + '   worst Δ ' + worstDH + '\n' +
+        'scrollY    ' + Math.round(window.scrollY) + '\n' +
+        'visualVP   ' + (vv ? Math.round(vv.height) + '  offset ' + Math.round(vv.offsetTop) : 'n/a');
+    }, 100);
+  }
 })();
 

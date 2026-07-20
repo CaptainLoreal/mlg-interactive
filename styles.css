@@ -362,6 +362,27 @@ body.deck-active {
   overscroll-behavior: none;
 }
 
+/* ...but only on the pointer where the lerp actually runs. On touch the deck
+   scrolls NATIVELY (see "NATIVE SCROLL ON MOBILE"), so neither constraint buys
+   anything there and both cost real behaviour:
+
+   - touch-action: pan-y declares "this element only pans vertically", which
+     also disables pinch-to-zoom across the whole page — an accessibility
+     regression — and forces Safari to resolve the gesture against that
+     restriction rather than handing it straight to its fast scrolling path.
+   - overscroll-behavior: none kills the rubber-band, so a gesture that
+     reverses has no elastic region to travel through and lands hard.
+
+   Condition mirrors the JS TOUCH const exactly (pointer:coarse || <=640px).
+   overscroll-behavior-y:contain still blocks pull-to-refresh and scroll
+   chaining — it just restores the native bounce. */
+@media (pointer: coarse), (max-width: 640px) {
+  body.deck-active {
+    touch-action: auto;
+    overscroll-behavior-y: contain;
+  }
+}
+
 img { display: block; max-width: 100%; }
 
 button { font-family: inherit; cursor: pointer; }
