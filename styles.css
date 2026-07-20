@@ -147,12 +147,12 @@ html.game-on #deck {
        with the corner-mark's bottom anchor on the right (22 px).
        The big empty space sits ABOVE the headline block now — that's
        where the H1 slogan grows into as the user scrolls. */
-    top: clamp(56px, 6.5vh, 84px) !important;
+    top: clamp(56px, calc(6.5 * var(--vh, 1vh)), 84px) !important;
     bottom: 22px !important;
     flex-direction: column !important;
     align-items: flex-start !important;
     justify-content: flex-end !important;
-    gap: clamp(14px, 2vh, 24px) !important;
+    gap: clamp(14px, calc(2 * var(--vh, 1vh)), 24px) !important;
     max-width: none !important;
   }
   /* Both column children pinned at the slide__copy LEFT edge so the
@@ -556,7 +556,7 @@ html[lang="de"] .lang-de-only { display: block; }
   /* Logo pinned at top (via padding-top), headline centred between, slider at bottom */
   justify-content: space-between;
   gap: 0;
-  padding: clamp(48px, 10vh, 120px) 24px clamp(40px, 8vh, 96px);
+  padding: clamp(48px, calc(10 * var(--vh, 1vh)), 120px) 24px clamp(40px, calc(8 * var(--vh, 1vh)), 96px);
   z-index: 50;
   transition: opacity var(--dur-5) var(--ease-out), transform var(--dur-5) var(--ease-out);
 }
@@ -577,7 +577,7 @@ html[lang="de"] .lang-de-only { display: block; }
 
 .intro__lang-switch {
   position: absolute;
-  top: clamp(16px, 3vh, 28px);
+  top: clamp(16px, calc(3 * var(--vh, 1vh)), 28px);
   right: clamp(16px, 3vw, 32px);
   z-index: 1;
 }
@@ -801,7 +801,7 @@ html[lang="de"] .lang-de-only { display: block; }
   visibility: hidden;
   transition: opacity 800ms var(--ease-out), visibility 0s linear 800ms;
   overflow: hidden;
-  padding: clamp(40px, 7vh, 80px) 0;
+  padding: clamp(40px, calc(7 * var(--vh, 1vh)), 80px) 0;
 }
 .excuses::before {
   content: '';
@@ -823,7 +823,7 @@ html[lang="de"] .lang-de-only { display: block; }
 
 .excuses__lang-switch {
   position: absolute;
-  top: clamp(16px, 3vh, 28px);
+  top: clamp(16px, calc(3 * var(--vh, 1vh)), 28px);
   right: clamp(16px, 3vw, 32px);
   z-index: 1;
 }
@@ -1671,7 +1671,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 
 .rail__bar {
   width: 2px;
-  height: clamp(180px, 38vh, 320px);
+  height: clamp(180px, calc(38 * var(--vh, 1vh)), 320px);
   background: rgba(255,255,255,0.20);
   border-radius: 999px;
   overflow: hidden;
@@ -1731,7 +1731,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    svh/dvh/vh all resolve identically — this is a no-op there. */
 .slide {
   position: relative;
-  min-height: 100svh;
+  min-height: calc(100 * var(--vh, 1vh));
   overflow: hidden;
   opacity: 1;
   visibility: visible;
@@ -1802,16 +1802,16 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   position: absolute;
   left: var(--pad-x);
   right: calc(var(--pad-x) + var(--rail-w));
-  bottom: clamp(80px, 14vh, 140px);
+  bottom: clamp(80px, calc(14 * var(--vh, 1vh)), 140px);
   max-width: 720px;
   color: #fff;
   z-index: 2;
 }
 .slide[data-title="Welcome"] .slide__copy {
-  bottom: clamp(110px, 16vh, 170px);
+  bottom: clamp(110px, calc(16 * var(--vh, 1vh)), 170px);
 }
 .slide__copy--top {
-  top: clamp(80px, 12vh, 140px);
+  top: clamp(80px, calc(12 * var(--vh, 1vh)), 140px);
   bottom: auto;
 }
 
@@ -2134,8 +2134,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .standalone {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  min-height: 100svh;
+  min-height: calc(100 * var(--vh, 1vh));
+  min-height: calc(100 * var(--vh, 1vh));
   background: #000;
   overflow: hidden;
   display: flex;
@@ -2194,7 +2194,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 /* ── Offerings section header — eyebrow + heading centered above the image card ── */
 .offerings-above {
   text-align: center;
-  margin: 0 auto clamp(24px, 3.5vh, 40px);
+  margin: 0 auto clamp(24px, calc(3.5 * var(--vh, 1vh)), 40px);
   max-width: 720px;
 }
 .offerings-above .ld-section-label {
@@ -2216,8 +2216,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  padding: clamp(32px, 5vh, 56px) clamp(24px, 4vw, 48px) clamp(36px, 6vh, 64px);
-  margin-bottom: clamp(32px, 5vh, 56px);
+  padding: clamp(32px, calc(5 * var(--vh, 1vh)), 56px) clamp(24px, 4vw, 48px) clamp(36px, calc(6 * var(--vh, 1vh)), 64px);
+  margin-bottom: clamp(32px, calc(5 * var(--vh, 1vh)), 56px);
 }
 .offerings-bg__img {
   position: absolute;
@@ -2244,7 +2244,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 
 /* Sub-page hero — full viewport height, matching main page */
 .ld-hero {
-  height: 100svh !important;
+  height: calc(100 * var(--vh, 1vh)) !important;
   min-height: unset !important;
 }
 
@@ -2268,7 +2268,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 
 .services-split {
   position: relative;
-  min-height: 100svh;
+  min-height: calc(100 * var(--vh, 1vh));
   z-index: 2;
   /* Wrapper is full-width so the background photo bleeds edge-to-edge.
      Stack header above the cards in a single centred column at every
@@ -2279,8 +2279,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   grid-template-columns: 1fr;
   justify-items: center;
   align-items: center;
-  row-gap: clamp(40px, 6vh, 72px);
-  padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(60px, 8vh, 100px);
+  row-gap: clamp(40px, calc(6 * var(--vh, 1vh)), 72px);
+  padding: clamp(96px, calc(14 * var(--vh, 1vh)), 160px) var(--pad-x) clamp(60px, calc(8 * var(--vh, 1vh)), 100px);
   box-sizing: border-box;
 }
 .services-split__copy {
@@ -2355,7 +2355,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    the centred single-column stack, so no grid-column change needed. */
 @media (max-width: 900px) {
   .services-split {
-    row-gap: clamp(32px, 5vh, 56px);
+    row-gap: clamp(32px, calc(5 * var(--vh, 1vh)), 56px);
   }
 }
 .slide--services-split .services-grid {
@@ -2398,12 +2398,12 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .services-wrap {
   position: relative;
   z-index: 2;
-  min-height: 100svh;
+  min-height: calc(100 * var(--vh, 1vh));
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(28px, 4vh, 52px);
-  padding: clamp(96px, 14vh, 160px) var(--pad-x) clamp(60px, 8vh, 100px);
+  gap: clamp(28px, calc(4 * var(--vh, 1vh)), 52px);
+  padding: clamp(96px, calc(14 * var(--vh, 1vh)), 160px) var(--pad-x) clamp(60px, calc(8 * var(--vh, 1vh)), 100px);
   pointer-events: none;
 }
 .services-wrap > * { pointer-events: auto; }
@@ -2426,7 +2426,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   display: grid;
   grid-template-columns: 1fr;
   gap: 14px;
-  padding: clamp(200px, 28vh, 300px) var(--pad-x) clamp(80px, 12vh, 140px);
+  padding: clamp(200px, calc(28 * var(--vh, 1vh)), 300px) var(--pad-x) clamp(80px, calc(12 * var(--vh, 1vh)), 140px);
   pointer-events: none;
 }
 .cards-row > * { pointer-events: auto; }
@@ -2502,7 +2502,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   .cards-row {
     grid-template-columns: repeat(4, 1fr);
     gap: clamp(16px, 1.6vw, 22px);
-    padding-top: clamp(200px, 28vh, 320px);
+    padding-top: clamp(200px, calc(28 * var(--vh, 1vh)), 320px);
   }
   .card-item { padding: 26px 22px; min-height: 200px; }
 }
@@ -2527,9 +2527,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(20px, 4vh, 36px);
+  gap: clamp(20px, calc(4 * var(--vh, 1vh)), 36px);
   text-align: center;
-  padding: clamp(120px, 14vh, 180px) var(--pad-x) clamp(80px, 10vh, 120px);
+  padding: clamp(120px, calc(14 * var(--vh, 1vh)), 180px) var(--pad-x) clamp(80px, calc(10 * var(--vh, 1vh)), 120px);
   z-index: 2;
   color: #fff;
   transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
@@ -2544,7 +2544,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   gap: 10px;
   width: 100%;
   max-width: 420px;
-  margin-top: clamp(8px, 1.5vh, 18px);
+  margin-top: clamp(8px, calc(1.5 * var(--vh, 1vh)), 18px);
 }
 
 .selector__tab {
@@ -2639,11 +2639,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   position: relative;
   z-index: 2;
   color: #fff;
-  padding: clamp(80px, 11vh, 120px) var(--pad-x) clamp(60px, 8vh, 100px);
+  padding: clamp(80px, calc(11 * var(--vh, 1vh)), 120px) var(--pad-x) clamp(60px, calc(8 * var(--vh, 1vh)), 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(24px, 4vh, 40px);
+  gap: clamp(24px, calc(4 * var(--vh, 1vh)), 40px);
 }
 .approach-centered__header {
   text-align: center;
@@ -2668,7 +2668,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 
 /* Tools slide — normal padding (approach slide uses 100vh for scroll extension) */
 .slide--tools .approach-centered-wrap {
-  padding-bottom: clamp(60px, 8vh, 100px);
+  padding-bottom: clamp(60px, calc(8 * var(--vh, 1vh)), 100px);
 }
 .slide--tools { display: none; }
 
@@ -2698,7 +2698,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 /* Hero image — top portion only, no scrim */
 .approach-hero {
   position: relative;
-  height: 78vh;
+  height: calc(78 * var(--vh, 1vh));
   min-height: 420px;
   overflow: hidden;
   flex-shrink: 0;
@@ -2740,7 +2740,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
-  padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 5vh, 56px);
+  padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, calc(5 * var(--vh, 1vh)), 56px);
 }
 
 /* Halo wrappers: each text block is relative-positioned so its own
@@ -2827,7 +2827,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 /* Ordinals — solid dark strip below the image */
 .approach-ordinals-section {
   background: #000;
-  padding: clamp(36px, 5vh, 64px) var(--pad-x);
+  padding: clamp(36px, calc(5 * var(--vh, 1vh)), 64px) var(--pad-x);
   width: 100%;
   box-sizing: border-box;
 }
@@ -2848,7 +2848,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(32px, 5vw, 80px);
-  padding: clamp(56px, 8vh, 96px) var(--pad-x);
+  padding: clamp(56px, calc(8 * var(--vh, 1vh)), 96px) var(--pad-x);
   align-items: center;
   max-width: 1280px;
   margin: 0 auto;
@@ -2928,7 +2928,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 @media (max-width: 800px) {
   .approach-future {
     grid-template-columns: 1fr;
-    gap: clamp(24px, 4vh, 40px);
+    gap: clamp(24px, calc(4 * var(--vh, 1vh)), 40px);
   }
   .approach-future__media {
     aspect-ratio: 16 / 10;
@@ -2984,7 +2984,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   align-items: center !important;
   justify-content: center !important;
   gap: 16px;
-  padding: clamp(24px, 4vh, 40px) var(--pad-x);
+  padding: clamp(24px, calc(4 * var(--vh, 1vh)), 40px) var(--pad-x);
   box-sizing: border-box;
   width: 100%;
   text-align: center;
@@ -3022,7 +3022,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: clamp(80px, 11vh, 120px) var(--pad-x) clamp(60px, 8vh, 100px);
+  padding: clamp(80px, calc(11 * var(--vh, 1vh)), 120px) var(--pad-x) clamp(60px, calc(8 * var(--vh, 1vh)), 100px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   z-index: 2;
@@ -3051,7 +3051,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    above. Same visual language as the .fol-pull pull-quote. */
 .approach-closing {
   max-width: 820px;
-  margin: clamp(40px, 6vh, 72px) auto clamp(32px, 5vh, 56px);
+  margin: clamp(40px, calc(6 * var(--vh, 1vh)), 72px) auto clamp(32px, calc(5 * var(--vh, 1vh)), 56px);
   text-align: center;
   font-size: clamp(20px, 2.4vw, 28px);
   line-height: 1.45;
@@ -3165,11 +3165,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 /* ── Network strip — dark section below Team ───────────────────── */
 .network-strip {
   background: #000;
-  padding: clamp(24px, 4vh, 48px) var(--pad-x) clamp(60px, 9vh, 100px);
+  padding: clamp(24px, calc(4 * var(--vh, 1vh)), 48px) var(--pad-x) clamp(60px, calc(9 * var(--vh, 1vh)), 100px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(40px, 6vh, 64px);
+  gap: clamp(40px, calc(6 * var(--vh, 1vh)), 64px);
 }
 .network-eyebrow {
   margin: 0 0 16px;
@@ -3201,7 +3201,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.45);
-  margin: clamp(28px, 4vh, 48px) auto 0;
+  margin: clamp(28px, calc(4 * var(--vh, 1vh)), 48px) auto 0;
   text-align: center;
 }
 
@@ -3213,7 +3213,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    "What our network partners say" sub-label. */
 .network-strip__quote {
   max-width: 820px;
-  margin: calc(-1 * clamp(28px, 4vh, 52px)) auto 0;
+  margin: calc(-1 * clamp(28px, calc(4 * var(--vh, 1vh)), 52px)) auto 0;
   padding: 28px 36px;
   background: rgba(181,0,52,0.10);
   border: 1px solid rgba(181,0,52,0.28);
@@ -3329,8 +3329,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(12px, 1.8vh, 18px);
-  padding: clamp(24px, 4vh, 40px) var(--pad-x);
+  gap: clamp(12px, calc(1.8 * var(--vh, 1vh)), 18px);
+  padding: clamp(24px, calc(4 * var(--vh, 1vh)), 40px) var(--pad-x);
   width: 100%;
 }
 .stats-eyebrow {
@@ -3394,7 +3394,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   position: relative;
   z-index: 2;
   background: #000;
-  padding: clamp(48px, 7vh, 88px) var(--pad-x) clamp(32px, 5vh, 56px);
+  padding: clamp(48px, calc(7 * var(--vh, 1vh)), 88px) var(--pad-x) clamp(32px, calc(5 * var(--vh, 1vh)), 56px);
   display: flex;
   justify-content: center;
 }
@@ -3402,12 +3402,12 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .why-mlg__image-area {
   position: relative;
   flex: 1;
-  min-height: 60vh;
+  min-height: calc(60 * var(--vh, 1vh));
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(40px, 6vh, 72px) var(--pad-x);
+  padding: clamp(40px, calc(6 * var(--vh, 1vh)), 72px) var(--pad-x);
 }
 .why-mlg__image-area .slide__media {
   position: absolute;
@@ -3510,15 +3510,15 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   position: relative;
   z-index: 2;
   overflow: visible;
-  padding: clamp(96px, 11vh, 132px) var(--pad-x) clamp(40px, 6vh, 72px);
+  padding: clamp(96px, calc(11 * var(--vh, 1vh)), 132px) var(--pad-x) clamp(40px, calc(6 * var(--vh, 1vh)), 72px);
   color: #fff;
   background: #000;
-  min-height: 100svh;
+  min-height: calc(100 * var(--vh, 1vh));
 }
 
 .team-head {
   max-width: 880px;
-  margin: 0 auto clamp(18px, 2.4vh, 30px);
+  margin: 0 auto clamp(18px, calc(2.4 * var(--vh, 1vh)), 30px);
   text-align: center;
 }
 .team-head .display { color: #fff; margin: 0 auto; }
@@ -3560,7 +3560,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  margin-top: clamp(12px, 2vh, 22px);
+  margin-top: clamp(12px, calc(2 * var(--vh, 1vh)), 22px);
 }
 .region-filter {
   display: flex;
@@ -3711,12 +3711,12 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(28px, 5vh, 48px);
-  padding: clamp(56px, 8vh, 90px) var(--pad-x) clamp(60px, 8vh, 100px);
+  gap: clamp(28px, calc(5 * var(--vh, 1vh)), 48px);
+  padding: clamp(56px, calc(8 * var(--vh, 1vh)), 90px) var(--pad-x) clamp(60px, calc(8 * var(--vh, 1vh)), 100px);
   z-index: 2;
   color: #fff;
   overflow: visible;
-  min-height: 100svh;
+  min-height: calc(100 * var(--vh, 1vh));
 }
 
 .contact-wrap__head {
@@ -3741,7 +3741,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: clamp(28px, 5vh, 48px);
+  gap: clamp(28px, calc(5 * var(--vh, 1vh)), 48px);
 }
 .contact-wrap__bg {
   position: absolute;
@@ -3783,9 +3783,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   align-items: center;
   text-align: center;
   min-height: auto;
-  padding-top: clamp(29px, 3.6vh, 43px);
-  padding-bottom: clamp(2px, 0.3vh, 5px);
-  gap: clamp(24px, 5vh, 52px);
+  padding-top: clamp(29px, calc(3.6 * var(--vh, 1vh)), 43px);
+  padding-bottom: clamp(2px, calc(0.3 * var(--vh, 1vh)), 5px);
+  gap: clamp(24px, calc(5 * var(--vh, 1vh)), 52px);
   transform: translateY(100%);
   opacity: 0;
   transition:
@@ -3807,7 +3807,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .has-halo {
   position: relative;
   z-index: 2;
-  padding: clamp(64px, 10vh, 120px) clamp(48px, 8vw, 96px);
+  padding: clamp(64px, calc(10 * var(--vh, 1vh)), 120px) clamp(48px, 8vw, 96px);
   background: radial-gradient(
     ellipse 55% 50% at center,
     rgba(0,0,0,0.35) 0%,
@@ -3850,7 +3850,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   /* Generous padding so the gradient has room to fade to transparent
      well before reaching the element's edges (which sit at the slide
      boundary and would otherwise show a hard line). */
-  padding: clamp(64px, 10vh, 120px) clamp(48px, 8vw, 96px);
+  padding: clamp(64px, calc(10 * var(--vh, 1vh)), 120px) clamp(48px, 8vw, 96px);
   /* Ellipse sized SMALLER than the box and fully transparent at 55%
      of its radius — guarantees no visible edge anywhere in the box. */
   background: radial-gradient(
@@ -3908,17 +3908,17 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    100svh on small phones. Let the slide grow naturally and give the
    form proper bottom breathing room. */
 @media (max-width: 640px) {
-  .slide--tailor { min-height: 100svh; height: auto; overflow: visible; }
+  .slide--tailor { min-height: calc(100 * var(--vh, 1vh)); height: auto; overflow: visible; }
   .contact-wrap--tailor {
-    min-height: 100svh;
-    padding-top: clamp(64px, 8vh, 96px);
-    padding-bottom: clamp(56px, 8vh, 96px);
+    min-height: calc(100 * var(--vh, 1vh));
+    padding-top: clamp(64px, calc(8 * var(--vh, 1vh)), 96px);
+    padding-bottom: clamp(56px, calc(8 * var(--vh, 1vh)), 96px);
     /* Reset bottom-skim from desktop default */
-    gap: clamp(20px, 3vh, 36px);
+    gap: clamp(20px, calc(3 * var(--vh, 1vh)), 36px);
   }
   .contact-wrap--tailor .contact-wrap__head {
     /* Tighter halo on mobile so the form has room below */
-    padding: clamp(20px, 4vh, 36px) clamp(16px, 4vw, 32px);
+    padding: clamp(20px, calc(4 * var(--vh, 1vh)), 36px) clamp(16px, 4vw, 32px);
   }
   /* Each choice gets a touch less vertical padding on mobile */
   .contact-wrap--tailor .tf__choice { padding: 10px 12px; font-size: 15px; }
@@ -3950,7 +3950,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .tf {
   position: relative;
   text-align: left;
-  margin-bottom: clamp(28px, 5vh, 48px);
+  margin-bottom: clamp(28px, calc(5 * var(--vh, 1vh)), 48px);
   min-height: 360px;
 }
 
@@ -4207,7 +4207,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   flex-direction: column;
   gap: 14px;
   text-align: left;
-  margin-bottom: clamp(28px, 5vh, 48px);
+  margin-bottom: clamp(28px, calc(5 * var(--vh, 1vh)), 48px);
 }
 
 .contact-form__field {
@@ -4264,7 +4264,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .contact-block__phone-row--standalone {
   text-align: center;
   align-items: center;
-  margin-top: clamp(8px, 1.5vh, 18px);
+  margin-top: clamp(8px, calc(1.5 * var(--vh, 1vh)), 18px);
 }
 .contact-block__phone-row--standalone .contact-block__copy {
   margin-left: auto;
@@ -4527,8 +4527,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: clamp(90px, 11vh, 130px) var(--pad-x) clamp(60px, 8vh, 100px);
-    gap: clamp(20px, 3vh, 40px);
+    padding: clamp(90px, calc(11 * var(--vh, 1vh)), 130px) var(--pad-x) clamp(60px, calc(8 * var(--vh, 1vh)), 100px);
+    gap: clamp(20px, calc(3 * var(--vh, 1vh)), 40px);
     overflow: visible;
   }
   .contact-wrap__head {
@@ -4579,7 +4579,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   z-index: 3;
   max-width: 620px;
   margin: 0 auto;
-  padding: clamp(88px, 16vh, 180px) var(--pad-x) 0;
+  padding: clamp(88px, calc(16 * var(--vh, 1vh)), 180px) var(--pad-x) 0;
   text-align: center;
 }
 .site-award__label {
@@ -4695,13 +4695,13 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
      phones and small laptops once the layout dropped out of 2-col
      mode; the desktop grid (≥960 px) overrides this with its own
      explicit row-gap, so widening here is stacked-only. */
-  gap: clamp(28px, 5vh, 56px);
+  gap: clamp(28px, calc(5 * var(--vh, 1vh)), 56px);
   z-index: 2;
   /* Slightly more vertical padding on the stacked layout so the whole
      section breathes — the headline doesn't sit flush against the
      section above and the card doesn't crowd the next slide. */
-  padding: clamp(96px, 12vh, 140px) var(--pad-x) clamp(56px, 8vh, 96px);
-  min-height: 100svh;
+  padding: clamp(96px, calc(12 * var(--vh, 1vh)), 140px) var(--pad-x) clamp(56px, calc(8 * var(--vh, 1vh)), 96px);
+  min-height: calc(100 * var(--vh, 1vh));
 }
 
 .globe-stage {
@@ -5116,7 +5116,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
      stack under the globe instead — the previous 768 px floor left a
      ~200 px tablet window where the header was being crushed into a
      thin column on the right and wrapping awkwardly. */
-  .slide__copy { bottom: clamp(120px, 16vh, 180px); }
+  .slide__copy { bottom: clamp(120px, calc(16 * var(--vh, 1vh)), 180px); }
 
   /* Two-column grid: globe column on the left (with the hint + "see all
      clients" button underneath it); the right column holds the .globe-side
@@ -5126,12 +5126,12 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     grid-template-columns: min(52vw, 680px) min(30vw, 380px);
     grid-template-rows: 1fr auto;
     column-gap: clamp(64px, 8vw, 120px);
-    row-gap: clamp(10px, 2vh, 22px);
+    row-gap: clamp(10px, calc(2 * var(--vh, 1vh)), 22px);
     justify-content: center;
     align-items: center;
     /* Symmetric horizontal padding so the centered grid (globe + side card)
        sits with equal empty space on both edges of the slide. */
-    padding: clamp(140px, 14vh, 200px) var(--pad-x) clamp(110px, 14vh, 160px);
+    padding: clamp(140px, calc(14 * var(--vh, 1vh)), 200px) var(--pad-x) clamp(110px, calc(14 * var(--vh, 1vh)), 160px);
   }
   .globe-stage {
     grid-column: 1; grid-row: 1;
@@ -5146,7 +5146,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     justify-self: end;
     display: flex;
     flex-direction: column;
-    gap: clamp(18px, 3vh, 32px);
+    gap: clamp(18px, calc(3 * var(--vh, 1vh)), 32px);
     /* Widened from min(30vw, 380) → min(30vw, 420) so the headline
        column can hold a ~64 px display font without forcing soft-
        hyphen breaks on "Unternehmen" / "organizations" / "vertrauen
@@ -5229,7 +5229,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     /* Bottom padding trimmed from clamp(40, 7vh, 72) → clamp(20, 4vh, 40)
        so the headline + card stack sits closer to the bottom edge — a
        request to "move the content down a little" on mobile. */
-    padding: clamp(56px, 8vh, 90px) var(--pad-x) clamp(20px, 4vh, 40px) !important;
+    padding: clamp(56px, calc(8 * var(--vh, 1vh)), 90px) var(--pad-x) clamp(20px, calc(4 * var(--vh, 1vh)), 40px) !important;
     gap: 14px !important;
   }
   /* Headline group: left-aligned, pill at natural width. Override the
@@ -5296,7 +5296,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   /* Facts & Figures — stack stats one below the other */
   .stats-cols {
     grid-template-columns: 1fr !important;
-    gap: clamp(20px, 4vh, 32px) !important;
+    gap: clamp(20px, calc(4 * var(--vh, 1vh)), 32px) !important;
     max-width: 320px;
     margin: 0 auto;
   }
@@ -5322,9 +5322,9 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   /* Current Leadership Challenges — card hugs its content, background
      photo extends well above + below it for breathing room. */
   .slide--approach-intro .approach-cards-bg .approach-centered__cards {
-    padding-top: clamp(140px, 22vh, 260px) !important;
-    padding-bottom: clamp(140px, 22vh, 260px) !important;
-    gap: clamp(20px, 3vh, 32px) !important;   /* tighter gap between cards */
+    padding-top: clamp(140px, calc(22 * var(--vh, 1vh)), 260px) !important;
+    padding-bottom: clamp(140px, calc(22 * var(--vh, 1vh)), 260px) !important;
+    gap: clamp(20px, calc(3 * var(--vh, 1vh)), 32px) !important;   /* tighter gap between cards */
   }
   .slide--approach-intro .approach-cards-bg .challenge-box {
     max-width: 320px !important;
@@ -5367,7 +5367,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   .approach-cards-bg {
     position: relative;
     overflow: visible;
-    min-height: 100vh;
+    min-height: calc(100 * var(--vh, 1vh));
     margin: 0 calc(-1 * var(--pad-x));
     width: calc(100% + 2 * var(--pad-x));
   }
@@ -5389,8 +5389,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(32px, 6vh, 56px);
-    padding: clamp(48px, 8vh, 100px) 20px clamp(80px, 12vh, 140px);
+    gap: clamp(32px, calc(6 * var(--vh, 1vh)), 56px);
+    padding: clamp(48px, calc(8 * var(--vh, 1vh)), 100px) 20px clamp(80px, calc(12 * var(--vh, 1vh)), 140px);
   }
   .approach-challenges-eyebrow {
     margin: 0 auto !important;
@@ -5399,7 +5399,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     display: flex;
     flex-direction: column;
     overflow: visible;
-    gap: clamp(32px, 6vh, 56px);
+    gap: clamp(32px, calc(6 * var(--vh, 1vh)), 56px);
     padding: 0 20px;  /* keep cards inset from screen edges */
     width: 100%;
     box-sizing: border-box;
@@ -5462,7 +5462,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     grid-template-rows: auto 1fr !important;
     grid-template-columns: 1fr !important;
     padding: 0 !important;
-    min-height: 100svh;
+    min-height: calc(100 * var(--vh, 1vh));
     background: #000;
   }
   /* Header row — image background sits in this same grid cell */
@@ -5471,7 +5471,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     grid-column: 1;
     position: relative;
     z-index: 2;
-    padding: clamp(120px, 18vh, 200px) var(--pad-x) clamp(48px, 8vh, 80px) !important;
+    padding: clamp(120px, calc(18 * var(--vh, 1vh)), 200px) var(--pad-x) clamp(48px, calc(8 * var(--vh, 1vh)), 80px) !important;
     text-align: center !important;
     background: transparent !important;
   }
@@ -5504,7 +5504,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
     position: relative;
     z-index: 2;
     background: #000;
-    padding: clamp(40px, 7vh, 80px) var(--pad-x) clamp(48px, 8vh, 80px);
+    padding: clamp(40px, calc(7 * var(--vh, 1vh)), 80px) var(--pad-x) clamp(48px, calc(8 * var(--vh, 1vh)), 80px);
   }
 
   /* Services cards — stacked vertically, part of the page flow
@@ -5678,7 +5678,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(48px, 6vh, 80px) 0 clamp(40px, 5vh, 64px);
+  padding: clamp(48px, calc(6 * var(--vh, 1vh)), 80px) 0 clamp(40px, calc(5 * var(--vh, 1vh)), 64px);
   width: 100%;
 }
 
@@ -5690,7 +5690,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   align-items: flex-start;
   gap: 14px;
   padding: 0 var(--pad-x);
-  margin-bottom: clamp(28px, 4vh, 44px);
+  margin-bottom: clamp(28px, calc(4 * var(--vh, 1vh)), 44px);
   width: 100%;
   box-sizing: border-box;
   text-align: left;
@@ -5833,13 +5833,13 @@ p, li { font-size: inherit; }
   grid-template-columns: 1fr 1fr;
   gap: clamp(40px, 7vw, 100px);
   align-items: center;
-  margin-bottom: clamp(48px, 6vh, 80px);
+  margin-bottom: clamp(48px, calc(6 * var(--vh, 1vh)), 80px);
 }
 .approach-two-col__left { display: flex; flex-direction: column; align-items: flex-start; }
 .approach-two-col__right {
   display: flex;
   flex-direction: column;
-  gap: clamp(28px, 4vh, 48px);
+  gap: clamp(28px, calc(4 * var(--vh, 1vh)), 48px);
 }
 .approach-ordinal { display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center; }
 .approach-ordinal__num {
@@ -5864,9 +5864,9 @@ p, li { font-size: inherit; }
 }
 
 /* ── Team slide: more space between tab row and grid ── */
-.team-head { margin-bottom: clamp(24px, 4vh, 48px); }
-.team-tab-row { margin-top: clamp(20px, 3vh, 36px); }
-.team-grid--core { margin-top: clamp(20px, 3vh, 40px); }
+.team-head { margin-bottom: clamp(24px, calc(4 * var(--vh, 1vh)), 48px); }
+.team-tab-row { margin-top: clamp(20px, calc(3 * var(--vh, 1vh)), 36px); }
+.team-grid--core { margin-top: clamp(20px, calc(3 * var(--vh, 1vh)), 40px); }
 
 /* ── Team profile hero: continuous pan on mobile only, fixed on desktop.
    Earlier version was "22s ease-out forwards" which ran ONCE and froze at
@@ -5908,8 +5908,8 @@ p, li { font-size: inherit; }
   /* Rigorous-approach Challenges card — narrow and breathing room
      around the card stack at mobile widths too (480-640px range). */
   .slide--approach-intro .approach-cards-bg .approach-centered__cards {
-    padding-top: clamp(96px, 16vh, 180px) !important;
-    padding-bottom: clamp(96px, 16vh, 180px) !important;
+    padding-top: clamp(96px, calc(16 * var(--vh, 1vh)), 180px) !important;
+    padding-bottom: clamp(96px, calc(16 * var(--vh, 1vh)), 180px) !important;
   }
   .slide--approach-intro .approach-cards-bg .challenge-box {
     max-width: 320px !important;
@@ -5928,7 +5928,7 @@ p, li { font-size: inherit; }
 /* ── Clients mobile: gap between selected card and quote ── */
 @media (max-width: 767px) {
   .client-quote { margin-top: 16px; }
-  .globe-card { margin-bottom: 4px; margin-top: clamp(28px, 5vh, 56px); }
+  .globe-card { margin-bottom: 4px; margin-top: clamp(28px, calc(5 * var(--vh, 1vh)), 56px); }
   .client-quote__text { font-size: 14px; line-height: 1.5; }
 }
 
@@ -5984,7 +5984,7 @@ p, li { font-size: inherit; }
   /* No horizontal padding — parent (.ld-content / .profile-content) already provides it
      so the breadcrumb aligns flush with the hero headline above */
   padding: 0;
-  margin: 0 0 clamp(28px, 4vh, 48px) 0;
+  margin: 0 0 clamp(28px, calc(4 * var(--vh, 1vh)), 48px) 0;
   font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 600;
@@ -6059,7 +6059,7 @@ p, li { font-size: inherit; }
   align-items: center;
   justify-content: center;
   gap: clamp(32px, 5vw, 80px);
-  padding: clamp(44px, 6vh, 72px) var(--pad-x);
+  padding: clamp(44px, calc(6 * var(--vh, 1vh)), 72px) var(--pad-x);
   width: 100%;
   box-sizing: border-box;
   background: #000;
@@ -6161,7 +6161,7 @@ p, li { font-size: inherit; }
 .news-media img {
   width: 100%;
   height: auto;
-  max-height: 80vh;
+  max-height: calc(80 * var(--vh, 1vh));
   object-fit: contain;
 }
 
@@ -6623,7 +6623,7 @@ p, li { font-size: inherit; }
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: calc(100 * var(--vh, 1vh));
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
@@ -6664,7 +6664,7 @@ p, li { font-size: inherit; }
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: calc(100 * var(--vh, 1vh));
     z-index: 1;
     overflow: hidden;
     pointer-events: none;
@@ -6731,7 +6731,7 @@ p, li { font-size: inherit; }
   }
   .stat-item__number { font-size: clamp(22px, 7vw, 36px); }
   .stat-item__label { font-size: 9px; }
-  .stats-strip { padding: clamp(16px, 3vh, 24px) var(--pad-x); }
+  .stats-strip { padding: clamp(16px, calc(3 * var(--vh, 1vh)), 24px) var(--pad-x); }
   /* The why-mlg__header-strip is solid black above the image area —
      it covers the sticky in that region, which is what we want */
 }
@@ -6742,7 +6742,7 @@ p, li { font-size: inherit; }
    Big win on long pages — browser elides layout + paint for them. */
 .slide {
   content-visibility: auto;
-  contain-intrinsic-size: 100vh;
+  contain-intrinsic-size: calc(100 * var(--vh, 1vh));
 }
 /* Mobile: content-visibility:auto skip-renders elements as they cross the
    viewport, which makes the large background images flash/flicker (they get
@@ -6792,11 +6792,11 @@ p, li { font-size: inherit; }
   .slide--approach-intro .approach-cards-bg {
     /* Ensure the bg image surface is generous so the photo shows
        above AND below the card stack. */
-    min-height: 110vh !important;
+    min-height: calc(110 * var(--vh, 1vh)) !important;
   }
   .slide--approach-intro .approach-cards-bg .approach-centered__cards {
-    padding: clamp(180px, 26vh, 320px) 20px clamp(180px, 26vh, 320px) !important;
-    gap: clamp(18px, 2.5vh, 28px) !important;
+    padding: clamp(180px, calc(26 * var(--vh, 1vh)), 320px) 20px clamp(180px, calc(26 * var(--vh, 1vh)), 320px) !important;
+    gap: clamp(18px, calc(2.5 * var(--vh, 1vh)), 28px) !important;
     align-items: center !important;
   }
   .slide--approach-intro .challenges-carousel,
@@ -6808,7 +6808,7 @@ p, li { font-size: inherit; }
     width: 100% !important;
     margin: 0 auto !important;
     padding: 0 !important;
-    gap: clamp(14px, 2vh, 22px) !important;
+    gap: clamp(14px, calc(2 * var(--vh, 1vh)), 22px) !important;
   }
   .slide--approach-intro .approach-cards-bg .challenge-box {
     max-width: 320px !important;

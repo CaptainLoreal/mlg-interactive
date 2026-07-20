@@ -4,6 +4,17 @@
   <meta charset="utf-8" />
   <script>/* noindex the GitHub Pages preview mirror only */if(location.hostname.endsWith(".github.io")){document.write('<meta name="robots" content="noindex,nofollow">')}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!-- Freeze the viewport-height unit. iOS Safari resolves vh/svh/lvh/dvh
+       ALL against the live layout viewport, so every one of them shrinks and
+       grows as the address bar retracts (measured on-device: 813 <-> 731, all
+       four units, delta 82). The stylesheet sizes vertical rhythm in vh in 136
+       places, so a bar transition resized the document by ~411px mid-scroll and
+       Safari - which has no scroll anchoring - jumped. styles.css therefore asks
+       for calc(N * var(--vh, 1vh)) and this pins --vh to the height at load.
+       On touch it is only refreshed when the WIDTH changes (rotation), never for
+       a bar transition; on desktop, where resizing is deliberate, it tracks every
+       resize. The 1vh fallback keeps the old behaviour if this never runs. -->
+  <script>(function(){var d=document.documentElement,T=matchMedia('(pointer:coarse)').matches||innerWidth<=640,w=-1;function s(){if(T&&innerWidth===w)return;w=innerWidth;d.style.setProperty('--vh',innerHeight/100+'px')}s();addEventListener('resize',s,{passive:true});addEventListener('orientationchange',function(){w=-1;setTimeout(s,120)})})()</script>
   <meta name="theme-color" content="#000" />
   <meta name="description" content="MLG Talent Management — zukünftige Führungskräfte gewinnen, entwickeln und binden, mit moderner Diagnostik und gezielten Talentprogrammen." />
   <link rel="canonical" href="https://www.munichleadership.com/de/talent-management.html" />
@@ -25,7 +36,7 @@
   <meta name="twitter:image" content="https://www.munichleadership.com/assets/og-image.png" />
   <title>Talent Management — Munich Leadership Group</title>
   <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../styles.min.css?v=626" />
+  <link rel="stylesheet" href="../styles.min.css?v=627" />
   <style>
     body { overflow: visible; }
     .standalone { overflow: visible; min-height: 100dvh; }
