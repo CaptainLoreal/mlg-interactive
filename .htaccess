@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────────────────────────
+# Static asset caching (Apache / Hetzner).
+#
+# PageSpeed flagged ~2.1 MB of repeat-visit savings from missing cache
+# lifetimes. CSS/JS/fonts are safe to cache for a year because they are
+# cache-busted via a ?v=N query string (styles.min.css?v=622, app.min.js
+# ?v=256) — a new version is a new URL, so it always refetches.
+#
+# Images are NOT globally version-stamped, so they get a shorter 30-day
+# TTL; when an image must update sooner, add a ?v=N to its reference
+# (as done for assets/team/christine-westermayr.jpg?v=3).
+#
+# HTML always revalidates so content deploys appear immediately.
+#
+# Every block is wrapped in <IfModule> — if the module isn't loaded the
+# directives are skipped rather than erroring the site.
+# ─────────────────────────────────────────────────────────────────────
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                 "access plus 1 year"
+  ExpiresByType application/javascript   "access plus 1 year"
+  ExpiresByType text/javascript          "access plus 1 year"
+  ExpiresByType font/woff2               "access plus 1 year"
+  ExpiresByType application/font-woff2   "access plus 1 year"
+  ExpiresByType image/webp               "access plus 30 days"
+  ExpiresByType image/jpeg               "access plus 30 days"
+  ExpiresByType image/png                "access plus 30 days"
+  ExpiresByType image/gif                "access plus 30 days"
+  ExpiresByType image/svg+xml            "access plus 30 days"
+  ExpiresByType image/x-icon             "access plus 30 days"
+  ExpiresByType text/html                "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Versioned, immutable assets (?v=N busts them)
+  <FilesMatch "\.(css|js|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Images / icons — 30 days
+  <FilesMatch "\.(webp|jpe?g|png|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+
+  # HTML + feeds must revalidate so deploys show up right away
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
