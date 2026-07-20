@@ -1720,15 +1720,18 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   will-change: transform;
 }
 
-/* svh, not dvh, for every full-height section.
-   dvh is the *dynamic* viewport unit, so on iOS Safari it re-resolves every
-   time the address bar collapses or expands. That resized all 15 full-height
-   sections mid-gesture, changing the document height and shifting the scroll
-   position — the page visibly jumped the moment you started scrolling, settled
-   while the bar stayed put, then jumped again on the next start, in either
-   direction. svh is the *small* viewport (bar visible) and never changes, so
-   the layout holds still. On desktop, where there's no retracting toolbar,
-   svh/dvh/vh all resolve identically — this is a no-op there. */
+/* Full-height sections size against var(--vh), not a viewport unit.
+   Every vh length in this file is calc(N * var(--vh, 1vh)); --vh is pinned by
+   an inline <head> script to the viewport height at load (see the comment
+   there). Reason: a mobile browser may resolve vh AND svh AND lvh AND dvh all
+   against the *live* layout viewport, so all of them move as the address bar
+   retracts — measured on an iPhone 13 in Firefox mobile at 813 <-> 731, delta
+   82 on all four units, even though svh is specified to be the stable one.
+   Vertical rhythm is expressed in vh in 136 places here, so a bar transition
+   resized the document by ~411px mid-scroll and the scroll position shifted
+   under the user. Freezing the unit sidesteps the whole question of which unit
+   a given engine treats as dynamic. Desktop is unaffected: --vh is refreshed
+   on every resize there. */
 .slide {
   position: relative;
   min-height: calc(100 * var(--vh, 1vh));
