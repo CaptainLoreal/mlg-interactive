@@ -2732,6 +2732,16 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   pointer-events: none;
   filter: blur(8px);
 }
+/* Mobile: at 220% tall the halo blooms far above the hero copy and darkens
+   the photo across the subject's face. Tighten + soften it so it hugs the
+   text block instead of washing over the image. */
+@media (max-width: 640px) {
+  .hero-head::before {
+    width: 118%;
+    height: 132%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.46) 0%, rgba(0,0,0,0.22) 45%, rgba(0,0,0,0) 72%);
+  }
+}
 /* The approach body sits over a brighter part of the photo than the
    header, so the shared halo reads as too faint there. Give the body
    block a slightly stronger, taller halo so the paragraphs get the
@@ -6650,7 +6660,7 @@ p, li { font-size: inherit; }
     inset: 0 !important;
     height: auto !important;
     z-index: 1 !important;
-    background: linear-gradient(180deg, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.56) 45%, rgba(0,0,0,0.74) 100%) !important;
+    background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.36) 45%, rgba(0,0,0,0.58) 100%) !important;
   }
   /* Lift slides above the sticky so cards render on top of the visible image */
   .slides { z-index: 2 !important; }
