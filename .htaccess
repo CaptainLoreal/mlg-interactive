@@ -1,4 +1,25 @@
 # ─────────────────────────────────────────────────────────────────────
+# Canonical host — send the bare domain to www.
+#
+# Both hosts serve 200 from this same docroot, so every page is reachable
+# at two URLs. <link rel="canonical"> already points at www, so Google
+# consolidates them, but relying on canonical alone leaves the duplicate
+# reachable, splits any inbound links between two hosts, and depends on
+# a hint rather than an instruction. A 301 settles it.
+#
+# No redirect loop is possible: the condition matches ONLY the bare host,
+# and the target is www, which cannot satisfy it.
+#
+# Guarded by <IfModule>: if mod_rewrite isn't loaded the block is skipped
+# rather than 500-ing the whole site.
+# ─────────────────────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^munichleadership\.com$ [NC]
+  RewriteRule ^ https://www.munichleadership.com%{REQUEST_URI} [R=301,L]
+</IfModule>
+
+# ─────────────────────────────────────────────────────────────────────
 # Static asset caching (Apache / Hetzner).
 #
 # PageSpeed flagged ~2.1 MB of repeat-visit savings from missing cache
