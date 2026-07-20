@@ -360,7 +360,7 @@
       const angle = Math.random() * Math.PI * 2;
       const speed = 0.35 + Math.random() * 0.45;
 
-      chip.style.transform = `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)`;
+      chip.style.transform = `translate3d(${x}px, ${y}px, 0)`;
 
       const c = {
         el: chip, w, h,
@@ -401,9 +401,11 @@
       if (c.y <= 0)            { c.y = 0;            c.vy = Math.abs(c.vy); }
       if (c.x + c.w >= W)      { c.x = W - c.w;      c.vx = -Math.abs(c.vx); }
       if (c.y + c.h >= H)      { c.y = H - c.h;      c.vy = -Math.abs(c.vy); }
-      /* Snap to whole pixels — sub-pixel transforms make the label text and
-         its shadow shimmer, which reads as jitter on lower-DPI screens. */
-      c.el.style.transform = `translate3d(${Math.round(c.x)}px, ${Math.round(c.y)}px, 0)`;
+      /* Sub-pixel on purpose: the chips drift at well under 1px/frame, so
+         rounding to whole pixels makes them sit still then jump a pixel —
+         visible stepping. The chip is its own compositor layer (will-change),
+         so the GPU interpolates fractional offsets smoothly. */
+      c.el.style.transform = `translate3d(${c.x}px, ${c.y}px, 0)`;
     }
     chipsRAF = requestAnimationFrame(driftChips);
   }

@@ -921,6 +921,11 @@ html[lang="de"] .lang-de-only { display: block; }
   .excuse-chip__inner {
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.9),
                 0 6px 14px rgba(14,15,16,0.16);
+    /* Drop the bob on phones. The inner span animates its own transform on
+       the compositor while the outer button is transformed per-frame by JS
+       on the main thread — two independent clocks, and when they drift apart
+       the chip wobbles against itself. The drift is the motion here. */
+    animation: none;
   }
   .excuse-chip__inner::before,
   .excuse-chip__inner::after {
