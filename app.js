@@ -333,8 +333,9 @@
 
   function buildExcuses() {
     if (chipsState.length) return;
-    const W = excusesField.clientWidth;
-    const H = excusesField.clientHeight;
+    measureField();
+    const W = fieldW;
+    const H = fieldH;
 
     getExcuses().forEach((text, i) => {
       const chip = document.createElement('button');
@@ -359,7 +360,7 @@
       const angle = Math.random() * Math.PI * 2;
       const speed = 0.35 + Math.random() * 0.45;
 
-      chip.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      chip.style.transform = `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)`;
 
       const c = {
         el: chip, w, h,
@@ -378,10 +379,19 @@
     chipsRAF = requestAnimationFrame(driftChips);
   }
 
+  /* Field size is measured once (and on resize) instead of inside the rAF
+     loop. Reading clientWidth/Height every frame forced a layout flush on
+     each tick, which is what made the chips stutter on slower phones. */
+  let fieldW = 0, fieldH = 0;
+  function measureField() {
+    fieldW = excusesField.clientWidth;
+    fieldH = excusesField.clientHeight;
+  }
+  window.addEventListener('resize', measureField);
+
   function driftChips() {
     if (revealed) return;
-    const W = excusesField.clientWidth;
-    const H = excusesField.clientHeight;
+    const W = fieldW, H = fieldH;
 
     for (const c of chipsState) {
       if (c.dead) continue;
@@ -391,7 +401,9 @@
       if (c.y <= 0)            { c.y = 0;            c.vy = Math.abs(c.vy); }
       if (c.x + c.w >= W)      { c.x = W - c.w;      c.vx = -Math.abs(c.vx); }
       if (c.y + c.h >= H)      { c.y = H - c.h;      c.vy = -Math.abs(c.vy); }
-      c.el.style.transform = `translate3d(${c.x}px, ${c.y}px, 0)`;
+      /* Snap to whole pixels — sub-pixel transforms make the label text and
+         its shadow shimmer, which reads as jitter on lower-DPI screens. */
+      c.el.style.transform = `translate3d(${Math.round(c.x)}px, ${Math.round(c.y)}px, 0)`;
     }
     chipsRAF = requestAnimationFrame(driftChips);
   }

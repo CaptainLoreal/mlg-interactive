@@ -910,6 +910,24 @@ html[lang="de"] .lang-de-only { display: block; }
   bottom: -20px;
 }
 
+/* Mobile: the two drop-shadow() filters force the whole chip to be
+   re-rasterized on every frame while it drifts — the main reason the
+   bubbles stutter on slower phones. Swap them for box-shadow, which the
+   compositor can move without re-rendering. Same look, far cheaper.
+   (Applied to the pill and the two thought-bubble dots, since the filter
+   used to shadow the entire composed shape.) */
+@media (max-width: 640px) {
+  .excuse-chip { filter: none; }
+  .excuse-chip__inner {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9),
+                0 6px 14px rgba(14,15,16,0.16);
+  }
+  .excuse-chip__inner::before,
+  .excuse-chip__inner::after {
+    box-shadow: 0 4px 10px rgba(14,15,16,0.14);
+  }
+}
+
 /* Hover-paint only fires on devices with a real pointer; on touch
    screens the lingering-hover state after tap looks like the chip
    is permanently selected. */

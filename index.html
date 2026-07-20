@@ -33,7 +33,7 @@
   <!-- Only the regular weight is used above the fold (the intro prompt is
        font-weight 500 -> regular face). Bold loads on demand via font-display:swap. -->
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica.woff2" crossorigin />
-  <link rel="stylesheet" href="styles.min.css?v=622" />
+  <link rel="stylesheet" href="styles.min.css?v=623" />
   <script>
     /* Suppress the intro flash before paint when the intro should be
        skipped — either an in-page hash deep-link (#slide=N, #services, …)
@@ -111,7 +111,7 @@
     </nav>
 
     <!-- Top corner brand + slide nav + audience toggle. The big-hero
-         logo starts large (scaled via --hero-logo-scale by app.min.js?v=256) and
+         logo starts large (scaled via --hero-logo-scale by app.min.js?v=258) and
          shrinks into the menu on scroll. past-hero gets added by JS
          once the visitor scrolls ~50 % of the way through slide 0. -->
     <div class="topbar">
@@ -841,13 +841,13 @@
 
   </main>
 
-  <script src="app.min.js?v=256" defer></script>
+  <script src="app.min.js?v=258" defer></script>
   <script>
     /* Inline hero-state toggle. Runs immediately on page load before
-       app.min.js?v=256 defers in, so the topbar gets its past-hero class as
+       app.min.js?v=258 defers in, so the topbar gets its past-hero class as
        soon as the viewer is past ~50 % of the hero — eliminates a
        FOUC where the menu briefly shows hero-state styles on a
-       deep-linked / hash-jumped landing. app.min.js?v=256's tickSmooth then
+       deep-linked / hash-jumped landing. app.min.js?v=258's tickSmooth then
        takes over the toggle as the smoothed scroll runs. */
     (function () {
       var topbar = document.querySelector('.topbar');
