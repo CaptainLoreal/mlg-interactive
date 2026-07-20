@@ -637,7 +637,9 @@
       requestAnimationFrame(tickSmooth);
       return;
     }
-    lastTickScroll = scrollCurrent;
+    /* NB: lastTickScroll is deliberately NOT recorded here — see the doHeavy
+       gate below. Marking the position processed at this point strands the
+       heavy work whenever the frame that reaches here isn't a heavy frame. */
 
     /* translate3d (instead of translateY) keeps the slides container on a
        dedicated GPU compositor layer on iOS/Android Safari, so the per-
@@ -660,6 +662,19 @@
     const vh = cachedVH;
     tickFrame++;
     const doHeavy = !TOUCH || (tickFrame % 3 === 0);
+
+    /* Only now is this scroll position genuinely "processed", so only now may
+       we record it for the early-out above. Recording it before this gate was
+       a real bug: on touch doHeavy is true just one frame in three, so after
+       an instant jump (anchor link, nav jump, deep link) the single frame that
+       cleared the early-out was a light frame two times in three. It recorded
+       the position anyway, the scroll then never moved again, and every later
+       frame bailed at the early-out — so updateInView()/updateActiveNav() never
+       ran for the section you landed on. Its images stayed parked in their
+       entrance-animation start state until you nudged the page and unstuck the
+       loop. Deferring the record costs at most two extra light frames after
+       motion stops, and the loop still idles out immediately afterwards. */
+    if (doHeavy) lastTickScroll = scrollCurrent;
 
     /* Section stickies (challenges, why-mlg) on mobile — must run EVERY
        frame, not on the doHeavy throttle. Native scroll runs at 60fps+
@@ -1061,6 +1076,15 @@
     }
     if (idx < 0) return false;
     idx = Math.max(0, Math.min(slides.length - 1, idx));
+    /* We're committing to the deck, so disarm the intro's 5s auto-advance.
+       Without this it still fires five seconds after a deep link and runs
+       startExperience(), which re-applies `game-on` — pinning the deck to
+       the hero, hiding the chrome and locking scroll, so the page looks
+       like it lost all its content and stops responding. Any
+       index.html#slide=N link (the team pages' back-links, for one) lands
+       on exactly this path. */
+    experienceStarted = true;
+    clearTimeout(introAutoAdvance);
     intro.classList.add('is-leaving');
     intro.style.display = 'none';
     if (excuses) excuses.style.display = 'none';
