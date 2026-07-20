@@ -2342,8 +2342,23 @@
       'position:fixed;left:8px;top:8px;z-index:99999;background:rgba(0,0,0,.85);' +
       'color:#3f6;font:11px/1.5 ui-monospace,monospace;padding:8px 10px;' +
       'border-radius:6px;pointer-events:none;white-space:pre';
-    document.addEventListener('DOMContentLoaded', () => document.body.appendChild(box));
+    /* Probe strip: one off-screen box per viewport unit, so we can read what
+       each ACTUALLY resolves to on the device. By spec vh==lvh and both are
+       fixed while the toolbar animates; only dvh should move. If vh moves
+       here, the ~100 clamp(..,Nvh,..) paddings across the stylesheet are the
+       thing resizing the document, and they all have to become svh. */
+    const probe = document.createElement('div');
+    probe.setAttribute('aria-hidden', 'true');
+    probe.style.cssText = 'position:absolute;top:-9999px;left:0;width:1px;visibility:hidden;pointer-events:none';
+    probe.innerHTML = ['vh', 'svh', 'lvh', 'dvh']
+      .map((u) => '<i style="display:block;height:100' + u + '"></i>').join('');
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.appendChild(box);
+      document.body.appendChild(probe);
+    });
+    const units = ['vh', 'svh', 'lvh', 'dvh'];
     let prevIH = 0, prevDH = 0, worstIH = 0, worstDH = 0;
+    const prevU = {}, worstU = {};
     setInterval(() => {
       const ih = window.innerHeight;
       const dh = document.documentElement.scrollHeight;
@@ -2353,11 +2368,28 @@
         worstDH = Math.max(worstDH, Math.abs(dh - prevDH));
       }
       prevIH = ih; prevDH = dh;
+
+      let unitLine = '';
+      units.forEach((u, i) => {
+        const el = probe.children[i];
+        const v = el ? el.offsetHeight : 0;
+        if (prevU[u] != null) worstU[u] = Math.max(worstU[u] || 0, Math.abs(v - prevU[u]));
+        prevU[u] = v;
+        unitLine += u.padStart(3) + ' ' + String(v).padEnd(4) + 'Δ' + String(worstU[u] || 0).padEnd(4);
+        if (i === 1) unitLine += '\n';
+      });
+
+      // A concrete 78vh element — does a real vh-sized box resize on device?
+      const hero = document.querySelector('.approach-hero');
+      const heroH = hero ? hero.offsetHeight : 0;
+
       box.textContent =
         'viewport   ' + ih + '   worst Δ ' + worstIH + '\n' +
         'docHeight  ' + dh + '   worst Δ ' + worstDH + '\n' +
         'scrollY    ' + Math.round(window.scrollY) + '\n' +
-        'visualVP   ' + (vv ? Math.round(vv.height) + '  offset ' + Math.round(vv.offsetTop) : 'n/a');
+        'visualVP   ' + (vv ? Math.round(vv.height) + '  offset ' + Math.round(vv.offsetTop) : 'n/a') + '\n' +
+        unitLine + '\n' +
+        'hero78vh   ' + heroH;
     }, 100);
   }
 })();
