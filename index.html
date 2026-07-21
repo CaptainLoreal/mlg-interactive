@@ -49,7 +49,7 @@
   <!-- Only the regular weight is used above the fold (the intro prompt is
        font-weight 500 -> regular face). Bold loads on demand via font-display:swap. -->
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica.woff2" crossorigin />
-  <link rel="stylesheet" href="styles.min.css?v=628" />
+  <link rel="stylesheet" href="styles.min.css?v=629" />
   <script>
     /* Suppress the intro flash before paint when the intro should be
        skipped — either an in-page hash deep-link (#slide=N, #services, …)
@@ -69,6 +69,7 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Organization","name":"Munich Leadership Group","alternateName":"MLG","url":"https://www.munichleadership.com/","logo":"https://www.munichleadership.com/assets/og-image.png","description":"Munich Leadership Group develops leaders who shape organizations through leadership development, coaching, team development and cultural transformation.","email":"info@munichleadership.com","telephone":"+49 89 413191-0","address":{"@type":"PostalAddress","streetAddress":"Theresienhoehe 13A","postalCode":"80339","addressLocality":"Munich","addressCountry":"DE"},"sameAs":["https://www.linkedin.com/company/munich-leadership-group/"]}
   </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 <body>
 
@@ -127,7 +128,7 @@
     </nav>
 
     <!-- Top corner brand + slide nav + audience toggle. The big-hero
-         logo starts large (scaled via --hero-logo-scale by app.min.js?v=264) and
+         logo starts large (scaled via --hero-logo-scale by app.min.js?v=265) and
          shrinks into the menu on scroll. past-hero gets added by JS
          once the visitor scrolls ~50 % of the way through slide 0. -->
     <div class="topbar">
@@ -797,6 +798,8 @@
                 <h3 class="tf__q" data-de="Wie lautet Ihre E-Mail-Adresse?">What is your email address?</h3>
                 <input class="tf__input" type="email" name="email" placeholder="you@company.com" autocomplete="email" data-de-ph="sie@unternehmen.de" />
                 <p class="tf__error" hidden data-de="Bitte geben Sie eine gültige E-Mail-Adresse ein.">Please enter a valid email.</p>
+                <div class="tf__turnstile" id="tfTurnstile"></div>
+                <p class="tf__error" id="tfTsError" hidden data-de="Verifizierung konnte nicht geladen werden. Bitte erneut versuchen oder an info@munichleadership.com schreiben.">Verification couldn't load. Please try again or email info@munichleadership.com.</p>
                 <div class="tf__foot">
                   <button class="tf__back" type="button" data-action="back" data-de="← Zurück">← Back</button>
                   <button class="tf__cta tf__cta--send" type="button" data-action="submit"><span data-de="Senden">Send</span><span class="tf__hint" data-de="drücken <kbd>↵</kbd>">press <kbd>↵</kbd></span></button>
@@ -857,13 +860,13 @@
 
   </main>
 
-  <script src="app.min.js?v=264" defer></script>
+  <script src="app.min.js?v=265" defer></script>
   <script>
     /* Inline hero-state toggle. Runs immediately on page load before
-       app.min.js?v=264 defers in, so the topbar gets its past-hero class as
+       app.min.js?v=265 defers in, so the topbar gets its past-hero class as
        soon as the viewer is past ~50 % of the hero — eliminates a
        FOUC where the menu briefly shows hero-state styles on a
-       deep-linked / hash-jumped landing. app.min.js?v=264's tickSmooth then
+       deep-linked / hash-jumped landing. app.min.js?v=265's tickSmooth then
        takes over the toggle as the smoothed scroll runs. */
     (function () {
       var topbar = document.querySelector('.topbar');

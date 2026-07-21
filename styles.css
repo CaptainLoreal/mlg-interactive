@@ -4053,6 +4053,14 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   letter-spacing: 0.04em;
 }
 
+/* Cloudflare Turnstile widget on the final contact step. min-height reserves
+   the widget's ~65px so the layout doesn't jump when it renders; it collapses
+   to nothing on the other steps where the container isn't present. */
+.tf__turnstile {
+  margin: 14px 0 4px;
+  min-height: 65px;
+}
+
 .tf__choices {
   display: flex;
   flex-direction: column;

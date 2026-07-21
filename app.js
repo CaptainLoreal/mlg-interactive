@@ -2133,33 +2133,67 @@
   let current    = 0;
   const answers  = {};
 
-  /* Power Automate flow webhook — appends a row to the
-     mlg-contact-submissions Excel and emails info@munichleadership.com.
-     The signature is in the URL itself; this URL is public by necessity
-     (it has to be reachable from the visitor's browser). The Excel file
-     and Outlook mailbox are the system of record. */
-  const WEBHOOK_URL = 'https://default29bf1f7a94df4c3b94842cbd6d1d4f.ba.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/0786696f411c4ed78badee39b0b23ff9/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=pIGKu2MJUyvL_DGHZRs_yc_HPdyMTEZefM4Ob_HQWZA';
+  /* Submissions now go to our own same-origin endpoint, /api/contact, NOT
+     straight to Power Automate. That endpoint (a small Node service behind
+     Apache) verifies the Cloudflare Turnstile token server-side and only then
+     forwards to the Power Automate webhook. The webhook URL used to sit here in
+     the client, which meant a bot could read it from the JS and POST spam
+     directly, skipping the form; it now lives only on the server. */
+  const CONTACT_ENDPOINT = '/api/contact';
 
-  function sendToWebhook(payload) {
-    /* Power Automate's HTTP trigger REQUIRES application/json — it
-       parses the body against its JSON schema, and text/plain returns
-       400 "Expected Object but got String". Cross-origin POSTs trigger
-       a CORS preflight OPTIONS, but the powerplatform.com endpoint
-       handles it correctly: returns 204 with access-control-allow-
-       origin: *. Fire-and-forget: errors are logged but never block
-       the UX — the thank-you screen always shows. */
+  function sendToContactApi(payload) {
+    /* Fire-and-forget: a network error is logged but never blocks the UX —
+       the thank-you screen always shows. keepalive lets the POST finish even
+       if the view changes underneath it. */
     try {
-      return fetch(WEBHOOK_URL, {
+      return fetch(CONTACT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
         keepalive: true,
+      }).then(function (r) {
+        if (!r.ok) console.warn('Contact endpoint returned', r.status);
       }).catch(function (err) {
-        console.warn('Contact webhook failed:', err);
+        console.warn('Contact endpoint failed:', err);
       });
     } catch (err) {
-      console.warn('Contact webhook threw:', err);
+      console.warn('Contact endpoint threw:', err);
     }
+  }
+
+  /* ── Cloudflare Turnstile ─────────────────────────────────────────
+     Rendered explicitly on the email step (the last input step) rather than
+     at page load, so the token is fresh when the user reaches Send — tokens
+     expire after ~5 min, and this form can sit open a while. Managed mode is
+     usually invisible; the token arrives via the callback. */
+  const TURNSTILE_SITEKEY = '0x4AAAAAAD6XarEuh2pWg2dK';
+  let turnstileToken   = '';
+  let turnstileWidget  = null;
+  let pendingSubmit    = false;   // Send was clicked before the token arrived
+  let submitted        = false;   // guard against a double send
+  let tsTimer          = null;    // fallback if the token never arrives
+
+  function tsError(show) {
+    const el = document.getElementById('tfTsError');
+    if (el) el.hidden = !show;
+  }
+
+  function ensureTurnstile() {
+    if (turnstileWidget !== null) return;                 // render once
+    const host = document.getElementById('tfTurnstile');
+    if (!host) return;
+    if (!window.turnstile) { setTimeout(ensureTurnstile, 200); return; } // script still loading
+    turnstileWidget = window.turnstile.render(host, {
+      sitekey: TURNSTILE_SITEKEY,
+      callback: function (t) {
+        turnstileToken = t;
+        clearTimeout(tsTimer);
+        tsError(false);
+        if (pendingSubmit) { pendingSubmit = false; submitForm(); }
+      },
+      'expired-callback': function () { turnstileToken = ''; },
+      'error-callback':   function () { turnstileToken = ''; },
+    });
   }
 
   function setProgress(idx) {
@@ -2172,6 +2206,9 @@
     steps.forEach((s, i) => s.classList.toggle('is-active', i === idx));
     current = idx;
     setProgress(idx);
+    // Render the Turnstile widget as soon as the user reaches the step that
+    // carries the Send button, so the token is ready by the time they submit.
+    if (steps[idx].querySelector('[data-action="submit"]')) ensureTurnstile();
     const el = steps[idx].querySelector('input, textarea, .tf__choice');
     if (el) setTimeout(() => el.focus(), 60);
   }
@@ -2214,26 +2251,13 @@
     showStep(current + 1);
   }
 
-  /* Finalize the form WITHOUT opening the mail client: store the answers
-     and show the thank-you screen. Used by the Enter-key fallback so a
-     stray <Enter> on the email step never accidentally pops the user's
-     mail app. */
-  function finalizeForm() {
-    const step = steps[current];
-    if (!validate(step)) {
-      step.classList.add('is-shake');
-      setTimeout(() => step.classList.remove('is-shake'), 500);
-      return;
-    }
-    collect(step);
-    storeAnswers('contact', answers);
-    showStep(DONE_IDX);
-  }
-
-  /* Full submit — finalize, fire-and-forget to the Power Automate
-     webhook (which writes the row to Excel + emails info@), and show
-     the thank-you screen. Never blocks the UX on the network call. */
+  /* Full submit — validate, then POST to /api/contact (which verifies the
+     Turnstile token server-side and forwards to Power Automate), and show the
+     thank-you screen. If the token hasn't arrived yet, remember the intent and
+     let the Turnstile callback complete the submit; the managed widget usually
+     resolves within a moment, so the user rarely notices. */
   function submitForm() {
+    if (submitted) return;
     const step = steps[current];
     if (!validate(step)) {
       step.classList.add('is-shake');
@@ -2241,14 +2265,29 @@
       return;
     }
     collect(step);
+
+    if (!turnstileToken) {
+      pendingSubmit = true;
+      ensureTurnstile();
+      // If verification can't load (blocked script, offline), don't leave the
+      // user stuck on a dead button — surface a way out after a short wait.
+      clearTimeout(tsTimer);
+      tsTimer = setTimeout(function () {
+        if (pendingSubmit) { pendingSubmit = false; tsError(true); }
+      }, 7000);
+      return;   // callback will re-enter submitForm once the token lands
+    }
+
+    submitted = true;
     storeAnswers('contact', answers);
-    sendToWebhook({
-      problem:   answers.problem || '',
-      role:      answers.role    || '',
-      email:     answers.email   || '',
-      message:   answers.message || '',
-      language:  document.documentElement.lang || 'en',
-      timestamp: new Date().toISOString(),
+    sendToContactApi({
+      problem:        answers.problem || '',
+      role:           answers.role    || '',
+      email:          answers.email   || '',
+      message:        answers.message || '',
+      language:       document.documentElement.lang || 'en',
+      timestamp:      new Date().toISOString(),
+      turnstileToken: turnstileToken,
     });
     showStep(DONE_IDX);
   }
@@ -2273,9 +2312,10 @@
   form.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter') return;
     const step = steps[current];
-    // Enter on the final step finalizes (stores + shows done) but does
-    // NOT open the mail client. User must click Send for that.
-    if (step.querySelector('[data-action="submit"]')) { e.preventDefault(); finalizeForm(); }
+    // Enter on the final step submits, same as clicking Send — so it also
+    // goes through Turnstile verification and reaches the CRM. (Previously
+    // Enter only showed the thank-you screen and silently skipped the send.)
+    if (step.querySelector('[data-action="submit"]')) { e.preventDefault(); submitForm(); }
     else if (!step.querySelector('.tf__choices'))     { e.preventDefault(); advance(); }
   });
 
