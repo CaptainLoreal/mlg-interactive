@@ -1928,19 +1928,17 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
    rasterized layer instead of re-rastering the big image every frame, which
    is what made it shimmer/"rattle" on desktop. */
 @keyframes kbLoop { from { transform: translateZ(0) scale(1.06) translate(0, 0); } to { transform: translateZ(0) scale(1.16) translate(-1.6%, -1.4%); } }
-/* Hero: gentler + slower than the old 16s pass. The calm section images below
-   run the same kind of loop at 26s and read as smooth; the hero was at 16s
-   (~1.6x faster), so its per-frame transform delta was ~1.6x larger and any
-   GPU raster-stepping of this full-viewport image showed up as a visible
-   stutter — both on the idle first screen and while scrolling. A smaller
-   scale/translate range over a longer duration makes the hero's per-frame
-   motion slower than even those calm images, so it should read at least as
-   smooth. Base is object-fit:cover at scale 1.0, so the min scale (1.05) plus
-   the max translate (1.1%) stays inside the overflow — no edge gap. */
-@keyframes kbHero { from { transform: translateZ(0) scale(1.05) translate(0, 0); } to { transform: translateZ(0) scale(1.11) translate(-1.1%, -1%); } }
+/* Hero: identical treatment to the services subpage heroes (.ld-hero__media
+   img) — a single 14s ease-out entrance zoom that plays ONCE and holds
+   (forwards), NOT an infinite alternate loop. The loop was the whole problem:
+   a full-viewport image animating forever meant any GPU raster-stepping
+   repeated endlessly and read as a low-framerate stutter. A one-shot zoom
+   settles and then the image is static — nothing left to stutter. kbDrift1 is
+   the same keyframe the services heroes use (scale 1.10 -> 1.18). */
 #heroSticky img,
 .slide[data-title="Welcome"] .slide__media img {
-  animation: kbHero 24s ease-in-out infinite alternate !important;
+  animation: kbDrift1 14s var(--ease-out) forwards !important;
+  transform: scale(1.10);
 }
 .approach-cards-bg__img,
 #challengesSticky img,
