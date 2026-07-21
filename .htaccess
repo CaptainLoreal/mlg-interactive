@@ -15,6 +15,14 @@
 # ─────────────────────────────────────────────────────────────────────
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # Contact-form verifier: proxy /api/contact to the Node service on :3005
+  # (Cloudflare Turnstile check, then forward to Power Automate). Same origin,
+  # so the browser needs no CORS and the Power Automate URL never ships to the
+  # client. Must come BEFORE the host redirect so it isn't bounced to www first.
+  # The [P] flag needs mod_proxy; verified available on this host.
+  RewriteRule ^api/contact(/.*)?$ http://127.0.0.1:3005/api/contact$1 [P,L]
+
   RewriteCond %{HTTP_HOST} ^munichleadership\.com$ [NC]
   RewriteRule ^ https://www.munichleadership.com%{REQUEST_URI} [R=301,L]
 </IfModule>
