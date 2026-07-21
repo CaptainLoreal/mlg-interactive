@@ -1,0 +1,11 @@
+# This directory holds server-side source (the contact-form verifier) purely
+# for version control. It must never be served over the web. The running copy
+# lives outside the docroot in ~/contact-verify; nothing here is executed by
+# Apache. Deny all access.
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order deny,allow
+  Deny from all
+</IfModule>
