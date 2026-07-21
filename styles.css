@@ -1940,7 +1940,8 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   animation: kbDrift1 14s var(--ease-out) forwards !important;
   transform: scale(1.10);
 }
-.approach-cards-bg__img,
+/* approach-cards-bg pulled out of this infinite loop — it now does a one-shot
+   entrance zoom (see below), same as the hero. challenges/why-mlg still loop. */
 #challengesSticky img,
 .slide--why-mlg .why-mlg__image-area .slide__media img,
 #whyMlgSticky img {
@@ -2967,6 +2968,13 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   object-fit: cover;
   object-position: center 20%;
   z-index: 0;
+  transform: scale(1.10);   /* resting state = kbDrift1 0%, no jump on start */
+}
+/* One-shot entrance zoom when the approach section scrolls into view — same
+   shape as the neighbouring approach-hero image and the main hero, NOT an
+   infinite loop. Plays once and holds, so nothing keeps re-rasterising. */
+.slide--approach-intro.is-in-view .approach-cards-bg__img {
+  animation: kbDrift1 14s var(--ease-out) forwards;
 }
 
 /* Challenges eyebrow pill — spans full grid width, pill centred */
