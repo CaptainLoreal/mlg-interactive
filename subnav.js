@@ -27,6 +27,7 @@
     { title: 'Why MLG',         href: P + 'index.html#slide=4' },
     { title: 'Team',            href: P + 'index.html#slide=8' },
     { title: 'Book',            href: P + 'index.html#slide=9' },
+    { title: 'FAQ',             href: P + 'faq.html' },
     { title: 'Contact',         href: P + 'index.html#slide=10' },
   ];
 
@@ -39,6 +40,7 @@
     'Why MLG':  'Warum MLG',
     'Team':     'Team',
     'Book':     'Buch',
+    'FAQ':      'FAQ',
     'Contact':  'Kontakt',
   };
 

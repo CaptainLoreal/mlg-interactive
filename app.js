@@ -761,8 +761,12 @@
     'Why MLG',
     'Team',
     'Book',
+    'FAQ',
     'Contact',
   ];
+  // FAQ is a standalone page, not a slide — rendered as a plain link by
+  // both nav builders below (it has no titleIndex entry).
+  const PAGE_LINKS = { 'FAQ': 'faq.html' };
   // German labels for the nav titles. Keys stay English (they double as the
   // slide.dataset.title lookup); only the displayed text is localized. The
   // language switcher swaps each generated element via its data-de attribute.
@@ -773,6 +777,7 @@
     'Why MLG':  'Warum MLG',
     'Team':     'Team',
     'Book':     'Buch',
+    'FAQ':      'FAQ',
     'Contact':  'Kontakt',
   };
 
@@ -786,6 +791,15 @@
     });
 
     NAV_ORDER.forEach((title) => {
+      if (PAGE_LINKS[title]) {
+        const a = document.createElement('a');
+        a.className = 'slide-nav__btn';
+        a.href = PAGE_LINKS[title];
+        a.textContent = title;
+        if (NAV_DE[title]) a.dataset.de = NAV_DE[title];
+        slideNav.appendChild(a);
+        return;
+      }
       const i = titleIndex[title];
       if (i === undefined) return;  // slide not present on this page
 
@@ -1004,6 +1018,15 @@
       if (t && !(t in titleIndex)) titleIndex[t] = i;
     });
     NAV_ORDER.forEach((title) => {
+      if (PAGE_LINKS[title]) {
+        const a = document.createElement('a');
+        a.className = 'mobile-nav__item';
+        a.href = PAGE_LINKS[title];
+        a.textContent = title;
+        if (NAV_DE[title]) a.dataset.de = NAV_DE[title];
+        mobileNav.appendChild(a);
+        return;
+      }
       const i = titleIndex[title];
       if (i === undefined) return;
       const item = document.createElement('button');
