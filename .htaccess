@@ -23,6 +23,75 @@
   # The [P] flag needs mod_proxy; verified available on this host.
   RewriteRule ^api/contact(/.*)?$ http://127.0.0.1:3005/api/contact$1 [P,L]
 
+
+  # ───────────────────────────────────────────────────────────────
+  # 301 redirects: old-site URLs (pre-2026 relaunch used /en/<slug>
+  # paths without .html). Preserves rankings and inbound links.
+  # Specific pages first, then team profiles, then catch-alls.
+  # ───────────────────────────────────────────────────────────────
+  RewriteRule ^en/about\-us/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/brandon\-hall\-award/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/clients/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/coaching/?$ https://www.munichleadership.com/coaching-sparring.html [R=301,L]
+  RewriteRule ^en/consulting/?$ https://www.munichleadership.com/leadership-development.html [R=301,L]
+  RewriteRule ^en/contact\-us/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/disclaimer/?$ https://www.munichleadership.com/disclaimer.html [R=301,L]
+  RewriteRule ^en/four\-factors\-of\-change/?$ https://www.munichleadership.com/cultural-transformation.html [R=301,L]
+  RewriteRule ^en/home/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/how\-we\-work/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/is\-your\-team\-a\-winning\-team/?$ https://www.munichleadership.com/team-development.html [R=301,L]
+  RewriteRule ^en/mission\-and\-vision/?$ https://www.munichleadership.com/future-of-leadership.html [R=301,L]
+  RewriteRule ^en/mlg\-facts\-and\-figures/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/mlg\-learning\-partners/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/mlg\-network/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/quality\-counts/?$ https://www.munichleadership.com/our-values.html [R=301,L]
+  RewriteRule ^en/services/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/team/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/the\-leading\-brain/?$ https://www.munichleadership.com/ [R=301,L]
+  RewriteRule ^en/training/?$ https://www.munichleadership.com/leadership-development.html [R=301,L]
+  RewriteRule ^en/transformation/?$ https://www.munichleadership.com/cultural-transformation.html [R=301,L]
+  RewriteRule ^en/values/?$ https://www.munichleadership.com/our-values.html [R=301,L]
+  RewriteRule ^en/team/angelita\-orbea/?$ https://www.munichleadership.com/team-orbea.html [R=301,L]
+  RewriteRule ^en/team/biran\-yilancioglu/?$ https://www.munichleadership.com/team-yilancioglu.html [R=301,L]
+  RewriteRule ^en/team/christine\-xue/?$ https://www.munichleadership.com/team-xue.html [R=301,L]
+  RewriteRule ^en/team/christoph\-seidenfus/?$ https://www.munichleadership.com/team-seidenfus.html [R=301,L]
+  RewriteRule ^en/team/deanna\-banks\-phd/?$ https://www.munichleadership.com/team-banks.html [R=301,L]
+  RewriteRule ^en/team/doreen\-koehler/?$ https://www.munichleadership.com/team-koehler.html [R=301,L]
+  RewriteRule ^en/team/dr\-hans\-w\-hagemann/?$ https://www.munichleadership.com/team-hagemann.html [R=301,L]
+  RewriteRule ^en/team/dr\-roland\-fichtel/?$ https://www.munichleadership.com/team-fichtel.html [R=301,L]
+  RewriteRule ^en/team/dr\-ulrich\-albrecht\-frueh/?$ https://www.munichleadership.com/team-albrecht-frueh.html [R=301,L]
+  RewriteRule ^en/team/gabor\-holch/?$ https://www.munichleadership.com/team-holch.html [R=301,L]
+  RewriteRule ^en/team/glyn\-jones/?$ https://www.munichleadership.com/team-jones.html [R=301,L]
+  RewriteRule ^en/team/hubert\-heindl/?$ https://www.munichleadership.com/team-heindl.html [R=301,L]
+  RewriteRule ^en/team/jane\-millar/?$ https://www.munichleadership.com/team-millar.html [R=301,L]
+  RewriteRule ^en/team/juergen\-hessenauer/?$ https://www.munichleadership.com/team-hessenauer.html [R=301,L]
+  RewriteRule ^en/team/kate\-klawitter/?$ https://www.munichleadership.com/team-klawitter.html [R=301,L]
+  RewriteRule ^en/team/klaus\-duerrbeck/?$ https://www.munichleadership.com/team-duerrbeck.html [R=301,L]
+  RewriteRule ^en/team/margaret\-a\-sanchez/?$ https://www.munichleadership.com/team-sanchez.html [R=301,L]
+  RewriteRule ^en/team/margarita\-aguilar/?$ https://www.munichleadership.com/team-aguilar.html [R=301,L]
+  RewriteRule ^en/team/mark\-guo/?$ https://www.munichleadership.com/team-guo.html [R=301,L]
+  RewriteRule ^en/team/martina\-bohnenstiel/?$ https://www.munichleadership.com/team-bohnenstiel.html [R=301,L]
+  RewriteRule ^en/team/matt\-beadle/?$ https://www.munichleadership.com/team-beadle.html [R=301,L]
+  RewriteRule ^en/team/michael\-knieling/?$ https://www.munichleadership.com/team-knieling.html [R=301,L]
+  RewriteRule ^en/team/monica\-ambrosini/?$ https://www.munichleadership.com/team-ambrosini.html [R=301,L]
+  RewriteRule ^en/team/natalie\-rosengart/?$ https://www.munichleadership.com/team-rosengart.html [R=301,L]
+  RewriteRule ^en/team/paige\-k\-graham\-phd/?$ https://www.munichleadership.com/team-graham.html [R=301,L]
+  RewriteRule ^en/team/patti\-lo/?$ https://www.munichleadership.com/team-lo.html [R=301,L]
+  RewriteRule ^en/team/serdar\-lale/?$ https://www.munichleadership.com/team-lale.html [R=301,L]
+  RewriteRule ^en/team/simone\-albrecht/?$ https://www.munichleadership.com/team-albrecht-s.html [R=301,L]
+  RewriteRule ^en/team/stephen\-yong/?$ https://www.munichleadership.com/team-yong.html [R=301,L]
+  RewriteRule ^en/team/susanne\-rentel/?$ https://www.munichleadership.com/team-rentel.html [R=301,L]
+  RewriteRule ^en/team/teresa\-ramos/?$ https://www.munichleadership.com/team-ramos.html [R=301,L]
+  RewriteRule ^en/team/thomas\-ganslmayr/?$ https://www.munichleadership.com/team-ganslmayr.html [R=301,L]
+  RewriteRule ^en/team/thomas\-kraen/?$ https://www.munichleadership.com/team-kraen.html [R=301,L]
+  RewriteRule ^en/team/vivianne\-naeslund/?$ https://www.munichleadership.com/team-naeslund.html [R=301,L]
+  # blog and anything else under /en/ → homepage
+  RewriteRule ^en(/.*)?$ https://www.munichleadership.com/ [R=301,L]
+  # old German URLs (/de/<slug> without .html) that don't exist as files → German homepage
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^de/.+$ https://www.munichleadership.com/de/ [R=301,L]
+
   RewriteCond %{HTTP_HOST} ^munichleadership\.com$ [NC]
   RewriteRule ^ https://www.munichleadership.com%{REQUEST_URI} [R=301,L]
 </IfModule>
