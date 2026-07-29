@@ -84,7 +84,9 @@
       nav.appendChild(wrap);
     } else {
       var a = document.createElement('a');
-      a.className = 'slide-nav__btn';
+      // Highlight page links (e.g. FAQ) when we're on that page.
+      var isPage = slide.href.split('#')[0].split('/').pop() === page;
+      a.className = 'slide-nav__btn' + (isPage ? ' is-active' : '');
       a.href = slide.href;
       a.textContent = slide.title;
       if (NAV_DE[slide.title]) a.dataset.de = NAV_DE[slide.title];
@@ -163,6 +165,7 @@
       mobileNav.appendChild(a);
       mobileNav.appendChild(sub);
     } else {
+      if (slide.href.split('#')[0].split('/').pop() === page) a.classList.add('is-active');
       mobileNav.appendChild(a);
     }
   });
