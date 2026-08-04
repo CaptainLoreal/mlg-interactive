@@ -1446,9 +1446,14 @@
     if (!counters.length) return;
     let fired = false;
 
+    /* Thousands separator follows the page language: the /de/ tree groups
+       with a dot (182.000), the English tree with a comma (182,000).
+       data-format="dot" now just means "group the thousands". */
+    const GROUP_SEP = location.pathname.indexOf('/de/') > -1 ? '.' : ',';
+
     function formatNum(n, useDot) {
       const s = Math.round(n).toString();
-      return useDot ? s.replace(/\B(?=(\d{3})+(?!\d))/g, '.') : s;
+      return useDot ? s.replace(/\B(?=(\d{3})+(?!\d))/g, GROUP_SEP) : s;
     }
 
     /* Animate one number element. If `overshoot` is true, use an ease
