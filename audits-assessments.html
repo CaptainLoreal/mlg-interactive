@@ -18,7 +18,7 @@
        engine treats as dynamic. On touch it is only refreshed when the WIDTH
        changes (rotation), never for a bar transition; on desktop, where
        resizing is deliberate, it tracks every resize. The 1vh fallback keeps
-       the old behaviour if this never runs. -->
+       the old behavior if this never runs. -->
   <script>(function(){var d=document.documentElement,T=matchMedia('(pointer:coarse)').matches||innerWidth<=640,w=-1;function s(){if(T&&innerWidth===w)return;w=innerWidth;d.style.setProperty('--vh',innerHeight/100+'px')}s();addEventListener('resize',s,{passive:true});addEventListener('orientationchange',function(){w=-1;setTimeout(s,120)})})()</script>
   <meta name="theme-color" content="#000" />
   <meta name="description" content="MLG Audits &amp; Assessments — advanced psychometrics and management audits that put everyone in the perfect place." />
@@ -66,7 +66,7 @@
        circular dot marker (instead of em-dash) for visual consistency
        across audit / assessment subpages. */
     .ld-offering__list { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-direction: column; gap: 10px; }
-    /* Use a grid row to vertically centre the dot on the first text
+    /* Use a grid row to vertically center the dot on the first text
        line, regardless of font-size or line-height. The dot's grid
        cell is aligned to the same baseline group as the text, and a
        small top margin (calc((1em * line-height - dot-h) / 2)) lands
@@ -87,7 +87,7 @@
       height: 8px;
       border-radius: 999px;
       background: var(--mlg-red);
-      /* Vertical-centre on the first line: half the line height
+      /* Vertical-center on the first line: half the line height
          minus half the dot. With 19 px * 1.75 = 33.25 px line and
          8 px dot → (33.25 − 8) / 2 ≈ 12.6 px from top. */
       margin-top: calc((1em * 1.75 - 8px) / 2);
@@ -117,9 +117,9 @@
     @media (max-width: 640px) {
       .ld-offerings { grid-template-columns: 1fr; }
       .ld-usp { padding: 24px; }
-      /* Centre the bullet items within the centred card: drop the
-         dot-left grid and centre the text with an inline red dot, so
-         the bullets match the centred body copy instead of hugging
+      /* Center the bullet items within the centered card: drop the
+         dot-left grid and center the text with an inline red dot, so
+         the bullets match the centered body copy instead of hugging
          the far-left edge. */
       .ld-offering__list li, .ld-offering__list--lead li {
         display: block; text-align: center;

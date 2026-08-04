@@ -18,7 +18,7 @@
        engine treats as dynamic. On touch it is only refreshed when the WIDTH
        changes (rotation), never for a bar transition; on desktop, where
        resizing is deliberate, it tracks every resize. The 1vh fallback keeps
-       the old behaviour if this never runs. -->
+       the old behavior if this never runs. -->
   <script>(function(){var d=document.documentElement,T=matchMedia('(pointer:coarse)').matches||innerWidth<=640,w=-1;function s(){if(T&&innerWidth===w)return;w=innerWidth;d.style.setProperty('--vh',innerHeight/100+'px')}s();addEventListener('resize',s,{passive:true});addEventListener('orientationchange',function(){w=-1;setTimeout(s,120)})})()</script>
   <meta name="theme-color" content="#000" />
   <meta name="description" content="MLG Diagnostic Tools &amp; Psychometrics — science-based diagnostics for individuals, teams and organizations." />
@@ -58,11 +58,11 @@
     .ld-intro p { font-size: 19px; line-height: 1.75; color: rgba(255,255,255,0.65); margin: 0 0 18px; }
     .ld-intro p strong { color: rgba(255,255,255,0.88); }
     .ld-offering__list { list-style: none; padding: 0; margin: 0 0 18px; display: flex; flex-direction: column; gap: 10px; }
-    /* Grid layout per <li> centres the red dot on the FIRST line of
+    /* Grid layout per <li> centers the red dot on the FIRST line of
        text (same fix applied to audits-assessments.html). With
        19 px font / 1.75 line-height the line box is 33.25 px, so
        margin-top calc((1em × 1.75 − 8px) / 2) ≈ 12.6 px lands the
-       8 px dot on the optical centre. align-items: start anchors
+       8 px dot on the optical center. align-items: start anchors
        the dot to the first line even when text wraps. */
     .ld-offering__list li {
       font-size: 19px;

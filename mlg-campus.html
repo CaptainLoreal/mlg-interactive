@@ -18,7 +18,7 @@
        engine treats as dynamic. On touch it is only refreshed when the WIDTH
        changes (rotation), never for a bar transition; on desktop, where
        resizing is deliberate, it tracks every resize. The 1vh fallback keeps
-       the old behaviour if this never runs. -->
+       the old behavior if this never runs. -->
   <script>(function(){var d=document.documentElement,T=matchMedia('(pointer:coarse)').matches||innerWidth<=640,w=-1;function s(){if(T&&innerWidth===w)return;w=innerWidth;d.style.setProperty('--vh',innerHeight/100+'px')}s();addEventListener('resize',s,{passive:true});addEventListener('orientationchange',function(){w=-1;setTimeout(s,120)})})()</script>
   <meta name="theme-color" content="#000" />
   <meta name="description" content="MLG Campus — learn from the best in open leadership programs." />
@@ -61,17 +61,17 @@
     .ld-intro { max-width: 820px; margin: 0 auto clamp(56px, 8vh, 96px); }
     /* MLG Campus logo block — left edge aligned with the body
        text's left edge. The body text (.ld-intro) is max-width:
-       820px and centred with margin: 0 auto, so the logo wrapper
+       820px and centered with margin: 0 auto, so the logo wrapper
        uses the SAME constraints and the inner img is flush-left
        within that 820 px column. Logo's left edge now sits exactly
        on the body text's left edge on every viewport. */
     /* .ld-content is display: flex; flex-direction: column (set in
        styles.css). Without align-self: stretch the logo wrapper
-       shrinks to its image width and auto margins centre the wrapper
-       itself, so the logo appeared centred on the page instead of
+       shrinks to its image width and auto margins center the wrapper
+       itself, so the logo appeared centered on the page instead of
        flush-left with the body text. align-self: stretch restores
-       block-level behaviour: the wrapper takes the parent's full
-       width (capped at 820px, centred via margin auto), and the
+       block-level behavior: the wrapper takes the parent's full
+       width (capped at 820px, centered via margin auto), and the
        inner img sits at the wrapper's left edge — matching the body
        text below. */
     .ld-intro-logo {
