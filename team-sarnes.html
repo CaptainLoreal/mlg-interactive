@@ -75,6 +75,11 @@
   <!-- Umami analytics: self-hosted, cookieless, first-party (served from our own
        /stats path so ad blockers do not strip it). No consent banner required. -->
   <script defer src="https://www.munichleadership.com/stats/script.js" data-website-id="f2a5285d-db28-4bc8-af6d-729f35847288"></script>
+  <!-- Umami session replay + heatmaps. Self-hosted: recordings never leave our
+       own server. Input values are masked by the recorder (maskAllInputs).
+       NOTE: unlike the cookieless counter above, behavioural recording is
+       generally consent-relevant under GDPR — see privacy policy. -->
+  <script defer src="https://www.munichleadership.com/stats/recorder.js" data-website-id="f2a5285d-db28-4bc8-af6d-729f35847288"></script>
 </head>
 <body>
   <main class="standalone">
