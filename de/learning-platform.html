@@ -52,6 +52,30 @@
 
     .lp-note { font-size: clamp(16px, 1.65vw, 18px); line-height: 1.7; color: rgba(255,255,255,0.75); margin: 0; max-width: 760px; }
 
+
+    /* Section backdrops — same construction as the homepage challenge cards:
+       a photo behind, black gradients fading it into the surrounding black,
+       and the copy sitting on a blurred glass panel (backdrop-filter). */
+    .lp-section--bg { position: relative; border-radius: 14px; overflow: hidden; padding: clamp(28px, 5vh, 56px) clamp(20px, 4vw, 44px); }
+    .lp-section--bg .lp-section__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; z-index: 0; transform: scale(1.08); }
+    .lp-section--bg::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.35) 22%, rgba(0,0,0,0.35) 78%, #000 100%),
+        rgba(0,0,0,0.32);
+    }
+    .lp-section--bg .lp-section__inner {
+      position: relative; z-index: 2;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: clamp(22px, 4vh, 38px) clamp(20px, 3.5vw, 40px);
+    }
+    .lp-section--bg .lp-feature { border-top-color: rgba(255,255,255,0.16); }
+    .lp-section--bg .lp-feature:last-child { border-bottom-color: rgba(255,255,255,0.16); }
+
     /* CTA */
     .lp-cta { text-align: center; padding: clamp(28px, 5vh, 56px) 0 0; max-width: 760px; margin: 0 auto; }
     .lp-cta__title { font-family: var(--font-display); font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: #fff; margin: 0 0 12px; }
@@ -100,75 +124,90 @@
       <div class="lp-body">
         <p class="lp-lead">Gute Entwicklung endet nicht mit dem Workshop. Die MLG Learning Platform ist der digitale Begleiter unserer Leadership-Programme: Sie bereitet Teilnehmende vor jedem Modul vor, vertieft die Arbeit zwischen den Sessions und hält jede Erkenntnis, jedes Tool und alle Materialien griffbereit, lange über das Programmende hinaus.</p>
 
-        <section class="lp-section">
-          <h2 class="lp-section__title">Ein Begleiter für jedes unserer Trainings</h2>
-          <p class="lp-section__intro">Jedes MLG-Programm kann sein eigenes digitales Zuhause bekommen. Teilnehmende folgen einer klar strukturierten Journey: Module, Deep Dives, Pre-Work und Übungen, die das Live-Erlebnis spiegeln und erweitern. Inhalte werden automatisch freigeschaltet, während das Programm voranschreitet, sodass das richtige Material immer im richtigen Moment bereitsteht.</p>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Alle Materialien an einem Ort</h3>
-            <p class="lp-feature__desc">Foliensätze, Workbooks, Dokumente, Videos und kuratierte Links, jederzeit und auf jedem Gerät zugänglich.</p>
-          </div>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Strukturierte Journeys</h3>
-            <p class="lp-feature__desc">Programme, organisiert in Module und Deep Dives, veröffentlicht nach Ihrem Zeitplan.</p>
-          </div>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Fortschritt auf einen Blick</h3>
-            <p class="lp-feature__desc">Teilnehmende sehen, wo sie stehen, und nichts geht zwischen den Sessions verloren.</p>
-          </div>
-        </section>
-
-
-        <section class="lp-section">
-          <h2 class="lp-section__title">Alles rund ums Training, geregelt</h2>
-          <p class="lp-section__intro">Die Plattform trägt nicht nur Inhalte: Sie trägt das ganze Programm.</p>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Logistik</h3>
-            <p class="lp-feature__desc">Veranstaltungsorte, Termine, Anfahrtsbeschreibungen und Reiseunterlagen zum Download für jedes Präsenzmodul.</p>
-          </div>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Facilitator-Profile</h3>
-            <p class="lp-feature__desc">Teilnehmende wissen immer, mit wem sie arbeiten und wie sie ihre Facilitatoren erreichen.</p>
-          </div>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">1:1-Coaching</h3>
-            <p class="lp-feature__desc">Teilnehmende können sich direkt mit ihren Facilitatoren zu individuellen Sparring-Sessions verabreden.</p>
-          </div>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Persönliche Notizen</h3>
-            <p class="lp-feature__desc">Ein privater Raum, um Reflexionen zu jeder Lektion festzuhalten.</p>
+        <section class="lp-section lp-section--bg">
+          <img decoding="async" loading="lazy" class="lp-section__img" src="../assets/photos/working-1.webp" alt="Workshop-Gruppe am Flipchart" />
+          <div class="lp-section__inner">
+            <h2 class="lp-section__title">Ein Begleiter für jedes unserer Trainings</h2>
+            <p class="lp-section__intro">Jedes MLG-Programm kann sein eigenes digitales Zuhause bekommen. Teilnehmende folgen einer klar strukturierten Journey: Module, Deep Dives, Pre-Work und Übungen, die das Live-Erlebnis spiegeln und erweitern. Inhalte werden automatisch freigeschaltet, während das Programm voranschreitet, sodass das richtige Material immer im richtigen Moment bereitsteht.</p>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Alle Materialien an einem Ort</h3>
+              <p class="lp-feature__desc">Foliensätze, Workbooks, Dokumente, Videos und kuratierte Links, jederzeit und auf jedem Gerät zugänglich.</p>
+            </div>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Strukturierte Journeys</h3>
+              <p class="lp-feature__desc">Programme, organisiert in Module und Deep Dives, veröffentlicht nach Ihrem Zeitplan.</p>
+            </div>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Fortschritt auf einen Blick</h3>
+              <p class="lp-feature__desc">Teilnehmende sehen, wo sie stehen, und nichts geht zwischen den Sessions verloren.</p>
+            </div>
           </div>
         </section>
 
 
-        <section class="lp-section">
-          <h2 class="lp-section__title">Gebaut für alle, die Programme steuern</h2>
-          <p class="lp-section__intro">Hinter den Kulissen macht die Plattform das Programm-Management einfach: für uns und für unsere Kunden.</p>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Kunden &amp; Kohorten</h3>
-            <p class="lp-feature__desc">Jeder Kunde erhält einen eigenen gebrandeten Bereich, und Teilnehmende werden in Kohorten organisiert, mit Zugriff auf genau die richtigen Programme.</p>
-          </div>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Rollen, die zur Realität passen</h3>
-            <p class="lp-feature__desc">Administratoren, HR-Admins auf Kundenseite, Facilitatoren und Teilnehmende sehen jeweils genau das, was sie brauchen, nicht mehr.</p>
-          </div>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Müheloses Onboarding</h3>
-            <p class="lp-feature__desc">Teilnehmende einzeln einladen oder ganze Kohorten auf einmal importieren, die Einschreibung geschieht automatisch.</p>
-          </div>
-          <div class="lp-feature">
-            <h3 class="lp-feature__name">Smarte Kommunikation</h3>
-            <p class="lp-feature__desc">Automatisierte, personalisierte E-Mails informieren Teilnehmende über neue Inhalte und anstehende Sessions, mit Ein-Klick-Abmeldung in jeder Nachricht.</p>
+        <section class="lp-section lp-section--bg">
+          <img decoding="async" loading="lazy" class="lp-section__img" src="../assets/photos/facilitator.webp" alt="Facilitatorin mit einer Führungsgruppe" />
+          <div class="lp-section__inner">
+            <h2 class="lp-section__title">Alles rund ums Training, geregelt</h2>
+            <p class="lp-section__intro">Die Plattform trägt nicht nur Inhalte: Sie trägt das ganze Programm.</p>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Logistik</h3>
+              <p class="lp-feature__desc">Veranstaltungsorte, Termine, Anfahrtsbeschreibungen und Reiseunterlagen zum Download für jedes Präsenzmodul.</p>
+            </div>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Facilitator-Profile</h3>
+              <p class="lp-feature__desc">Teilnehmende wissen immer, mit wem sie arbeiten und wie sie ihre Facilitatoren erreichen.</p>
+            </div>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">1:1-Coaching</h3>
+              <p class="lp-feature__desc">Teilnehmende können sich direkt mit ihren Facilitatoren zu individuellen Sparring-Sessions verabreden.</p>
+            </div>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Persönliche Notizen</h3>
+              <p class="lp-feature__desc">Ein privater Raum, um Reflexionen zu jeder Lektion festzuhalten.</p>
+            </div>
           </div>
         </section>
 
-        <section class="lp-section">
-          <h2 class="lp-section__title">Messen, was zählt</h2>
-          <p class="lp-note">Anonyme Evaluationen sind eingebaut. Umfragen gehen automatisch zu den Zeitpunkten raus, die Sie definieren, Ergebnisse erscheinen in klaren Ampel-Dashboards, und Kohorten lassen sich nebeneinander vergleichen: So sehen Sie nicht nur, dass Entwicklung stattgefunden hat, sondern wo.</p>
+
+        <section class="lp-section lp-section--bg">
+          <img decoding="async" loading="lazy" class="lp-section__img" src="../assets/photos/working-4.webp" alt="Führungskräfte arbeiten gemeinsam am Tisch" />
+          <div class="lp-section__inner">
+            <h2 class="lp-section__title">Gebaut für alle, die Programme steuern</h2>
+            <p class="lp-section__intro">Hinter den Kulissen macht die Plattform das Programm-Management einfach: für uns und für unsere Kunden.</p>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Kunden &amp; Kohorten</h3>
+              <p class="lp-feature__desc">Jeder Kunde erhält einen eigenen gebrandeten Bereich, und Teilnehmende werden in Kohorten organisiert, mit Zugriff auf genau die richtigen Programme.</p>
+            </div>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Rollen, die zur Realität passen</h3>
+              <p class="lp-feature__desc">Administratoren, HR-Admins auf Kundenseite, Facilitatoren und Teilnehmende sehen jeweils genau das, was sie brauchen, nicht mehr.</p>
+            </div>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Müheloses Onboarding</h3>
+              <p class="lp-feature__desc">Teilnehmende einzeln einladen oder ganze Kohorten auf einmal importieren, die Einschreibung geschieht automatisch.</p>
+            </div>
+            <div class="lp-feature">
+              <h3 class="lp-feature__name">Smarte Kommunikation</h3>
+              <p class="lp-feature__desc">Automatisierte, personalisierte E-Mails informieren Teilnehmende über neue Inhalte und anstehende Sessions, mit Ein-Klick-Abmeldung in jeder Nachricht.</p>
+            </div>
+          </div>
         </section>
 
-        <section class="lp-section">
-          <h2 class="lp-section__title">Sicher gehostet in Deutschland</h2>
-          <p class="lp-note">Ihre Daten bleiben, wo sie hingehören. Die Plattform wird ausschließlich in Deutschland gehostet, vollständig DSGVO-konform, mit Sicherheit von Grund auf: von verschlüsseltem Zugriff bis zu strikten rollenbasierten Berechtigungen. Keine Drittlandtransfers, keine Kompromisse.</p>
+        <section class="lp-section lp-section--bg">
+          <img decoding="async" loading="lazy" class="lp-section__img" src="../assets/photos/psychometrics.webp" alt="Gemeinsame Auswertung von Assessment-Ergebnissen" />
+          <div class="lp-section__inner">
+            <h2 class="lp-section__title">Messen, was zählt</h2>
+            <p class="lp-note">Anonyme Evaluationen sind eingebaut. Umfragen gehen automatisch zu den Zeitpunkten raus, die Sie definieren, Ergebnisse erscheinen in klaren Ampel-Dashboards, und Kohorten lassen sich nebeneinander vergleichen: So sehen Sie nicht nur, dass Entwicklung stattgefunden hat, sondern wo.</p>
+          </div>
+        </section>
+
+        <section class="lp-section lp-section--bg">
+          <img decoding="async" loading="lazy" class="lp-section__img" src="../assets/photos/group-31.webp" alt="Workshop-Gruppe im Austausch" />
+          <div class="lp-section__inner">
+            <h2 class="lp-section__title">Sicher gehostet in Deutschland</h2>
+            <p class="lp-note">Ihre Daten bleiben, wo sie hingehören. Die Plattform wird ausschließlich in Deutschland gehostet, vollständig DSGVO-konform, mit Sicherheit von Grund auf: von verschlüsseltem Zugriff bis zu strikten rollenbasierten Berechtigungen. Keine Drittlandtransfers, keine Kompromisse.</p>
+          </div>
         </section>
 
         <div class="lp-cta">
