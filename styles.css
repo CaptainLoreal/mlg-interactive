@@ -4304,7 +4304,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   text-align: center;
   line-height: 1;
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -4312,7 +4312,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  padding: 6px 12px 5px;   /* optical-centring, matches .eyebrow */
+  padding: 7px 14px 6px;   /* optical-centring, matches .eyebrow */
   margin: 0 0 14px;
   width: fit-content;
   align-self: center;
@@ -5981,9 +5981,9 @@ p, li { font-size: inherit; }
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
   line-height: 1;
-  padding: 6px 12px 5px;   /* optical-centring, matches .eyebrow */
+  padding: 7px 14px 6px;   /* optical-centring, matches .eyebrow */
   color: #fff !important;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -6913,6 +6913,8 @@ p, li { font-size: inherit; }
 .ld-hero__eyebrow,
 .profile-hero__eyebrow,
 .fol-hero__eyebrow,
+.faq-hero__eyebrow,
+.val-hero__eyebrow,
 .why-hero__eyebrow {
   padding-top: 7px !important;
   padding-bottom: 6px !important;
