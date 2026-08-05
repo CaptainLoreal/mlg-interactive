@@ -23,6 +23,15 @@
   # The [P] flag needs mod_proxy; verified available on this host.
   RewriteRule ^api/contact(/.*)?$ http://127.0.0.1:3005/api/contact$1 [P,L]
 
+  # Umami analytics: proxy /stats to the self-hosted instance on :3006.
+  # Serving it from our own origin (rather than a third-party domain) means
+  # the tracker script at /stats/script.js is first-party, so ad blockers —
+  # which work from blocklists of known third-party analytics hosts — do not
+  # strip it. Umami is built with BASE_PATH=/stats so its own links match.
+  # Like the rule above this must precede the host redirect, and [P] needs
+  # mod_proxy (already in use for /api/contact).
+  RewriteRule ^stats(/.*)?$ http://127.0.0.1:3006/stats$1 [P,L]
+
 
   # ───────────────────────────────────────────────────────────────
   # 301 redirects: old-site URLs (pre-2026 relaunch used /en/<slug>
@@ -145,4 +154,15 @@
   <FilesMatch "\.(html|xml|txt)$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
+
+  # The proxied Umami app (/stats) must NOT inherit the year-long immutable
+  # rule above: /stats/script.js ends in .js and would otherwise be pinned in
+  # browser caches for a year, so tracker updates would never reach visitors.
+  # Umami sends its own sensible caching; a short TTL here is enough.
+  <IfModule mod_setenvif.c>
+    <If "%{REQUEST_URI} =~ m#^/stats#">
+      Header unset Cache-Control
+      Header set Cache-Control "public, max-age=3600"
+    </If>
+  </IfModule>
 </IfModule>
