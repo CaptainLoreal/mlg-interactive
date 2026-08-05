@@ -6905,7 +6905,7 @@ p, li { font-size: inherit; }
    browser and bottom-heavy in another. To make the effective top/
    bottom whitespace IDENTICAL everywhere, we drop text-box-trim and
    pin one tuned padding on every pill class. With all-caps Helvetica
-   at line-height 1, padding 6px(top)/5px(bottom) puts the cap cluster
+   at line-height 1 and 12px, padding 7px(top)/6px(bottom) puts the cap cluster
    on the true optical centre (measured: ~7.8px above caps / ~8.0px
    below — visually even) in every engine. 14px sides for the pill. */
 .eyebrow,
@@ -6914,8 +6914,8 @@ p, li { font-size: inherit; }
 .profile-hero__eyebrow,
 .fol-hero__eyebrow,
 .why-hero__eyebrow {
-  padding-top: 6px !important;
-  padding-bottom: 5px !important;
+  padding-top: 7px !important;
+  padding-bottom: 6px !important;
 }
 
 /* Challenge card titles fit on a single line in EN + DE
