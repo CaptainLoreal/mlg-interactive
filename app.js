@@ -1080,6 +1080,22 @@
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileNav(); });
   }
 
+  /* Has the visitor taken over scrolling themselves?
+     reAnchorToTarget() below re-asserts the deep-link position on a
+     600ms/1600ms safety timer to correct for late layout shifts. If the
+     visitor has already started scrolling by then, that correction yanks
+     them back to the target — which reads as the page "jumping back to
+     the hero" a second after you start scrolling down. (Team-page back
+     links point at index.html#slide=0, so the hero is the common case.)
+     We listen for genuine INPUT rather than the `scroll` event, because
+     our own programmatic window.scrollTo fires scroll too and would mark
+     itself as user activity. */
+  let userTookOverScroll = false;
+  ['wheel', 'touchstart', 'touchmove', 'keydown'].forEach((ev) => {
+    window.addEventListener(ev, () => { userTookOverScroll = true; },
+      { passive: true, once: true });
+  });
+
   // Deep-link: #slide=N or #<name> skips intro and scrolls to the right section.
   // Prefer named anchors (e.g. #services) — they don't drift when slides are
   // reordered. #slide=N is kept for backward-compat with older links.
@@ -1145,6 +1161,9 @@
        than at the hero on first navigation. */
     function reAnchorToTarget() {
       if (!document.body.classList.contains('deck-active')) return;
+      // Never fight the visitor: once they have scrolled themselves, the
+      // deep-link target is no longer where they want to be.
+      if (userTookOverScroll) return;
       syncHeight();
       const yy = getJumpY(idx);
       if (Math.abs(window.scrollY - yy) > 4) {
