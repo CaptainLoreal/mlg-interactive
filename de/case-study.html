@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script>(function(){var d=document.documentElement,T=matchMedia('(pointer:coarse)').matches||innerWidth<=640,w=-1;function s(){if(T&&innerWidth===w)return;w=innerWidth;d.style.setProperty('--vh',innerHeight/100+'px')}s();addEventListener('resize',s,{passive:true});addEventListener('orientationchange',function(){w=-1;setTimeout(s,120)})})()</script>
+  <meta name="theme-color" content="#000" />
+  <!-- Template page: a reusable layout for project write-ups. Not yet linked
+       from the site, kept out of the sitemap, and excluded from indexing until
+       a real case study is published on it. -->
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="Vorlage für Projektzusammenfassungen — von der Ausgangslage über Diagnose, Planung und Durchführung bis zu Reflexion und Transfer." />
+  <title>Case Study — Munich Leadership Group</title>
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.min.css?v=638" />
+  <!-- Umami analytics: self-hosted, cookieless, first-party (served from our own
+       /stats path so ad blockers do not strip it). No consent banner required. -->
+  <script defer src="https://www.munichleadership.com/stats/script.js" data-website-id="f2a5285d-db28-4bc8-af6d-729f35847288"></script>
+  <script defer src="https://www.munichleadership.com/stats/recorder.js" data-website-id="f2a5285d-db28-4bc8-af6d-729f35847288"></script>
+  <style>
+    body { overflow: visible; }
+    .standalone { overflow: visible; min-height: 100dvh; }
+
+    /* Hero — identical to the other subpages (.ld-hero) */
+    .ld-hero { position: relative; height: 56vh; min-height: 360px; overflow: hidden; }
+    .ld-hero__media { position: absolute; inset: 0; }
+    .ld-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: center center; }
+    .ld-hero__scrim {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, #000 0%, rgba(14,15,16,0) 18%),
+        linear-gradient(to top, #000 0%, rgba(14,15,16,0.08) 15%, rgba(14,15,16,0) 100%);
+    }
+    .ld-hero__copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 6vh, 64px); }
+    .ld-hero__eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 12px; }
+    .ld-hero__title { font-size: clamp(34px, 7vw, 60px); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; margin: 0 0 12px; line-height: 1.1; }
+    .ld-hero__lead { font-size: clamp(16px, 2vw, 25px); font-weight: 500; letter-spacing: 0; line-height: 1.3; color: rgba(255,255,255,0.72); max-width: 820px; margin: 0; }
+
+    /* Content shell — same as .lp-content on the other subpages */
+    .cs-content { background: #000; padding: 0 clamp(24px, 5vw, 72px); overflow-x: clip; }
+    .cs-content .imprint { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); }
+    .cs-body { max-width: 900px; margin: 0 auto; }
+    .cs-lead { font-size: clamp(16px, 1.7vw, 19px); line-height: 1.65; color: rgba(255,255,255,0.72); margin: clamp(32px, 5vh, 48px) 0 clamp(36px, 6vh, 56px); max-width: 760px; }
+
+    /* Fact strip — the scannable header every case study opens with */
+    .cs-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.12); margin: 0 0 clamp(44px, 7vh, 72px); }
+    .cs-fact { background: #000; padding: clamp(16px, 2.6vh, 22px) clamp(14px, 2vw, 20px); }
+    .cs-fact__label { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin: 0 0 7px; }
+    .cs-fact__value { font-size: clamp(14px, 1.5vw, 16px); font-weight: 600; color: #fff; margin: 0; line-height: 1.4; }
+
+    /* Phase blocks — the spine of the case study */
+    .cs-phase { display: grid; grid-template-columns: minmax(90px, 130px) 1fr; gap: clamp(16px, 3.5vw, 44px); padding: clamp(30px, 5vh, 52px) 0; border-top: 1px solid rgba(255,255,255,0.12); align-items: start; }
+    .cs-phase:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .cs-phase__num { font-family: var(--font-display); font-size: clamp(38px, 5.5vw, 64px); font-weight: 700; line-height: 0.9; color: var(--mlg-red); margin: 0; letter-spacing: -0.02em; }
+    .cs-phase__kicker { font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin: 10px 0 0; }
+    .cs-phase__title { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 32px); font-weight: 700; letter-spacing: -0.01em; color: #fff; margin: 0 0 14px; line-height: 1.2; }
+    .cs-phase__text { font-size: clamp(15px, 1.6vw, 17px); line-height: 1.7; color: rgba(255,255,255,0.75); margin: 0 0 16px; max-width: 640px; }
+    .cs-phase__text:last-child { margin-bottom: 0; }
+
+    /* Findings / activity list inside a phase */
+    .cs-list { list-style: none; margin: 0 0 16px; padding: 0; max-width: 640px; }
+    .cs-list li { position: relative; padding: 0 0 0 22px; margin: 0 0 10px; font-size: clamp(15px, 1.55vw, 16px); line-height: 1.65; color: rgba(255,255,255,0.75); }
+    .cs-list li::before { content: ''; position: absolute; left: 2px; top: 0.62em; width: 7px; height: 2px; background: var(--mlg-red); }
+    .cs-list li:last-child { margin-bottom: 0; }
+    .cs-list strong { color: #fff; font-weight: 600; }
+
+    /* Inline image inside a phase */
+    .cs-figure { margin: 22px 0 0; max-width: 640px; }
+    .cs-figure img { width: 100%; height: auto; display: block; border-radius: 10px; }
+    .cs-figure figcaption { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.45); margin: 10px 0 0; }
+
+    /* Full-bleed image band — same construction as .lp-section--bg */
+    .cs-band { position: relative; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); overflow: hidden; padding: clamp(40px, 7vh, 80px) clamp(24px, 5vw, 72px); }
+    .cs-band__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; z-index: 0; transform: scale(1.08); }
+    .cs-band::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        linear-gradient(to bottom, #000 0%, rgba(0,0,0,0.35) 22%, rgba(0,0,0,0.35) 78%, #000 100%),
+        rgba(0,0,0,0.32);
+    }
+    .cs-band__inner {
+      position: relative; z-index: 2;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: clamp(22px, 4vh, 38px) clamp(20px, 3.5vw, 40px);
+      max-width: 900px; margin: 0 auto;
+    }
+    .cs-band .cs-phase { border-top: none; padding: 0; }
+    .cs-band .cs-phase:last-of-type { border-bottom: none; }
+
+    /* Pull quote */
+    .cs-quote { border-left: 3px solid var(--mlg-red); padding: 4px 0 4px clamp(18px, 3vw, 28px); margin: clamp(44px, 7vh, 72px) 0; max-width: 760px; }
+    .cs-quote__text { font-family: var(--font-display); font-size: clamp(19px, 2.4vw, 27px); font-weight: 600; line-height: 1.4; color: #fff; margin: 0 0 14px; letter-spacing: -0.01em; }
+    .cs-quote__by { font-size: 14px; line-height: 1.5; color: rgba(255,255,255,0.5); margin: 0; }
+
+    /* Results */
+    .cs-results { margin: 0 0 clamp(20px, 3vh, 32px); }
+    .cs-results__title { font-family: var(--font-display); font-size: clamp(24px, 3vw, 36px); font-weight: 700; letter-spacing: -0.01em; color: #fff; margin: 0 0 10px; }
+    .cs-results__intro { font-size: clamp(16px, 1.65vw, 18px); line-height: 1.65; color: rgba(255,255,255,0.72); margin: 0 0 30px; max-width: 760px; }
+    .cs-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: clamp(18px, 3vw, 34px); }
+    .cs-metric { border-top: 2px solid var(--mlg-red); padding: 16px 0 0; }
+    .cs-metric__num { font-family: var(--font-display); font-size: clamp(32px, 4.4vw, 48px); font-weight: 700; line-height: 1; color: #fff; margin: 0 0 8px; letter-spacing: -0.02em; }
+    .cs-metric__desc { font-size: clamp(14px, 1.45vw, 15px); line-height: 1.55; color: rgba(255,255,255,0.6); margin: 0; }
+
+    /* CTA */
+    .cs-cta { text-align: center; padding: clamp(40px, 7vh, 72px) 0 0; max-width: 760px; margin: 0 auto; }
+    .cs-cta__title { font-family: var(--font-display); font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: #fff; margin: 0 0 12px; }
+    .cs-cta__text { color: rgba(255,255,255,0.65); font-size: clamp(16px, 1.8vw, 19px); line-height: 1.6; margin: 0 0 28px; }
+    .cs-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--mlg-red); color: #fff; font-family: var(--font-sans); font-size: 15px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 999px; transition: background var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out); }
+    .cs-cta__btn:hover { background: var(--mlg-red-deep); }
+    .cs-cta__btn:active { transform: translateY(1px); }
+
+    @media (max-width: 720px) {
+      .cs-phase { grid-template-columns: 1fr; gap: 4px; padding: clamp(26px, 4vh, 36px) 0; }
+      .cs-phase__num { font-size: 34px; }
+      .cs-phase__kicker { margin: 4px 0 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="standalone">
+    <div class="topbar">
+      <a class="topbar__logo" href="index.html#slide=0" aria-label="Munich Leadership Group — back to home">
+        <img decoding="async" loading="lazy" src="../assets/logo-white-red-bold.svg" alt="Munich Leadership Group" />
+      </a>
+    </div>
+    <span class="corner-mark" aria-hidden="true">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
+
+    <!-- Hero -->
+    <div class="ld-hero">
+      <div class="ld-hero__media">
+        <img decoding="async" src="../assets/case-studies/mlg-case-study-leadership-offsite-rooftop-singapore.webp" alt="Leadership team on a rooftop terrace during an international offsite" />
+      </div>
+      <div class="ld-hero__scrim"></div>
+      <div class="ld-hero__copy">
+        <a class="page-back" href="index.html#slide=0">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>zur&uuml;ck</span>
+        </a>
+        <p class="ld-hero__eyebrow">Case Study</p>
+        <h1 class="ld-hero__title">Eine F&uuml;hrungsmannschaft, ein Betriebssystem</h1>
+        <p class="ld-hero__lead">Wie ein global aufgestelltes Industrieunternehmen aus 40 einzelnen F&uuml;hrungskr&auml;ften eine Mannschaft mit gemeinsamer Sprache gemacht hat.</p>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="cs-content">
+      <div class="cs-body">
+
+        <p class="cs-lead">Beispieltext. Diese Seite ist eine Vorlage f&uuml;r Projektzusammenfassungen: Sie f&uuml;hrt von der Ausgangslage des Kunden &uuml;ber die Diagnose und den Entwurf des Programms bis zur Durchf&uuml;hrung, zur gemeinsamen Reflexion und zu der Frage, die am Ende die wichtigste ist &mdash; was davon ist im Alltag angekommen?</p>
+
+        <!-- At a glance -->
+        <div class="cs-facts">
+          <div class="cs-fact">
+            <p class="cs-fact__label">Kunde</p>
+            <p class="cs-fact__value">Industriekonzern, 12.000 Mitarbeitende</p>
+          </div>
+          <div class="cs-fact">
+            <p class="cs-fact__label">Branche</p>
+            <p class="cs-fact__value">Fertigung &amp; Technologie</p>
+          </div>
+          <div class="cs-fact">
+            <p class="cs-fact__label">Zielgruppe</p>
+            <p class="cs-fact__value">40 F&uuml;hrungskr&auml;fte, 14 L&auml;nder</p>
+          </div>
+          <div class="cs-fact">
+            <p class="cs-fact__label">Format</p>
+            <p class="cs-fact__value">Learning Journey, 3 Module</p>
+          </div>
+          <div class="cs-fact">
+            <p class="cs-fact__label">Dauer</p>
+            <p class="cs-fact__value">9 Monate</p>
+          </div>
+        </div>
+
+        <!-- 01 — Ausgangslage -->
+        <section class="cs-phase">
+          <div>
+            <p class="cs-phase__num">01</p>
+            <p class="cs-phase__kicker">Ausgangslage</p>
+          </div>
+          <div>
+            <h2 class="cs-phase__title">Eine Strategie, die niemand gleich las</h2>
+            <p class="cs-phase__text">Beispieltext. Der Kunde kam mit einer klaren Beobachtung und einer unklaren Ursache zu uns: Die neue Konzernstrategie war beschlossen, kommuniziert und in jedem Townhall vorgestellt worden &mdash; aber zw&ouml;lf Monate sp&auml;ter bewegte sich in den Bereichen wenig. Projekte liefen parallel statt gemeinsam, Entscheidungen wurden nach oben delegiert, und dieselbe Debatte kam in jedem Quartal neu auf den Tisch.</p>
+            <p class="cs-phase__text">Die erste Anfrage lautete: &bdquo;Wir br&auml;uchten ein Kommunikationstraining f&uuml;r unsere F&uuml;hrungskr&auml;fte.&ldquo; Solche Anfragen nehmen wir ernst &mdash; aber nicht w&ouml;rtlich.</p>
+          </div>
+        </section>
+
+        <!-- 02 — Diagnose -->
+        <section class="cs-phase">
+          <div>
+            <p class="cs-phase__num">02</p>
+            <p class="cs-phase__kicker">Diagnose</p>
+          </div>
+          <div>
+            <h2 class="cs-phase__title">Was wirklich im Weg stand</h2>
+            <p class="cs-phase__text">Beispieltext. Vor jedem Entwurf steht bei uns das Zuh&ouml;ren. &Uuml;ber sechs Wochen haben wir 18 Interviews gef&uuml;hrt, zwei Leitungsrunden begleitet und eine anonyme Team-Diagnostik ausgewertet. Das Bild, das entstand, hatte mit Kommunikationstechnik wenig zu tun.</p>
+            <ul class="cs-list">
+              <li><strong>Kein gemeinsames Vokabular.</strong> Vier Bereiche benutzten dieselben Begriffe f&uuml;r vier verschiedene Dinge. &bdquo;Priorit&auml;t&ldquo; hie&szlig; je nach Standort etwas anderes.</li>
+              <li><strong>Niedrige psychologische Sicherheit.</strong> Widerspruch wurde im Meeting vermieden und danach auf dem Flur nachgeholt.</li>
+              <li><strong>St&auml;rken ohne Landkarte.</strong> Die Mannschaft war fachlich stark besetzt, wusste aber nicht, wer wof&uuml;r der richtige Kopf ist.</li>
+              <li><strong>Entscheidungen ohne Adresse.</strong> Es war selten klar, wer entscheidet &mdash; also entschied niemand.</li>
+            </ul>
+            <p class="cs-phase__text">Unsere R&uuml;ckmeldung an den Vorstand war unbequem und notwendig: Ein Kommunikationstraining h&auml;tte hier nichts ver&auml;ndert. Das Problem lag nicht in den F&auml;higkeiten der Einzelnen, sondern im Zusammenspiel.</p>
+          </div>
+        </section>
+
+        <!-- 03 — Planung (Bildband) -->
+        <section class="cs-band">
+          <img decoding="async" loading="lazy" class="cs-band__img" src="../assets/case-studies/mlg-case-study-strengths-mapping-flipchart-session.webp" alt="Participants mapping team strengths on flipcharts during a working session" />
+          <div class="cs-band__inner">
+            <section class="cs-phase">
+              <div>
+                <p class="cs-phase__num">03</p>
+                <p class="cs-phase__kicker">Planung</p>
+              </div>
+              <div>
+                <h2 class="cs-phase__title">Ein Programm, das zur Diagnose passt</h2>
+                <p class="cs-phase__text">Beispieltext. Aus der Diagnose wurde eine Learning Journey &uuml;ber neun Monate &mdash; kein Seminar, sondern eine Abfolge von Modulen, die aufeinander aufbauen und zwischen denen im Alltag gearbeitet wird. Drei Entscheidungen haben den Entwurf gepr&auml;gt:</p>
+                <ul class="cs-list">
+                  <li><strong>Gemeinsam statt gestaffelt.</strong> Alle 40 F&uuml;hrungskr&auml;fte durchlaufen dieselben Module zur selben Zeit. Eine gemeinsame Sprache entsteht nicht in getrennten Kohorten.</li>
+                  <li><strong>Diagnostik als Startpunkt.</strong> Jede Person startet mit einem St&auml;rkenprofil, das Team mit einer gemeinsamen Auswertung. Man arbeitet an sich und am Ganzen gleichzeitig.</li>
+                  <li><strong>Echte Themen statt Fallstudien.</strong> Ge&uuml;bt wird an den drei Vorhaben, die ohnehin auf der Agenda stehen. Nichts wird f&uuml;r den Workshop erfunden.</li>
+                </ul>
+                <p class="cs-phase__text">Vorstand und Personalbereich haben den Entwurf mitgetragen, bevor der erste Termin stand &mdash; einschlie&szlig;lich der Frage, woran wir am Ende gemeinsam messen wollen, ob es gewirkt hat.</p>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- 04 — Durchführung -->
+        <section class="cs-phase">
+          <div>
+            <p class="cs-phase__num">04</p>
+            <p class="cs-phase__kicker">Durchf&uuml;hrung</p>
+          </div>
+          <div>
+            <h2 class="cs-phase__title">Neun Monate, drei Module, ein Alltag dazwischen</h2>
+            <ul class="cs-list">
+              <li><strong>Modul 1 &mdash; Sich selbst kennen.</strong> Zwei Tage in Singapur: St&auml;rkenprofile, ein gemeinsames Bild der Mannschaft, erste ehrliche Gespr&auml;che &uuml;ber das, was im Weg steht.</li>
+              <li><strong>Zwischenphase.</strong> Kollegiale Beratung in festen Dreiergruppen, ein 1:1-Coaching pro Person, Materialien und Aufgaben auf der Lernplattform.</li>
+              <li><strong>Modul 2 &mdash; Zusammen entscheiden.</strong> Entscheidungswege, Konflikt in der Sache, psychologische Sicherheit &mdash; ge&uuml;bt an zwei laufenden Vorhaben.</li>
+              <li><strong>Modul 3 &mdash; In die Organisation tragen.</strong> Jede F&uuml;hrungskraft bringt ihr eigenes Team mit ins Bild und verl&auml;sst das Modul mit einem konkreten n&auml;chsten Schritt.</li>
+            </ul>
+            <figure class="cs-figure">
+              <img decoding="async" loading="lazy" src="../assets/case-studies/mlg-case-study-executive-briefing-plenary.webp" alt="Plenary session during an executive briefing with facilitators" />
+              <figcaption>Beispielbild aus einem Modul. Gesichter sind aus Datenschutzgr&uuml;nden unkenntlich gemacht.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- 05 — Reflexion (Bildband) -->
+        <section class="cs-band">
+          <img decoding="async" loading="lazy" class="cs-band__img" src="../assets/case-studies/mlg-case-study-team-reflection-picture-cards.webp" alt="Leadership team gathered around picture cards during a reflection exercise" />
+          <div class="cs-band__inner">
+            <section class="cs-phase">
+              <div>
+                <p class="cs-phase__num">05</p>
+                <p class="cs-phase__kicker">Reflexion</p>
+              </div>
+              <div>
+                <h2 class="cs-phase__title">Was hat gewirkt &mdash; und was nicht</h2>
+                <p class="cs-phase__text">Beispieltext. Am Ende jedes Moduls und noch einmal drei Monate nach Abschluss haben wir gemeinsam ausgewertet: mit einer Wiederholung der Team-Diagnostik, moderierten Retrospektiven und Einzelgespr&auml;chen. Ausdr&uuml;cklich auch mit der Frage, was nicht funktioniert hat.</p>
+                <ul class="cs-list">
+                  <li><strong>Getragen hat:</strong> das gemeinsame St&auml;rkenbild. Es gab der Mannschaft zum ersten Mal eine neutrale Sprache f&uuml;r Unterschiede, die vorher als Charakterfragen verhandelt wurden.</li>
+                  <li><strong>Gebraucht hat es l&auml;nger:</strong> psychologische Sicherheit. Sie l&auml;sst sich nicht in einem Modul herstellen &mdash; sie entstand erst, als die ersten Widerspr&uuml;che im Meeting folgenlos blieben.</li>
+                  <li><strong>Funktioniert hat nicht:</strong> die urspr&uuml;nglich geplanten digitalen Zwischenaufgaben im Zwei-Wochen-Takt. Zu eng getaktet f&uuml;r den Alltag. Wir haben nach Modul 1 auf einen Monatsrhythmus umgestellt.</li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- 06 — Transfer -->
+        <section class="cs-phase">
+          <div>
+            <p class="cs-phase__num">06</p>
+            <p class="cs-phase__kicker">Transfer</p>
+          </div>
+          <div>
+            <h2 class="cs-phase__title">Vom Modul in den Alltag</h2>
+            <p class="cs-phase__text">Beispieltext. Ein Programm ist dann gelungen, wenn man es hinterher nicht mehr braucht. Damit die Erkenntnisse den Raum verlassen, wurden sie an bestehende Routinen geh&auml;ngt statt an neue Formate:</p>
+            <ul class="cs-list">
+              <li><strong>Entscheidungen bekamen einen Namen.</strong> Jeder Tagesordnungspunkt in der Leitungsrunde tr&auml;gt seither die Person, die entscheidet &mdash; und die Angabe, ob beraten oder entschieden wird.</li>
+              <li><strong>St&auml;rkenprofile wurden Teil der Teamarbeit.</strong> Neue Projektteams starten mit einer kurzen Runde dar&uuml;ber, wer was einbringt.</li>
+              <li><strong>Die Kaskade in die zweite Ebene.</strong> Jede F&uuml;hrungskraft hat zwei Einheiten mit dem eigenen Team durchgef&uuml;hrt &mdash; mit fertigem Material, aber in eigenen Worten.</li>
+              <li><strong>Ein fester Punkt im Kalender.</strong> Zweimal j&auml;hrlich eine halbtägige Retrospektive der F&uuml;hrungsmannschaft, moderiert &mdash; im ersten Jahr von uns, seither intern.</li>
+            </ul>
+            <figure class="cs-figure">
+              <img decoding="async" loading="lazy" src="../assets/case-studies/mlg-case-study-technology-immersion-demo.webp" alt="Leaders exploring technology demonstrations during an immersion session" />
+              <figcaption>Beispielbild aus der Transferphase. Gesichter sind aus Datenschutzgr&uuml;nden unkenntlich gemacht.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <!-- Quote -->
+        <blockquote class="cs-quote">
+          <p class="cs-quote__text">&bdquo;Beispielzitat. Wir sind mit der Bitte um ein Training gekommen und mit einer anderen Frage herausgegangen. R&uuml;ckblickend war genau das der Punkt, an dem es angefangen hat zu wirken.&ldquo;</p>
+          <p class="cs-quote__by">Beispielname, Chief Human Resources Officer</p>
+        </blockquote>
+
+        <!-- Results -->
+        <div class="cs-results">
+          <h2 class="cs-results__title">Ergebnis</h2>
+          <p class="cs-results__intro">Beispielwerte. Gemessen wurde vor dem Start und drei Monate nach Abschluss &mdash; mit derselben Team-Diagnostik und denselben Fragen.</p>
+          <div class="cs-metrics">
+            <div class="cs-metric">
+              <p class="cs-metric__num">+31%</p>
+              <p class="cs-metric__desc">h&ouml;here Werte f&uuml;r psychologische Sicherheit in der F&uuml;hrungsmannschaft</p>
+            </div>
+            <div class="cs-metric">
+              <p class="cs-metric__num">40</p>
+              <p class="cs-metric__desc">F&uuml;hrungskr&auml;fte aus 14 L&auml;ndern, gemeinsam durch alle drei Module</p>
+            </div>
+            <div class="cs-metric">
+              <p class="cs-metric__num">2&times;</p>
+              <p class="cs-metric__desc">j&auml;hrliche Retrospektive, seit dem zweiten Jahr intern moderiert</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cs-cta">
+          <h2 class="cs-cta__title">Klingt das nach Ihrer Ausgangslage?</h2>
+          <p class="cs-cta__text">Erz&auml;hlen Sie uns, woran es gerade h&auml;ngt. Wir h&ouml;ren erst zu und schlagen dann etwas vor &mdash; nie umgekehrt.</p>
+          <a class="cs-cta__btn" href="index.html#slide=10">
+            <span>Kontakt aufnehmen</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <footer class="imprint" style="margin-top: 2px;">
+        <p class="imprint__links">
+          <a href="disclaimer.html">Impressum</a>
+          <span aria-hidden="true">&middot;</span>
+          <a href="privacy-policy.html">Datenschutz</a>
+          <span aria-hidden="true">&middot;</span>
+          <a href="terms-of-service.html">AGB</a>
+          <span aria-hidden="true">&middot;</span>
+          <a href="https://www.kununu.com/de/munich-leadership-group1/kommentare" target="_blank" rel="noopener">kununu</a>
+          <span aria-hidden="true">&middot;</span>
+          <span class="imprint__copy">&copy; 2026 Munich Leadership Group</span>
+          <span aria-hidden="true">&middot;</span>
+          <a href="https://www.linkedin.com/company/munich-leadership-group/" target="_blank" rel="noopener" aria-label="Munich Leadership Group on LinkedIn" style="display:inline-flex;vertical-align:middle;">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </p>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.page-back').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        e.preventDefault();
+        document.querySelector('.standalone').classList.add('is-leaving');
+        setTimeout(() => { location.href = href; }, 320);
+      });
+    });
+  </script>
+  <script src="../subnav.min.js?v=245"></script>
+  <script>
+    (function () {
+      var cm = document.querySelector('.corner-mark');
+      if (!cm) return;
+      var mark = cm.cloneNode(true);
+      cm.parentNode.replaceChild(mark, cm);
+      mark.style.cursor = 'pointer';
+      mark.removeAttribute('role');
+      mark.removeAttribute('tabindex');
+      mark.removeAttribute('aria-label');
+      mark.setAttribute('aria-hidden', 'true');
+      mark.addEventListener('click', function () {
+        if (mark.dataset.flying === '1') return;
+        mark.dataset.flying = '1';
+        var paths = mark.querySelectorAll('.mark__path');
+        var DUR = 1400, STAGGER = 110;
+        paths.forEach(function (p, i) {
+          p.animate([
+            { transform: 'translate(0,0) rotate(0deg) scale(1)', opacity: 1, offset: 0 },
+            { transform: 'translate(220px,-260px) rotate(35deg) scale(0.35)', opacity: 0, offset: 0.38 },
+            { transform: 'translate(-220px,260px) rotate(-25deg) scale(0.35)', opacity: 0, offset: 0.42 },
+            { transform: 'translate(0,0) rotate(0deg) scale(1)', opacity: 1, offset: 1 }
+          ], { duration: DUR, delay: i * STAGGER, easing: 'cubic-bezier(0.55, 0.05, 0.25, 1)', fill: 'both' });
+        });
+        setTimeout(function () { delete mark.dataset.flying; }, DUR + (paths.length - 1) * STAGGER + 50);
+      });
+    })();
+  </script>
+</body>
+</html>
