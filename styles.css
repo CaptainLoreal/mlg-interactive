@@ -66,35 +66,35 @@ html.game-on #deck {
    the same exact rendering, not the OS's default sans-serif. */
 @font-face {
   font-family: "Helvetica";
-  src: url("assets/fonts/Helvetica-Light.woff2") format("woff2");
+  src: url("assets/fonts/Helvetica-Light.woff2?v=2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Helvetica";
-  src: url("assets/fonts/Helvetica.woff2") format("woff2");
+  src: url("assets/fonts/Helvetica.woff2?v=2") format("woff2");
   font-weight: 400 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Helvetica";
-  src: url("assets/fonts/Helvetica-Oblique.woff2") format("woff2");
+  src: url("assets/fonts/Helvetica-Oblique.woff2?v=2") format("woff2");
   font-weight: 400 500;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Helvetica";
-  src: url("assets/fonts/Helvetica-Bold.woff2") format("woff2");
+  src: url("assets/fonts/Helvetica-Bold.woff2?v=2") format("woff2");
   font-weight: 600 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Helvetica";
-  src: url("assets/fonts/Helvetica-BoldOblique.woff2") format("woff2");
+  src: url("assets/fonts/Helvetica-BoldOblique.woff2?v=2") format("woff2");
   font-weight: 600 900;
   font-style: italic;
   font-display: swap;
