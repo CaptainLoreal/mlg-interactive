@@ -66,7 +66,7 @@ html.game-on #deck {
    the same exact rendering, not the OS's default sans-serif. */
 @font-face {
   font-family: "Helvetica";
-  src: url("assets/fonts/Helvetica-Light.woff2?v=2") format("woff2");
+  src: url("assets/fonts/Helvetica-Light.woff2?v=3") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
