@@ -11,3 +11,9 @@ assets/banners/images/
 
 # Print-resolution banner SOURCE files (not used by the site; kept locally, excluded from Pages deploy)
 assets/banners/
+
+# Nicht von der Website referenziert: liegen lokal weiter, werden aber nicht
+# mehr ausgeliefert und nicht mehr bei jedem Sync mitgeschleppt (~40 MB).
+assets/linkedin/
+assets/teams-backgrounds/
+assets/mountains/
