@@ -62,14 +62,6 @@ html.game-on #deck {
   opacity: 0;
 }
 
-@font-face {
-  font-family: "Nostard";
-  src: url("assets/fonts/Nostard-Medium.ttf") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* Self-hosted Helvetica — so every visitor (Mac, Windows, Linux) gets
    the same exact rendering, not the OS's default sans-serif. */
 @font-face {
