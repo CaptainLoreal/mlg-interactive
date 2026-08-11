@@ -1789,6 +1789,9 @@
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
   let chipsPlaced = false;
+  /* Radius the cached per-chip position strings were built for; -1 forces the
+     first build. Reset implicitly whenever `radius` changes on resize. */
+  let posRadius = -1;
   /* Skip per-frame globe work when the globe slide isn't on screen.
      Updated via IntersectionObserver below (~30× cheaper at idle). */
   let globeInView = false;
@@ -1801,18 +1804,20 @@
     globeInView = true;
   }
 
-  /* Mobile perf: the globe spins 57 chips with a per-chip 3D transform
-     write every frame. On touch devices we cap the loop to 24fps and
-     make the rotation time-scaled, so the spin runs at the same SPEED
-     but does far less per-frame DOM work. Desktop keeps full 60fps. */
-  const COARSE = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) || window.innerWidth <= 640;
-  const FRAME_GAP = COARSE ? 1000 / 24 : 0;   // ms between frames (24fps cap on touch)
+  /* The globe used to be capped at 24fps on touch devices because each frame
+     rebuilt a full transform string for all 57 chips. That cap is what made
+     the spin look choppy on phones. The per-frame work is now cut to roughly
+     a quarter (see tickGlobe below), so the loop runs uncapped and follows
+     the display refresh rate instead.
+
+     No cap is safe here because the rotation is time-scaled via `fr`: a phone
+     that cannot hold 60fps simply advances further per frame, so the globe
+     turns at the same SPEED regardless of the frame rate it achieves. */
   let lastGlobeT = performance.now();
 
   function tickGlobe(now) {
     requestAnimationFrame(tickGlobe);
     now = now || performance.now();
-    if (FRAME_GAP && now - lastGlobeT < FRAME_GAP) return;
     let dt = now - lastGlobeT;
     lastGlobeT = now;
     if (dt > 100) dt = 16.7;            // clamp after tab-away / stalls
@@ -1848,9 +1853,35 @@
       const cosY = Math.cos(ry), sinY = Math.sin(ry);
       const cosX = Math.cos(rx), sinX = Math.sin(rx);
 
+      /* Two thirds of the old per-frame string work was rebuilding values that
+         had not changed:
+
+         - A chip's offset from the globe centre is fixed. Its translate3d()
+           only depends on `radius`, so it is built once per radius instead of
+           57× per frame.
+         - The billboard counter-rotation keeps every chip facing the viewer
+           and is therefore identical for all of them — built once per frame,
+           not once per chip.
+
+         That takes the per-frame number formatting from ~228 toFixed() calls
+         down to ~57, and the concatenated string from five parts to three.
+         This is what paid for removing the 24fps cap. */
+      if (posRadius !== radius) {
+        for (const c of chips) {
+          c.pos = 'translate(-50%,-50%) translate3d(' +
+                  (c.x * radius).toFixed(1) + 'px,' +
+                  (c.y * radius).toFixed(1) + 'px,' +
+                  (c.z * radius).toFixed(1) + 'px) ';
+        }
+        posRadius = radius;
+      }
+      const billboard = 'rotateX(' + (-rotX).toFixed(1) + 'deg) rotateY(' +
+                        (-rotY).toFixed(1) + 'deg) scale(';
+
       for (let i = 0; i < chips.length; i++) {
         const c = chips[i];
-        const x1 =  c.x * cosY + c.z * sinY;
+        /* Only the rotated z matters — the chip's screen x/y come from its own
+           translate3d, so the rotated x was computed and never used. */
         const z1 = -c.x * sinY + c.z * cosY;
         const z2 =  c.y * sinX + z1 * cosX;
 
@@ -1861,14 +1892,12 @@
            - Chip opacity stays at 1.0 always (no opacity layer to get stuck).
            - The dimming "veil" is applied to a ::after overlay via a CSS var.
            - No `filter: blur()` anywhere — blur was the source of stuck dark snapshots. */
-        c.el.style.transform =
-          `translate(-50%, -50%) ` +
-          `translate3d(${(c.x * radius).toFixed(2)}px, ${(c.y * radius).toFixed(2)}px, ${(c.z * radius).toFixed(2)}px) ` +
-          `rotateX(${(-rotX).toFixed(2)}deg) rotateY(${(-rotY).toFixed(2)}deg) ` +
-          `scale(${sc.toFixed(3)})`;
+        c.el.style.transform = c.pos + billboard + sc.toFixed(2) + ')';
 
-        /* Veil: 0 at front, up to 0.55 at back. Animated via overlay opacity. */
-        const veil = ((1 - t) * 0.55).toFixed(3);
+        /* Veil: 0 at front, up to 0.55 at back. Animated via overlay opacity.
+           Two decimals rather than three so the unchanged-check below skips
+           far more writes without any visible banding. */
+        const veil = ((1 - t) * 0.55).toFixed(2);
         if (c._veil !== veil) {
           c.el.style.setProperty('--chip-veil', veil);
           c._veil = veil;
