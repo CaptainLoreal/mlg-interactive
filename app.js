@@ -917,7 +917,12 @@
     let bestBtn = null;
     let bestDiff = Infinity;
     btns.forEach((btn) => {
-      const si = parseInt(btn.dataset.slideIdx || '0', 10);
+      /* Only slide anchors take part in this. The FAQ page link and the
+         LinkedIn icon carry no data-slideIdx; falling back to '0' made them
+         match the hero (activeIdx 0), so FAQ lit up while the user was still
+         at the top of the homepage. */
+      if (btn.dataset.slideIdx === undefined) return;
+      const si = parseInt(btn.dataset.slideIdx, 10);
       const diff = activeIdx - si;
       if (diff >= 0 && diff < bestDiff) {
         bestDiff = diff;
