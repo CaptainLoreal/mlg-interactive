@@ -1933,12 +1933,25 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   animation: kbDrift1 14s var(--ease-out) forwards !important;
   transform: scale(1.10);
 }
-/* approach-cards-bg pulled out of this infinite loop — it now does a one-shot
-   entrance zoom (see below), same as the hero. challenges/why-mlg still loop. */
+/* approach-cards-bg was pulled out of this infinite loop first; why-mlg and
+   challenges now follow, for a sharper reason than stutter.
+
+   The three .challenge-box cards sit ON TOP of the why-mlg image with
+   backdrop-filter: blur(10px). A backdrop filter re-samples whatever is
+   behind it every frame — so an image that animates forever means the blur
+   is recomputed forever, even with the page at rest. The loop moves the
+   image by a fraction of a pixel per frame, and because blur averages
+   neighbouring pixels, those sub-pixel shifts show up as a crawling shimmer
+   across the whole card. That is the flicker reported on desktop; mobile is
+   unaffected because the loop is disabled there.
+
+   A one-shot zoom settles after 14s and then nothing behind the cards moves,
+   so there is nothing left to re-sample. Same treatment, same duration as
+   the hero and the services subpage heroes. */
 #challengesSticky img,
 .slide--why-mlg .why-mlg__image-area .slide__media img,
 #whyMlgSticky img {
-  animation: kbLoop 26s ease-in-out infinite alternate !important;
+  animation: kbLoop 14s var(--ease-out) forwards !important;
 }
 /* Pin the animated images to a stable GPU layer (desktop only — the loop is
    disabled on mobile). backface-visibility:hidden + will-change:transform
