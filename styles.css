@@ -3546,10 +3546,17 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 }
 /* USP cards use the same rules as challenge & services cards */
 .why-mlg__cards .challenge-box {
-  padding: 48px 40px 52px;
+  /* Symmetric top/bottom. The extra 4px at the bottom used to compensate for
+     the body's 20px margin, which only card 3 needs (it has a button after
+     the text); see the :last-child rule below. */
+  padding: 48px 40px;
   align-items: flex-start;
   text-align: left;
 }
+/* The body carries a 20px bottom margin to separate it from the button in
+   card 3. Where the body IS the last element — cards 1 and 2 — that margin
+   turned the bottom padding into 72px against 48px at the top. */
+.why-mlg__cards .challenge-box__body:last-child { margin-bottom: 0; }
 .why-mlg__cards .challenge-box__title {
   font-family: var(--font-display);
   /* Slightly smaller max so 'ARE CORE VALUES' fits on a single line
@@ -3563,6 +3570,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   margin: 0 0 18px;
   text-align: center;
   width: 100%;
+  /* German compounds ("zukunftsorientiert") are single unbreakable words that
+     can be wider than the card at the mobile minimum font size. The titles
+     carry a soft hyphen for the correct break; this is the safety net so a
+     future long word wraps instead of spilling past the card edge. */
+  overflow-wrap: break-word;
 }
 .why-mlg__cards .challenge-box__body {
   font-size: 16px;
