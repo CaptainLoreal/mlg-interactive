@@ -3402,7 +3402,10 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   justify-content: center;
 }
 .group-name {
-  font-size: clamp(10px, 0.9vw, 12px);
+  /* Was clamp(10px, 0.9vw, 12px) — smaller than the 16px body text below it,
+     which made the three labels read as a caption rather than as the
+     structure of the row. */
+  font-size: clamp(13px, 1.35vw, 17px);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -3411,6 +3414,11 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   margin: 0;
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(255,255,255,0.18);
+  /* "GROSSUNTERNEHMEN" is one 16-character word in one of three narrow
+     columns; it overflowed even at the old 9px on a 375px viewport. The
+     label carries a soft hyphen for the correct break (GROSS- / UNTERNEHMEN);
+     this is the guard. */
+  overflow-wrap: break-word;
 }
 .groups-strip__body { max-width: 720px; margin: 0; }
 .groups-strip__body p {
@@ -3423,7 +3431,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
 .groups-strip__body p:last-child { margin: 0; }
 @media (max-width: 640px) {
   .groups-cols { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .group-name { font-size: 9px; }
+  .group-name { font-size: 11px; }
   .groups-strip { padding: clamp(16px, calc(3 * var(--vh, 1vh)), 24px) var(--pad-x); }
   .groups-strip__title { font-size: clamp(20px, 6vw, 28px); }
   .groups-strip__body p { font-size: 15px; }
