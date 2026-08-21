@@ -49,7 +49,7 @@
   <!-- Only the regular weight is used above the fold (the intro prompt is
        font-weight 500 -> regular face). Bold loads on demand via font-display:swap. -->
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Helvetica.woff2?v=2" crossorigin />
-  <link rel="stylesheet" href="styles.min.css?v=640" />
+  <link rel="stylesheet" href="styles.min.css?v=641" />
   <script>
     /* Suppress the intro flash before paint when the intro should be
        skipped — either an in-page hash deep-link (#slide=N, #services, …)
@@ -246,7 +246,23 @@
       </div>
 
       <!-- 4 — Services -->
-      <article id="services" class="slide slide--cards slide--services-split" data-slide="2" data-anim="parallax" data-title="Services">
+            <!-- Target Groups strip — between Facts & Figures and Services -->
+      <div class="groups-strip">
+        <p class="eyebrow groups-eyebrow" data-de="Unsere Zielgruppen">Our Target Groups</p>
+        <h2 class="groups-strip__title" data-de="Wer profitiert von unserem Know-how?">Who benefits from our know-how?</h2>
+        <div class="groups-cols">
+          <p class="group-name" data-de="Gro&szlig;unternehmen">Large Corporations</p>
+          <p class="group-name" data-de="Mittelstand">Mittelstand</p>
+          <p class="group-name" data-de="Start-ups / Grown-ups">Start-ups / Grown-ups</p>
+        </div>
+        <div class="groups-strip__body">
+          <p data-de="Wir arbeiten in jeder Unternehmensgr&ouml;&szlig;e und &uuml;bertragen St&auml;rken und Erfolgsmuster.">We work with companies of all sizes and help them leverage their strengths and proven success models.</p>
+          <p data-de="Wir erkennen, wie Gro&szlig;unternehmen flexibler und Start-ups gefestigter werden k&ouml;nnen. Wir wissen, wie Mittelstand und Grown-ups von der professionellen F&uuml;hrungskr&auml;fte-Entwicklung aus Gro&szlig;unternehmen profitieren k&ouml;nnen.">We identify ways for large corporations to become more flexible and for start-ups to become more stable. We know how Mittelstand businesses and Grown-ups can benefit from the professional leadership development practices of large corporations.</p>
+          <p data-de="Wir ma&szlig;schneidern alle unsere Projekte gemeinsam mit Ihnen genau auf Ihre spezifische Situation hin.">We collaborate closely with you to tailor all of our projects precisely to your specific situation.</p>
+        </div>
+        <a class="btn btn--ghost btn--more" href="target-groups.html" data-de="Mehr">More</a>
+      </div>
+<article id="services" class="slide slide--cards slide--services-split" data-slide="2" data-anim="parallax" data-title="Services">
         <div class="services-split">
           <div class="services-split__photo">
             <img decoding="async" src="assets/photos/group-2.webp" alt="Leadership team workshop discussion" loading="lazy" />
