@@ -34,8 +34,11 @@
     /* Content shell — same as the other subpages */
     .tg-content { background: #000; padding: 0 clamp(24px, 5vw, 72px); overflow-x: clip; }
     .tg-content .imprint { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); }
-    .tg-body { max-width: 860px; margin: 0 auto; }
-    .tg-lead { font-size: clamp(16px, 1.7vw, 19px); line-height: 1.65; color: rgba(255,255,255,0.72); margin: clamp(32px, 5vh, 48px) 0 clamp(30px, 5vh, 44px); max-width: 760px; }
+    /* The intro paragraph that used to sit here was word-for-word the copy in
+       the homepage section that links to this page, so anyone arriving via
+       the button read it twice. Removed; its top margin moves onto .tg-body
+       so the first block still clears the hero. */
+    .tg-body { max-width: 860px; margin: 0 auto; padding-top: clamp(32px, 5vh, 48px); }
 
     /* One block per company size */
     .tg-group { padding: clamp(26px, 4.5vh, 44px) 0; }
@@ -49,6 +52,9 @@
       content: ''; position: absolute; left: 0; top: 0.52em;
       width: 12px; height: 3px; background: var(--mlg-red);
     }
+    /* The clause up to the colon leads each block: bold, full white, and on
+       its own line, with the enumeration following underneath. */
+    .tg-group__intro { font-size: clamp(15px, 1.6vw, 17px); line-height: 1.7; font-weight: 700; color: #fff; margin: 0 0 8px; }
     .tg-group__text { font-size: clamp(15px, 1.6vw, 17px); line-height: 1.75; color: rgba(255,255,255,0.75); margin: 0; }
 
     /* Closing line */
@@ -105,21 +111,22 @@
     <div class="tg-content">
       <div class="tg-body">
 
-        <p class="tg-lead">Wir arbeiten in jeder Unternehmensgr&ouml;&szlig;e und &uuml;bertragen St&auml;rken und Erfolgsmuster. Wir erkennen, wie Gro&szlig;unternehmen flexibler und Start-ups gefestigter werden k&ouml;nnen. Wir wissen, wie Mittelstand und Grown-ups von der professionellen F&uuml;hrungskr&auml;fte-Entwicklung aus Gro&szlig;unternehmen profitieren k&ouml;nnen. Wir ma&szlig;schneidern alle unsere Projekte gemeinsam mit Ihnen genau auf Ihre spezifische Situation hin.</p>
-
         <section class="tg-group">
           <h2 class="tg-group__name">Gro&szlig;unternehmen</h2>
-          <p class="tg-group__text">Weil wir die Welt der F&uuml;hrungskr&auml;fte in Corporate gut kennen: der Druck der Shareholder, die Quartalsberichte mit den immer wachsenden Erwartungen; der Umgang mit pers&ouml;nlicher Unsicherheit; die knappen Deadlines und die Frage nach sicheren Entscheidungen; die Sorge um die nachhaltige Teamleistung; das Top-Down versus Bottom-up; die Matrixchancen und -probleme; die Rivalit&auml;ten mit offenen und verdeckten Machtk&auml;mpfen; die manchmal schwierige Frage nach Verantwortung und Ownership; das gespaltene Verh&auml;ltnis zur wachsenden Bedeutung von K&uuml;nstlicher Intelligenz; und die wichtige und oft untersch&auml;tzte Rolle von HR.</p>
+          <p class="tg-group__intro">Weil wir die Welt der F&uuml;hrungskr&auml;fte in Corporate gut kennen:</p>
+          <p class="tg-group__text">der Druck der Shareholder, die Quartalsberichte mit den immer wachsenden Erwartungen; der Umgang mit pers&ouml;nlicher Unsicherheit; die knappen Deadlines und die Frage nach sicheren Entscheidungen; die Sorge um die nachhaltige Teamleistung; das Top-Down versus Bottom-up; die Matrixchancen und -probleme; die Rivalit&auml;ten mit offenen und verdeckten Machtk&auml;mpfen; die manchmal schwierige Frage nach Verantwortung und Ownership; das gespaltene Verh&auml;ltnis zur wachsenden Bedeutung von K&uuml;nstlicher Intelligenz; und die wichtige und oft untersch&auml;tzte Rolle von HR.</p>
         </section>
 
         <section class="tg-group">
           <h2 class="tg-group__name">Mittelst&auml;ndische Unternehmen</h2>
-          <p class="tg-group__text">Weil wir das langfristige und generations&uuml;bergreifende Denken von Familienunternehmen sch&auml;tzen: die einzigartige Unternehmenskultur mit ihren oft zu wenig genutzten St&auml;rken; die Verbundenheit und Loyalit&auml;t zur Belegschaft und zu Kunden mit all ihren Vor- und Nachteilen; die oftmals klare Positionierung und die damit verbundene Sorge, dass nicht alle an einem Strang ziehen; die Direktheit und das oftmals Intuitive; das ambivalente Verh&auml;ltnis zur K&uuml;nstlichen Intelligenz; die schnellen Man&ouml;ver, die vielleicht zu oft in strapazierenden &#8222;Firefighting&#8221;-Ma&szlig;nahmen sichtbar werden.</p>
+          <p class="tg-group__intro">Weil wir das langfristige und generations&uuml;bergreifende Denken von Familienunternehmen sch&auml;tzen:</p>
+          <p class="tg-group__text">die einzigartige Unternehmenskultur mit ihren oft zu wenig genutzten St&auml;rken; die Verbundenheit und Loyalit&auml;t zur Belegschaft und zu Kunden mit all ihren Vor- und Nachteilen; die oftmals klare Positionierung und die damit verbundene Sorge, dass nicht alle an einem Strang ziehen; die Direktheit und das oftmals Intuitive; das ambivalente Verh&auml;ltnis zur K&uuml;nstlichen Intelligenz; die schnellen Man&ouml;ver, die vielleicht zu oft in strapazierenden &#8222;Firefighting&#8221;-Ma&szlig;nahmen sichtbar werden.</p>
         </section>
 
         <section class="tg-group">
           <h2 class="tg-group__name">Start-ups und Grown-ups</h2>
-          <p class="tg-group__text">Weil wir den Traum der Gr&uuml;nder lieben: ihre unternehmerischen Ambitionen; ihr unb&auml;ndiges Vorw&auml;rtsstreben; ihre Experimentierfreude, verbunden mit der Sorge, nicht schnell genug zu sein; die Verliebtheit in das Produkt; die Unsicherheit, die richtigen Leute an Bord zu haben und die Rollen optimal zu besetzen; das extrem schnelle Wachstum mit den unvermeidlichen Wachstumsschmerzen; die Unsicherheit bei der Zuteilung von Verantwortlichkeiten; der Aufbau von Teams, die Strukturierung von Aufgaben und die Frage nach der Balance von Vertrauen versus Kontrolle; die allgegenw&auml;rtige Offenheit f&uuml;r digitale Tools; die zu oft unstrukturierte Kommunikation, und die oft gedachte Frage: Wie geht eigentlich professionelle F&uuml;hrung?</p>
+          <p class="tg-group__intro">Weil wir den Traum der Gr&uuml;nder lieben:</p>
+          <p class="tg-group__text">ihre unternehmerischen Ambitionen; ihr unb&auml;ndiges Vorw&auml;rtsstreben; ihre Experimentierfreude, verbunden mit der Sorge, nicht schnell genug zu sein; die Verliebtheit in das Produkt; die Unsicherheit, die richtigen Leute an Bord zu haben und die Rollen optimal zu besetzen; das extrem schnelle Wachstum mit den unvermeidlichen Wachstumsschmerzen; die Unsicherheit bei der Zuteilung von Verantwortlichkeiten; der Aufbau von Teams, die Strukturierung von Aufgaben und die Frage nach der Balance von Vertrauen versus Kontrolle; die allgegenw&auml;rtige Offenheit f&uuml;r digitale Tools; die zu oft unstrukturierte Kommunikation, und die oft gedachte Frage: Wie geht eigentlich professionelle F&uuml;hrung?</p>
         </section>
 
         <div class="tg-close">
