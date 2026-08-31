@@ -10,8 +10,24 @@
   <title>Our Target Groups &mdash; Munich Leadership Group</title>
   <link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.min.css?v=643" />
-  <script defer src="https://www.munichleadership.com/stats/script.js" data-website-id="f2a5285d-db28-4bc8-af6d-729f35847288"></script>
-  <script defer src="https://www.munichleadership.com/stats/recorder.js" data-website-id="f2a5285d-db28-4bc8-af6d-729f35847288"></script>
+  <!-- Analytics loader with a bot guard. navigator.webdriver is set by every
+       automation stack (Playwright, Puppeteer, Selenium); real browsers report
+       false. Scrapers were producing ~68% of the recorded traffic, all of it
+       zero-second single-page visits, which made the country breakdown
+       meaningless. Nothing is blocked here — the page just does not report. -->
+  <script>
+    (function () {
+      try { if (navigator.webdriver) return; } catch (e) {}
+      var id = 'f2a5285d-db28-4bc8-af6d-729f35847288';
+      ['script.js', 'recorder.js'].forEach(function (f) {
+        var s = document.createElement('script');
+        s.defer = true;
+        s.src = 'https://www.munichleadership.com/stats/' + f;
+        s.setAttribute('data-website-id', id);
+        document.head.appendChild(s);
+      });
+    })();
+  </script>
   <style>
     body { overflow: visible; }
     .standalone { overflow: visible; min-height: 100dvh; }
