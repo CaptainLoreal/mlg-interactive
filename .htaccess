@@ -205,3 +205,25 @@
     </If>
   </IfModule>
 </IfModule>
+
+# ─────────────────────────────────────────────────────────────────────
+# Character encoding for plain-text files.
+#
+# Apache served .txt as "text/plain" with no charset parameter. HTML gets
+# away with that because <meta charset="utf-8"> declares the encoding
+# in-band; a .txt file has no such mechanism, so clients fall back to
+# Latin-1 and every multi-byte character breaks — the em dash in llms.txt
+# arrived as "â€”". That file is written for LLM crawlers, so the damage
+# lands directly in what models read about us.
+#
+# AddCharset appends the parameter based on extension, which is narrower
+# (and safer) than AddDefaultCharset: it leaves formats that declare their
+# own encoding in-band, such as XML, free to disagree.
+#
+# .css and .js are included for completeness. Both already default to UTF-8
+# in modern browsers, so this changes nothing today, but it removes the
+# dependency on that default.
+# ─────────────────────────────────────────────────────────────────────
+<IfModule mod_mime.c>
+  AddCharset UTF-8 .txt .css .js
+</IfModule>

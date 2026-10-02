@@ -22,6 +22,10 @@ Key facts:
 - [Talent Management](https://www.munichleadership.com/talent-management.html): identifying and developing future leaders; development centers, talent programs
 - [MLG Campus](https://www.munichleadership.com/mlg-campus.html): open-enrolment courses, trainings and workshops
 - [Coaching & Sparring](https://www.munichleadership.com/coaching-sparring.html): performance, development and transition coaching plus executive sparring
+  - [Performance Coaching](https://www.munichleadership.com/performance-coaching.html): sustainable efficiency and effectiveness, exactly when it is needed
+  - [Development Coaching](https://www.munichleadership.com/development-coaching.html): discovering new horizons and growing as a leader
+  - [Transition Coaching](https://www.munichleadership.com/transition-coaching.html): fast effectiveness in a new role or environment
+  - [Executive Sparring](https://www.munichleadership.com/executive-sparring.html): reflecting on critical situations at top level with a trusted sparring partner
 - [Audits & Assessments](https://www.munichleadership.com/audits-assessments.html): development-oriented assessments for confident talent decisions
 - [Diagnostic Tools & Psychometrics](https://www.munichleadership.com/psychometrics.html): CliftonStrengths, NeuroColor, Zortify, Hogan
 - [Cultural Transformation](https://www.munichleadership.com/cultural-transformation.html): getting everyone engaged in times of change
@@ -31,6 +35,8 @@ Key facts:
 - [Homepage](https://www.munichleadership.com/): overview, services, team, clients, testimonials and contact
 - [Our Values](https://www.munichleadership.com/our-values.html): respect, impact, growth, premium, independence
 - [How We See the Future of Leadership](https://www.munichleadership.com/future-of-leadership.html): leadership in the age of AI and robotics
+- [FAQ](https://www.munichleadership.com/faq.html): frequently asked questions on services, approach, working together, impact and pricing
+- [Our Target Groups](https://www.munichleadership.com/target-groups.html): how MLG works with large corporations, Mittelstand companies and start-ups
 - [German version](https://www.munichleadership.com/de/): all pages are available in German under /de/
 
 ## Optional
