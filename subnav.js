@@ -44,6 +44,8 @@
     'Contact':  'Kontakt',
   };
 
+  var LABS_ICON = '<svg class="labs-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3v12a3 3 0 006 0V3"/><path d="M7.5 3h9"/><path d="M9 12h6"/></svg>';
+
   // Digital Labs — unlisted preview, deliberately not part of the public nav.
   // The entry appears only for a visitor who has opened /?labs=on once; that
   // sets a flag in localStorage, so the button then follows them across pages
@@ -68,7 +70,7 @@
 
     /* Digital Labs sits in the nav as a filled pill rather than a text link, so it reads as the extra it is. Injected from here instead of styles.css: the button only exists in preview mode, and adding it to the shared sheet would mean re-versioning styles.min.css across every page for a rule almost no visitor ever matches. Appended to <head> after the stylesheet link, so it wins the equal-specificity tie against .slide-nav__btn.is-active, whose red underline would otherwise sit under a red pill. */
     var labsCss = document.createElement('style');
-    labsCss.textContent = '.slide-nav__btn--labs{background:var(--mlg-red);color:#fff;border-radius:999px;padding:5px 12px;border-bottom-color:transparent;transition:background 200ms}.slide-nav__btn--labs:hover,.slide-nav__btn--labs.is-active{background:var(--mlg-red-deep);color:#fff;border-bottom-color:transparent}.mobile-nav__item--labs{color:var(--mlg-red)}.mobile-nav__item--labs.is-active{color:var(--mlg-red-deep)}';
+     labsCss.textContent = '.slide-nav__btn--labs{background:var(--mlg-red);color:#fff;border:0;border-radius:999px;padding:5px 12px;gap:5px;line-height:1;transition:background 200ms}.slide-nav__btn--labs>span{margin-right:-0.12em}.slide-nav__btn--labs:hover,.slide-nav__btn--labs.is-active{background:var(--mlg-red-deep);color:#fff}.labs-icon{flex-shrink:0}.mobile-nav__item--labs{color:var(--mlg-red);display:flex;align-items:center;gap:9px}.mobile-nav__item--labs.is-active{color:var(--mlg-red-deep)}.mobile-nav__item--labs .labs-icon{width:17px;height:17px}';
     document.head.appendChild(labsCss);
   }
 
@@ -116,8 +118,15 @@
       var isPage = slide.href.split('#')[0].split('/').pop() === page;
       a.className = 'slide-nav__btn' + (isPage ? ' is-active' : '') + (slide.title === 'Digital Labs' ? ' slide-nav__btn--labs' : '');
       a.href = slide.href;
-      a.textContent = slide.title;
-      if (NAV_DE[slide.title]) a.dataset.de = NAV_DE[slide.title];
+      // data-de goes on the inner <span>, never on the <a>: applyLang replaces
+      // the innerHTML of every [data-de] element, which would delete the icon.
+      // Same reason the Services button wraps its label in a span.
+      if (slide.title === 'Digital Labs') {
+        a.innerHTML = LABS_ICON + '<span data-de="' + NAV_DE[slide.title] + '">' + slide.title + '</span>';
+      } else {
+        a.textContent = slide.title;
+        if (NAV_DE[slide.title]) a.dataset.de = NAV_DE[slide.title];
+      }
       nav.appendChild(a);
     }
   });
@@ -173,8 +182,15 @@
     var a = document.createElement('a');
     a.className = 'mobile-nav__item' + (slide.title === 'Digital Labs' ? ' mobile-nav__item--labs' : '');
     a.href = slide.href;
-    a.textContent = slide.title;
-    if (NAV_DE[slide.title]) a.dataset.de = NAV_DE[slide.title];
+    // data-de goes on the inner <span>, never on the <a>: applyLang replaces
+    // the innerHTML of every [data-de] element, which would delete the icon.
+    // Same reason the Services button wraps its label in a span.
+    if (slide.title === 'Digital Labs') {
+      a.innerHTML = LABS_ICON + '<span data-de="' + NAV_DE[slide.title] + '">' + slide.title + '</span>';
+    } else {
+      a.textContent = slide.title;
+      if (NAV_DE[slide.title]) a.dataset.de = NAV_DE[slide.title];
+    }
 
     if (slide.dropdown) {
       var isServicePage = slide.dropdown.some(function (d) { return d.href === page; });
