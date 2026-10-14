@@ -65,6 +65,11 @@
   if (LABS) {
     slides.push({ title: 'Digital Labs', href: P + 'digital-labs.html' });
     NAV_DE['Digital Labs'] = 'Digital Labs';   // brand term, same in both languages
+
+    /* Digital Labs sits in the nav as a filled pill rather than a text link, so it reads as the extra it is. Injected from here instead of styles.css: the button only exists in preview mode, and adding it to the shared sheet would mean re-versioning styles.min.css across every page for a rule almost no visitor ever matches. Appended to <head> after the stylesheet link, so it wins the equal-specificity tie against .slide-nav__btn.is-active, whose red underline would otherwise sit under a red pill. */
+    var labsCss = document.createElement('style');
+    labsCss.textContent = '.slide-nav__btn--labs{background:var(--mlg-red);color:#fff;border-radius:999px;padding:5px 12px;border-bottom-color:transparent;transition:background 200ms}.slide-nav__btn--labs:hover,.slide-nav__btn--labs.is-active{background:var(--mlg-red-deep);color:#fff;border-bottom-color:transparent}.mobile-nav__item--labs{color:var(--mlg-red)}.mobile-nav__item--labs.is-active{color:var(--mlg-red-deep)}';
+    document.head.appendChild(labsCss);
   }
 
   var topbar = document.querySelector('.topbar');
@@ -109,7 +114,7 @@
       var a = document.createElement('a');
       // Highlight page links (e.g. FAQ) when we're on that page.
       var isPage = slide.href.split('#')[0].split('/').pop() === page;
-      a.className = 'slide-nav__btn' + (isPage ? ' is-active' : '');
+      a.className = 'slide-nav__btn' + (isPage ? ' is-active' : '') + (slide.title === 'Digital Labs' ? ' slide-nav__btn--labs' : '');
       a.href = slide.href;
       a.textContent = slide.title;
       if (NAV_DE[slide.title]) a.dataset.de = NAV_DE[slide.title];
@@ -166,7 +171,7 @@
 
   slides.forEach(function (slide) {
     var a = document.createElement('a');
-    a.className = 'mobile-nav__item';
+    a.className = 'mobile-nav__item' + (slide.title === 'Digital Labs' ? ' mobile-nav__item--labs' : '');
     a.href = slide.href;
     a.textContent = slide.title;
     if (NAV_DE[slide.title]) a.dataset.de = NAV_DE[slide.title];
