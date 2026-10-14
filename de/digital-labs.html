@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script>(function(){var d=document.documentElement,T=matchMedia('(pointer:coarse)').matches||innerWidth<=640,w=-1;function s(){if(T&&innerWidth===w)return;w=innerWidth;d.style.setProperty('--vh',innerHeight/100+'px')}s();addEventListener('resize',s,{passive:true});addEventListener('orientationchange',function(){w=-1;setTimeout(s,120)})})()</script>
+  <meta name="theme-color" content="#000" />
+  <!-- Unlisted preview. Reachable only by direct link; the nav entry that
+       points here appears only after a visit to /?labs=on. Kept out of the
+       sitemap and out of the index until this is rolled out for real. -->
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="Digital Labs &mdash; die Produkte, die die Munich Leadership Group rund um ihre Arbeit entwickelt." />
+  <title>Digital Labs &mdash; Munich Leadership Group</title>
+  <link rel="icon" href="../assets/mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.min.css?v=643" />
+  <script>
+    (function () {
+      try { if (navigator.webdriver) return; } catch (e) {}
+      var id = 'f2a5285d-db28-4bc8-af6d-729f35847288';
+      ['script.js', 'recorder.js'].forEach(function (f) {
+        var s = document.createElement('script');
+        s.defer = true;
+        s.src = 'https://www.munichleadership.com/stats/' + f;
+        s.setAttribute('data-website-id', id);
+        document.head.appendChild(s);
+      });
+    })();
+  </script>
+  <style>
+    body { overflow: visible; }
+    .standalone { overflow: visible; min-height: 100dvh; }
+
+    /* Hero — same construction as the other subpages (.ld-hero) */
+    .ld-hero { position: relative; height: 56vh; min-height: 360px; overflow: hidden; }
+    .ld-hero__media { position: absolute; inset: 0; }
+    .ld-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; }
+    .ld-hero__scrim {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, #000 0%, rgba(14,15,16,0) 18%),
+        linear-gradient(to top, #000 0%, rgba(14,15,16,0.08) 15%, rgba(14,15,16,0) 100%);
+    }
+    .ld-hero__copy { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(24px, 5vw, 72px) clamp(24px, 5vw, 72px) clamp(32px, 6vh, 64px); }
+    .ld-hero__eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 12px; }
+    .ld-hero__title { font-size: clamp(34px, 7vw, 60px); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #fff; margin: 0 0 12px; line-height: 1.1; }
+    .ld-hero__lead { font-size: clamp(16px, 2vw, 25px); font-weight: 500; line-height: 1.3; color: rgba(255,255,255,0.72); max-width: 820px; margin: 0; }
+
+    /* Content shell */
+    .dl-content { background: #000; padding: 0 clamp(24px, 5vw, 72px); overflow-x: clip; }
+    .dl-content .imprint { padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); }
+    .dl-body { max-width: 900px; margin: 0 auto; }
+    .dl-lead { font-size: clamp(16px, 1.7vw, 19px); line-height: 1.65; color: rgba(255,255,255,0.72); margin: clamp(32px, 5vh, 48px) 0 clamp(40px, 7vh, 64px); max-width: 760px; }
+
+    /* One project */
+    .dl-project { margin: 0 0 clamp(52px, 9vh, 96px); }
+    .dl-project + .dl-project { border-top: 1px solid rgba(255,255,255,0.12); padding-top: clamp(40px, 7vh, 72px); }
+    .dl-project__num { font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mlg-red); margin: 0 0 10px; }
+    .dl-project__title { font-family: var(--font-display); font-size: clamp(24px, 3vw, 36px); font-weight: 700; letter-spacing: -0.01em; color: #fff; margin: 0 0 12px; }
+    .dl-project__lead { font-size: clamp(16px, 1.65vw, 18px); line-height: 1.65; color: rgba(255,255,255,0.72); margin: 0 0 clamp(24px, 4vh, 32px); max-width: 760px; }
+
+    /* Video slot — poster + play badge until a real file is dropped in.
+       To activate, replace the whole .dl-video block with:
+         <video class="dl-video" controls preload="none"
+                poster="assets/photos/NAME.webp">
+           <source src="assets/video/NAME.mp4" type="video/mp4" />
+         </video>                                                        */
+    .dl-video { position: relative; aspect-ratio: 16 / 9; width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); background: #0b0b0c; margin: 0 0 clamp(24px, 4vh, 34px); display: block; }
+    .dl-video__poster { width: 100%; height: 100%; object-fit: cover; opacity: 0.34; }
+    .dl-video__overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+    .dl-video__play { width: clamp(52px, 7vw, 68px); height: clamp(52px, 7vw, 68px); border-radius: 50%; background: rgba(181,0,52,0.92); display: grid; place-items: center; }
+    .dl-video__play svg { margin-left: 3px; }
+    .dl-video__label { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+
+    /* Feature rows — same grid as the Learning Platform page */
+    .dl-feature { display: grid; grid-template-columns: minmax(180px, 260px) 1fr; gap: clamp(14px, 3vw, 36px); padding: clamp(18px, 3vh, 26px) 0; border-top: 1px solid rgba(255,255,255,0.12); align-items: start; }
+    .dl-feature:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .dl-feature__name { font-size: clamp(16px, 1.7vw, 19px); font-weight: 700; color: var(--mlg-red); margin: 0; line-height: 1.35; }
+    .dl-feature__desc { font-size: clamp(15px, 1.55vw, 17px); line-height: 1.65; color: rgba(255,255,255,0.75); margin: 0; max-width: 620px; }
+
+    /* Six drivers — a plain labelled grid, no invented definitions */
+    .dl-drivers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; overflow: hidden; margin: 0 0 8px; }
+    .dl-driver { background: #000; padding: clamp(16px, 2.6vh, 22px) clamp(16px, 2vw, 22px); }
+    .dl-driver__n { font-size: 11px; letter-spacing: 0.16em; color: rgba(255,255,255,0.38); display: block; margin-bottom: 6px; }
+    .dl-driver__t { font-size: clamp(15px, 1.5vw, 17px); font-weight: 600; color: #fff; margin: 0; line-height: 1.35; }
+
+    .dl-more { display: inline-flex; align-items: center; gap: 8px; margin-top: clamp(20px, 3vh, 26px); color: #fff; font-size: 14px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--mlg-red); padding-bottom: 3px; transition: color var(--dur-2) var(--ease-out); }
+    .dl-more:hover { color: var(--mlg-red); }
+
+    .dl-status { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 4px 12px; margin: 0 0 14px; }
+
+    /* CTA */
+    .dl-cta { text-align: center; padding: clamp(28px, 5vh, 56px) 0 0; max-width: 760px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.12); }
+    .dl-cta__title { font-family: var(--font-display); font-size: clamp(24px, 3vw, 34px); font-weight: 700; color: #fff; margin: 0 0 12px; }
+    .dl-cta__text { color: rgba(255,255,255,0.65); font-size: clamp(16px, 1.8vw, 19px); line-height: 1.6; margin: 0 0 28px; }
+    .dl-cta__btn { display: inline-flex; align-items: center; gap: 8px; background: var(--mlg-red); color: #fff; font-family: var(--font-sans); font-size: 15px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; padding: 16px 36px; border-radius: 999px; transition: background var(--dur-2) var(--ease-out), transform var(--dur-1) var(--ease-out); }
+    .dl-cta__btn:hover { background: var(--mlg-red-deep); }
+    .dl-cta__btn:active { transform: translateY(1px); }
+
+    @media (max-width: 720px) {
+      .dl-feature { grid-template-columns: 1fr; gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="standalone">
+    <div class="topbar">
+      <a class="topbar__logo" href="../index.html#slide=0" aria-label="Munich Leadership Group">
+        <img decoding="async" loading="lazy" src="../assets/logo-white-red-bold.svg" alt="Munich Leadership Group" />
+      </a>
+    </div>
+    <span class="corner-mark" aria-hidden="true">
+      <svg class="mark__path mark__path--1" viewBox="236 0 67 65"><path d="M302.059,64.913L293.891,8.134L236.69,0.066L302.059,0.066L302.059,64.913Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--2" viewBox="236 0 67 65"><path d="M287.625,64.906L281.26,20.665L236.69,14.375L287.625,14.375L287.625,64.906Z" fill="currentColor"/></svg>
+      <svg class="mark__path mark__path--3" viewBox="236 0 67 65"><path d="M274.971,64.942L270.186,31.681L236.685,26.958L274.971,26.958L274.971,64.942Z" fill="#b50034"/></svg>
+    </span>
+
+    <div class="ld-hero">
+      <div class="ld-hero__media">
+        <img decoding="async" src="../assets/photos/working-1.webp" alt="Leadership work in progress" />
+      </div>
+      <div class="ld-hero__scrim"></div>
+      <div class="ld-hero__copy">
+        <a class="page-back" href="../index.html#slide=0">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>zurück</span>
+        </a>
+        <p class="ld-hero__eyebrow">In Arbeit</p>
+        <h1 class="ld-hero__title">Digital Labs</h1>
+        <p class="ld-hero__lead">Vier Dinge, an denen wir bauen, um Führungskräfteentwicklung über den Workshop hinauszutragen.</p>
+      </div>
+    </div>
+
+    <div class="dl-content">
+      <div class="dl-body">
+        <p class="dl-lead">Alles, was wir in einem Raum tun, hat eine Grenze: es endet. Digital Labs ist der Ort, an dem wir an dem arbeiten, was darum herum passiert &mdash; vor dem ersten Modul, zwischen den Sitzungen und lange nach der letzten. Vier Produkte in unterschiedlichen Reifegraden, alle auf derselben Idee gebaut: Entwicklung sollte messbar und durchgängig sein und dann verfügbar, wenn die Arbeit tatsächlich stattfindet.</p>
+
+        <section class="dl-project">
+          <p class="dl-project__num">01</p>
+          <span class="dl-status">Fertig</span>
+          <h2 class="dl-project__title">MLG Learning Platform</h2>
+          <p class="dl-project__lead">Der digitale Begleiter zu jedem Programm, das wir durchführen. Teilnehmende bereiten sich vor jedem Modul vor, vertiefen zwischen den Sitzungen und haben jedes Werkzeug und Material noch lange nach Programmende zur Hand.</p>
+        <!-- Video slot. To activate, replace this whole div with:
+             <video class="dl-video" controls preload="none" poster="../assets/photos/working-3.webp">
+               <source src="../assets/video/NAME.mp4" type="video/mp4" />
+             </video> -->
+        <div class="dl-video">
+          <img class="dl-video__poster" decoding="async" loading="lazy" src="../assets/photos/working-3.webp" alt="Zwei Personen sichten Programmunterlagen" />
+          <span class="dl-video__overlay">
+            <span class="dl-video__play">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            <span class="dl-video__label">Video folgt</span>
+          </span>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Vollständig individuell</h3>
+          <p class="dl-feature__desc">Ihr Branding, Ihre Struktur, Ihre Inhalte, Ihre Benennung. Nichts von der Stange.</p>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Alle Materialien an einem Ort</h3>
+          <p class="dl-feature__desc">Foliensätze, Workbooks, Dokumente, Videos und kuratierte Links &mdash; jederzeit, auf jedem Gerät.</p>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Strukturierte Journeys</h3>
+          <p class="dl-feature__desc">Module und Deep Dives, die sich im Programmverlauf nacheinander öffnen.</p>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Gehostet in Deutschland</h3>
+          <p class="dl-feature__desc">Teilnehmerdaten bleiben auf deutscher Infrastruktur.</p>
+        </div>
+        <a class="dl-more" href="../learning-platform.html">Zur vollständigen Seite</a>
+        </section>
+
+        <!-- DRAFT COPY: no source material for this product exists in the repo yet. -->
+        <section class="dl-project">
+          <p class="dl-project__num">02</p>
+          <span class="dl-status">Konzept</span>
+          <h2 class="dl-project__title">Evaluations</h2>
+          <p class="dl-project__lead">Entwicklung, die sich nicht messen lässt, lässt sich nicht begründen. Unsere Evaluationswerkzeuge erfassen, was ein Programm tatsächlich verändert &mdash; im Verhalten, in Teams und in den Kennzahlen, die das Unternehmen ohnehin verfolgt.</p>
+        <!-- Video slot. To activate, replace this whole div with:
+             <video class="dl-video" controls preload="none" poster="../assets/photos/talent-2.webp">
+               <source src="../assets/video/NAME.mp4" type="video/mp4" />
+             </video> -->
+        <div class="dl-video">
+          <img class="dl-video__poster" decoding="async" loading="lazy" src="../assets/photos/talent-2.webp" alt="Teilnehmende bearbeiten ein Assessment" />
+          <span class="dl-video__overlay">
+            <span class="dl-video__play">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            <span class="dl-video__label">Video folgt</span>
+          </span>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Vorher und nachher</h3>
+          <p class="dl-feature__desc">Eine Ausgangsmessung zu Beginn, dieselben Dimensionen am Ende erneut erhoben.</p>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">360&deg;-Perspektive</h3>
+          <p class="dl-feature__desc">Selbsteinschätzung im Abgleich mit der Sicht von Kollegen, Mitarbeitenden und Führungskräften.</p>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Transfer statt Zufriedenheit</h3>
+          <p class="dl-feature__desc">Was Teilnehmende danach anders machen &mdash; nicht, wie gut es ihnen gefallen hat.</p>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Für Auftraggeber gebaut</h3>
+          <p class="dl-feature__desc">Ergebnisse verdichtet zu etwas, das ein Vorstand in einer Sitzung lesen kann.</p>
+        </div>
+        </section>
+
+        <!-- DRAFT COPY: no source material for this product exists in the repo yet. -->
+        <section class="dl-project">
+          <p class="dl-project__num">03</p>
+          <span class="dl-status">Konzept</span>
+          <h2 class="dl-project__title">MLG Coach</h2>
+          <p class="dl-project__lead">Ein Coach ist in dem Moment am wertvollsten, in dem eine Entscheidung fällt &mdash; selten in dem Moment, für den zufällig ein Termin steht. MLG Coach bringt strukturierte Reflexion in diese Lücke.</p>
+        <!-- Video slot. To activate, replace this whole div with:
+             <video class="dl-video" controls preload="none" poster="../assets/photos/coaching-3.webp">
+               <source src="../assets/video/NAME.mp4" type="video/mp4" />
+             </video> -->
+        <div class="dl-video">
+          <img class="dl-video__poster" decoding="async" loading="lazy" src="../assets/photos/coaching-3.webp" alt="Ein Coaching-Gespräch" />
+          <span class="dl-video__overlay">
+            <span class="dl-video__play">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            <span class="dl-video__label">Video folgt</span>
+          </span>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Verfügbar zwischen den Sitzungen</h3>
+          <p class="dl-feature__desc">Für die Situationen, die nicht bis zum nächsten Termin warten.</p>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Auf unserer Methodik aufgebaut</h3>
+          <p class="dl-feature__desc">Dieselben Modelle, mit denen unsere Coaches arbeiten &mdash; kein generischer Rat.</p>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Bereitet das menschliche Gespräch vor</h3>
+          <p class="dl-feature__desc">Es schärft, was in die nächste Sitzung gehört, statt sie zu ersetzen.</p>
+        </div>
+        <div class="dl-feature">
+          <h3 class="dl-feature__name">Vertraulich konstruiert</h3>
+          <p class="dl-feature__desc">Was eine Führungskraft durchdenkt, bleibt bei ihr.</p>
+        </div>
+        </section>
+
+        <!-- Die sechs Treiber sind wörtlich von der FAQ-Seite übernommen; zu den einzelnen Treibern existieren noch keine Beschreibungen, deshalb werden hier keine erfunden. -->
+        <section class="dl-project">
+          <p class="dl-project__num">04</p>
+          <span class="dl-status">Verfügbar</span>
+          <h2 class="dl-project__title">BPTI &mdash; Best Performance Team Inventory</h2>
+          <p class="dl-project__lead">Unser kostenloses Tool für einen fundierten ersten Eindruck vom Leistungsstand eines Teams. Es verortet das Team entlang von sechs Performance-Treibern und eröffnet das Gespräch darüber, wo anzusetzen ist.</p>
+        <!-- Video slot. To activate, replace this whole div with:
+             <video class="dl-video" controls preload="none" poster="../assets/photos/team-values.webp">
+               <source src="../assets/video/NAME.mp4" type="video/mp4" />
+             </video> -->
+        <div class="dl-video">
+          <img class="dl-video__poster" decoding="async" loading="lazy" src="../assets/photos/team-values.webp" alt="Ein Führungsteam im Gespräch" />
+          <span class="dl-video__overlay">
+            <span class="dl-video__play">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            <span class="dl-video__label">Video folgt</span>
+          </span>
+        </div>
+        <div class="dl-drivers">
+          <div class="dl-driver"><span class="dl-driver__n">01</span><p class="dl-driver__t">Orientierung geben</p></div>
+          <div class="dl-driver"><span class="dl-driver__n">02</span><p class="dl-driver__t">Komplexität reduzieren</p></div>
+          <div class="dl-driver"><span class="dl-driver__n">03</span><p class="dl-driver__t">Entscheidungen treffen</p></div>
+          <div class="dl-driver"><span class="dl-driver__n">04</span><p class="dl-driver__t">Sich selbst weiterentwickeln</p></div>
+          <div class="dl-driver"><span class="dl-driver__n">05</span><p class="dl-driver__t">Andere befähigen</p></div>
+          <div class="dl-driver"><span class="dl-driver__n">06</span><p class="dl-driver__t">Operative Exzellenz</p></div>
+        </div>
+        </section>
+
+        <section class="dl-cta">
+          <h2 class="dl-cta__title">Eines davon richtig sehen?</h2>
+          <p class="dl-cta__text">Diese Seiten sind eine interne Vorschau. Wenn davon etwas für Ihre Organisation relevant ist, führen wir Sie hindurch.</p>
+          <a class="dl-cta__btn" href="../index.html#slide=10">Kontakt aufnehmen</a>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="../subnav.min.js?v=246"></script>
+</body>
+</html>

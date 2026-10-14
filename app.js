@@ -781,6 +781,28 @@
     'Contact':  'Kontakt',
   };
 
+  // Digital Labs — unlisted preview, deliberately not part of the public nav.
+  // Appears only for a visitor who has opened /?labs=on once; that sets a flag
+  // in localStorage, so the button then follows them across pages and sessions.
+  // /?labs=off clears it. The page stays reachable by direct link either way.
+  // Mirrored in subnav.js, which builds the same nav on the subpages.
+  //
+  // Obscurity, not access control — anyone reading this file can turn it on.
+  const LABS = (function () {
+    try {
+      const q = new URLSearchParams(location.search).get('labs');
+      if (q === 'off') { localStorage.removeItem('mlgLabs'); return false; }
+      if (q === 'on')  { localStorage.setItem('mlgLabs', '1'); return true; }
+      return localStorage.getItem('mlgLabs') === '1';
+    } catch (e) { return false; }
+  })();
+
+  if (LABS) {
+    NAV_ORDER.push('Digital Labs');
+    PAGE_LINKS['Digital Labs'] = 'digital-labs.html';
+    NAV_DE['Digital Labs'] = 'Digital Labs';   // brand term, same in both languages
+  }
+
   if (slideNav) {
     slideNav.innerHTML = '';
     // Build a title → index lookup from the actual slides in the DOM

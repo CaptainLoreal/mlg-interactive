@@ -44,6 +44,29 @@
     'Contact':  'Kontakt',
   };
 
+  // Digital Labs — unlisted preview, deliberately not part of the public nav.
+  // The entry appears only for a visitor who has opened /?labs=on once; that
+  // sets a flag in localStorage, so the button then follows them across pages
+  // and sessions. /?labs=off clears it. The page itself stays reachable by
+  // direct link either way — this governs the button, nothing else.
+  //
+  // This is obscurity, not access control: anyone who reads this file can turn
+  // it on. If the content ever needs real protection, put HTTP auth on the
+  // path in .htaccess instead.
+  var LABS = (function () {
+    try {
+      var q = new URLSearchParams(location.search).get('labs');
+      if (q === 'off') { localStorage.removeItem('mlgLabs'); return false; }
+      if (q === 'on')  { localStorage.setItem('mlgLabs', '1'); return true; }
+      return localStorage.getItem('mlgLabs') === '1';
+    } catch (e) { return false; }
+  })();
+
+  if (LABS) {
+    slides.push({ title: 'Digital Labs', href: P + 'digital-labs.html' });
+    NAV_DE['Digital Labs'] = 'Digital Labs';   // brand term, same in both languages
+  }
+
   var topbar = document.querySelector('.topbar');
   if (!topbar) return;
 
