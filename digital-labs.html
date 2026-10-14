@@ -78,7 +78,7 @@
     .dl-feature__desc { font-size: clamp(15px, 1.55vw, 17px); line-height: 1.65; color: rgba(255,255,255,0.75); margin: 0; max-width: 620px; }
 
     /* Six drivers — a plain labelled grid, no invented definitions */
-    .dl-drivers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; overflow: hidden; margin: 0 0 8px; }
+    .dl-drivers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; overflow: hidden; margin: 0 0 8px; }
     .dl-driver { background: #000; padding: clamp(16px, 2.6vh, 22px) clamp(16px, 2vw, 22px); }
     .dl-driver__n { font-size: 11px; letter-spacing: 0.16em; color: rgba(255,255,255,0.38); display: block; margin-bottom: 6px; }
     .dl-driver__t { font-size: clamp(15px, 1.5vw, 17px); font-weight: 600; color: #fff; margin: 0; line-height: 1.35; }
@@ -96,8 +96,18 @@
     .dl-cta__btn:hover { background: var(--mlg-red-deep); }
     .dl-cta__btn:active { transform: translateY(1px); }
 
+    /* Six drivers divide evenly by three, so the columns are fixed rather
+       than auto-fit: auto-fit chose four at desktop width and left the
+       second row half empty, showing the grid's own background as a grey
+       block where the two missing cells would be. */
+    @media (max-width: 860px) {
+      .dl-drivers { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 720px) {
       .dl-feature { grid-template-columns: 1fr; gap: 6px; }
+    }
+    @media (max-width: 470px) {
+      .dl-drivers { grid-template-columns: 1fr; }
     }
   </style>
 </head>
