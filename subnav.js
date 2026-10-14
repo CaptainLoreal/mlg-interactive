@@ -47,20 +47,27 @@
   var LABS_ICON = '<svg class="labs-icon" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3v12a3 3 0 006 0V3"/><path d="M7.5 3h9"/><path d="M9 12h6"/></svg>';
 
   // Digital Labs — unlisted preview, deliberately not part of the public nav.
-  // The entry appears only for a visitor who has opened /?labs=on once; that
-  // sets a flag in localStorage, so the button then follows them across pages
-  // and sessions. /?labs=off clears it. The page itself stays reachable by
-  // direct link either way — this governs the button, nothing else.
   //
-  // This is obscurity, not access control: anyone who reads this file can turn
-  // it on. If the content ever needs real protection, put HTTP auth on the
-  // path in .htaccess instead.
+  // Scoped to the browsing session: /?labs=on sets a session-storage flag, so the
+  // button survives navigation from page to page but is gone as soon as the tab
+  // is closed. localStorage was wrong here — it parked the entry in the nav of
+  // the normal site indefinitely for anyone who had ever opened the preview
+  // link, which is exactly what this is meant to avoid. The migration line below
+  // also clears that stale key, so a browser still carrying it heals itself on
+  // the next page load rather than needing /?labs=off.
+  //
+  // /?labs=off clears the session flag immediately. The page itself stays
+  // reachable by direct link either way — this governs the button, nothing else.
+  // Mirrored in subnav.js, which builds the same nav on the subpages.
+  //
+  // Obscurity, not access control — anyone reading this file can turn it on.
   var LABS = (function () {
+    try { localStorage.removeItem('mlgLabs'); } catch (e) {}   // migration, see above
     try {
       var q = new URLSearchParams(location.search).get('labs');
-      if (q === 'off') { localStorage.removeItem('mlgLabs'); return false; }
-      if (q === 'on')  { localStorage.setItem('mlgLabs', '1'); return true; }
-      return localStorage.getItem('mlgLabs') === '1';
+      if (q === 'off') { sessionStorage.removeItem('mlgLabs'); return false; }
+      if (q === 'on')  { sessionStorage.setItem('mlgLabs', '1'); return true; }
+      return sessionStorage.getItem('mlgLabs') === '1';
     } catch (e) { return false; }
   })();
 
