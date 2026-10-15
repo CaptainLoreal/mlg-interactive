@@ -83,6 +83,15 @@
     .dl-driver__n { font-size: 11px; letter-spacing: 0.16em; color: rgba(255,255,255,0.38); display: block; margin-bottom: 6px; }
     .dl-driver__t { font-size: clamp(15px, 1.5vw, 17px); font-weight: 600; color: #fff; margin: 0; line-height: 1.35; }
 
+    /* Standalone statement between the intro and the projects. Framed by
+       rules rather than a tinted panel, so it reads as a chapter of the
+       page and not as a fifth product. */
+    .dl-chapter { border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); padding: clamp(28px, 5vh, 44px) 0; margin: 0 0 clamp(44px, 8vh, 80px); }
+    .dl-chapter__title { font-family: var(--font-display); font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -0.01em; color: #fff; margin: 0 0 16px; }
+    .dl-chapter p { font-size: clamp(15px, 1.55vw, 17px); line-height: 1.7; color: rgba(255,255,255,0.75); margin: 0 0 16px; max-width: 760px; }
+    .dl-chapter p:last-child { margin: 0; }
+    .dl-chapter strong { color: #fff; font-weight: 700; letter-spacing: 0.04em; }
+
     .dl-more { display: inline-flex; align-items: center; gap: 8px; margin-top: clamp(20px, 3vh, 26px); color: #fff; font-size: 14px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--mlg-red); padding-bottom: 3px; transition: color var(--dur-2) var(--ease-out); }
     .dl-more:hover { color: var(--mlg-red); }
     /* Links that leave the site are buttons, not text links: they use the
@@ -141,7 +150,7 @@
           <span>back</span>
         </a>
         <p class="ld-hero__eyebrow">Work in progress</p>
-        <h1 class="ld-hero__title">Digital Lab</h1>
+        <h1 class="ld-hero__title">MLG Digital Lab</h1>
         <p class="ld-hero__lead">Projects we are working on to carry leadership development beyond the workshop.</p>
       </div>
     </div>
@@ -150,11 +159,17 @@
       <div class="dl-body">
         <p class="dl-lead">Everything we do in a room has one limit: it ends. Digital Lab is where we work on what happens around it. Before the first module, between sessions, and long after the last one. Products at different stages of maturity, built on the same idea: that development should be measurable, continuous, and available at the moment the work actually happens.</p>
 
+        <section class="dl-chapter">
+          <h2 class="dl-chapter__title">AI empowers leadership exponentially</h2>
+          <p>The Agentic AI landscape is changing daily. MLG is at the forefront of relevant insights and technical progress.</p>
+          <p>All tools and products are fully based on our &ldquo;MLG DNA&rdquo;. The basic underlying Agentic AI has been skilled with all internal MLG values, mindsets, ethical standards, basic models and tools, those which are proprietary MLG intellectual property as well as those we use in our work, curated knowledge from neuroscience and social sciences, the most relevant academic sources, and everything else that our experts use and represent in their successful work with our clients. We are part of the <strong>RESPONSIBLE AI MOVEMENT</strong>.</p>
+        </section>
+
         <section class="dl-project">
           <p class="dl-project__num">01</p>
           <span class="dl-status">Ready</span>
           <h2 class="dl-project__title">MLG Learning Platform</h2>
-          <p class="dl-project__lead">The digital companion to every program we deliver. Participants prepare before each module, go deeper between sessions, and keep every tool and material within reach long after the program ends.</p>
+          <p class="dl-project__lead">The digital companion to every program we deliver, in person or remotely, or blended. Participants prepare before each module, go deeper between sessions, and keep every tool and material within reach long after the program ends.</p>
         <!-- Video slot. To activate, replace this whole div with:
              <video class="dl-video" controls preload="none" poster="assets/photos/working-3.webp">
                <source src="assets/video/NAME.mp4" type="video/mp4" />
@@ -170,7 +185,7 @@
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">Fully customized</h3>
-          <p class="dl-feature__desc">Your branding, your structure, your content, your naming. Nothing off the shelf.</p>
+          <p class="dl-feature__desc">Your company&rsquo;s branding, your structure, your content, your naming. Nothing off the shelf.</p>
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">All materials in one place</h3>
@@ -198,7 +213,7 @@
           <p class="dl-project__num">02</p>
           <span class="dl-status">Concept</span>
           <h2 class="dl-project__title">Evaluations</h2>
-          <p class="dl-project__lead">Development that cannot be measured cannot be defended. Our evaluation suite tracks what a program actually changes: in behavior, in teams, and in the numbers the business already cares about.</p>
+          <p class="dl-project__lead">Development that cannot be measured cannot be defended. Our evaluation suite tracks exactly those indicators that make learning significant: from the first feedback after each module, the impact on personal behavior, to what has really changed after the journey.</p>
         <!-- Video slot. To activate, replace this whole div with:
              <video class="dl-video" controls preload="none" poster="assets/photos/talent-2.webp">
                <source src="assets/video/NAME.mp4" type="video/mp4" />
@@ -221,12 +236,12 @@
           <p class="dl-feature__desc">Self-assessment set against the view of peers, reports and leaders.</p>
         </div>
         <div class="dl-feature">
-          <h3 class="dl-feature__name">Transfer, not satisfaction</h3>
-          <p class="dl-feature__desc">What participants do differently afterwards, not how much they enjoyed the room.</p>
+          <h3 class="dl-feature__name">Transfer over satisfaction</h3>
+          <p class="dl-feature__desc">What participants do differently afterwards, on top of how much they enjoyed the room.</p>
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">Built for sponsors</h3>
-          <p class="dl-feature__desc">Results aggregated into something a board can read in one sitting.</p>
+          <p class="dl-feature__desc">Results in detail, but also aggregated into something a board can read in one sitting.</p>
         </div>
         </section>
 
@@ -235,7 +250,7 @@
           <p class="dl-project__num">03</p>
           <span class="dl-status">Concept</span>
           <h2 class="dl-project__title">MLG Coach</h2>
-          <p class="dl-project__lead">A coach is most valuable in the moment a decision is being made, rarely in the moment a session happens to be scheduled. MLG Coach puts structured reflection into that gap.</p>
+          <p class="dl-project__lead">A coach is most valuable in the moment a decision is being made, rarely in the moment a session happens to be scheduled. MLG Coach combines the entire MLG wisdom with the content of the Learning Journey, exactly when you need it.</p>
         <!-- Video slot. To activate, replace this whole div with:
              <video class="dl-video" controls preload="none" poster="assets/photos/coaching-3.webp">
                <source src="assets/video/NAME.mp4" type="video/mp4" />
@@ -250,16 +265,16 @@
           </span>
         </div>
         <div class="dl-feature">
-          <h3 class="dl-feature__name">Available between sessions</h3>
-          <p class="dl-feature__desc">For the situations that will not wait until the next appointment.</p>
+          <h3 class="dl-feature__name">Available anytime</h3>
+          <p class="dl-feature__desc">For the situations that will not wait until the next scheduled session.</p>
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">Grounded in our methodology</h3>
           <p class="dl-feature__desc">The same frameworks our coaches use, not generic advice.</p>
         </div>
         <div class="dl-feature">
-          <h3 class="dl-feature__name">Prepares the human conversation</h3>
-          <p class="dl-feature__desc">It sharpens what to bring to the next session rather than replacing it.</p>
+          <h3 class="dl-feature__name">Tailor-made for YOU</h3>
+          <p class="dl-feature__desc">If you want, it takes your psychometric results, for example CliftonStrengths, into consideration, providing ideas that fully resonate.</p>
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">Confidential by design</h3>

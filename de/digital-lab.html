@@ -83,6 +83,15 @@
     .dl-driver__n { font-size: 11px; letter-spacing: 0.16em; color: rgba(255,255,255,0.38); display: block; margin-bottom: 6px; }
     .dl-driver__t { font-size: clamp(15px, 1.5vw, 17px); font-weight: 600; color: #fff; margin: 0; line-height: 1.35; }
 
+    /* Standalone statement between the intro and the projects. Framed by
+       rules rather than a tinted panel, so it reads as a chapter of the
+       page and not as a fifth product. */
+    .dl-chapter { border-top: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); padding: clamp(28px, 5vh, 44px) 0; margin: 0 0 clamp(44px, 8vh, 80px); }
+    .dl-chapter__title { font-family: var(--font-display); font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -0.01em; color: #fff; margin: 0 0 16px; }
+    .dl-chapter p { font-size: clamp(15px, 1.55vw, 17px); line-height: 1.7; color: rgba(255,255,255,0.75); margin: 0 0 16px; max-width: 760px; }
+    .dl-chapter p:last-child { margin: 0; }
+    .dl-chapter strong { color: #fff; font-weight: 700; letter-spacing: 0.04em; }
+
     .dl-more { display: inline-flex; align-items: center; gap: 8px; margin-top: clamp(20px, 3vh, 26px); color: #fff; font-size: 14px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--mlg-red); padding-bottom: 3px; transition: color var(--dur-2) var(--ease-out); }
     .dl-more:hover { color: var(--mlg-red); }
     /* Links that leave the site are buttons, not text links: they use the
@@ -141,7 +150,7 @@
           <span>zurück</span>
         </a>
         <p class="ld-hero__eyebrow">In Arbeit</p>
-        <h1 class="ld-hero__title">Digital Lab</h1>
+        <h1 class="ld-hero__title">MLG Digital Lab</h1>
         <p class="ld-hero__lead">Projekte, an denen wir arbeiten, um Führungskräfteentwicklung über den Workshop hinauszutragen.</p>
       </div>
     </div>
@@ -150,11 +159,17 @@
       <div class="dl-body">
         <p class="dl-lead">Alles, was wir in einem Raum tun, hat eine Grenze: es endet. Digital Lab ist der Ort, an dem wir an dem arbeiten, was darum herum passiert &mdash; vor dem ersten Modul, zwischen den Sitzungen und lange nach der letzten. Produkte in unterschiedlichen Reifegraden, alle auf derselben Idee gebaut: Entwicklung sollte messbar und durchgängig sein und dann verfügbar, wenn die Arbeit tatsächlich stattfindet.</p>
 
+        <section class="dl-chapter">
+          <h2 class="dl-chapter__title">KI verstärkt Führung exponentiell</h2>
+          <p>Die Landschaft der Agentic AI verändert sich täglich. MLG steht an vorderster Front relevanter Erkenntnisse und technischer Entwicklungen.</p>
+          <p>Alle Werkzeuge und Produkte basieren vollständig auf unserer &#8222;MLG DNA&#8220;. Die zugrunde liegende Agentic AI wurde mit allen internen MLG-Werten, Haltungen, ethischen Standards, Basismodellen und Werkzeugen geschult, sowohl den proprietären, also geistigem Eigentum von MLG, als auch jenen, die wir in unserer Arbeit einsetzen, dazu mit kuratiertem Wissen aus Neurowissenschaft und Sozialwissenschaften, den relevantesten akademischen Quellen und allem Weiteren, was unsere Expertinnen und Experten in ihrer erfolgreichen Arbeit mit Kundinnen und Kunden nutzen und verkörpern. Wir sind Teil der <strong>RESPONSIBLE AI MOVEMENT</strong>.</p>
+        </section>
+
         <section class="dl-project">
           <p class="dl-project__num">01</p>
           <span class="dl-status">Fertig</span>
           <h2 class="dl-project__title">MLG Learning Platform</h2>
-          <p class="dl-project__lead">Der digitale Begleiter zu jedem Programm, das wir durchführen. Teilnehmende bereiten sich vor jedem Modul vor, vertiefen zwischen den Sitzungen und haben jedes Werkzeug und Material noch lange nach Programmende zur Hand.</p>
+          <p class="dl-project__lead">Der digitale Begleiter zu jedem Programm, das wir durchführen, in Präsenz, remote oder blended. Teilnehmende bereiten sich vor jedem Modul vor, vertiefen zwischen den Sitzungen und haben jedes Werkzeug und Material noch lange nach Programmende zur Hand.</p>
         <!-- Video slot. To activate, replace this whole div with:
              <video class="dl-video" controls preload="none" poster="../assets/photos/working-3.webp">
                <source src="../assets/video/NAME.mp4" type="video/mp4" />
@@ -170,7 +185,7 @@
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">Vollständig individuell</h3>
-          <p class="dl-feature__desc">Ihr Branding, Ihre Struktur, Ihre Inhalte, Ihre Benennung. Nichts von der Stange.</p>
+          <p class="dl-feature__desc">Das Branding Ihres Unternehmens, Ihre Struktur, Ihre Inhalte, Ihre Benennung. Nichts von der Stange.</p>
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">Alle Materialien an einem Ort</h3>
@@ -198,7 +213,7 @@
           <p class="dl-project__num">02</p>
           <span class="dl-status">Konzept</span>
           <h2 class="dl-project__title">Evaluations</h2>
-          <p class="dl-project__lead">Entwicklung, die sich nicht messen lässt, lässt sich nicht begründen. Unsere Evaluationswerkzeuge erfassen, was ein Programm tatsächlich verändert &mdash; im Verhalten, in Teams und in den Kennzahlen, die das Unternehmen ohnehin verfolgt.</p>
+          <p class="dl-project__lead">Entwicklung, die sich nicht messen lässt, lässt sich nicht begründen. Unsere Evaluationswerkzeuge erfassen genau die Indikatoren, die Lernen bedeutsam machen: vom ersten Feedback nach jedem Modul über die Wirkung auf das persönliche Verhalten bis zu dem, was sich nach der Journey wirklich verändert hat.</p>
         <!-- Video slot. To activate, replace this whole div with:
              <video class="dl-video" controls preload="none" poster="../assets/photos/talent-2.webp">
                <source src="../assets/video/NAME.mp4" type="video/mp4" />
@@ -221,12 +236,12 @@
           <p class="dl-feature__desc">Selbsteinschätzung im Abgleich mit der Sicht von Kollegen, Mitarbeitenden und Führungskräften.</p>
         </div>
         <div class="dl-feature">
-          <h3 class="dl-feature__name">Transfer statt Zufriedenheit</h3>
-          <p class="dl-feature__desc">Was Teilnehmende danach anders machen &mdash; nicht, wie gut es ihnen gefallen hat.</p>
+          <h3 class="dl-feature__name">Transfer vor Zufriedenheit</h3>
+          <p class="dl-feature__desc">Was Teilnehmende danach anders machen, zusätzlich dazu, wie gut es ihnen gefallen hat.</p>
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">Für Auftraggeber gebaut</h3>
-          <p class="dl-feature__desc">Ergebnisse verdichtet zu etwas, das ein Vorstand in einer Sitzung lesen kann.</p>
+          <p class="dl-feature__desc">Ergebnisse im Detail, aber auch verdichtet zu etwas, das ein Vorstand in einer Sitzung lesen kann.</p>
         </div>
         </section>
 
@@ -235,7 +250,7 @@
           <p class="dl-project__num">03</p>
           <span class="dl-status">Konzept</span>
           <h2 class="dl-project__title">MLG Coach</h2>
-          <p class="dl-project__lead">Ein Coach ist in dem Moment am wertvollsten, in dem eine Entscheidung fällt &mdash; selten in dem Moment, für den zufällig ein Termin steht. MLG Coach bringt strukturierte Reflexion in diese Lücke.</p>
+          <p class="dl-project__lead">Ein Coach ist in dem Moment am wertvollsten, in dem eine Entscheidung fällt &mdash; selten in dem Moment, für den zufällig ein Termin steht. MLG Coach verbindet das gesamte MLG-Wissen mit den Inhalten der Learning Journey, genau dann, wenn Sie es brauchen.</p>
         <!-- Video slot. To activate, replace this whole div with:
              <video class="dl-video" controls preload="none" poster="../assets/photos/coaching-3.webp">
                <source src="../assets/video/NAME.mp4" type="video/mp4" />
@@ -250,16 +265,16 @@
           </span>
         </div>
         <div class="dl-feature">
-          <h3 class="dl-feature__name">Verfügbar zwischen den Sitzungen</h3>
-          <p class="dl-feature__desc">Für die Situationen, die nicht bis zum nächsten Termin warten.</p>
+          <h3 class="dl-feature__name">Jederzeit verfügbar</h3>
+          <p class="dl-feature__desc">Für die Situationen, die nicht bis zur nächsten geplanten Sitzung warten.</p>
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">Auf unserer Methodik aufgebaut</h3>
           <p class="dl-feature__desc">Dieselben Modelle, mit denen unsere Coaches arbeiten &mdash; kein generischer Rat.</p>
         </div>
         <div class="dl-feature">
-          <h3 class="dl-feature__name">Bereitet das menschliche Gespräch vor</h3>
-          <p class="dl-feature__desc">Es schärft, was in die nächste Sitzung gehört, statt sie zu ersetzen.</p>
+          <h3 class="dl-feature__name">Maßgeschneidert für SIE</h3>
+          <p class="dl-feature__desc">Auf Wunsch bezieht er Ihre psychometrischen Ergebnisse ein, etwa CliftonStrengths, und liefert Impulse, die wirklich resonieren.</p>
         </div>
         <div class="dl-feature">
           <h3 class="dl-feature__name">Vertraulich konstruiert</h3>
