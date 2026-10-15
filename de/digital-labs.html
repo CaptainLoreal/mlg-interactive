@@ -85,6 +85,10 @@
 
     .dl-more { display: inline-flex; align-items: center; gap: 8px; margin-top: clamp(20px, 3vh, 26px); color: #fff; font-size: 14px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--mlg-red); padding-bottom: 3px; transition: color var(--dur-2) var(--ease-out); }
     .dl-more:hover { color: var(--mlg-red); }
+    .dl-more--ext svg { flex-shrink: 0; }
+    /* Two links side by side; the row carries the spacing so the children don't. */
+    .dl-links { display: flex; flex-wrap: wrap; gap: clamp(16px, 3vw, 28px); margin-top: clamp(20px, 3vh, 26px); }
+    .dl-links .dl-more { margin-top: 0; }
 
     .dl-status { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 4px 12px; margin: 0 0 14px; }
 
@@ -114,7 +118,7 @@
 <body>
   <main class="standalone">
     <div class="topbar">
-      <a class="topbar__logo" href="../index.html#slide=0" aria-label="Munich Leadership Group">
+      <a class="topbar__logo" href="index.html#slide=0" aria-label="Munich Leadership Group">
         <img decoding="async" loading="lazy" src="../assets/logo-white-red-bold.svg" alt="Munich Leadership Group" />
       </a>
     </div>
@@ -130,7 +134,7 @@
       </div>
       <div class="ld-hero__scrim"></div>
       <div class="ld-hero__copy">
-        <a class="page-back" href="../index.html#slide=0">
+        <a class="page-back" href="index.html#slide=0">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           <span>zurück</span>
         </a>
@@ -178,7 +182,10 @@
           <h3 class="dl-feature__name">Gehostet in Deutschland</h3>
           <p class="dl-feature__desc">Teilnehmerdaten bleiben auf deutscher Infrastruktur.</p>
         </div>
-        <a class="dl-more" href="../learning-platform.html">Zur vollständigen Seite</a>
+        <div class="dl-links">
+          <a class="dl-more" href="learning-platform.html">Zur vollständigen Seite</a>
+          <a class="dl-more dl-more--ext" href="https://mlg-digital.com/" target="_blank" rel="noopener">Zur Plattform <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        </div>
         </section>
 
         <!-- DRAFT COPY: no source material for this product exists in the repo yet. -->
@@ -282,14 +289,32 @@
           <div class="dl-driver"><span class="dl-driver__n">05</span><p class="dl-driver__t">Andere befähigen</p></div>
           <div class="dl-driver"><span class="dl-driver__n">06</span><p class="dl-driver__t">Operative Exzellenz</p></div>
         </div>
+        <a class="dl-more dl-more--ext" href="https://team-bpti.com/" target="_blank" rel="noopener">Zum BPTI <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
         </section>
 
         <section class="dl-cta">
           <h2 class="dl-cta__title">Eines davon richtig sehen?</h2>
           <p class="dl-cta__text">Diese Seiten sind eine interne Vorschau. Wenn davon etwas für Ihre Organisation relevant ist, führen wir Sie hindurch.</p>
-          <a class="dl-cta__btn" href="../index.html#slide=10">Kontakt aufnehmen</a>
+          <a class="dl-cta__btn" href="index.html#slide=10">Kontakt aufnehmen</a>
         </section>
       </div>
+      <footer class="imprint" style="margin-top: 2px;">
+        <p class="imprint__links">
+          <a href="disclaimer.html">Disclaimer</a>
+          <span aria-hidden="true">&middot;</span>
+          <a href="privacy-policy.html">Datenschutz</a>
+          <span aria-hidden="true">&middot;</span>
+          <a href="terms-of-service.html">Nutzungsbedingungen</a>
+          <span aria-hidden="true">&middot;</span>
+          <a href="https://www.kununu.com/de/munich-leadership-group1/kommentare" target="_blank" rel="noopener">kununu</a>
+          <span aria-hidden="true">&middot;</span>
+          <span class="imprint__copy">&copy; 2026 Munich Leadership Group</span>
+          <span aria-hidden="true">&middot;</span>
+          <a href="https://www.linkedin.com/company/munich-leadership-group/" target="_blank" rel="noopener" aria-label="Munich Leadership Group on LinkedIn" style="display:inline-flex;vertical-align:middle;">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          </a>
+        </p>
+      </footer>
     </div>
   </main>
   <script src="../subnav.min.js?v=249"></script>
