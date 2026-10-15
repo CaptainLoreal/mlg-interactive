@@ -85,9 +85,11 @@
 
     .dl-more { display: inline-flex; align-items: center; gap: 8px; margin-top: clamp(20px, 3vh, 26px); color: #fff; font-size: 14px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--mlg-red); padding-bottom: 3px; transition: color var(--dur-2) var(--ease-out); }
     .dl-more:hover { color: var(--mlg-red); }
-    .dl-more--ext svg { flex-shrink: 0; }
-    /* Two links side by side; the row carries the spacing so the children don't. */
-    .dl-links { display: flex; flex-wrap: wrap; gap: clamp(16px, 3vw, 28px); margin-top: clamp(20px, 3vh, 26px); }
+    /* Links that leave the site are buttons, not text links: they use the
+       site's existing .btn--ghost/.btn--more pill, which already ships the
+       arrow at 14px and slides it 3px right on hover. Ghost rather than the
+       red .btn--primary so they do not compete with the page's own CTA. */
+    .dl-links { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(14px, 2.4vw, 22px); margin-top: clamp(20px, 3vh, 26px); }
     .dl-links .dl-more { margin-top: 0; }
 
     .dl-status { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 4px 12px; margin: 0 0 14px; }
@@ -184,7 +186,10 @@
         </div>
         <div class="dl-links">
           <a class="dl-more" href="learning-platform.html">Zur vollständigen Seite</a>
-          <a class="dl-more dl-more--ext" href="https://mlg-digital.com/" target="_blank" rel="noopener">Zur Plattform <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a class="btn btn--ghost btn--more" href="https://mlg-digital.com/" target="_blank" rel="noopener">
+            <span>Zur Plattform</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
         </div>
         </section>
 
@@ -289,7 +294,12 @@
           <div class="dl-driver"><span class="dl-driver__n">05</span><p class="dl-driver__t">Andere befähigen</p></div>
           <div class="dl-driver"><span class="dl-driver__n">06</span><p class="dl-driver__t">Operative Exzellenz</p></div>
         </div>
-        <a class="dl-more dl-more--ext" href="https://team-bpti.com/" target="_blank" rel="noopener">Zum BPTI <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+        <div class="dl-links">
+          <a class="btn btn--ghost btn--more" href="https://team-bpti.com/" target="_blank" rel="noopener">
+            <span>Zum BPTI</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
         </section>
 
         <section class="dl-cta">
