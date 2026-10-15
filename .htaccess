@@ -96,6 +96,12 @@
   RewriteRule ^en/team/vivianne\-naeslund/?$ https://www.munichleadership.com/team-naeslund.html [R=301,L]
   # blog and anything else under /en/ → homepage
   RewriteRule ^en(/.*)?$ https://www.munichleadership.com/ [R=301,L]
+  # Digital Labs → Digital Lab (page renamed 2026-10-15). Placed above the
+  # German catch-all below, which would otherwise swallow /de/digital-labs.html
+  # and send it to the German homepage instead of the renamed page.
+  RewriteRule ^digital\-labs\.html$ https://www.munichleadership.com/digital-lab.html [R=301,L]
+  RewriteRule ^de/digital\-labs\.html$ https://www.munichleadership.com/de/digital-lab.html [R=301,L]
+
   # old German URLs (/de/<slug> without .html) that don't exist as files → German homepage
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
