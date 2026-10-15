@@ -233,3 +233,31 @@
 <IfModule mod_mime.c>
   AddCharset UTF-8 .txt .css .js
 </IfModule>
+
+# ─────────────────────────────────────────────────────────────────────
+# Keep the Digital Lab preview URL out of the index.
+#
+# /?labs=on is the homepage with a query parameter, so it is the same
+# document as / and <link rel="canonical"> already points there. But a
+# canonical is a hint, not an instruction — the same reason the host
+# redirect at the top of this file exists — so the parameter variant gets
+# a real directive.
+#
+# Deliberately NOT done with a robots.txt Disallow. A disallowed URL can
+# still be listed from an external link, as a bare URL with no snippet,
+# and blocking the crawl would stop Google from ever reading the noindex
+# that would have removed it. Disallow would also publish the parameter
+# name in a file anyone can fetch, which defeats an unlisted preview.
+#
+# nofollow is included because Googlebot executes JavaScript: on this URL
+# the nav script reveals the Digital Lab link, and there is no reason to
+# hand a crawler a path to a page meant for a private review.
+#
+# The homepage without the parameter is untouched and stays indexable.
+# ─────────────────────────────────────────────────────────────────────
+<IfModule mod_setenvif.c>
+  SetEnvIf Query_String "(^|&)labs=" MLG_PREVIEW_URL
+</IfModule>
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow" env=MLG_PREVIEW_URL
+</IfModule>
