@@ -255,8 +255,15 @@
 #
 # The homepage without the parameter is untouched and stays indexable.
 # ─────────────────────────────────────────────────────────────────────
-<IfModule mod_setenvif.c>
-  SetEnvIf Query_String "(^|&)labs=" MLG_PREVIEW_URL
+# The flag is set via mod_rewrite, not SetEnvIf: SetEnvIf's attribute list
+# has no Query_String, and its Request_URI stops before the "?", so the
+# condition could never match. mod_rewrite is the one that sees the query
+# string. The rule rewrites nothing (substitution "-") and carries no [L],
+# so it only tags the request and lets processing continue.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{QUERY_STRING} (^|&)labs= [NC]
+  RewriteRule ^ - [E=MLG_PREVIEW_URL:1]
 </IfModule>
 <IfModule mod_headers.c>
   Header set X-Robots-Tag "noindex, nofollow" env=MLG_PREVIEW_URL
