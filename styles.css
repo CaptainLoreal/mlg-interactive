@@ -1072,14 +1072,15 @@ html[lang="de"] .lang-de-only { display: block; }
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(0,0,0,0.28);
-  /* Desktop: 14px blur. Mobile override drops it to a much cheaper
-     6px (see @media block below) — the topbar covers the top edge
-     of every animation frame, so its blur is recomputed continuously
-     during scroll. 14px on mid-range phones is the single biggest
-     paint cost in the deck. */
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  /* Solid black on every width. The bar used to be a frosted wash
+     (rgba(0,0,0,0.28) + blur(14px)) that let the photo show through,
+     while phones already overrode it to flat #000 for scroll
+     performance; the two widths therefore looked different. Desktop now
+     matches the phone. The @media block below is consequently redundant
+     and kept only for its note on why phones must not blur here.
+     Dropping backdrop-filter also removes the blur convolution the GPU
+     was running over the full bar width on every scroll frame. */
+  background: #000;
   opacity: 1;
   pointer-events: none;
 }
@@ -1176,14 +1177,13 @@ html[lang="de"] .lang-de-only { display: block; }
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  /* Match the scrolled topbar exactly — same rgba(0,0,0,0.28)
-     wash + 14px backdrop blur + 10 % white hairline border.
-     Previously the dropdown used a weaker 10 px blur which read
-     as lighter than the menu above it. */
-  background: rgba(0,0,0,0.28);
+  /* Matches the topbar exactly, which is the whole point of this rule:
+     the panel hangs off the bar, so any difference in fill reads as a
+     mistake. It followed the bar's frosted wash before and follows it to
+     solid black now. The hairline border stays — it is what separates
+     the panel from the bar once both are the same color. */
+  background: #000;
   border: 1px solid rgba(255,255,255,0.10);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border-radius: 6px;
   /* padding-top bridges the visual gap so hover stays alive
      when moving from the button down into the dropdown */
