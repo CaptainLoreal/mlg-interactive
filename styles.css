@@ -294,6 +294,15 @@ html.game-on #deck {
 :root {
   /* Brand */
   --mlg-red:        #b50034;
+  /* Uppercase labels sit high in a symmetrically padded box: the glyphs
+     stop at the baseline and never use the descender space the line box
+     still reserves below them. The correction is the padding asymmetry
+     L - 2B + C (line-height, baseline offset, cap height), which for this
+     font stack at line-height 1 measures 0.1027em; half of that is the
+     shift. Expressed in em so it holds at any font-size and never needs
+     re-tuning per pill. The pills previously carried hand-tuned pixel
+     values, each slightly wrong and each rounding differently on zoom. */
+  --cap-shift: 0.051em;
   --mlg-red-deep:   #8a0026;
   --mlg-red-wash:   #fbeef2;
   --mlg-stone:      #858f8b;
@@ -412,7 +421,7 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  padding: 7px 14px 6px;
+  padding: calc(6.5px + var(--cap-shift)) 14px calc(6.5px - var(--cap-shift));
 }
 
 /* Allow mixed-case in an eyebrow without losing the red colour or weight. */
@@ -4400,7 +4409,7 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   background: var(--mlg-red);
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
-  padding: 7px 14px 6px;   /* optical-centring, matches .eyebrow */
+  padding: calc(6.5px + var(--cap-shift)) 14px calc(6.5px - var(--cap-shift));
   margin: 0 0 14px;
   width: fit-content;
   align-self: center;
@@ -6069,7 +6078,7 @@ p, li { font-size: inherit; }
   border: 1px solid var(--mlg-red);
   border-radius: 999px;
   line-height: 1;
-  padding: 7px 14px 6px;   /* optical-centring, matches .eyebrow */
+  padding: calc(6.5px + var(--cap-shift)) 14px calc(6.5px - var(--cap-shift));
   color: #fff !important;
   font-size: 12px;
   font-weight: 600;
@@ -7004,8 +7013,8 @@ p, li { font-size: inherit; }
 .faq-hero__eyebrow,
 .val-hero__eyebrow,
 .why-hero__eyebrow {
-  padding-top: 7px !important;
-  padding-bottom: 6px !important;
+  padding-top: calc(6.5px + var(--cap-shift)) !important;
+  padding-bottom: calc(6.5px - var(--cap-shift)) !important;
 }
 
 /* Challenge card titles fit on a single line in EN + DE
