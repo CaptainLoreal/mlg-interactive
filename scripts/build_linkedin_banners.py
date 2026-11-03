@@ -16,6 +16,7 @@ Output files (per source photo `<slug>.webp`):
 
 Run:
   DYLD_LIBRARY_PATH=/opt/homebrew/lib python3 scripts/build_linkedin_banners.py
+  DYLD_LIBRARY_PATH=/opt/homebrew/lib python3 scripts/build_linkedin_banners.py group22 man4
 """
 import io, pathlib, sys
 from PIL import Image, ImageDraw, ImageFont
@@ -44,6 +45,20 @@ VARIATIONS = [
     # the white-red logo (MUNICH + GROUP in white, LEADERSHIP + mark
     # in MLG red).
     ("group-1.webp",    "group1-redlogo",  "left-big",  LOGO_WHITERED),
+
+    # More photos in the group1 layout. Picked for one constraint above all:
+    # the slogan block covers roughly 67-96 % of the width, so a face there
+    # ends up under the headline. These keep the right side to a back of a
+    # head, a person in shadow, or blurred room. The 5th value is focus_y
+    # (see cover_crop) for photos whose heads would otherwise be cut by the
+    # 4:1 crop. vision-5 was considered and left out: the Berlin TV tower
+    # is unmistakable in its skyline, right beside "MUNICH".
+    ("group-22.webp",   "group22",   "left-big",   None),
+    ("group-32.webp",   "group32",   "left-big",   None),
+    ("hero-main.webp",  "heromain",  "left-big",   None,  0.40),
+    ("man-4.webp",      "man4",      "left-big",   None,  0.35),
+    ("woman-1.webp",    "woman1",    "left-big",   None,  0.40),
+    ("woman-6.webp",    "woman6",    "left-big",   None,  0.30),
 ]
 
 # Output dimensions
@@ -97,18 +112,25 @@ def render_svg(svg_path, width_px):
     png = cairosvg.svg2png(url=str(svg_path), output_width=width_px)
     return Image.open(io.BytesIO(png)).convert("RGBA")
 
-def cover_crop(img, target_w, target_h):
-    """Scale + centre-crop `img` to exactly target dimensions (object-fit: cover)."""
+def cover_crop(img, target_w, target_h, focus_y=0.5):
+    """Scale + crop `img` to exactly target dimensions (object-fit: cover).
+
+    focus_y picks which horizontal band survives when the photo is taller
+    than the 4:1 banner — the usual case, since the sources are ~1.8:1 and
+    only about the middle half of their height fits. 0.5 is centred (the
+    previous behaviour, and the default, so existing banners are
+    unchanged); lower values keep more of the top, for photos whose heads
+    sit high in the frame."""
     src_w, src_h = img.size
     scale = max(target_w / src_w, target_h / src_h)
     nw, nh = int(src_w * scale), int(src_h * scale)
     img = img.resize((nw, nh), Image.LANCZOS)
     left = (nw - target_w) // 2
-    top  = (nh - target_h) // 2
+    top  = int(round((nh - target_h) * focus_y))
     return img.crop((left, top, left + target_w, top + target_h))
 
 def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = None,
-                 logo_path: pathlib.Path | None = None) -> Image.Image:
+                 logo_path: pathlib.Path | None = None, focus_y: float = 0.5) -> Image.Image:
     """Render one banner at the given scale (1× = 1584×396, 2× = 3168×792).
 
     layout=None        — default: content on the RIGHT, gradient on the right
@@ -123,7 +145,7 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
 
     # 1. Background photo — cover-crop to banner size
     photo = Image.open(photo_path).convert("RGB")
-    photo = cover_crop(photo, w, h)
+    photo = cover_crop(photo, w, h, focus_y)
     base.paste(photo, (0, 0))
 
     draw = ImageDraw.Draw(base)
@@ -283,7 +305,13 @@ def build_banner(photo_path: pathlib.Path, scale: int = 1, layout: str | None = 
 
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    for src, slug, layout, logo in VARIATIONS:
+    # Optional slugs on the command line build only those, so adding a new
+    # variation does not rewrite every existing PNG in the folder.
+    only = set(sys.argv[1:])
+    for src, slug, layout, logo, *opt in VARIATIONS:
+        if only and slug not in only:
+            continue
+        focus_y = opt[0] if opt else 0.5
         photo = PHOTO_DIR / src
         if not photo.exists():
             print(f"  skip {src} (missing)")
@@ -293,7 +321,7 @@ def main():
         # proportions (e.g. "EMPOWERING" stretching by a different ratio
         # than at 2×). Downsampling the 2× output with LANCZOS gives a
         # pixel-perfect, proportionally identical 1× version.
-        b2 = build_banner(photo, scale=SCALE2X, layout=layout, logo_path=logo)
+        b2 = build_banner(photo, scale=SCALE2X, layout=layout, logo_path=logo, focus_y=focus_y)
         out2 = OUT_DIR / f"mlg-linkedin-{slug}@2x.png"
         b2.save(out2, "PNG", optimize=True)
         b1 = b2.resize((W, H), Image.LANCZOS)
