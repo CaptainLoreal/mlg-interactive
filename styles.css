@@ -5090,6 +5090,32 @@ body.has-mobile-nav-open .topbar .topbar__tagline {
   padding-left: 12px;
 }
 
+/* Outbound links on client names (testimonial sources, client lists).
+   Same colour as the surrounding text; a thin underline marks them as
+   links, turning red on hover. */
+a.co-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  transition: text-decoration-color 200ms;
+}
+a.co-link:hover,
+a.co-link:focus-visible { text-decoration-color: var(--mlg-red); }
+
+/* Globe card: the selected client's name links to its website. */
+.globe-card__link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.globe-card__link svg { flex-shrink: 0; color: var(--mlg-red); transition: transform 200ms; }
+.globe-card__link:hover svg,
+.globe-card__link:focus-visible svg { transform: translate(2px, -2px); }
+
 /* Service tags — shown inside the globe card when a client is selected */
 .globe-card__services {
   display: flex;
