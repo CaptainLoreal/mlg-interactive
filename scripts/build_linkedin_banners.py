@@ -65,6 +65,11 @@ VARIATIONS = [
     # 140 px from the left so the woman's face stays clear of "EMPOWERING".
     ("network-1.webp",  "network1",  "left-big",   None,  0.20),
     ("network-2.webp",  "network2",  "left-big",   None,  0.05),
+    # Two seated-at-a-table shots, same treatment. network-3 is cropped 100 px
+    # from the left so the man's face clears "EMPOWERING"; the crop also drops
+    # most of the whiteboard, whose handwriting would read backwards mirrored.
+    ("network-3.webp",  "network3",  "left-big",   None,  0.20),
+    ("network-4.webp",  "network4",  "left-big",   None,  0.15),
 ]
 
 # Output dimensions
