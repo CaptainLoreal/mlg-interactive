@@ -59,6 +59,12 @@ VARIATIONS = [
     ("man-4.webp",      "man4",      "left-big",   None,  0.35),
     ("woman-1.webp",    "woman1",    "left-big",   None,  0.40),
     ("woman-6.webp",    "woman6",    "left-big",   None,  0.30),
+    # Two standing-conversation shots (AI-generated, 1408x768). Both stored
+    # MIRRORED so the right side, under the slogan, is a blurred back of a
+    # head or empty room rather than a face. network-2 is also cropped
+    # 140 px from the left so the woman's face stays clear of "EMPOWERING".
+    ("network-1.webp",  "network1",  "left-big",   None,  0.20),
+    ("network-2.webp",  "network2",  "left-big",   None,  0.05),
 ]
 
 # Output dimensions
